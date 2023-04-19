@@ -26,6 +26,7 @@ import {
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
 } from '../../global/helpers';
+import { OverlayDOMController } from '../../global/helpers/overlay-dom';
 
 type SbbDialogState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -159,13 +160,13 @@ export class SbbDialog implements ComponentInterface {
   private _dialogCloseElement: HTMLElement;
   private _dialogController: AbortController;
   private _windowEventsController: AbortController;
+  private _overlayDOMController = new OverlayDOMController();
   private _focusTrap = new FocusTrap();
   private _scrollHandler = new ScrollHandler();
   private _returnValue: any;
   private _isPointerDownEventOnDialog: boolean;
   private _hasActionGroup = false;
   private _openedByKeyboard = false;
-
   // Last element which had focus before the dialog was opened.
   private _lastFocusedElement?: HTMLElement;
 
@@ -185,6 +186,7 @@ export class SbbDialog implements ComponentInterface {
     if (this._state === 'closing' || !this._dialog) {
       return;
     }
+    this._overlayDOMController.attachViewToDom(this._element);
 
     this._openedByKeyboard = event?.detail === 0;
     this._lastFocusedElement = document.activeElement as HTMLElement;
@@ -204,6 +206,7 @@ export class SbbDialog implements ComponentInterface {
     if (this._state === 'opening') {
       return;
     }
+    this._overlayDOMController.removeViewFromDom();
 
     this._returnValue = result;
     this._dialogCloseElement = target;

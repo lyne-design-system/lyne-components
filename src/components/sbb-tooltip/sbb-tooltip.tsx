@@ -31,6 +31,7 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
 } from '../../global/helpers';
+import { OverlayDOMController } from '../../global/helpers/overlay-dom';
 
 type SbbTooltipState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -151,6 +152,7 @@ export class SbbTooltip implements ComponentInterface {
   private _isPointerDownEventOnTooltip: boolean;
   private _tooltipController: AbortController;
   private _windowEventsController: AbortController;
+  private _overlayDOMController = new OverlayDOMController();
   private _focusTrap = new FocusTrap();
   private _openedByKeyboard = false;
   private _closedByFocusOrigin: SbbFocusOrigin = null;
@@ -174,6 +176,7 @@ export class SbbTooltip implements ComponentInterface {
     if ((this._state !== 'closed' && this._state !== 'closing') || !this._dialog) {
       return;
     }
+    this._overlayDOMController.attachViewToDom(this._element);
 
     this._openedByKeyboard = focusOrigin === 'keyboard';
     this.willOpen.emit();
@@ -195,6 +198,7 @@ export class SbbTooltip implements ComponentInterface {
     if (this._state !== 'opened' && this._state !== 'opening') {
       return;
     }
+    this._overlayDOMController.removeViewFromDom();
 
     this._tooltipCloseElement = target;
     this._closedByFocusOrigin = closedByFocusOrigin;

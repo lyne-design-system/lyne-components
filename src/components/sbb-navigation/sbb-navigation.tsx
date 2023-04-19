@@ -30,6 +30,7 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
 } from '../../global/helpers';
+import { OverlayDOMController } from '../../global/helpers/overlay-dom';
 
 type SbbNavigationState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -127,6 +128,7 @@ export class SbbNavigation implements ComponentInterface {
   private _firstFocusable: HTMLElement;
   private _navigationController: AbortController;
   private _windowEventsController: AbortController;
+  private _overlayDOMController = new OverlayDOMController();
   private _focusTrap = new FocusTrap();
   private _scrollHandler = new ScrollHandler();
   private _openedByKeyboard = false;
@@ -151,6 +153,7 @@ export class SbbNavigation implements ComponentInterface {
     if (this._state !== 'closed' || !this._navigation) {
       return;
     }
+    this._overlayDOMController.attachViewToDom(this._element);
 
     this.willOpen.emit();
     this._state = 'opening';
@@ -170,6 +173,7 @@ export class SbbNavigation implements ComponentInterface {
     if (this._state !== 'opened') {
       return;
     }
+    this._overlayDOMController.removeViewFromDom();
 
     this.willClose.emit();
     this._state = 'closing';

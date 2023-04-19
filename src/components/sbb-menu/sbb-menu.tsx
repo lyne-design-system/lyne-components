@@ -23,6 +23,7 @@ import {
   removeAriaOverlayTriggerAttributes,
 } from '../../global/helpers/overlay-trigger-attributes';
 import { ScrollHandler } from '../../global/helpers/scroll';
+import { OverlayDOMController } from '../../global/helpers/overlay-dom';
 
 type SbbMenuState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -102,6 +103,7 @@ export class SbbMenu implements ComponentInterface {
   private _isPointerDownEventOnMenu: boolean;
   private _menuController: AbortController;
   private _windowEventsController: AbortController;
+  private _overlayDOMController = new OverlayDOMController();
   private _focusTrap = new FocusTrap();
   private _scrollHandler = new ScrollHandler();
   private _openedByKeyboard = false;
@@ -117,6 +119,7 @@ export class SbbMenu implements ComponentInterface {
     if (this._state === 'closing' || !this._dialog) {
       return;
     }
+    this._overlayDOMController.attachViewToDom(this._element);
 
     this.willOpen.emit();
     this._state = 'opening';
@@ -138,6 +141,7 @@ export class SbbMenu implements ComponentInterface {
     if (this._state === 'opening') {
       return;
     }
+    this._overlayDOMController.removeViewFromDom();
 
     this.willClose.emit();
     this._state = 'closing';
@@ -189,6 +193,7 @@ export class SbbMenu implements ComponentInterface {
   public disconnectedCallback(): void {
     this._menuController?.abort();
     this._windowEventsController?.abort();
+    // this._overlayDOMController.removeViewFromDom();
     this._focusTrap.disconnect();
   }
 
