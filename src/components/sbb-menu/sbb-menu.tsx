@@ -193,7 +193,6 @@ export class SbbMenu implements ComponentInterface {
   public disconnectedCallback(): void {
     this._menuController?.abort();
     this._windowEventsController?.abort();
-    // this._overlayDOMController.removeViewFromDom();
     this._focusTrap.disconnect();
   }
 
