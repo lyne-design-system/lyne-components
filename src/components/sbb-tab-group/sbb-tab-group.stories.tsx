@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
+import { Fragment, h, JSX } from 'jsx-dom';
 import events from './sbb-tab-group.events';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
@@ -53,6 +53,13 @@ const DefaultTemplate = (args): JSX.Element => (
 
     <sbb-tab-title>Tab title four</sbb-tab-title>
     {tabPanelFour()}
+
+    {Array.from({ length: 7 }).map((_, i) => (
+      <Fragment>
+        <sbb-tab-title>Tab title {i + 4}</sbb-tab-title>
+        {tabPanelFour()}
+      </Fragment>
+    ))}
   </sbb-tab-group>
 );
 

@@ -138,6 +138,14 @@
       border-width: var(--sbb-border-width-2x);
     }
   }
+
+  &::after {
+    position: absolute;
+    content: '';
+    inset: 0 -100rem;
+    border-bottom: 1px solid var(--sbb-color-granite-default);
+    margin-block-end: -1rem;
+  }
 }
 
 .sbb-tab-title__icon {

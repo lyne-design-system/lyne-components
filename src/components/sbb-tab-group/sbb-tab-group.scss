@@ -7,7 +7,9 @@
 .tab-group {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--sbb-spacing-fixed-3x);
+  row-gap: var(--sbb-spacing-fixed-3x);
+  padding-bottom: 1.1rem;
+  overflow-x: hidden;
 }
 
 .tab-content {
