@@ -26,7 +26,6 @@
   --sbb-menu-min-height: #{sbb.px-to-rem-build(48.5)};
   --sbb-menu-border-radius: var(--sbb-border-radius-4x);
   --sbb-menu-visibility: hidden;
-  --sbb-menu-backdrop-color: transparent;
 
   // We use this rule to make the inner container element to appear as if it were a
   // direct child of the host's parent element. This is useful because the host
@@ -38,6 +37,12 @@
     --sbb-menu-max-width: #{sbb.px-to-rem-build(320)};
     --sbb-menu-min-width: #{sbb.px-to-rem-build(180)};
   }
+
+  transition: {
+    duration: var(--sbb-menu-animation-duration);
+    timing-function: var(--sbb-menu-animation-easing);
+    property: background-color, visibility;
+  }
 }
 
 :host([popover]) {
@@ -48,10 +53,9 @@
 
 :host(:is([data-state='opened'], [data-state='opening'])) {
   --sbb-menu-visibility: visible;
-  --sbb-menu-backdrop-color: var(--sbb-color-black-alpha-20);
 
-  @include sbb.mq($from: medium) {
-    --sbb-menu-backdrop-color: transparent;
+  @include sbb.mq($to: medium) {
+    background-color: var(--sbb-color-black-alpha-20);
   }
 }
 
