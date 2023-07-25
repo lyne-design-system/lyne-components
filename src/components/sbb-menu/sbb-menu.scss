@@ -40,6 +40,12 @@
   }
 }
 
+:host([popover]) {
+  height: auto;
+  width: auto;
+  position: unset;
+}
+
 :host(:is([data-state='opened'], [data-state='opening'])) {
   --sbb-menu-visibility: visible;
   --sbb-menu-backdrop-color: var(--sbb-color-black-alpha-20);
@@ -66,30 +72,6 @@
   --sbb-divider-color: var(--sbb-color-iron-default);
 
   margin-block: var(--sbb-spacing-fixed-2x);
-}
-
-.sbb-menu__container {
-  position: fixed;
-  pointer-events: none;
-  inset: var(--sbb-menu-inset);
-  height: var(--sbb-menu-container-height);
-  z-index: var(--sbb-menu-z-index, var(--sbb-overlay-z-index));
-
-  // Menu backdrop (only visible on mobile)
-  &::before {
-    content: '';
-    visibility: var(--sbb-menu-visibility);
-    pointer-events: all;
-    position: fixed;
-    inset: var(--sbb-menu-inset);
-    height: var(--sbb-menu-container-height);
-    background-color: var(--sbb-menu-backdrop-color);
-    transition: {
-      duration: var(--sbb-menu-animation-duration);
-      timing-function: var(--sbb-menu-animation-easing);
-      property: background-color, visibility;
-    }
-  }
 }
 
 .sbb-menu {
