@@ -18,7 +18,7 @@ import {
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
   SbbOverlayState,
-  setAriaOverlayTriggerAttributes,
+  // setAriaOverlayTriggerAttributes,
 } from '../../global/overlay';
 import {
   assignId,
@@ -110,7 +110,7 @@ export class SbbMenu implements ComponentInterface {
   })
   public didClose: EventEmitter<void>;
 
-  private _dialog: HTMLDialogElement;
+  private _popover: any;
   private _triggerElement: HTMLElement;
   private _menuContentElement: HTMLElement;
   private _isPointerDownEventOnMenu: boolean;
@@ -120,21 +120,21 @@ export class SbbMenu implements ComponentInterface {
   private _scrollHandler = new ScrollHandler();
   private _menuId = `sbb-menu-${++nextId}`;
 
-  @Element() private _element!: HTMLElement;
+  @Element() private _element!: HTMLElement | any;
 
   /**
    * Opens the menu on trigger click.
    */
   @Method()
   public async open(): Promise<void> {
-    if (this._state === 'closing' || !this._dialog) {
+    if (this._state === 'closing' || !this._popover) {
       return;
     }
 
     this.willOpen.emit();
     this._state = 'opening';
     this._setMenuPosition();
-    this._dialog.show();
+    this._element.showPopover();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
 
     // Starting from breakpoint medium, disable scroll
@@ -175,9 +175,9 @@ export class SbbMenu implements ComponentInterface {
     }
     evt.preventDefault();
 
-    const enabledActions: Element[] = Array.from(
-      this._element.querySelectorAll('SBB-MENU-ACTION'),
-    ).filter((e: HTMLElement) => e.tabIndex === 0);
+    const enabledActions = Array.from(this._element.querySelectorAll('SBB-MENU-ACTION')).filter(
+      (e: HTMLElement) => e.tabIndex === 0,
+    );
 
     const current = enabledActions.findIndex((e: Element) => e === evt.target);
     const nextIndex = getNextElementIndex(evt, current, enabledActions.length);
@@ -242,12 +242,15 @@ export class SbbMenu implements ComponentInterface {
       return;
     }
 
-    setAriaOverlayTriggerAttributes(
-      this._triggerElement,
-      'menu',
-      this._element.id || this._menuId,
-      this._state,
-    );
+    // setAriaOverlayTriggerAttributes(
+    //   this._triggerElement,
+    //   'menu',
+    //   this._element.id || this._menuId,
+    //   this._state,
+    // );
+    this._triggerElement.setAttribute('popovertarget', this._menuId);
+    this._element.setAttribute('popover', '');
+
     this._menuController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._menuController.signal,
@@ -287,12 +290,12 @@ export class SbbMenu implements ComponentInterface {
 
   // Check if the pointerdown event target is triggered on the menu.
   private _pointerDownListener = (event: PointerEvent): void => {
-    this._isPointerDownEventOnMenu = isEventOnElement(this._dialog, event);
+    this._isPointerDownEventOnMenu = isEventOnElement(this._popover, event);
   };
 
   // Close menu on backdrop click.
   private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
-    if (!this._isPointerDownEventOnMenu && !isEventOnElement(this._dialog, event)) {
+    if (!this._isPointerDownEventOnMenu && !isEventOnElement(this._popover, event)) {
       await this.close();
     }
   };
@@ -310,9 +313,9 @@ export class SbbMenu implements ComponentInterface {
       this._attachWindowEvents();
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
-      this._dialog.firstElementChild.scrollTo(0, 0);
+      this._popover.firstElementChild.scrollTo(0, 0);
       setModalityOnNextFocus(this._triggerElement);
-      this._dialog.close();
+      this._element.hidePopover();
       // Manually focus last focused element in order to avoid showing outline in Safari
       this._triggerElement?.focus({
         // When inside the sbb-header, we prevent the scroll to avoid the snapping to the top of the page
@@ -353,7 +356,7 @@ export class SbbMenu implements ComponentInterface {
     // Starting from breakpoint medium
     if (
       !isBreakpoint('medium') ||
-      !this._dialog ||
+      !this._popover ||
       !this._triggerElement ||
       this._state === 'closing'
     ) {
@@ -383,7 +386,7 @@ export class SbbMenu implements ComponentInterface {
       return;
     }
 
-    if (actions.every((e) => e.tagName === 'SBB-MENU-ACTION')) {
+    if (actions.every((e) => (e as any).tagName === 'SBB-MENU-ACTION')) {
       this._actions = actions as HTMLSbbMenuActionElement[];
     } else {
       this._actions?.forEach((a) => a.removeAttribute('slot'));
@@ -398,10 +401,9 @@ export class SbbMenu implements ComponentInterface {
 
     return (
       <Host data-state={this._state} ref={assignId(() => this._menuId)}>
-        <div class="sbb-menu__container">
-          <dialog
+        <div class="sbb-menu__container" ref={(popoverRef) => (this._popover = popoverRef)}>
+          <div
             onAnimationEnd={(event: AnimationEvent) => this._onMenuAnimationEnd(event)}
-            ref={(dialogRef) => (this._dialog = dialogRef)}
             class="sbb-menu"
             role="presentation"
           >
@@ -431,7 +433,7 @@ export class SbbMenu implements ComponentInterface {
                 <slot onSlotchange={(): void => this._readActions()} />
               )}
             </div>
-          </dialog>
+          </div>
         </div>
       </Host>
     );

@@ -112,7 +112,7 @@
   padding: 0;
   overflow: hidden;
 
-  &[open] {
+  :host(:is([data-state='opened'], [data-state='opening'])) & {
     visibility: visible;
     opacity: 1;
     pointer-events: all;
@@ -140,7 +140,7 @@
     max-height: fit-content;
     border-radius: var(--sbb-menu-border-radius);
 
-    &[open] {
+    :host(:is([data-state='opened'], [data-state='opening'])) & {
       top: var(--sbb-menu-position-y);
       left: var(--sbb-menu-position-x);
       max-height: var(--sbb-menu-max-height);
@@ -167,7 +167,7 @@
   @include sbb.mq($from: medium) {
     max-height: fit-content;
 
-    .sbb-menu[open] & {
+    :host(:is([data-state='opened'], [data-state='opening'])) & {
       max-height: var(--sbb-menu-max-height);
       min-height: var(--sbb-menu-min-height);
     }
