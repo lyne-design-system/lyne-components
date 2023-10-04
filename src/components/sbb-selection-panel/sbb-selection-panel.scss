@@ -98,13 +98,14 @@
   grid-template-rows: var(--sbb-selection-panel-content-grid-template-rows);
   visibility: var(--sbb-selection-panel-content-visibility);
   opacity: var(--sbb-selection-panel-content-opacity);
-  padding-inline: var(--sbb-selection-panel-content-padding-inline);
-  padding-block-end: var(--sbb-selection-panel-content-padding-block-end);
   transition: var(--sbb-selection-panel-content-transition);
 }
 
 .sbb-selection-panel__content {
   overflow: hidden;
+  padding-inline: var(--sbb-selection-panel-content-padding-inline);
+  padding-block-end: var(--sbb-selection-panel-content-padding-block-end);
+  transition: padding var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing);
 }
 
 sbb-divider {
