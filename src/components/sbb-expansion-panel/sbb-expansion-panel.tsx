@@ -16,16 +16,16 @@ let nextId = 0;
  * @slot header - Use this to render the sbb-expansion-panel-header.
  * @slot content - Use this to render the sbb-expansion-panel-content.
  */
-export const events = {
-  willOpen: 'will-open',
-  didOpen: 'did-open',
-  willClose: 'will-close',
-  didClose: 'did-close',
-};
-
 @customElement('sbb-expansion-panel')
 export class SbbExpansionPanel extends LitElement {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    willOpen: 'will-open',
+    didOpen: 'did-open',
+    willClose: 'will-close',
+    didClose: 'did-close',
+  };
 
   /** Heading level; if unset, a `div` will be rendered. */
   @property({ attribute: 'title-level' }) public titleLevel?: TitleLevel;
@@ -67,16 +67,19 @@ export class SbbExpansionPanel extends LitElement {
   public disableAnimation = false;
 
   /** Emits whenever the sbb-expansion-panel starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen);
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbExpansionPanel.events.willOpen);
 
   /** Emits whenever the sbb-expansion-panel is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen);
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbExpansionPanel.events.didOpen);
 
   /** Emits whenever the sbb-expansion-panel begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(this, events.willClose);
+  private _willClose: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbExpansionPanel.events.willClose,
+  );
 
   /** Emits whenever the sbb-expansion-panel is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, events.didClose);
+  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbExpansionPanel.events.didClose);
 
   private _abort = new ConnectedAbortController(this);
   private _state: SbbOverlayState = 'closed';

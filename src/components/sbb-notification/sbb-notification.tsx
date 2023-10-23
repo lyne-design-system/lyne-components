@@ -25,21 +25,20 @@ const notificationTypes = new Map([
   ['error', 'circle-cross-small'],
 ]);
 
-export const events = {
-  willOpen: 'will-open',
-  didOpen: 'did-open',
-  willClose: 'will-close',
-  didClose: 'did-close',
-};
-
 /**
  * @slot title - Use this to provide a notification title (optional).
  * @slot unnamed - Use this to provide the notification message.
  */
-
 @customElement('sbb-notification')
 export class SbbNotification extends LitElement {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    willOpen: 'will-open',
+    didOpen: 'did-open',
+    willClose: 'will-close',
+    didClose: 'did-close',
+  };
 
   /**
    * The type of the notification.
@@ -89,22 +88,22 @@ export class SbbNotification extends LitElement {
   /**
    * Emits whenever the notification starts the opening transition.
    */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen);
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbNotification.events.willOpen);
 
   /**
    * Emits whenever the notification is opened.
    */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen);
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbNotification.events.didOpen);
 
   /**
    * Emits whenever the notification begins the closing transition.
    */
-  private _willClose: EventEmitter<void> = new EventEmitter(this, events.willClose);
+  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbNotification.events.willClose);
 
   /**
    * Emits whenever the notification is closed.
    */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, events.didClose);
+  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbNotification.events.didClose);
 
   public close(): void {
     if (this._state === 'opened') {

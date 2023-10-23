@@ -27,23 +27,23 @@ export interface SelectChange {
   value: string | string[];
 }
 
-export const events = {
-  didChange: 'did-change',
-  change: 'change',
-  input: 'input',
-  stateChange: 'state-change',
-  willOpen: 'will-open',
-  didOpen: 'did-open',
-  willClose: 'will-close',
-  didClose: 'did-close',
-};
-
 /**
  * @slot unnamed - Use this slot to project options.
  */
 @customElement('sbb-select')
 export class SbbSelect extends LitElement {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    didChange: 'did-change',
+    change: 'change',
+    input: 'input',
+    stateChange: 'state-change',
+    willOpen: 'will-open',
+    didOpen: 'did-open',
+    willClose: 'will-close',
+    didClose: 'did-close',
+  };
 
   /** The value of the select component. If `multiple` is true, it's an array. */
   @property() public value: string | string[];
@@ -79,28 +79,32 @@ export class SbbSelect extends LitElement {
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  private _didChange: EventEmitter = new EventEmitter(this, events.didChange);
+  private _didChange: EventEmitter = new EventEmitter(this, SbbSelect.events.didChange);
 
-  private _change: EventEmitter = new EventEmitter(this, events.change);
+  private _change: EventEmitter = new EventEmitter(this, SbbSelect.events.change);
 
-  private _input: EventEmitter = new EventEmitter(this, events.input);
+  private _input: EventEmitter = new EventEmitter(this, SbbSelect.events.input);
 
   /** @internal */
-  private _stateChange: EventEmitter<SelectChange> = new EventEmitter(this, events.stateChange, {
-    composed: false,
-  });
+  private _stateChange: EventEmitter<SelectChange> = new EventEmitter(
+    this,
+    SbbSelect.events.stateChange,
+    {
+      composed: false,
+    },
+  );
 
   /** Emits whenever the select starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen);
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbSelect.events.willOpen);
 
   /** Emits whenever the select is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen);
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbSelect.events.didOpen);
 
   /** Emits whenever the select begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(this, events.willClose);
+  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbSelect.events.willClose);
 
   /** Emits whenever the select is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, events.didClose);
+  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbSelect.events.didClose);
 
   private _overlay: HTMLElement;
   private _optionContainer: HTMLElement;

@@ -26,14 +26,13 @@ let nextId = 0;
  * This is correct: `<div>Some text <p>Some other text</p></div>`
  * This is not correct: `<span>Some text</span><p>Some other text</p>`
  */
-
-export const events = {
-  selectedTabChanged: 'did-change',
-};
-
 @customElement('sbb-tab-group')
 export class SbbTabGroup extends LitElement {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    selectedTabChanged: 'did-change',
+  };
 
   private _tabs: InterfaceSbbTabGroupTab[] = [];
   private _selectedTab: InterfaceSbbTabGroupTab;
@@ -83,7 +82,7 @@ export class SbbTabGroup extends LitElement {
    */
   private _selectedTabChanged: EventEmitter<void> = new EventEmitter(
     this,
-    events.selectedTabChanged,
+    SbbTabGroup.events.selectedTabChanged,
   );
 
   /**

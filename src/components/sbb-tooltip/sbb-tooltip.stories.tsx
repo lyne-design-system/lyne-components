@@ -11,7 +11,7 @@ import '../sbb-link';
 import '../sbb-tooltip-trigger';
 import readme from './readme.md?raw';
 import './sbb-tooltip';
-import { events } from './sbb-tooltip';
+import { SbbTooltip } from './sbb-tooltip';
 
 async function commonPlayStory(canvasElement): Promise<Element> {
   const canvas = within(canvasElement);
@@ -235,7 +235,12 @@ const meta: Meta = {
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
-      handles: [events.willOpen, events.didOpen, events.didClose, events.willClose],
+      handles: [
+        SbbTooltip.events.willOpen,
+        SbbTooltip.events.didOpen,
+        SbbTooltip.events.didClose,
+        SbbTooltip.events.willClose,
+      ],
     },
     backgrounds: {
       disable: true,

@@ -14,15 +14,14 @@ import Style from './sbb-toggle.scss?lit&inline';
 /**
  * @slot unnamed - Slot used to render the `<sbb-toggle-option>`.
  */
-
-export const events = {
-  didChange: 'did-change',
-  change: 'change',
-};
-
 @customElement('sbb-toggle')
 export class SbbToggle extends LitElement {
   public static override styles = Style;
+
+  public static readonly events = {
+    didChange: 'did-change',
+    change: 'change',
+  };
 
   /**
    * Whether the toggle is disabled.
@@ -96,7 +95,7 @@ export class SbbToggle extends LitElement {
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
 
-  private _didChange: EventEmitter = new EventEmitter(this, events.didChange, {
+  private _didChange: EventEmitter = new EventEmitter(this, SbbToggle.events.didChange, {
     bubbles: true,
     composed: true,
   });
@@ -105,7 +104,7 @@ export class SbbToggle extends LitElement {
    * Emits whenever the radio group value changes.
    */
 
-  private _change: EventEmitter = new EventEmitter(this, events.change, {
+  private _change: EventEmitter = new EventEmitter(this, SbbToggle.events.change, {
     bubbles: true,
     composed: true,
   });

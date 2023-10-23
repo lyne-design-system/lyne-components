@@ -1,12 +1,12 @@
 /** @jsx h */
-import { events } from './sbb-file-selector';
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import { InputType } from '@storybook/types';
-import '../sbb-form-error';
+import { SbbFileSelector } from './sbb-file-selector';
 import './sbb-file-selector';
+import '../sbb-form-error';
 
 const variant: InputType = {
   control: {
@@ -178,7 +178,7 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: [events.fileChangedEvent],
+      handles: [SbbFileSelector.events.fileChangedEvent],
     },
     backgrounds: {
       disable: true,

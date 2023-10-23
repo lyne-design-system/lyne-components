@@ -19,17 +19,16 @@ import Style from './sbb-tag.scss?lit&inline';
  * @slot icon - Use this slot to display an icon at the component start, by providing a `sbb-icon` component.
  * @slot amount - Provide an amount to show it at the component end.
  */
-export const events = {
-  stateChange: 'state-change',
-  input: 'input',
-  didChange: 'did-change',
-  change: 'change',
-};
-
 @customElement('sbb-tag')
 export class SbbTag extends LitElement implements ButtonProperties {
   public static override styles: CSSResult = Style;
 
+  public static readonly events = {
+    stateChange: 'state-change',
+    input: 'input',
+    didChange: 'did-change',
+    change: 'change',
+  };
   /** The name attribute to use for the button. */
   @property({ reflect: true }) public name: string | undefined;
 
@@ -73,21 +72,27 @@ export class SbbTag extends LitElement implements ButtonProperties {
    * Internal event that emits whenever the state of the tag
    * in relation to the parent toggle changes.
    */
-  private _stateChange: EventEmitter<TagStateChange> = new EventEmitter(this, events.stateChange, {
-    bubbles: true,
-  });
+  private _stateChange: EventEmitter<TagStateChange> = new EventEmitter(
+    this,
+    SbbTag.events.stateChange,
+    {
+      bubbles: true,
+    },
+  );
 
   /** Input event emitter */
-  private _input: EventEmitter = new EventEmitter(this, events.input, {
+  private _input: EventEmitter = new EventEmitter(this, SbbTag.events.input, {
     bubbles: true,
     composed: true,
   });
 
   /** @deprecated only used for React. Will probably be removed once React 19 is available. */
-  private _didChange: EventEmitter = new EventEmitter(this, events.didChange, { bubbles: true });
+  private _didChange: EventEmitter = new EventEmitter(this, SbbTag.events.didChange, {
+    bubbles: true,
+  });
 
   /** Change event emitter */
-  private _change: EventEmitter = new EventEmitter(this, events.change, { bubbles: true });
+  private _change: EventEmitter = new EventEmitter(this, SbbTag.events.change, { bubbles: true });
 
   private _abort = new ConnectedAbortController(this);
   private _handlerRepository = new HandlerRepository(

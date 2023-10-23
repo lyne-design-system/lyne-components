@@ -1,6 +1,5 @@
 /** @jsx h */
 import { Fragment, h, JSX } from 'jsx-dom';
-import { events } from './sbb-navigation';
 import readme from './readme.md?raw';
 import isChromatic from 'chromatic';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
@@ -9,6 +8,7 @@ import { waitForComponentsReady } from '../../global/testing/wait-for-components
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import { SbbNavigation } from './sbb-navigation';
 import './sbb-navigation';
 import '../sbb-navigation-section';
 import '../sbb-navigation-marker';
@@ -271,7 +271,12 @@ const meta: Meta = {
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
-      handles: [events.willOpen, events.didOpen, events.didClose, events.willClose],
+      handles: [
+        SbbNavigation.events.willOpen,
+        SbbNavigation.events.didOpen,
+        SbbNavigation.events.didClose,
+        SbbNavigation.events.willClose,
+      ],
     },
     backgrounds: {
       disable: true,

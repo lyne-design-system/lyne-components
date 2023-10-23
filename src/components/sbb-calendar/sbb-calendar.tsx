@@ -57,13 +57,13 @@ interface CalendarKeyboardNavigationParameters {
   verticalOffset: number;
 }
 
-export const events = {
-  dateSelected: 'date-selected',
-};
-
 @customElement('sbb-calendar')
 export class SbbCalendar extends LitElement {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    dateSelected: 'date-selected',
+  };
 
   /** If set to true, two months are displayed */
   @property({ type: Boolean }) public wide = false;
@@ -81,7 +81,10 @@ export class SbbCalendar extends LitElement {
   @property({ attribute: 'selected-date' }) public selectedDate: Date | string | number;
 
   /** Event emitted on date selection. */
-  private _dateSelected: EventEmitter<Date> = new EventEmitter(this, events.dateSelected);
+  private _dateSelected: EventEmitter<Date> = new EventEmitter(
+    this,
+    SbbCalendar.events.dateSelected,
+  );
 
   /** The currently active date. */
   @state() private _activeDate: Date;

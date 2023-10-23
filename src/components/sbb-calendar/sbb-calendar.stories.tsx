@@ -1,11 +1,11 @@
 /** @jsx h */
-import events from './sbb-calendar.events';
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import isChromatic from 'chromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import { SbbCalendar } from './sbb-calendar';
 import './sbb-calendar';
 
 const getCalendarAttr = (min, max): Record<string, Date> => {
@@ -191,7 +191,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [events.dateSelected],
+      handles: [SbbCalendar.events.dateSelected],
     },
     backgrounds: {
       disable: true,

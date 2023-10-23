@@ -8,7 +8,7 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import type { InputType } from '@storybook/types';
 import { within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
-import { events, SbbToast } from './sbb-toast';
+import { SbbToast } from './sbb-toast';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }): Promise<void> => {
@@ -177,7 +177,12 @@ const meta: Meta = {
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
-      handles: [events.willOpen, events.didOpen, events.willClose, events.didClose],
+      handles: [
+        SbbToast.events.willOpen,
+        SbbToast.events.didOpen,
+        SbbToast.events.willClose,
+        SbbToast.events.didClose,
+      ],
     },
     backgrounds: {
       disable: true,

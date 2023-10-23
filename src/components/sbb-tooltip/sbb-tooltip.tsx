@@ -39,16 +39,16 @@ const tooltipsRef = new Set<SbbTooltip>();
 /**
  * @slot unnamed - Use this slot to project any content inside the tooltip.
  */
-export const events = {
-  willOpen: 'will-open',
-  didOpen: 'did-open',
-  willClose: 'will-close',
-  didClose: 'did-close',
-};
-
 @customElement('sbb-tooltip')
 export class SbbTooltip extends LitElement {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    willOpen: 'will-open',
+    didOpen: 'did-open',
+    willClose: 'will-close',
+    didClose: 'did-close',
+  };
 
   /**
    * The element that will trigger the tooltip dialog.
@@ -110,19 +110,19 @@ export class SbbTooltip extends LitElement {
   /**
    * Emits whenever the tooltip starts the opening transition.
    */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen);
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbTooltip.events.willOpen);
 
   /**
    * Emits whenever the tooltip is opened.
    */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen);
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbTooltip.events.didOpen);
 
   /**
    * Emits whenever the tooltip begins the closing transition.
    */
   private _willClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
     this,
-    events.willClose,
+    SbbTooltip.events.willClose,
   );
 
   /**
@@ -130,7 +130,7 @@ export class SbbTooltip extends LitElement {
    */
   private _didClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
     this,
-    events.didClose,
+    SbbTooltip.events.didClose,
   );
 
   private _dialog: HTMLDialogElement;

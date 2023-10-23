@@ -1,11 +1,11 @@
 /** @jsx h */
-import { events } from './sbb-notification';
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import isChromatic from 'chromatic/isChromatic';
+import { SbbNotification } from './sbb-notification';
 import './sbb-notification';
 import '../sbb-button';
 import '../sbb-link';
@@ -224,7 +224,12 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: [events.didOpen, events.didClose, events.willOpen, events.willClose],
+      handles: [
+        SbbNotification.events.didOpen,
+        SbbNotification.events.didClose,
+        SbbNotification.events.willOpen,
+        SbbNotification.events.willClose,
+      ],
     },
     backgrounds: {
       disable: true,

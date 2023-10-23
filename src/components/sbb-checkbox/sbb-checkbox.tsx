@@ -27,11 +27,6 @@ const checkboxObserverConfig: MutationObserverInit = {
   attributeFilter: ['data-group-required', 'data-group-disabled'],
 };
 
-export const events = {
-  didChange: 'did-change',
-  stateChange: 'state-change',
-};
-
 /**
  * @slot unnamed - Slot used to render the checkbox label's text.
  * @slot icon - Slot used to render the checkbox icon (disabled inside a selection panel).
@@ -41,6 +36,11 @@ export const events = {
 @customElement('sbb-checkbox')
 export class SbbCheckbox extends LitElement {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    didChange: 'did-change',
+    stateChange: 'state-change',
+  };
 
   /** Value of checkbox. */
   @property() public value?: string;
@@ -99,7 +99,7 @@ export class SbbCheckbox extends LitElement {
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  private _didChange: EventEmitter = new EventEmitter(this, events.didChange, {
+  private _didChange: EventEmitter = new EventEmitter(this, SbbCheckbox.events.didChange, {
     bubbles: true,
     cancelable: true,
   });
@@ -112,7 +112,7 @@ export class SbbCheckbox extends LitElement {
 
   private _stateChange: EventEmitter<CheckboxStateChange> = new EventEmitter(
     this,
-    events.stateChange,
+    SbbCheckbox.events.stateChange,
     { bubbles: true },
   );
 

@@ -11,7 +11,7 @@ import {
 } from '../../global/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { SbbRadioButton } from '../sbb-radio-button/index';
+import { SbbRadioButton } from '../sbb-radio-button';
 import { setAttribute } from '../../global/dom';
 import Style from './sbb-radio-button-group.scss?lit&inline';
 
@@ -19,17 +19,15 @@ import Style from './sbb-radio-button-group.scss?lit&inline';
  * @slot unnamed - Use this to provide radio buttons within the group.
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
  */
-
-export const events = {
-  didChange: 'did-change',
-  change: 'change',
-  input: 'input',
-};
-
 @customElement('sbb-radio-button-group')
 export class SbbRadioButtonGroup extends LitElement {
   public static override styles: CSSResult = Style;
 
+  public static readonly events = {
+    didChange: 'did-change',
+    change: 'change',
+    input: 'input',
+  };
   /**
    * Whether the radios can be deselected.
    */
@@ -163,17 +161,17 @@ export class SbbRadioButtonGroup extends LitElement {
    * Emits whenever the radio group value changes.
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  private _didChange: EventEmitter = new EventEmitter(this, events.didChange);
+  private _didChange: EventEmitter = new EventEmitter(this, SbbRadioButtonGroup.events.didChange);
 
   /**
    * Emits whenever the radio group value changes.
    */
-  private _change: EventEmitter = new EventEmitter(this, events.change);
+  private _change: EventEmitter = new EventEmitter(this, SbbRadioButtonGroup.events.change);
 
   /**
    * Emits whenever the radio group value changes.
    */
-  private _input: EventEmitter = new EventEmitter(this, events.input);
+  private _input: EventEmitter = new EventEmitter(this, SbbRadioButtonGroup.events.input);
 
   private _handlerRepository = new HandlerRepository(
     this,

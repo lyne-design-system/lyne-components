@@ -1,10 +1,10 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
-import { events } from './sbb-alert-group';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import { SbbAlertGroup } from './sbb-alert-group';
 import './sbb-alert-group';
 import '../sbb-alert';
 
@@ -82,7 +82,7 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: [events.didDismissAlert, events.empty],
+      handles: [SbbAlertGroup.events.didDismissAlert, SbbAlertGroup.events.empty],
     },
     backgrounds: {
       disable: true,

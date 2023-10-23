@@ -43,17 +43,16 @@ let nextId = 0;
 /**
  * @slot unnamed - Use this to project any content inside the navigation.
  */
-
-export const events = {
-  willOpen: 'will-open',
-  didOpen: 'did-open',
-  willClose: 'will-close',
-  didClose: 'did-close',
-};
-
 @customElement('sbb-navigation')
 export class SbbNavigation extends LitElement {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    willOpen: 'will-open',
+    didOpen: 'did-open',
+    willClose: 'will-close',
+    didClose: 'did-close',
+  };
 
   /**
    * The element that will trigger the navigation.
@@ -104,22 +103,22 @@ export class SbbNavigation extends LitElement {
   /**
    * Emits whenever the navigation begins the opening transition.
    */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen);
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbNavigation.events.willOpen);
 
   /**
    * Emits whenever the navigation is opened.
    */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen);
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbNavigation.events.didOpen);
 
   /**
    * Emits whenever the navigation begins the closing transition.
    */
-  private _willClose: EventEmitter<void> = new EventEmitter(this, events.willClose);
+  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbNavigation.events.willClose);
 
   /**
    * Emits whenever the navigation is closed.
    */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, events.didClose);
+  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbNavigation.events.didClose);
 
   private _navigation: HTMLDialogElement;
   private _navigationContainerElement: HTMLElement;

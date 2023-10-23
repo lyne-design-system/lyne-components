@@ -15,17 +15,16 @@ import { SbbTrainWagon } from '../sbb-train-wagon';
 import Style from './sbb-train.scss?lit&inline';
 import '../sbb-icon';
 
-export const events = {
-  trainSlotChange: 'train-slot-change',
-};
-
 /**
  * @slot unnamed - Used for slotting sbb-train-wagons.
  */
-
 @customElement('sbb-train')
 export class SbbTrain extends LitElement {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    trainSlotChange: 'train-slot-change',
+  };
 
   /** General label for "driving direction". */
   @property({ attribute: 'direction-label' }) public directionLabel!: string;
@@ -50,7 +49,7 @@ export class SbbTrain extends LitElement {
    * @internal
    * Emits whenever the train slot changes.
    */
-  private _trainSlotChange: EventEmitter = new EventEmitter(this, events.trainSlotChange, {
+  private _trainSlotChange: EventEmitter = new EventEmitter(this, SbbTrain.events.trainSlotChange, {
     bubbles: true,
     cancelable: true,
   });

@@ -22,14 +22,14 @@ interface Time {
   minutes: number;
 }
 
-export const events = {
-  didChange: 'didChange',
-  validationChange: 'validationChange',
-};
-
 @customElement('sbb-time-input')
 export class SbbTimeInput extends LitElement {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    didChange: 'didChange',
+    validationChange: 'validationChange',
+  };
 
   /** Reference of the native input connected to the datepicker. */
   @property()
@@ -49,7 +49,7 @@ export class SbbTimeInput extends LitElement {
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  private _didChange: EventEmitter = new EventEmitter(this, events.didChange, {
+  private _didChange: EventEmitter = new EventEmitter(this, SbbTimeInput.events.didChange, {
     bubbles: true,
     cancelable: true,
   });
@@ -57,7 +57,7 @@ export class SbbTimeInput extends LitElement {
   /** Emits whenever the internal validation state changes. */
   private _validationChange: EventEmitter<ValidationChangeEvent> = new EventEmitter(
     this,
-    events.validationChange,
+    SbbTimeInput.events.validationChange,
     {
       bubbles: true,
       composed: false,

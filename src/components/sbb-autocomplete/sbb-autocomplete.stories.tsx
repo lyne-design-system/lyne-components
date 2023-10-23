@@ -1,7 +1,5 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
-import { events } from './sbb-autocomplete';
-import { events as optionEvents } from '../sbb-option';
 import readme from './readme.md?raw';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
@@ -17,6 +15,8 @@ import type {
 } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import { withActions } from '@storybook/addon-actions/decorator';
+import { SbbAutocomplete } from './sbb-autocomplete';
+import { SbbOption } from '../sbb-option';
 import '../sbb-form-field';
 import './sbb-autocomplete';
 
@@ -518,12 +518,12 @@ const meta: Meta = {
     chromatic: { disableSnapshot: false },
     actions: {
       handles: [
-        events.willOpen,
-        events.didOpen,
-        events.didClose,
-        events.willClose,
+        SbbAutocomplete.events.willOpen,
+        SbbAutocomplete.events.didOpen,
+        SbbAutocomplete.events.didClose,
+        SbbAutocomplete.events.willClose,
         'change',
-        optionEvents.optionSelected,
+        SbbOption.events.optionSelected,
       ],
     },
     backgrounds: {

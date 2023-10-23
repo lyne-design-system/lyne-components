@@ -38,18 +38,17 @@ let nextId = 0;
  * @slot title - Use this slot to provide a title.
  * @slot action-group - Use this slot to display an action group in the footer.
  */
-
-export const events = {
-  willOpen: 'will-open',
-  didOpen: 'did-open',
-  willClose: 'will-close',
-  didClose: 'did-close',
-  backClick: 'request-back-action',
-};
-
 @customElement('sbb-dialog')
 export class SbbDialog extends LitElement {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    willOpen: 'will-open',
+    didOpen: 'did-open',
+    willClose: 'will-close',
+    didClose: 'did-close',
+    backClick: 'request-back-action',
+  };
 
   /**
    * Dialog title.
@@ -125,27 +124,27 @@ export class SbbDialog extends LitElement {
   /**
    * Emits whenever the dialog starts the opening transition.
    */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen);
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbDialog.events.willOpen);
 
   /**
    * Emits whenever the dialog is opened.
    */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen);
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbDialog.events.didOpen);
 
   /**
    * Emits whenever the dialog begins the closing transition.
    */
-  private _willClose: EventEmitter = new EventEmitter(this, events.willClose);
+  private _willClose: EventEmitter = new EventEmitter(this, SbbDialog.events.willClose);
 
   /**
    * Emits whenever the dialog is closed.
    */
-  private _didClose: EventEmitter = new EventEmitter(this, events.didClose);
+  private _didClose: EventEmitter = new EventEmitter(this, SbbDialog.events.didClose);
 
   /**
    * Emits whenever the back button is clicked.
    */
-  private _backClick: EventEmitter<void> = new EventEmitter(this, events.backClick);
+  private _backClick: EventEmitter<void> = new EventEmitter(this, SbbDialog.events.backClick);
 
   private _dialog: HTMLDialogElement;
   private _dialogWrapperElement: HTMLElement;

@@ -24,16 +24,16 @@ import '../sbb-icon';
 
 export type DOMEvent = globalThis.Event;
 
-export const events = {
-  fileChangedEvent: 'file-changed',
-};
-
 /**
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
  */
 @customElement('sbb-file-selector')
 export class SbbFileSelector extends LitElement {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    fileChangedEvent: 'file-changed',
+  };
 
   /** Whether the component has a dropzone area or not. */
   @property() public variant: 'default' | 'dropzone' = 'default';
@@ -67,7 +67,10 @@ export class SbbFileSelector extends LitElement {
   @state() private _namedSlots = createNamedSlotState('error');
 
   /** An event which is emitted each time the file list changes. */
-  private _fileChangedEvent: EventEmitter<File[]> = new EventEmitter(this, events.fileChangedEvent);
+  private _fileChangedEvent: EventEmitter<File[]> = new EventEmitter(
+    this,
+    SbbFileSelector.events.fileChangedEvent,
+  );
 
   /**
    * Gets the currently selected files.

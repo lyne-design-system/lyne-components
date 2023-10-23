@@ -37,16 +37,16 @@ let nextId = 0;
 /**
  * @slot unnamed - Use this slot to project any content inside the dialog.
  */
-export const events = {
-  willOpen: 'will-open',
-  didOpen: 'did-open',
-  willClose: 'will-close',
-  didClose: 'did-close',
-};
-
 @customElement('sbb-menu')
 export class SbbMenu extends LitElement {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    willOpen: 'will-open',
+    didOpen: 'did-open',
+    willClose: 'will-close',
+    didClose: 'did-close',
+  };
 
   /**
    * The element that will trigger the menu dialog.
@@ -87,7 +87,7 @@ export class SbbMenu extends LitElement {
   /**
    * Emits whenever the menu starts the opening transition.
    */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen, {
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbMenu.events.willOpen, {
     bubbles: true,
     composed: true,
   });
@@ -95,7 +95,7 @@ export class SbbMenu extends LitElement {
   /**
    * Emits whenever the menu is opened.
    */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen, {
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbMenu.events.didOpen, {
     bubbles: true,
     composed: true,
   });
@@ -103,7 +103,7 @@ export class SbbMenu extends LitElement {
   /**
    * Emits whenever the menu begins the closing transition.
    */
-  private _willClose: EventEmitter<void> = new EventEmitter(this, events.willClose, {
+  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbMenu.events.willClose, {
     bubbles: true,
     composed: true,
   });
@@ -111,7 +111,7 @@ export class SbbMenu extends LitElement {
   /**
    * Emits whenever the menu is closed.
    */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, events.didClose, {
+  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbMenu.events.didClose, {
     bubbles: true,
     composed: true,
   });

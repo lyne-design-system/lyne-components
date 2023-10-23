@@ -18,13 +18,13 @@ import '../sbb-icon';
  * @slot icon - Slot used to render the panel header icon.
  * @slot unnamed - Slot used to render the panel header text.
  */
-export const events = {
-  toggleExpanded: 'toggle-expanded',
-};
-
 @customElement('sbb-expansion-panel-header')
 export class SbbExpansionPanelHeader extends LitElement {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    toggleExpanded: 'toggle-expanded',
+  };
 
   /**
    * The icon name we want to use, choose from the small icon variants
@@ -39,9 +39,13 @@ export class SbbExpansionPanelHeader extends LitElement {
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @state() private _namedSlots = createNamedSlotState('icon');
 
-  private _toggleExpanded: EventEmitter = new EventEmitter(this, events.toggleExpanded, {
-    bubbles: true,
-  });
+  private _toggleExpanded: EventEmitter = new EventEmitter(
+    this,
+    SbbExpansionPanelHeader.events.toggleExpanded,
+    {
+      bubbles: true,
+    },
+  );
   private _abort = new ConnectedAbortController(this);
 
   private _handlerRepository = new HandlerRepository(

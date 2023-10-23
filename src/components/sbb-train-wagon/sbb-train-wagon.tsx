@@ -24,17 +24,16 @@ import { setAttribute } from '../../global/dom';
 import Style from './sbb-train-wagon.scss?lit&inline';
 import '../sbb-icon';
 
-export const events = {
-  sectorChange: 'sector-change',
-};
-
 /**
  * @slot unnamed - Used to slot one to x icons for meta information of the sbb-train-wagon.
  */
-
 @customElement('sbb-train-wagon')
 export class SbbTrainWagon extends LitElement {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    sectorChange: 'sector-change',
+  };
 
   /** Wagon type. */
   @property({ reflect: true }) public type: InterfaceSbbTrainWagonAttributes['type'] = 'wagon';
@@ -94,7 +93,7 @@ export class SbbTrainWagon extends LitElement {
    * @internal
    * Emits whenever the sector value changes.
    */
-  private _sectorChange: EventEmitter = new EventEmitter(this, events.sectorChange, {
+  private _sectorChange: EventEmitter = new EventEmitter(this, SbbTrainWagon.events.sectorChange, {
     bubbles: true,
     cancelable: true,
   });

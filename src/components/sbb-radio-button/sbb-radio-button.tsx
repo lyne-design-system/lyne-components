@@ -31,13 +31,13 @@ const radioButtonObserverConfig: MutationObserverInit = {
  * @slot subtext - Slot used to render a subtext under the label (only visible within a selection panel).
  * @slot suffix - Slot used to render additional content after the label (only visible within a selection panel).
  */
-export const events = {
-  stateChange: 'state-change',
-};
-
 @customElement('sbb-radio-button')
 export class SbbRadioButton extends LitElement {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    stateChange: 'state-change',
+  };
 
   /**
    * Whether the radio can be deselected.
@@ -109,7 +109,7 @@ export class SbbRadioButton extends LitElement {
    */
   private _stateChange: EventEmitter<RadioButtonStateChange> = new EventEmitter(
     this,
-    events.stateChange,
+    SbbRadioButton.events.stateChange,
     { bubbles: true },
   );
 

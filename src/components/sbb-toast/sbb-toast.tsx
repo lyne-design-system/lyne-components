@@ -24,19 +24,19 @@ import '../sbb-button';
 // A global collection of existing toasts
 const toastRefs = new Set<SbbToast>();
 
-export const events = {
-  willOpen: 'will-open',
-  didOpen: 'did-open',
-  willClose: 'will-close',
-  didClose: 'did-close',
-};
-
 /**
  * @slot unnamed - Use this to document a slot.
  */
 @customElement('sbb-toast')
 export class SbbToast extends LitElement {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    willOpen: 'will-open',
+    didOpen: 'did-open',
+    willClose: 'will-close',
+    didClose: 'did-close',
+  };
 
   /**
    * The length of time in milliseconds to wait before automatically dismissing the toast.
@@ -76,28 +76,28 @@ export class SbbToast extends LitElement {
 
   /** Emits whenever the autocomplete starts the opening transition. */
 
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen, {
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbToast.events.willOpen, {
     bubbles: true,
     composed: true,
   });
 
   /** Emits whenever the autocomplete is opened. */
 
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen, {
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbToast.events.didOpen, {
     bubbles: true,
     composed: true,
   });
 
   /** Emits whenever the autocomplete begins the closing transition. */
 
-  private _willClose: EventEmitter<void> = new EventEmitter(this, events.willClose, {
+  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbToast.events.willClose, {
     bubbles: true,
     composed: true,
   });
 
   /** Emits whenever the autocomplete is closed. */
 
-  private _didClose: EventEmitter<void> = new EventEmitter(this, events.didClose, {
+  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbToast.events.didClose, {
     bubbles: true,
     composed: true,
   });

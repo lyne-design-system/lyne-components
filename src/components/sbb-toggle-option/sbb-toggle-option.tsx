@@ -17,14 +17,13 @@ import Style from './sbb-toggle-option.scss?lit&inline';
  * @slot unnamed - Slot used to render the label of the toggle option.
  * @slot icon - Slot used to render the `<sbb-icon>`.
  */
-
-export const events = {
-  stateChange: 'state-change',
-};
-
 @customElement('sbb-toggle-option')
 export class SbbToggleOption extends LitElement {
   public static override styles = Style;
+
+  public static readonly events = {
+    stateChange: 'state-change',
+  };
 
   /**
    * Whether the toggle-option is checked.
@@ -104,7 +103,7 @@ export class SbbToggleOption extends LitElement {
 
   private _stateChange: EventEmitter<ToggleOptionStateChange> = new EventEmitter(
     this,
-    events.stateChange,
+    SbbToggleOption.events.stateChange,
     { bubbles: true },
   );
 

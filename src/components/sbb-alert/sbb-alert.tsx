@@ -18,21 +18,20 @@ import '../sbb-divider';
 import '../sbb-link';
 import '../sbb-button';
 
-export const events = {
-  willPresent: 'will-present',
-  didPresent: 'did-present',
-  dismissalRequested: 'dismissal-requested',
-};
-
 /**
  * @slot icon - Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
  * @slot title - Title content.
  * @slot unnamed - Content of the alert.
  */
-
 @customElement('sbb-alert')
 export class SbbAlert extends LitElement implements LinkProperties {
   public static override styles: CSSResult = Style;
+
+  public static readonly events = {
+    willPresent: 'will-present',
+    didPresent: 'did-present',
+    dismissalRequested: 'dismissal-requested',
+  };
 
   /**
    * Whether the alert is readonly.
@@ -75,15 +74,15 @@ export class SbbAlert extends LitElement implements LinkProperties {
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
   /** Emits when the fade in animation starts. */
-  private _willPresent: EventEmitter<void> = new EventEmitter(this, events.willPresent);
+  private _willPresent: EventEmitter<void> = new EventEmitter(this, SbbAlert.events.willPresent);
 
   /** Emits when the fade in animation ends and the button is displayed. */
-  private _didPresent: EventEmitter<void> = new EventEmitter(this, events.didPresent);
+  private _didPresent: EventEmitter<void> = new EventEmitter(this, SbbAlert.events.didPresent);
 
   /** Emits when dismissal of an alert was requested. */
   private _dismissalRequested: EventEmitter<void> = new EventEmitter(
     this,
-    events.dismissalRequested,
+    SbbAlert.events.dismissalRequested,
   );
 
   @state() private _currentLanguage = documentLanguage();

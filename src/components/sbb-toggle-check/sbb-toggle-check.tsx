@@ -13,10 +13,6 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { setAttributes } from '../../global/dom';
 import Style from './sbb-toggle-check.scss?lit&inline';
 
-export const events = {
-  didChange: 'did-change',
-};
-
 /**
  * @slot unnamed - Use this slot to provide the toggle label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
@@ -24,6 +20,10 @@ export const events = {
 @customElement('sbb-toggle-check')
 export class SbbToggleCheck extends LitElement {
   public static override styles = Style;
+
+  public static readonly events = {
+    didChange: 'did-change',
+  };
 
   /** Whether the toggle-check is checked. */
   @property({ reflect: true, type: Boolean }) public checked = false;
@@ -53,7 +53,7 @@ export class SbbToggleCheck extends LitElement {
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  private _didChange: EventEmitter = new EventEmitter(this, events.didChange, {
+  private _didChange: EventEmitter = new EventEmitter(this, SbbToggleCheck.events.didChange, {
     bubbles: true,
     cancelable: true,
   });
