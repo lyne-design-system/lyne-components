@@ -25,7 +25,7 @@ interface Time {
 }
 
 /**
- * * Combined with a native input, it displays the input's value as a formatted time.
+ * Combined with a native input, it displays the input's value as a formatted time.
  *
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<ValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.

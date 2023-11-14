@@ -8,134 +8,107 @@ declare module '*?lit&inline' {
 
 declare namespace JSX {
   type Element = jsxDom.JSX.Element;
-  type SbbAccordion = import('./components/sbb-accordion/sbb-accordion').SbbAccordion;
-  type SbbActionGroup = import('./components/sbb-action-group/sbb-action-group').SbbActionGroup;
-  type SbbAlert = import('./components/sbb-alert/sbb-alert').SbbAlert;
-  type SbbAlertGroup = import('./components/sbb-alert-group/sbb-alert-group').SbbAlertGroup;
-  type SbbAutocomplete = import('./components/sbb-autocomplete/sbb-autocomplete').SbbAutocomplete;
-  type SbbBreadcrumb = import('./components/sbb-breadcrumb/sbb-breadcrumb').SbbBreadcrumb;
-  type SbbBreadcrumbGroup =
-    import('./components/sbb-breadcrumb-group/sbb-breadcrumb-group').SbbBreadcrumbGroup;
-  type SbbButton = import('./components/sbb-button/sbb-button').SbbButton;
-  type SbbCalendar = import('./components/sbb-calendar/sbb-calendar').SbbCalendar;
-  type SbbCard = import('./components/sbb-card/sbb-card').SbbCard;
-  type SbbCardAction = import('./components/sbb-card-action/sbb-card-action').SbbCardAction;
-  type SbbCardBadge = import('./components/sbb-card-badge/sbb-card-badge').SbbCardBadge;
-  type SbbCheckbox = import('./components/sbb-checkbox/sbb-checkbox').SbbCheckbox;
-  type SbbCheckboxGroup =
-    import('./components/sbb-checkbox-group/sbb-checkbox-group').SbbCheckboxGroup;
-  type SbbChip = import('./components/sbb-chip/sbb-chip').SbbChip;
-  type SbbClock = import('./components/sbb-clock/sbb-clock').SbbClock;
-  type SbbDatepicker = import('./components/sbb-datepicker/sbb-datepicker').SbbDatepicker;
-  type SbbDatepickerNextDay =
-    import('./components/sbb-datepicker-next-day/sbb-datepicker-next-day').SbbDatepickerNextDay;
-  type SbbDatepickerPreviousDay =
-    import('./components/sbb-datepicker-previous-day/sbb-datepicker-previous-day').SbbDatepickerPreviousDay;
-  type SbbDatepickerToggle =
-    import('./components/sbb-datepicker-toggle/sbb-datepicker-toggle').SbbDatepickerToggle;
-  type SbbDialog = import('./components/sbb-dialog/sbb-dialog').SbbDialog;
-  type SbbDivider = import('./components/sbb-divider/sbb-divider').SbbDivider;
-  type SbbExpansionPanel =
-    import('./components/sbb-expansion-panel/sbb-expansion-panel').SbbExpansionPanel;
-  type SbbExpansionPanelContent =
-    import('./components/sbb-expansion-panel-content/sbb-expansion-panel-content').SbbExpansionPanelContent;
-  type SbbExpansionPanelHeader =
-    import('./components/sbb-expansion-panel-header/sbb-expansion-panel-header').SbbExpansionPanelHeader;
-  type SbbFileSelector = import('./components/sbb-file-selector/sbb-file-selector').SbbFileSelector;
-  type SbbFooter = import('./components/sbb-footer/sbb-footer').SbbFooter;
-  type SbbFormError = import('./components/sbb-form-error/sbb-form-error').SbbFormError;
-  type SbbFormField = import('./components/sbb-form-field/sbb-form-field').SbbFormField;
-  type SbbFormFieldClear =
-    import('./components/sbb-form-field-clear/sbb-form-field-clear').SbbFormFieldClear;
-  type SbbHeader = import('./components/sbb-header/sbb-header').SbbHeader;
-  type SbbHeaderAction = import('./components/sbb-header-action/sbb-header-action').SbbHeaderAction;
-  type SbbIcon = import('./components/sbb-icon/sbb-icon').SbbIcon;
-  type SbbImage = import('./components/sbb-image/sbb-image').SbbImage;
-  type SbbJourneyHeader =
-    import('./components/sbb-journey-header/sbb-journey-header').SbbJourneyHeader;
-  type SbbJourneySummary =
-    import('./components/sbb-journey-summary/sbb-journey-summary').SbbJourneySummary;
-  type SbbLink = import('./components/sbb-link/sbb-link').SbbLink;
-  type SbbLinkList = import('./components/sbb-link-list/sbb-link-list').SbbLinkList;
-  type SbbLoadingIndicator =
-    import('./components/sbb-loading-indicator/sbb-loading-indicator').SbbLoadingIndicator;
-  type SbbLogo = import('./components/sbb-logo/sbb-logo').SbbLogo;
-  type SbbMapContainer = import('./components/sbb-map-container/sbb-map-container').SbbMapContainer;
-  type SbbMenu = import('./components/sbb-menu/sbb-menu').SbbMenu;
-  type SbbMenuAction = import('./components/sbb-menu-action/sbb-menu-action').SbbMenuAction;
-  type SbbMessage = import('./components/sbb-message/sbb-message').SbbMessage;
-  type SbbNavigation = import('./components/sbb-navigation/sbb-navigation').SbbNavigation;
-  type SbbNavigationAction =
-    import('./components/sbb-navigation-action/sbb-navigation-action').SbbNavigationAction;
-  type SbbNavigationList =
-    import('./components/sbb-navigation-list/sbb-navigation-list').SbbNavigationList;
-  type SbbNavigationMarker =
-    import('./components/sbb-navigation-marker/sbb-navigation-marker').SbbNavigationMarker;
-  type SbbNavigationSection =
-    import('./components/sbb-navigation-section/sbb-navigation-section').SbbNavigationSection;
-  type SbbNotification = import('./components/sbb-notification/sbb-notification').SbbNotification;
-  type SbbOptgroup = import('./components/sbb-optgroup/sbb-optgroup').SbbOptgroup;
-  type SbbOption = import('./components/sbb-option/sbb-option').SbbOption;
-  type SbbPearlChain = import('./components/sbb-pearl-chain/sbb-pearl-chain').SbbPearlChain;
-  type SbbPearlChainTime =
-    import('./components/sbb-pearl-chain-time/sbb-pearl-chain-time').SbbPearlChainTime;
-  type SbbPearlChainVertical =
-    import('./components/sbb-pearl-chain-vertical/sbb-pearl-chain-vertical').SbbPearlChainVertical;
+  type SbbAccordion = import('./components/accordion').SbbAccordion;
+  type SbbActionGroup = import('./components/action-group').SbbActionGroup;
+  type SbbAlert = import('./components/alert').SbbAlert;
+  type SbbAlertGroup = import('./components/alert').SbbAlertGroup;
+  type SbbAutocomplete = import('./components/autocomplete').SbbAutocomplete;
+  type SbbBreadcrumb = import('./components/breadcrumb').SbbBreadcrumb;
+  type SbbBreadcrumbGroup = import('./components/breadcrumb').SbbBreadcrumbGroup;
+  type SbbButton = import('./components/button').SbbButton;
+  type SbbCalendar = import('./components/calendar').SbbCalendar;
+  type SbbCard = import('./components/card').SbbCard;
+  type SbbCardAction = import('./components/card').SbbCardAction;
+  type SbbCardBadge = import('./components/card').SbbCardBadge;
+  type SbbCheckbox = import('./components/checkbox').SbbCheckbox;
+  type SbbCheckboxGroup = import('./components/checkbox').SbbCheckboxGroup;
+  type SbbChip = import('./components/chip').SbbChip;
+  type SbbClock = import('./components/clock').SbbClock;
+  type SbbDatepicker = import('./components/datepicker').SbbDatepicker;
+  type SbbDatepickerNextDay = import('./components/datepicker').SbbDatepickerNextDay;
+  type SbbDatepickerPreviousDay = import('./components/datepicker').SbbDatepickerPreviousDay;
+  type SbbDatepickerToggle = import('./components/datepicker').SbbDatepickerToggle;
+  type SbbDialog = import('./components/dialog').SbbDialog;
+  type SbbDivider = import('./components/divider/').SbbDivider;
+  type SbbExpansionPanel = import('./components/expansion-panel').SbbExpansionPanel;
+  type SbbExpansionPanelContent = import('./components/expansion-panel').SbbExpansionPanelContent;
+  type SbbExpansionPanelHeader = import('./components/expansion-panel').SbbExpansionPanelHeader;
+  type SbbFileSelector = import('./components/file-selector').SbbFileSelector;
+  type SbbFooter = import('./components/footer').SbbFooter;
+  type SbbFormError = import('./components/form-error').SbbFormError;
+  type SbbFormField = import('./components/form-field').SbbFormField;
+  type SbbFormFieldClear = import('./components/form-field').SbbFormFieldClear;
+  type SbbHeader = import('./components/header').SbbHeader;
+  type SbbHeaderAction = import('./components/header').SbbHeaderAction;
+  type SbbIcon = import('./components/icon').SbbIcon;
+  type SbbImage = import('./components/image').SbbImage;
+  type SbbJourneyHeader = import('./components/journey-header').SbbJourneyHeader;
+  type SbbJourneySummary = import('./components/journey-summary').SbbJourneySummary;
+  type SbbLink = import('./components/link').SbbLink;
+  type SbbLinkList = import('./components/link-list').SbbLinkList;
+  type SbbLoadingIndicator = import('./components/loading-indicator').SbbLoadingIndicator;
+  type SbbLogo = import('./components/logo').SbbLogo;
+  type SbbMapContainer = import('./components/map-container').SbbMapContainer;
+  type SbbMenu = import('./components/menu').SbbMenu;
+  type SbbMenuAction = import('./components/menu').SbbMenuAction;
+  type SbbMessage = import('./components/message').SbbMessage;
+  type SbbNavigation = import('./components/navigation').SbbNavigation;
+  type SbbNavigationAction = import('./components/navigation').SbbNavigationAction;
+  type SbbNavigationList = import('./components/navigation').SbbNavigationList;
+  type SbbNavigationMarker = import('./components/navigation').SbbNavigationMarker;
+  type SbbNavigationSection = import('./components/navigation').SbbNavigationSection;
+  type SbbNotification = import('./components/notification').SbbNotification;
+  type SbbOptGroup = import('./components/option').SbbOptGroup;
+  type SbbOption = import('./components/option').SbbOption;
+  type SbbPearlChain = import('./components/pearl-chain').SbbPearlChain;
+  type SbbPearlChainTime = import('./components/pearl-chain-time').SbbPearlChainTime;
+  type SbbPearlChainVertical = import('./components/pearl-chain-vertical').SbbPearlChainVertical;
   type SbbPearlChainVerticalItem =
-    import('./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item').SbbPearlChainVerticalItem;
-  type SbbRadioButton = import('./components/sbb-radio-button/sbb-radio-button').SbbRadioButton;
-  type SbbRadioButtonGroup =
-    import('./components/sbb-radio-button-group/sbb-radio-button-group').SbbRadioButtonGroup;
-  type SbbSelect = import('./components/sbb-select/sbb-select').SbbSelect;
-  type SbbSelectionPanel =
-    import('./components/sbb-selection-panel/sbb-selection-panel').SbbSelectionPanel;
-  type SbbSignet = import('./components/sbb-signet/sbb-signet').SbbSignet;
-  type SbbSkiplinkList = import('./components/sbb-skiplink-list/sbb-skiplink-list').SbbSkiplinkList;
-  type SbbSlider = import('./components/sbb-slider/sbb-slider').SbbSlider;
-  type SbbTabGroup = import('./components/sbb-tab-group/sbb-tab-group').SbbTabGroup;
-  type SbbTabTitle = import('./components/sbb-tab-title/sbb-tab-title').SbbTabTitle;
-  type SbbTag = import('./components/sbb-tag/sbb-tag').SbbTag;
-  type SbbTagGroup = import('./components/sbb-tag-group/sbb-tag-group').SbbTagGroup;
-  type SbbTeaser = import('./components/sbb-teaser/sbb-teaser').SbbTeaser;
-  type SbbTeaserHero = import('./components/sbb-teaser-hero/sbb-teaser-hero').SbbTeaserHero;
-  type SbbTimeInput = import('./components/sbb-time-input/sbb-time-input').SbbTimeInput;
+    import('./components/pearl-chain-vertical-item').SbbPearlChainVerticalItem;
+  type SbbRadioButton = import('./components/radio-button').SbbRadioButton;
+  type SbbRadioButtonGroup = import('./components/radio-button').SbbRadioButtonGroup;
+  type SbbSelect = import('./components/select').SbbSelect;
+  type SbbSelectionPanel = import('./components/selection-panel').SbbSelectionPanel;
+  type SbbSignet = import('./components/signet').SbbSignet;
+  type SbbSkiplinkList = import('./components/skiplink-list').SbbSkiplinkList;
+  type SbbSlider = import('./components/slider').SbbSlider;
+  type SbbTabGroup = import('./components/tabs/tab-group').SbbTabGroup;
+  type SbbTabTitle = import('./components/tabs/tab-title').SbbTabTitle;
+  type SbbTag = import('./components/tag').SbbTag;
+  type SbbTagGroup = import('./components/tag').SbbTagGroup;
+  type SbbTeaser = import('./components/teaser').SbbTeaser;
+  type SbbTeaserHero = import('./components/teaser-hero').SbbTeaserHero;
+  type SbbTimeInput = import('./components/time-input').SbbTimeInput;
   type SbbTimetableBarrierFree =
-    import('./components/sbb-timetable-barrier-free/sbb-timetable-barrier-free').SbbTimetableBarrierFree;
-  type SbbTimetableDuration =
-    import('./components/sbb-timetable-duration/sbb-timetable-duration').SbbTimetableDuration;
-  type SbbTimetableOccupancy =
-    import('./components/sbb-timetable-occupancy/sbb-timetable-occupancy').SbbTimetableOccupancy;
+    import('./components/timetable-barrier-free').SbbTimetableBarrierFree;
+  type SbbTimetableDuration = import('./components/timetable-duration').SbbTimetableDuration;
+  type SbbTimetableOccupancy = import('./components/timetable-occupancy').SbbTimetableOccupancy;
   type SbbTimetableParkAndRail =
-    import('./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail').SbbTimetableParkAndRail;
-  type SbbTimetableRow = import('./components/sbb-timetable-row/sbb-timetable-row').SbbTimetableRow;
+    import('./components/timetable-park-and-rail').SbbTimetableParkAndRail;
+  type SbbTimetableRow = import('./components/timetable-row').SbbTimetableRow;
   type SbbTimetableRowColumnHeaders =
-    import('./components/sbb-timetable-row-column-headers/sbb-timetable-row-column-headers').SbbTimetableRowColumnHeaders;
+    import('./components/timetable-row-column-headers').SbbTimetableRowColumnHeaders;
   type SbbTimetableRowDayChange =
-    import('./components/sbb-timetable-row-day-change/sbb-timetable-row-day-change').SbbTimetableRowDayChange;
-  type SbbTimetableRowHeader =
-    import('./components/sbb-timetable-row-header/sbb-timetable-row-header').SbbTimetableRowHeader;
+    import('./components/timetable-row-day-change').SbbTimetableRowDayChange;
+  type SbbTimetableRowHeader = import('./components/timetable-row-header').SbbTimetableRowHeader;
   type SbbTimetableTransportationNumber =
-    import('./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number').SbbTimetableTransportationNumber;
+    import('./components/timetable-transportation-number').SbbTimetableTransportationNumber;
   type SbbTimetableTransportationTime =
-    import('./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time').SbbTimetableTransportationTime;
+    import('./components/timetable-transportation-time').SbbTimetableTransportationTime;
   type SbbTimetableTravelHints =
-    import('./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints').SbbTimetableTravelHints;
-  type SbbTitle = import('./components/sbb-title/sbb-title').SbbTitle;
-  type SbbToast = import('./components/sbb-toast/sbb-toast').SbbToast;
-  type SbbToggle = import('./components/sbb-toggle/sbb-toggle').SbbToggle;
-  type SbbToggleCheck = import('./components/sbb-toggle-check/sbb-toggle-check').SbbToggleCheck;
-  type SbbToggleOption = import('./components/sbb-toggle-option/sbb-toggle-option').SbbToggleOption;
-  type SbbTooltip = import('./components/sbb-tooltip/sbb-tooltip').SbbTooltip;
-  type SbbTooltipTrigger =
-    import('./components/sbb-tooltip-trigger/sbb-tooltip-trigger').SbbTooltipTrigger;
-  type SbbTrain = import('./components/sbb-train/sbb-train').SbbTrain;
-  type SbbTrainBlockedPassage =
-    import('./components/sbb-train-blocked-passage/sbb-train-blocked-passage').SbbTrainBlockedPassage;
-  type SbbTrainFormation =
-    import('./components/sbb-train-formation/sbb-train-formation').SbbTrainFormation;
-  type SbbTrainWagon = import('./components/sbb-train-wagon/sbb-train-wagon').SbbTrainWagon;
-  type SbbVisualCheckbox =
-    import('./components/sbb-visual-checkbox/sbb-visual-checkbox').SbbVisualCheckbox;
+    import('./components/timetable-travel-hints').SbbTimetableTravelHints;
+  type SbbTitle = import('./components/title').SbbTitle;
+  type SbbToast = import('./components/toast').SbbToast;
+  type SbbToggle = import('./components/toggle').SbbToggle;
+  type SbbToggleCheck = import('./components/toggle-check').SbbToggleCheck;
+  type SbbToggleOption = import('./components/toggle').SbbToggleOption;
+  type SbbTooltip = import('./components/tooltip').SbbTooltip;
+  type SbbTooltipTrigger = import('./components/tooltip').SbbTooltipTrigger;
+  type SbbTrain = import('./components/train').SbbTrain;
+  type SbbTrainBlockedPassage = import('./components/train').SbbTrainBlockedPassage;
+  type SbbTrainFormation = import('./components/train').SbbTrainFormation;
+  type SbbTrainWagon = import('./components/train').SbbTrainWagon;
+  type SbbVisualCheckbox = import('./components/visual-checkbox').SbbVisualCheckbox;
 
   interface IntrinsicElements {
     'sbb-accordion': jsxDom.DetailedHTMLProps<jsxDom.HTMLAttributes<SbbAccordion>, SbbAccordion>;
@@ -263,7 +236,7 @@ declare namespace JSX {
       jsxDom.HTMLAttributes<SbbNotification>,
       SbbNotification
     >;
-    'sbb-optgroup': jsxDom.DetailedHTMLProps<jsxDom.HTMLAttributes<SbbOptgroup>, SbbOptgroup>;
+    'sbb-optgroup': jsxDom.DetailedHTMLProps<jsxDom.HTMLAttributes<SbbOptGroup>, SbbOptGroup>;
     'sbb-option': jsxDom.DetailedHTMLProps<jsxDom.HTMLAttributes<SbbOption>, SbbOption>;
     'sbb-pearl-chain': jsxDom.DetailedHTMLProps<
       jsxDom.HTMLAttributes<SbbPearlChain>,
