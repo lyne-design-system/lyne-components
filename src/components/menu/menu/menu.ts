@@ -130,6 +130,15 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
     this._setMenuPosition();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
 
+    // Check if the browser supports the popover API
+    if (
+      typeof HTMLElement !== 'undefined' &&
+      typeof HTMLElement.prototype === 'object' &&
+      'popover' in HTMLElement.prototype
+    ) {
+      this._menu.showPopover();
+    }
+
     // Starting from breakpoint medium, disable scroll
     if (!isBreakpoint('medium')) {
       this._scrollHandler.disableScroll();
@@ -393,6 +402,7 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
           @animationend=${(event: AnimationEvent) => this._onMenuAnimationEnd(event)}
           class="sbb-menu"
           ${ref((el) => (this._menu = el as HTMLDivElement))}
+          popover
         >
           <div
             @click=${(event: Event) => this._closeOnInteractiveElementClick(event)}
