@@ -330,6 +330,15 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
 
       // Starting from breakpoint medium, enable scroll
       this._scrollHandler.enableScroll();
+
+      // Check if the browser supports the popover API
+      if (
+        typeof HTMLElement !== 'undefined' &&
+        typeof HTMLElement.prototype === 'object' &&
+        'popover' in HTMLElement.prototype
+      ) {
+        this._menu.hidePopover();
+      }
     }
   }
 
@@ -401,8 +410,8 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
         <div
           @animationend=${(event: AnimationEvent) => this._onMenuAnimationEnd(event)}
           class="sbb-menu"
+          popover="manual"
           ${ref((el) => (this._menu = el as HTMLDivElement))}
-          popover
         >
           <div
             @click=${(event: Event) => this._closeOnInteractiveElementClick(event)}
