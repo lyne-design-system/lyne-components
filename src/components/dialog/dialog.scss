@@ -25,6 +25,8 @@
   --sbb-dialog-backdrop-pointer-events: none;
   --sbb-dialog-backdrop-color: transparent;
   --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s) 0;
+  --sbb-dialog-header-transition-duration: var(--sbb-animation-duration-6x);
+  --sbb-dialog-header-margin-block-start: 0;
   --sbb-dialog-footer-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
 
   position: fixed;
@@ -57,6 +59,30 @@
     --sbb-dialog-backdrop-pointer-events: all;
     --sbb-dialog-backdrop-color: var(--sbb-color-milk);
   }
+}
+
+:host([data-hide-header]) {
+  --sbb-dialog-header-margin-block-start: calc(var(--sbb-dialog-header-height) * -1);
+
+  // Hide transition
+  --sbb-dialog-header-transition-timing: cubic-bezier(0.4, 0, 1, 1);
+}
+
+:host(:not([data-hide-header])) {
+  // Show transition
+  --sbb-dialog-header-transition-timing: cubic-bezier(0, 0, 0.2, 1);
+}
+
+:host([data-hide-header]) {
+  --sbb-dialog-header-margin-block-start: calc(var(--sbb-dialog-header-height) * -1);
+
+  // Hide transition
+  --sbb-dialog-header-transition-timing: cubic-bezier(0.4, 0, 1, 1);
+}
+
+:host(:not([data-hide-header])) {
+  // Show transition
+  --sbb-dialog-header-transition-timing: cubic-bezier(0, 0, 0.2, 1);
 }
 
 :host([data-fullscreen]) {
@@ -198,12 +224,27 @@
     pointer-events: all;
   }
 
+  // Apply show/hide animation unless it has a visible focus within.
+  &:not([data-has-visible-focus]:focus-within) {
+    margin-block-start: var(--sbb-dialog-header-margin-block-start);
+    transition: {
+      property: margin, box-shadow;
+      duration: var(--sbb-dialog-header-transition-duration);
+      timing-function: var(--sbb-dialog-header-transition-timing);
+    }
+  }
+
   :host([data-fullscreen]) & {
     position: fixed;
     width: var(--sbb-dialog-width);
     background-color: transparent;
     padding-inline: var(--sbb-spacing-responsive-xs);
     padding-block-start: var(--sbb-spacing-responsive-xs);
+  }
+
+  &[data-has-visible-focus]:focus-within,
+  :host([data-overflows]:not([data-fullscreen], [negative], [data-hide-header])) & {
+    @include sbb.shadow-level-9-soft;
   }
 
   @include sbb.mq($from: medium) {
@@ -253,15 +294,11 @@
   :host(:not([data-slot-names~='action-group'])) & {
     display: none;
   }
-}
 
-// stylelint-disable selector-not-notation
-:is(.sbb-dialog__header, .sbb-dialog__footer) {
   :host([data-overflows]:not([data-fullscreen], [negative])) & {
     @include sbb.shadow-level-9-soft;
   }
 }
-// stylelint-enable selector-not-notation
 
 // It is necessary to use animations with keyframes instead of transitions in order not to alter
 // the default `display: block` of the modal otherwise it causes several problems,
