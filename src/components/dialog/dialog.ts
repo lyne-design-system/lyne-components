@@ -307,33 +307,11 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     window.addEventListener('click', () => this._removeAriaLiveRefContent(), {
       signal: this._openDialogController.signal,
     });
-    // If the content overflows, apply the header animation on scroll.
-    if (this._overflows) {
-      this._dialogContentElement?.addEventListener('scroll', () => this._onContentScroll(), {
-        passive: true,
-        signal: this._openDialogController.signal,
-      });
-      Array.from(this._dialogHeaderElement.querySelectorAll('sbb-button'))?.forEach((el) => {
-        el.addEventListener(
-          'focusin',
-          () => {
-            toggleDatasetEntry(
-              this._dialogHeaderElement,
-              'hasVisibleFocus',
-              sbbInputModalityDetector.mostRecentModality === 'keyboard',
-            );
-          },
-          { signal: this._openDialogController.signal },
-        );
-        el.addEventListener(
-          'blur',
-          () => {
-            toggleDatasetEntry(this._dialogHeaderElement, 'hasVisibleFocus', false);
-          },
-          { signal: this._openDialogController.signal },
-        );
-      });
-    }
+    // If the content overflows, show/hide the dialog header on scroll.
+    this._dialogContentElement?.addEventListener('scroll', () => this._onContentScroll(), {
+      passive: true,
+      signal: this._openDialogController.signal,
+    });
   }
 
   // Check if the pointerdown event target is triggered on the dialog.
@@ -387,12 +365,12 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
       this._state = 'opened';
       this._didOpen.emit();
       applyInertMechanism(this);
+      this._attachOpenDialogEvents();
       this._setDialogFocus();
       // Use timeout to read label after focused element
       setTimeout(() => this._setAriaLiveRefContent());
       this._focusHandler.trap(this);
       this._dialogContentResizeObserver.observe(this._dialogContentElement);
-      this._attachOpenDialogEvents();
     } else if (event.animationName === 'close' && this._state === 'closing') {
       toggleDatasetEntry(this, 'hideHeader', false);
       this._dialogContentElement.scrollTo(0, 0);
@@ -435,6 +413,29 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
 
   // Set focus on the first focusable element.
   private _setDialogFocus(): void {
+    // Determine whether the dialog header has a visible focus within.
+    Array.from(this._dialogHeaderElement.querySelectorAll('sbb-button'))?.forEach((el) => {
+      el.addEventListener(
+        'focusin',
+        () => {
+          if (this._overflows) {
+            toggleDatasetEntry(
+              this._dialogHeaderElement,
+              'hasVisibleFocus',
+              sbbInputModalityDetector.mostRecentModality === 'keyboard',
+            );
+          }
+        },
+        { signal: this._openDialogController.signal },
+      );
+      el.addEventListener(
+        'blur',
+        () => {
+          toggleDatasetEntry(this._dialogHeaderElement, 'hasVisibleFocus', false);
+        },
+        { signal: this._openDialogController.signal },
+      );
+    });
     const firstFocusable = this.shadowRoot!.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement;
     setModalityOnNextFocus(firstFocusable);
     firstFocusable.focus();
