@@ -25,9 +25,8 @@
   --sbb-dialog-backdrop-pointer-events: none;
   --sbb-dialog-backdrop-color: transparent;
   --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s) 0;
-  --sbb-dialog-header-transition-duration: var(--sbb-animation-duration-6x);
   --sbb-dialog-header-margin-block-start: 0;
-  --sbb-dialog-content-transition: transform var(--sbb-dialog-header-transition-duration)
+  --sbb-dialog-content-transition: transform var(--sbb-dialog-animation-duration)
     var(--sbb-dialog-animation-easing);
   --sbb-dialog-footer-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
 
@@ -91,16 +90,7 @@
 
 :host([data-hide-header]) {
   // Hide transition
-  --sbb-dialog-content-transition: transform var(--sbb-dialog-header-transition-duration)
-    var(--sbb-dialog-animation-easing);
   --sbb-dialog-header-margin-block-start: calc(var(--sbb-dialog-header-height) * -1);
-}
-
-:host(:not([data-hide-header])) {
-  // Show transition
-  --sbb-dialog-content-transition: transform var(--sbb-dialog-header-transition-duration)
-      var(--sbb-dialog-animation-easing),
-    margin 0s var(--sbb-dialog-header-transition-duration);
 }
 
 :host([data-fullscreen]) {
@@ -247,7 +237,7 @@
     transform: translateY(var(--sbb-dialog-header-margin-block-start));
     transition: {
       property: box-shadow, transform;
-      duration: var(--sbb-dialog-header-transition-duration);
+      duration: var(--sbb-dialog-animation-duration);
       timing-function: var(--sbb-dialog-animation-easing);
     }
   }
@@ -294,7 +284,7 @@
   padding-block: var(--sbb-dialog-padding-block);
   overflow: auto;
   transform: translateY(var(--sbb-dialog-header-margin-block-start));
-  margin-block: 0 var(--sbb-dialog-header-margin-block-start);
+  margin-block: 0 calc(var(--sbb-dialog-header-height) * -1);
   transition: var(--sbb-dialog-content-transition);
   z-index: -1;
 
@@ -304,11 +294,13 @@
     height: 100vh;
   }
 
+  // In order to improve the header transition on mobile (especially iOS) we use
+  // a combination of the transform and margin properties on the smaller breakpoints,
+  // while on desktop we use just the margin-block for a better transition of the visible scrollbar.
   @include sbb.mq($from: medium) {
     transform: unset;
     margin-block: var(--sbb-dialog-header-margin-block-start) 0;
-    transition: margin var(--sbb-dialog-header-transition-duration)
-      var(--sbb-dialog-animation-easing);
+    transition: margin var(--sbb-dialog-animation-duration) var(--sbb-dialog-animation-easing);
   }
 }
 

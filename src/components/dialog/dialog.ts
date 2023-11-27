@@ -114,15 +114,12 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   private get _state(): SbbOverlayState {
     return this.dataset?.state as SbbOverlayState;
   }
-
+  
   private get _hasTitle(): boolean {
     return !!this.titleContent || this._namedSlots.slots.has('title');
   }
 
-  private _dialogContentResizeObserver = new AgnosticResizeObserver(() =>
-    this._setOverflowAttribute(),
-  );
-
+  private _dialogContentResizeObserver = new AgnosticResizeObserver(() => this._onContentResize());
   private _ariaLiveRef!: HTMLElement;
   private _ariaLiveRefToggle = false;
 
@@ -146,6 +143,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
 
   private _dialog!: HTMLDivElement;
   private _dialogHeaderElement!: HTMLElement;
+  private _dialogHeaderHeight!: number;
   private _dialogContentElement!: HTMLElement;
   private _dialogCloseElement?: HTMLElement;
   private _dialogController!: AbortController;
@@ -182,7 +180,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
 
     // Add this dialog to the global collection
     dialogRefs.push(this as SbbDialogElement);
-    this._setOverflowAttribute();
+    this._onContentResize();
 
     // Disable scrolling for content below the dialog
     this._scrollHandler.disableScroll();
@@ -224,13 +222,12 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
 
   private _onContentScroll(): void {
     const hasVisibleHeader = this.dataset.hideHeader === undefined;
-    const dialogHeaderHeight = this._dialogHeaderElement.clientHeight;
 
     // Check whether hiding the header would make the scrollbar disappear
     // and prevent the hiding animation if so.
     if (
       hasVisibleHeader &&
-      this._dialogContentElement.clientHeight + dialogHeaderHeight >=
+      this._dialogContentElement.clientHeight + this._dialogHeaderHeight >=
         this._dialogContentElement.scrollHeight
     ) {
       return;
@@ -246,9 +243,6 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     // Check whether is scrolling down or up.
     if (currentScroll > 0 && this._lastScroll < currentScroll) {
       // Scrolling down
-      if (hasVisibleHeader) {
-        this.style.setProperty('--sbb-dialog-header-height', `${dialogHeaderHeight}px`);
-      }
       toggleDatasetEntry(this, 'hideHeader', true);
     } else {
       // Scrolling up
@@ -441,9 +435,20 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     firstFocusable.focus();
   }
 
-  private _setOverflowAttribute(): void {
+  private _setDialogHeaderHeight(): void {
+    this._dialogHeaderHeight = this._dialogHeaderElement.clientHeight;
+    this.style.setProperty(
+      '--sbb-dialog-header-height',
+      `${this._dialogHeaderElement.clientHeight}px`,
+    );
+  }
+
+  private _onContentResize(): void {
+    this._setDialogHeaderHeight();
+    // Check whether the content overflows and set the `overflows` attribute.
     this._overflows =
       this._dialogContentElement.scrollHeight > this._dialogContentElement.clientHeight;
+    // If the content doesn't overflow anymore after resizing and the header is currently hidden, shows the header again.
     if (!this._overflows && this.dataset.hideHeader === '') {
       this.toggleAttribute('data-hide-header', false);
     }
