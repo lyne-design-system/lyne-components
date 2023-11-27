@@ -190,6 +190,44 @@ const formStyle: Args = {
   gap: 'var(--sbb-spacing-fixed-4x)',
 };
 
+const textBlockStyle: Args = {
+  position: 'relative',
+  marginBlockStart: '1rem',
+  padding: '1rem',
+  backgroundColor: 'var(--sbb-color-milk-default)',
+  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default)',
+  borderRadius: 'var(--sbb-border-radius-4x)',
+  zIndex: '100',
+};
+
+const textBlock = (): TemplateResult => html`
+  <div style=${styleMap(textBlockStyle)}>
+    J.R.R. Tolkien, the mastermind behind Middle-earth's enchanting world, was born on January 3,
+    1892. With "The Hobbit" and "The Lord of the Rings", he pioneered fantasy literature. Tolkien's
+    linguistic brilliance and mythic passion converge in a literary legacy that continues to
+    transport readers to magical realms.
+  </div>
+`;
+
+const textBlockStyle: Args = {
+  position: 'relative',
+  marginBlockStart: '1rem',
+  padding: '1rem',
+  backgroundColor: 'var(--sbb-color-milk-default)',
+  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default)',
+  borderRadius: 'var(--sbb-border-radius-4x)',
+  zIndex: '100',
+};
+
+const textBlock = (): TemplateResult => html`
+  <div style=${styleMap(textBlockStyle)}>
+    J.R.R. Tolkien, the mastermind behind Middle-earth's enchanting world, was born on January 3,
+    1892. With "The Hobbit" and "The Lord of the Rings", he pioneered fantasy literature. Tolkien's
+    linguistic brilliance and mythic passion converge in a literary legacy that continues to
+    transport readers to magical realms.
+  </div>
+`;
+
 const DefaultTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('my-dialog-1')}
   <sbb-dialog data-testid="dialog" id="my-dialog-1" ${sbbSpread(args)}>
@@ -233,7 +271,7 @@ const LongContentTemplate = (args: Args): TemplateResult => html`
     He stood still enchanted, while the sweet syllables of the elvish song fell like clear jewels of
     blended word and melody. 'It is a song to Elbereth,'' said Bilbo. 'They will sing that, and
     other songs of the Blessed Realm, many times tonight. Come on!’ —J.R.R. Tolkien, The Lord of the
-    Rings: The Fellowship of the Ring, “Many Meetings” ${actionGroup(args.negative)}
+    Rings: The Fellowship of the Ring, “Many Meetings” ${actionGroup(args.negative)} ${textBlock()}
   </sbb-dialog>
 `;
 

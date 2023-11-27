@@ -415,3 +415,59 @@ describe('sbb-dialog', () => {
     expect(ariaLiveRef.textContent!.trim()).to.be.equal(`${i18nDialog.en}, Special Dialog`);
   });
 });
+
+describe('sbb-dialog with long content', () => {
+  let element: SbbDialog;
+
+  beforeEach(async () => {
+    await setViewport({ width: 900, height: 300 });
+    element = await fixture(html`
+      <sbb-dialog id="my-dialog-1" title-content="Title" disable-animation>
+        Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his
+        face like summer-light upon the trees. Near him sat the Lady Arwen. To his surprise Frodo
+        saw that Aragorn stood beside her; his dark cloak was thrown back, and he seemed to be clad
+        in elven-mail, and a star shone on his breast. They spoke together, and then suddenly it
+        seemed to Frodo that Arwen turned towards him, and the light of her eyes fell on him from
+        afar and pierced his heart. He stood still enchanted, while the sweet syllables of the
+        elvish song fell like clear jewels of blended word and melody. 'It is a song to Elbereth,''
+        said Bilbo. 'They will sing that, and other songs of the Blessed Realm, many times tonight.
+        Come on!’ —J.R.R. Tolkien, The Lord of the Rings: The Fellowship of the Ring, “Many
+        Meetings” J.R.R. Tolkien, the mastermind behind Middle-earth's enchanting world, was born on
+        January 3, 1892. With "The Hobbit" and "The Lord of the Rings", he pioneered fantasy
+        literature. Tolkien's linguistic brilliance and mythic passion converge in a literary legacy
+        that continues to transport readers to magical realms.
+        <div slot="action-group">Action group</div>
+      </sbb-dialog>
+    `);
+  });
+
+  it('renders', () => {
+    assert.instanceOf(element, SbbDialog);
+  });
+
+  it('sets the data-overflows attribute', async () => {
+    await openDialog(element);
+
+    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.have.attribute('data-overflows', '');
+  });
+
+  it('shows/hides the dialog header on scroll', async () => {
+    await openDialog(element);
+    expect(element).not.to.have.attribute('data-hide-header');
+
+    const content = element.shadowRoot.querySelector('.sbb-dialog__content');
+
+    // Scroll down.
+    content.scrollTo(0, 50);
+    await waitForCondition(() => element.hasAttribute('data-hide-header'));
+
+    expect(element).to.have.attribute('data-hide-header');
+
+    // Scroll up.
+    content.scrollTo(0, 0);
+    await waitForCondition(() => !element.hasAttribute('data-hide-header'));
+
+    expect(element).not.to.have.attribute('data-hide-header');
+  });
+});
