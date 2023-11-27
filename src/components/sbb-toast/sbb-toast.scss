@@ -17,6 +17,7 @@
   --sbb-toast-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-toast-border-radius: var(--sbb-border-radius-4x);
   --sbb-toast-container-display: flex;
+  --sbb-toast-container-position: fixed;
   --sbb-toast-horizontal-position: initial;
   --sbb-toast-vertical-position: initial;
 }
@@ -64,7 +65,7 @@
 }
 
 .sbb-toast__overlay-container {
-  position: fixed;
+  position: var(--sbb-toast-container-position);
   pointer-events: none;
   inset: 0;
   display: var(--sbb-toast-container-display);
