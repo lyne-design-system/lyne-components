@@ -415,7 +415,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
           if (this._overflows) {
             toggleDatasetEntry(
               this._dialogHeaderElement,
-              'hasVisibleFocus',
+              'hasVisibleFocusWithin',
               sbbInputModalityDetector.mostRecentModality === 'keyboard',
             );
           }
@@ -425,7 +425,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
       el.addEventListener(
         'blur',
         () => {
-          toggleDatasetEntry(this._dialogHeaderElement, 'hasVisibleFocus', false);
+          toggleDatasetEntry(this._dialogHeaderElement, 'hasVisibleFocusWithin', false);
         },
         { signal: this._openDialogController.signal },
       );
