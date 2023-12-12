@@ -295,9 +295,9 @@
   }
 
   // In order to improve the header transition on mobile (especially iOS) we use
-  // a combination of the transform and margin properties on the smaller breakpoints,
+  // a combination of the transform and margin properties on touch devices,
   // while on desktop we use just the margin-block for a better transition of the visible scrollbar.
-  @include sbb.mq($from: medium) {
+  @include sbb.hover-mq($hover: true) {
     transform: unset;
     margin-block: var(--sbb-dialog-header-margin-block-start) 0;
     transition: margin var(--sbb-dialog-animation-duration) var(--sbb-dialog-animation-easing);

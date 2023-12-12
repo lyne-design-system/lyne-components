@@ -197,7 +197,6 @@ const textBlockStyle: Args = {
   backgroundColor: 'var(--sbb-color-milk-default)',
   border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default)',
   borderRadius: 'var(--sbb-border-radius-4x)',
-  zIndex: '100',
 };
 
 const textBlock = (): TemplateResult => html`

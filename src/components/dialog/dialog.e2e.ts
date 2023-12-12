@@ -417,7 +417,7 @@ describe('sbb-dialog', () => {
 });
 
 describe('sbb-dialog with long content', () => {
-  let element: SbbDialog;
+  let element: SbbDialogElement;
 
   beforeEach(async () => {
     await setViewport({ width: 900, height: 300 });
@@ -442,7 +442,7 @@ describe('sbb-dialog with long content', () => {
   });
 
   it('renders', () => {
-    assert.instanceOf(element, SbbDialog);
+    assert.instanceOf(element, SbbDialogElement);
   });
 
   it('sets the data-overflows attribute', async () => {
