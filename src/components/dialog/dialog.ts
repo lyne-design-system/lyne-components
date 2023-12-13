@@ -1,7 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import {
@@ -141,7 +140,6 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     SbbDialogElement.events.backClick,
   );
 
-  private _dialog!: HTMLDivElement;
   private _dialogHeaderElement!: HTMLElement;
   private _dialogHeaderHeight!: number;
   private _dialogContentElement!: HTMLElement;
@@ -168,10 +166,14 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
    * Opens the dialog element.
    */
   public open(): void {
-    if (this._state !== 'closed' || !this._dialog) {
+    if (this._state !== 'closed') {
       return;
     }
     this._lastFocusedElement = document.activeElement as HTMLElement;
+
+    // Initialize dialog elements
+    this._dialogHeaderElement = this.shadowRoot.querySelector('.sbb-dialog__header');
+    this._dialogContentElement = this.shadowRoot.querySelector('.sbb-dialog__content');
 
     if (!this._willOpen.emit()) {
       return;
@@ -485,10 +487,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     /* eslint-enable lit/binding-positions */
 
     const dialogHeader = html`
-      <div
-        class="sbb-dialog__header"
-        ${ref((dialogHeaderrRef) => (this._dialogHeaderElement = dialogHeaderrRef as HTMLElement))}
-      >
+      <div class="sbb-dialog__header">
         ${this.titleBackButton ? backButton : nothing}
         <sbb-title
           class="sbb-dialog__title"
@@ -511,20 +510,13 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
           @animationend=${(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
           class="sbb-dialog"
           id=${this._dialogId}
-          ${ref((dialogRef?: Element) => (this._dialog = dialogRef as HTMLDivElement))}
         >
           <div
             @click=${(event: Event) => this._closeOnSbbDialogCloseClick(event)}
             class="sbb-dialog__wrapper"
           >
             ${dialogHeader}
-            <div
-              class="sbb-dialog__content"
-              ${ref(
-                (dialogContent?: Element) =>
-                  (this._dialogContentElement = dialogContent as HTMLElement),
-              )}
-            >
+            <div class="sbb-dialog__content">
               <slot></slot>
             </div>
             <div class="sbb-dialog__footer">
