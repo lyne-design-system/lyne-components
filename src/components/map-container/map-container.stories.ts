@@ -12,6 +12,9 @@ import '../icon';
 import '../title';
 import '../header';
 
+// FIXME remove before merge on main
+import '../datepicker';
+
 const hideScrollUpButton: InputType = {
   control: {
     type: 'boolean',
@@ -30,9 +33,11 @@ const Template = (args): TemplateResult => html`
   <sbb-map-container ${sbbSpread(args)}>
     <div style=${styleMap({ padding: 'var(--sbb-spacing-fixed-4x)' })}>
       <sbb-form-field style=${styleMap({ width: '100%' })}>
-        <sbb-icon slot="prefix" name="magnifying-glass-small"></sbb-icon>
-        <input minlength=${2} name="keyword" autocomplete="off" placeholder="Search" />
-        <sbb-form-field-clear></sbb-form-field-clear>
+        <!-- FIXME remove before merge on main -->
+        <input />
+        <sbb-datepicker wide></sbb-datepicker>
+        <sbb-datepicker-toggle></sbb-datepicker-toggle>
+        <!-- -->
       </sbb-form-field>
       <sbb-title level="4">Operations & Disruptions</sbb-title>
       ${[...Array(10).keys()].map(
