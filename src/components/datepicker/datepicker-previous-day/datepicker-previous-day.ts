@@ -62,7 +62,7 @@ export class SbbDatepickerPreviousDayElement extends LitElement implements Butto
     if (!this._datePickerElement || isValidAttribute(this, 'data-disabled')) {
       return;
     }
-    const startingDate: Date = this._datePickerElement.getValueAsDate() ?? this._now();
+    const startingDate: Date = this._datePickerElement.valueAsDate ?? this._now();
     const date: Date = findPreviousAvailableDate(
       startingDate,
       this._datePickerElement.dateFilter,
@@ -70,7 +70,7 @@ export class SbbDatepickerPreviousDayElement extends LitElement implements Butto
       this._min,
     );
     if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
-      this._datePickerElement.setValueAsDate(date);
+      this._datePickerElement.valueAsDate = date;
     }
   }
 
@@ -162,7 +162,7 @@ export class SbbDatepickerPreviousDayElement extends LitElement implements Butto
   }
 
   private _setDisabledState(datepicker: SbbDatepickerElement): void {
-    const pickerValueAsDate: Date = datepicker?.getValueAsDate();
+    const pickerValueAsDate: Date = datepicker?.valueAsDate;
 
     if (!pickerValueAsDate) {
       this._disabled = true;
@@ -196,7 +196,7 @@ export class SbbDatepickerPreviousDayElement extends LitElement implements Butto
   }
 
   private _setAriaLabel(): void {
-    const currentDate = this._datePickerElement?.getValueAsDate?.();
+    const currentDate = this._datePickerElement?.valueAsDate;
 
     if (!currentDate || !this._dateAdapter.isValid(currentDate)) {
       this.setAttribute('aria-label', i18nPreviousDay[this._language.current]);

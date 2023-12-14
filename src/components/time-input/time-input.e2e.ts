@@ -201,13 +201,13 @@ describe('sbb-time-input', () => {
     const blurSpy = new EventSpy('blur', input);
     const date = new Date('2023-01-01T15:00:00');
 
-    element.setValueAsDate(date);
+    element.valueAsDate = date;
     await waitForLitRender(element);
 
     expect(input.value).to.be.equal('15:00');
     expect(blurSpy.count).to.be.equal(1);
 
-    const dateCalculated = element.getValueAsDate().getTime();
+    const dateCalculated = element.valueAsDate.getTime();
     expect(new Date(dateCalculated).getHours()).to.be.equal(date.getHours());
     expect(new Date(dateCalculated).getMinutes()).to.be.equal(date.getMinutes());
   });
@@ -215,11 +215,11 @@ describe('sbb-time-input', () => {
   it('should set and get value as a date (string)', async () => {
     const date = new Date('2023-01-01T15:00:00');
 
-    element.setValueAsDate(date.toISOString());
+    element.valueAsDate = date.toISOString();
     await waitForLitRender(element);
     expect(input.value).to.be.equal('15:00');
 
-    const dateCalculated = element.getValueAsDate().getTime();
+    const dateCalculated = element.valueAsDate.getTime();
     expect(new Date(dateCalculated).getHours()).to.be.equal(date.getHours());
     expect(new Date(dateCalculated).getMinutes()).to.be.equal(date.getMinutes());
   });
@@ -234,7 +234,7 @@ describe('sbb-time-input', () => {
     element = root.querySelector('sbb-time-input');
     input = root.querySelector('input');
 
-    element.setValueAsDate('2023-01-01T15:00:00');
+    element.valueAsDate = '2023-01-01T15:00:00';
     await waitForLitRender(element);
     expect(input.value).to.be.equal('15:00');
   });
@@ -249,7 +249,7 @@ describe('sbb-time-input', () => {
     element = root.querySelector('sbb-time-input');
     input = root.querySelector('input');
     element.input = input;
-    element.setValueAsDate('2023-01-01T15:00:00');
+    element.valueAsDate = '2023-01-01T15:00:00';
     await waitForLitRender(element);
 
     expect(input.value).to.be.equal('15:00');
@@ -266,7 +266,7 @@ describe('sbb-time-input', () => {
     input = root.querySelector('input');
 
     element.input = 'input-2';
-    element.setValueAsDate('2023-01-01T15:00:00');
+    element.valueAsDate = '2023-01-01T15:00:00';
     await waitForLitRender(element);
 
     expect(input.value).to.be.equal('15:00');

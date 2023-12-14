@@ -137,7 +137,7 @@ export class SbbDatepickerToggleElement extends LitElement {
 
   private _datePickerChanged(event: Event): void {
     this._datePickerElement = event.target as SbbDatepickerElement;
-    this._calendarElement.selectedDate = this._datePickerElement.getValueAsDate();
+    this._calendarElement.selectedDate = this._datePickerElement.valueAsDate;
   }
 
   private _assignCalendar(calendar: SbbCalendarElement): void {
@@ -147,12 +147,12 @@ export class SbbDatepickerToggleElement extends LitElement {
     this._calendarElement = calendar;
     if (
       !this._datePickerElement ||
-      !this._datePickerElement.getValueAsDate ||
+      !this._datePickerElement.valueAsDate ||
       !this._calendarElement?.resetPosition
     ) {
       return;
     }
-    this._calendarElement.selectedDate = this._datePickerElement.getValueAsDate();
+    this._calendarElement.selectedDate = this._datePickerElement.valueAsDate;
     this._configureCalendar(this._calendarElement, this._datePickerElement);
     this._calendarElement.resetPosition();
   }
@@ -209,7 +209,7 @@ export class SbbDatepickerToggleElement extends LitElement {
           @dateSelected=${(d: CustomEvent<Date>) => {
             const newDate = new Date(d.detail);
             this._calendarElement.selectedDate = newDate;
-            this._datePickerElement.setValueAsDate(newDate);
+            this._datePickerElement.valueAsDate = newDate;
           }}
           ${ref((calendar: SbbCalendarElement) => this._assignCalendar(calendar))}
         ></sbb-calendar>

@@ -312,9 +312,9 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   userEvent.click(toggle);
 };
 
-const changeEventHandler = async (event): Promise<void> => {
+const changeEventHandler = (event): void => {
   const div = document.createElement('div');
-  div.innerText = `valueAsDate is: ${await event.target.getValueAsDate()}.`;
+  div.innerText = `valueAsDate is: ${event.target.valueAsDate}.`;
   document.getElementById('container-value')?.append(div);
 };
 

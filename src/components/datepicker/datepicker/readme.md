@@ -3,7 +3,7 @@ to display the typed value as a formatted date (default: `dd.MM.yyyy`).
 
 The component allows the insertion of up to 10 numbers, possibly with separators like `.`, `-`, ` `, `,` or `/`,
 then automatically formats the value as date and displays it.
-It also exposes methods to get / set the value formatted as Date.
+It also allows to get / set the value formatted as Date.
 
 The component and the native `input` can be connected using the `input` property,
 which accepts the id of the native input, or directly its reference.
@@ -48,11 +48,11 @@ If the input's value changes, it is formatted then a `change` event is emitted w
 If it's an invalid date, the `data-sbb-invalid` attribute is added to the input.
 The component also listens for changes in its two properties, `wide` and `dateFilter`, and emits a `datePickerUpdated` event when changed.
 
-Consumers can listen to the native `change` and `input` events on the `sbb-datepicker` component to intercept date changes,
-the current value can be read from the async method `event.target.getValueAsDate()`.
-To set the value programmatically, it's recommended to use the `setValueAsDate()` method of the `sbb-datepicker`.
+Consumers can listen to the native `change` and `input` events on the `sbb-datepicker` component to intercept date changes.
+The `valueAsDate` property on the `sbb-datepicker` can be used to read the current value
+(e.g. from `event.target.valueAsDate`) or to set the value programmatically.
 
-Each time the user changes the date by using the calendar, or the next and previous day arrow, or by using the `setValueAsDate()` method,
+Each time the user changes the date by using the calendar, or the next and previous day arrow, or by using the `valueAsDate` setter,
 a `blur` event is fired on the input to ensure compatibility with any framework that relies on that event to update the current state.
 
 ## Custom date formats
@@ -104,20 +104,14 @@ This is helpful if you need a specific state of the component.
 
 ## Properties
 
-| Name         | Attribute     | Privacy | Type                                                | Default | Description                                                       |
-| ------------ | ------------- | ------- | --------------------------------------------------- | ------- | ----------------------------------------------------------------- |
-| `wide`       | `wide`        | public  | `boolean`                                           | `false` | If set to true, two months are displayed.                         |
-| `dateFilter` | `date-filter` | public  | `(date: Date \| null) => boolean`                   |         | A function used to filter out dates.                              |
-| `dateParser` | `date-parser` | public  | `(value: string) => Date \| undefined \| undefined` |         | A function used to parse string value into dates.                 |
-| `format`     | `format`      | public  | `(date: Date) => string \| undefined`               |         | A function used to format dates into the preferred string format. |
-| `input`      | `input`       | public  | `string \| HTMLElement \| undefined`                |         | Reference of the native input connected to the datepicker.        |
-
-## Methods
-
-| Name             | Privacy | Description                                           | Parameters          | Return | Inherited From |
-| ---------------- | ------- | ----------------------------------------------------- | ------------------- | ------ | -------------- |
-| `getValueAsDate` | public  | Gets the input value with the correct date format.    |                     | `Date` |                |
-| `setValueAsDate` | public  | Set the input value to the correctly formatted value. | `date: SbbDateLike` | `void` |                |
+| Name          | Attribute     | Privacy | Type                                                | Default | Description                                                       |
+| ------------- | ------------- | ------- | --------------------------------------------------- | ------- | ----------------------------------------------------------------- |
+| `wide`        | `wide`        | public  | `boolean`                                           | `false` | If set to true, two months are displayed.                         |
+| `dateFilter`  | `date-filter` | public  | `(date: Date \| null) => boolean`                   |         | A function used to filter out dates.                              |
+| `dateParser`  | `date-parser` | public  | `(value: string) => Date \| undefined \| undefined` |         | A function used to parse string value into dates.                 |
+| `format`      | `format`      | public  | `(date: Date) => string \| undefined`               |         | A function used to format dates into the preferred string format. |
+| `input`       | `input`       | public  | `string \| HTMLElement \| undefined`                |         | Reference of the native input connected to the datepicker.        |
+| `valueAsDate` | -             | public  | `Date \| undefined`                                 |         | Formats the current input's value as date.                        |
 
 ## Events
 
