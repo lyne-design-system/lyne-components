@@ -15,7 +15,7 @@ import {
   SbbNegativeMixin,
 } from '../core/common-behaviors';
 import { ScrollHandler, isValidAttribute, hostContext, setAttribute } from '../core/dom';
-import { EventEmitter } from '../core/eventing';
+import { EventEmitter, throttle} from '../core/eventing';
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
 import type { SbbOverlayState } from '../core/overlay';
@@ -118,7 +118,9 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     return !!this.titleContent || this._namedSlots.slots.has('title');
   }
 
-  private _dialogContentResizeObserver = new AgnosticResizeObserver(() => this._onContentResize());
+  private _dialogContentResizeObserver = new AgnosticResizeObserver(
+    throttle(() => this._onContentResize(), 150),
+  );
   private _ariaLiveRef!: HTMLElement;
   private _ariaLiveRefToggle = false;
 
@@ -182,7 +184,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
 
     // Add this dialog to the global collection
     dialogRefs.push(this as SbbDialogElement);
-    this._onContentResize();
+    this._dialogContentResizeObserver.observe(this._dialogContentElement);
 
     // Disable scrolling for content below the dialog
     this._scrollHandler.disableScroll();
@@ -366,7 +368,6 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
       // Use timeout to read label after focused element
       setTimeout(() => this._setAriaLiveRefContent());
       this._focusHandler.trap(this);
-      this._dialogContentResizeObserver.observe(this._dialogContentElement);
     } else if (event.animationName === 'close' && this._state === 'closing') {
       toggleDatasetEntry(this, 'hideHeader', false);
       this._dialogContentElement.scrollTo(0, 0);
