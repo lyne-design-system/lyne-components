@@ -118,8 +118,12 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     return !!this.titleContent || this._namedSlots.slots.has('title');
   }
 
-  private _dialogContentResizeObserver = new AgnosticResizeObserver(
-    throttle(() => this._onContentResize(), 150),
+  // We use a timeout as a workaround to the "ResizeObserver loop completed with undelivered notifications" error.
+  // For more details:
+  // - https://github.com/WICG/resize-observer/issues/38#issuecomment-422126006
+  // - https://github.com/juggle/resize-observer/issues/103#issuecomment-1711148285
+  private _dialogContentResizeObserver = new AgnosticResizeObserver(() =>
+    setTimeout(() => this._onContentResize()),
   );
   private _ariaLiveRef!: HTMLElement;
   private _ariaLiveRefToggle = false;
