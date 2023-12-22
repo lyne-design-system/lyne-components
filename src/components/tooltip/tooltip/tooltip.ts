@@ -472,6 +472,7 @@ export class SbbTooltipElement extends LitElement {
         <div
           @animationend=${(event: AnimationEvent) => this._onTooltipAnimationEnd(event)}
           class="sbb-tooltip"
+          popover="manual"
           ${ref((el) => (this._overlay = el as HTMLDivElement))}
         >
           <div

@@ -11,6 +11,10 @@ import '../form-field';
 import '../icon';
 import '../title';
 import '../header';
+import '../menu';
+
+// FIXME remove before merge on main
+import '../datepicker';
 
 const hideScrollUpButton: InputType = {
   control: {
@@ -30,10 +34,15 @@ const Template = (args): TemplateResult => html`
   <sbb-map-container ${sbbSpread(args)}>
     <div style=${styleMap({ padding: 'var(--sbb-spacing-fixed-4x)' })}>
       <sbb-form-field style=${styleMap({ width: '100%' })}>
-        <sbb-icon slot="prefix" name="magnifying-glass-small"></sbb-icon>
-        <input minlength=${2} name="keyword" autocomplete="off" placeholder="Search" />
-        <sbb-form-field-clear></sbb-form-field-clear>
+        <!-- FIXME remove before merge on main -->
+        <input />
+        <sbb-datepicker wide></sbb-datepicker>
+        <sbb-datepicker-toggle></sbb-datepicker-toggle>
+        <!-- -->
       </sbb-form-field>
+      <sbb-button data-testid="menu-trigger" id="menu-trigger-1" size="m">
+        Menu trigger
+      </sbb-button>
       <sbb-title level="4">Operations & Disruptions</sbb-title>
       ${[...Array(10).keys()].map(
         (value) => html`
@@ -68,6 +77,22 @@ const Template = (args): TemplateResult => html`
       </div>
     </div>
   </sbb-map-container>
+
+  <sbb-menu
+    trigger="menu-trigger-1"
+    data-testid="menu"
+    ?disable-animation=${args['disable-animation']}
+  >
+    <sbb-menu-action icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
+      Zio peppe zio peppe zio peppe zio peppe zio peppe
+    </sbb-menu-action>
+    <sbb-menu-action icon-name="pen-small" amount="16" ?disabled=${args.disabled}>
+      Edit
+    </sbb-menu-action>
+    <sbb-menu-action icon-name="swisspass-small" amount=${args.amount}> Details </sbb-menu-action>
+    <sbb-divider></sbb-divider>
+    <sbb-menu-action icon-name="cross-small">Cancel</sbb-menu-action>
+  </sbb-menu>
 `;
 
 export const MapContainer: StoryObj = {
