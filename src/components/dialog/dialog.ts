@@ -15,7 +15,7 @@ import {
   SbbNegativeMixin,
 } from '../core/common-behaviors';
 import { ScrollHandler, isValidAttribute, hostContext, setAttribute } from '../core/dom';
-import { EventEmitter, throttle} from '../core/eventing';
+import { EventEmitter } from '../core/eventing';
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
 import type { SbbOverlayState } from '../core/overlay';
@@ -113,7 +113,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   private get _state(): SbbOverlayState {
     return this.dataset?.state as SbbOverlayState;
   }
-  
+
   private get _hasTitle(): boolean {
     return !!this.titleContent || this._namedSlots.slots.has('title');
   }
