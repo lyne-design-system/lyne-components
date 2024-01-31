@@ -78,17 +78,13 @@ It's possible to display the component in `negative` variant using the self-name
 
 ## Properties
 
-| Name                      | Attribute                   | Privacy | Type                         | Default   | Description                                                                     |
-| ------------------------- | --------------------------- | ------- | ---------------------------- | --------- | ------------------------------------------------------------------------------- |
-| `titleContent`            | `title-content`             | public  | `string \| undefined`        |           | Dialog title.                                                                   |
-| `titleLevel`              | `title-level`               | public  | `SbbTitleLevel`              | `'1'`     | Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1. |
-| `titleBackButton`         | `title-back-button`         | public  | `boolean`                    | `false`   | Whether a back button is displayed next to the title.                           |
-| `backdropAction`          | `backdrop-action`           | public  | `'close' \| 'none'`          | `'close'` | Backdrop click action.                                                          |
-| `accessibilityLabel`      | `accessibility-label`       | public  | `string \| undefined`        |           | This will be forwarded as aria-label to the relevant nested element.            |
-| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined` |           | This will be forwarded as aria-label to the close button element.               |
-| `accessibilityBackLabel`  | `accessibility-back-label`  | public  | `\| string     \| undefined` |           | This will be forwarded as aria-label to the back button element.                |
-| `disableAnimation`        | `disable-animation`         | public  | `boolean`                    | `false`   | Whether the animation is enabled.                                               |
-| `negative`                | `negative`                  | public  | `boolean`                    | `false`   | Negative coloring variant flag.                                                 |
+| Name                 | Attribute             | Privacy | Type                  | Default   | Description                                                          |
+| -------------------- | --------------------- | ------- | --------------------- | --------- | -------------------------------------------------------------------- |
+| `titleContent`       | `title-content`       | public  | `string`              |           | Dialog title.                                                        |
+| `backdropAction`     | `backdrop-action`     | public  | `'close' \| 'none'`   | `'close'` | Backdrop click action.                                               |
+| `negative`           | `negative`            | public  | `boolean`             | `false`   | Negative coloring variant flag.                                      |
+| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined` |           | This will be forwarded as aria-label to the relevant nested element. |
+| `disableAnimation`   | `disable-animation`   | public  | `boolean`             | `false`   | Whether the animation is enabled.                                    |
 
 ## Methods
 

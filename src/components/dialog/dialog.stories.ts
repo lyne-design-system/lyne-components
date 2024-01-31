@@ -29,6 +29,8 @@ import '../title';
 import '../form-field';
 import '../image';
 import '../action-group';
+import '../dialog-title';
+import '../dialog-content';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
@@ -48,6 +50,9 @@ const titleContent: InputType = {
   control: {
     type: 'text',
   },
+  table: {
+    category: 'Header',
+  },
 };
 
 const titleLevel: InputType = {
@@ -55,11 +60,17 @@ const titleLevel: InputType = {
     type: 'inline-radio',
   },
   options: [1, 2, 3, 4, 5, 6],
+  table: {
+    category: 'Header',
+  },
 };
 
 const titleBackButton: InputType = {
   control: {
     type: 'boolean',
+  },
+  table: {
+    category: 'Header',
   },
 };
 
@@ -208,6 +219,30 @@ const textBlock = (): TemplateResult => html`
   </div>
 `;
 
+const dialogHeader = (args): TemplateResult => html`
+  <sbb-dialog-title
+    title-level=${args.titleLevel}
+    ?title-back-button=${args.titleBackButton}
+    accessibility-close-label=${args.accessibilityCloseLabel}
+    accessibility-back-label=${args.accessibilityBackLabel}
+    ?negative=${args.negative}
+    hide-on-scroll="small"
+    >Title</sbb-dialog-title
+  >
+`;
+
+const dialogHeader = (args: Args): TemplateResult => html`
+  <sbb-dialog-title
+    title-level=${args.titleLevel}
+    ?title-back-button=${args.titleBackButton}
+    accessibility-close-label=${args.accessibilityCloseLabel}
+    accessibility-back-label=${args.accessibilityBackLabel}
+    ?negative=${args.negative}
+    hide-on-scroll="small"
+    >Title</sbb-dialog-title
+  >
+`;
+
 const textBlockStyle: Args = {
   position: 'relative',
   marginBlockStart: '1rem',
@@ -230,7 +265,10 @@ const textBlock = (): TemplateResult => html`
 const DefaultTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('my-dialog-1')}
   <sbb-dialog data-testid="dialog" id="my-dialog-1" ${sbbSpread(args)}>
-    <p id="dialog-content-1" style=${styleMap({ margin: '0' })}>Dialog content</p>
+    ${dialogHeader(args)}
+    <sbb-dialog-content>
+      <p id="dialog-content-1" style=${styleMap({ margin: '0' })}>Dialog content</p>
+    </sbb-dialog-content>
     ${actionGroup(args.negative)}
   </sbb-dialog>
 `;
@@ -255,22 +293,26 @@ const SlottedTitleTemplate = (args: Args): TemplateResult => html`
 const LongContentTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('my-dialog-3')}
   <sbb-dialog data-testid="dialog" id="my-dialog-3" ${sbbSpread(args)}>
-    Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
-    like summer-light upon the trees. Near him sat the Lady Arwen. To his surprise Frodo saw that
-    Aragorn stood beside her; his dark cloak was thrown back, and he seemed to be clad in
-    elven-mail, and a star shone on his breast. They spoke together, and then suddenly it seemed to
-    Frodo that Arwen turned towards him, and the light of her eyes fell on him from afar and pierced
-    his heart.
-    <sbb-image
-      style=${styleMap({ 'margin-block': '1rem' })}
-      image-src=${sampleImages[1]}
-      alt="Natural landscape"
-      data-chromatic="ignore"
-    ></sbb-image>
-    He stood still enchanted, while the sweet syllables of the elvish song fell like clear jewels of
-    blended word and melody. 'It is a song to Elbereth,'' said Bilbo. 'They will sing that, and
-    other songs of the Blessed Realm, many times tonight. Come on!’ —J.R.R. Tolkien, The Lord of the
-    Rings: The Fellowship of the Ring, “Many Meetings” ${actionGroup(args.negative)} ${textBlock()}
+    ${dialogHeader(args)}
+    <sbb-dialog-content>
+      Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
+      like summer-light upon the trees. Near him sat the Lady Arwen. To his surprise Frodo saw that
+      Aragorn stood beside her; his dark cloak was thrown back, and he seemed to be clad in
+      elven-mail, and a star shone on his breast. They spoke together, and then suddenly it seemed
+      to Frodo that Arwen turned towards him, and the light of her eyes fell on him from afar and
+      pierced his heart.
+      <sbb-image
+        style=${styleMap({ 'margin-block': '1rem' })}
+        image-src=${sampleImages[1]}
+        alt="Natural landscape"
+        data-chromatic="ignore"
+      ></sbb-image>
+      He stood still enchanted, while the sweet syllables of the elvish song fell like clear jewels
+      of blended word and melody. 'It is a song to Elbereth,'' said Bilbo. 'They will sing that, and
+      other songs of the Blessed Realm, many times tonight. Come on!’ —J.R.R. Tolkien, The Lord of
+      the Rings: The Fellowship of the Ring, “Many Meetings” ${textBlock()}
+    </sbb-dialog-content>
+    ${actionGroup(args.negative)}
   </sbb-dialog>
 `;
 
@@ -452,7 +494,7 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-  title: 'components/sbb-dialog',
+  title: 'components/sbb-dialog/sbb-dialog',
 };
 
 export default meta;

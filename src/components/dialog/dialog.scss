@@ -24,8 +24,6 @@
   --sbb-dialog-backdrop-visibility: hidden;
   --sbb-dialog-backdrop-pointer-events: none;
   --sbb-dialog-backdrop-color: transparent;
-  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s) 0;
-  --sbb-dialog-header-margin-block-start: 0;
   --sbb-dialog-content-transition: transform var(--sbb-dialog-animation-duration)
     var(--sbb-dialog-animation-easing);
   --sbb-dialog-footer-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
@@ -114,10 +112,6 @@
 
 :host([data-fullscreen]:not([negative])) {
   --sbb-dialog-background-color: var(--sbb-color-milk);
-}
-
-:host([data-overflows]:not([data-fullscreen])) {
-  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s);
 }
 
 :host([data-overflows]:not([data-fullscreen], [negative])) {
@@ -217,93 +211,6 @@
   }
 }
 
-.sbb-dialog__header {
-  display: flex;
-  pointer-events: none;
-  gap: var(--sbb-spacing-fixed-6x);
-  align-items: start;
-  justify-content: space-between;
-  padding-inline: var(--sbb-dialog-padding-inline);
-  padding-block: var(--sbb-dialog-header-padding-block);
-  background-color: var(--sbb-dialog-background-color);
-  z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-z-index));
-
-  * {
-    pointer-events: all;
-  }
-
-  // Apply show/hide animation unless it has a visible focus within.
-  &:not([data-has-visible-focus-within]:focus-within) {
-    transform: translateY(var(--sbb-dialog-header-margin-block-start));
-    transition: {
-      property: box-shadow, transform;
-      duration: var(--sbb-dialog-animation-duration);
-      timing-function: var(--sbb-dialog-animation-easing);
-    }
-  }
-
-  :host([data-fullscreen]) & {
-    position: fixed;
-    width: var(--sbb-dialog-width);
-    background-color: transparent;
-    padding-inline: var(--sbb-spacing-responsive-xs);
-    padding-block-start: var(--sbb-spacing-responsive-xs);
-  }
-
-  &[data-has-visible-focus-within]:focus-within,
-  :host([data-overflows]:not([data-fullscreen], [negative], [data-hide-header])) & {
-    @include sbb.shadow-level-9-soft;
-  }
-
-  @include sbb.mq($from: medium) {
-    border-radius: var(--sbb-dialog-border-radius) var(--sbb-dialog-border-radius) 0 0;
-  }
-}
-
-.sbb-dialog__title {
-  flex: 1;
-  overflow: hidden;
-  align-self: center;
-
-  // Overwrite sbb-title default margin
-  margin: 0;
-
-  :host(:not([data-slot-names~='title'], [title-content])) & {
-    display: none;
-  }
-}
-
-.sbb-dialog__close {
-  margin-inline-start: auto;
-}
-
-.sbb-dialog__content {
-  @include sbb.scrollbar-rules;
-
-  padding-inline: var(--sbb-dialog-padding-inline);
-  padding-block: var(--sbb-dialog-padding-block);
-  overflow: auto;
-  transform: translateY(var(--sbb-dialog-header-margin-block-start));
-  margin-block: 0 calc(var(--sbb-dialog-header-height) * -1);
-  transition: var(--sbb-dialog-content-transition);
-  z-index: -1;
-
-  :host([data-fullscreen]) & {
-    padding-block-start: var(--sbb-spacing-fixed-20x);
-    padding-inline: var(--sbb-layout-base-offset-responsive);
-    height: 100vh;
-  }
-
-  // In order to improve the header transition on mobile (especially iOS) we use
-  // a combination of the transform and margin properties on touch devices,
-  // while on desktop we use just the margin-block for a better transition of the visible scrollbar.
-  @include sbb.mq($from: medium) {
-    transform: unset;
-    margin-block: var(--sbb-dialog-header-margin-block-start) 0;
-    transition: margin var(--sbb-dialog-animation-duration) var(--sbb-dialog-animation-easing);
-  }
-}
-
 .sbb-dialog__footer {
   padding-inline: var(--sbb-dialog-padding-inline);
   padding-block: var(--sbb-spacing-responsive-s);
@@ -311,7 +218,6 @@
   background-color: var(--sbb-dialog-background-color);
   border-block-start: var(--sbb-dialog-footer-border);
 
-  :host(:not([data-slot-names~='title'], [title-content])) &,
   :host(:not([data-slot-names~='action-group'])) & {
     display: none;
   }

@@ -1,0 +1,78 @@
+@use '../core/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s) 0;
+
+  // --sbb-dialog-header-margin-block-start: 0;
+
+  display: contents;
+}
+
+// :host([data-hide-header]) {
+//   // Hide transition
+//   --sbb-dialog-header-margin-block-start: calc(var(--sbb-dialog-header-height) * -1);
+// }
+
+:host([data-overflows]:not([data-fullscreen])) {
+  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s);
+}
+
+.sbb-title {
+  flex: 1;
+  overflow: hidden;
+  align-self: center;
+
+  // Overwrite sbb-title default margin
+  margin: 0;
+}
+
+.sbb-dialog__header {
+  display: flex;
+  pointer-events: none;
+  gap: var(--sbb-spacing-fixed-6x);
+  align-items: start;
+  justify-content: space-between;
+  padding-inline: var(--sbb-dialog-padding-inline);
+  padding-block: var(--sbb-dialog-header-padding-block);
+  background-color: var(--sbb-dialog-background-color);
+  z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-z-index));
+
+  * {
+    pointer-events: all;
+  }
+
+  // Apply show/hide animation unless it has a visible focus within.
+  &:not([data-has-visible-focus-within]:focus-within) {
+    transform: translateY(var(--sbb-dialog-header-margin-block-start));
+    transition: {
+      property: box-shadow, transform;
+      duration: var(--sbb-dialog-animation-duration);
+      timing-function: var(--sbb-dialog-animation-easing);
+    }
+  }
+
+  :host([data-fullscreen]) & {
+    position: fixed;
+    width: var(--sbb-dialog-width);
+    background-color: transparent;
+    padding-inline: var(--sbb-spacing-responsive-xs);
+    padding-block-start: var(--sbb-spacing-responsive-xs);
+  }
+
+  &[data-has-visible-focus-within]:focus-within,
+  :host([data-overflows]:not([data-fullscreen], [negative], [data-hide-header])) & {
+    @include sbb.shadow-level-9-soft;
+  }
+
+  @include sbb.mq($from: medium) {
+    border-radius: var(--sbb-dialog-border-radius) var(--sbb-dialog-border-radius) 0 0;
+  }
+}
+
+.sbb-dialog__close {
+  margin-inline-start: auto;
+}
