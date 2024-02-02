@@ -161,7 +161,7 @@ const triggerButton = (dialogId: string): TemplateResult => html`
   </sbb-button>
 `;
 
-const actionGroup = (negative: unknown): TemplateResult => html`
+const actionGroup = (negative: boolean): TemplateResult => html`
   <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">
     <sbb-block-link
       align-self="start"
@@ -206,27 +206,6 @@ const textBlockStyle: Args = {
   borderRadius: 'var(--sbb-border-radius-4x)',
 };
 
-const textBlock = (): TemplateResult => html`
-  <div style=${styleMap(textBlockStyle)}>
-    J.R.R. Tolkien, the mastermind behind Middle-earth's enchanting world, was born on January 3,
-    1892. With "The Hobbit" and "The Lord of the Rings", he pioneered fantasy literature. Tolkien's
-    linguistic brilliance and mythic passion converge in a literary legacy that continues to
-    transport readers to magical realms.
-  </div>
-`;
-
-const dialogHeader = (args): TemplateResult => html`
-  <sbb-dialog-title
-    title-level=${args.titleLevel}
-    ?title-back-button=${args.titleBackButton}
-    accessibility-close-label=${args.accessibilityCloseLabel}
-    accessibility-back-label=${args.accessibilityBackLabel}
-    ?negative=${args.negative}
-    hide-on-scroll
-    >Title</sbb-dialog-title
-  >
-`;
-
 const dialogHeader = (args: Args): TemplateResult => html`
   <sbb-dialog-title
     title-level=${args.titleLevel}
@@ -234,20 +213,10 @@ const dialogHeader = (args: Args): TemplateResult => html`
     accessibility-close-label=${args.accessibilityCloseLabel}
     accessibility-back-label=${args.accessibilityBackLabel}
     ?negative=${args.negative}
-    hide-on-scroll
+    hide-on-scroll=""
     >Title</sbb-dialog-title
   >
 `;
-
-const textBlockStyle: Args = {
-  position: 'relative',
-  marginBlockStart: '1rem',
-  padding: '1rem',
-  backgroundColor: 'var(--sbb-color-milk-default)',
-  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default)',
-  borderRadius: 'var(--sbb-border-radius-4x)',
-  zIndex: '100',
-};
 
 const textBlock = (): TemplateResult => html`
   <div style=${styleMap(textBlockStyle)}>
