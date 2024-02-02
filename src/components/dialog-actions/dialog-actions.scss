@@ -1,0 +1,21 @@
+@use '../core/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  display: contents;
+}
+
+.sbb-dialog-actions {
+  padding-inline: var(--sbb-dialog-padding-inline);
+  padding-block: var(--sbb-spacing-responsive-s);
+  margin-block-start: auto;
+  background-color: var(--sbb-dialog-background-color);
+  border-block-start: var(--sbb-dialog-actions-border);
+
+  :host([data-overflows]:not([negative])) & {
+    @include sbb.shadow-level-9-soft;
+  }
+}

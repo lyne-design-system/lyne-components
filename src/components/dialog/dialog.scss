@@ -26,7 +26,7 @@
   --sbb-dialog-backdrop-color: transparent;
   --sbb-dialog-content-transition: transform var(--sbb-dialog-animation-duration)
     var(--sbb-dialog-animation-easing);
-  --sbb-dialog-footer-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
+  --sbb-dialog-actions-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
 
   position: fixed;
   inset: var(--sbb-dialog-inset);
@@ -103,7 +103,7 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-dialog-color: var(--sbb-color-white);
   --sbb-dialog-background-color: var(--sbb-color-midnight);
-  --sbb-dialog-footer-border: none;
+  --sbb-dialog-actions-border: none;
 }
 
 :host([disable-animation]) {
@@ -115,7 +115,7 @@
 }
 
 :host([data-overflows]:not([data-fullscreen], [negative])) {
-  --sbb-dialog-footer-border: none;
+  --sbb-dialog-actions-border: none;
 }
 
 :host(:not([data-state='closed'])) {
@@ -208,22 +208,6 @@
     position: sticky;
     inset-block-start: 0;
     height: auto;
-  }
-}
-
-.sbb-dialog__footer {
-  padding-inline: var(--sbb-dialog-padding-inline);
-  padding-block: var(--sbb-spacing-responsive-s);
-  margin-block-start: auto;
-  background-color: var(--sbb-dialog-background-color);
-  border-block-start: var(--sbb-dialog-footer-border);
-
-  :host(:not([data-slot-names~='action-group'])) & {
-    display: none;
-  }
-
-  :host([data-overflows]:not([data-fullscreen], [negative])) & {
-    @include sbb.shadow-level-9-soft;
   }
 }
 

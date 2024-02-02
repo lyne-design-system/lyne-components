@@ -15,7 +15,8 @@ import { i18nDialog } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
 import type { SbbOverlayState } from '../core/overlay';
 import { applyInertMechanism, removeInertMechanism } from '../core/overlay';
-import type { SbbSbbDialogTitleElement } from '../dialog-title';
+import type { SbbDialogActionsElement } from '../dialog-actions';
+import type { SbbDialogTitleElement } from '../dialog-title';
 
 import style from './dialog.scss?lit&inline';
 
@@ -105,6 +106,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   private _dialogTitleElement!: SbbDialogTitleElement;
   private _dialogTitleHeight!: number;
   private _dialogContentElement!: HTMLElement;
+  private _dialogActionsElement?: SbbDialogActionsElement;
   private _dialogCloseElement?: HTMLElement;
   private _dialogController!: AbortController;
   private _openDialogController!: AbortController;
@@ -134,6 +136,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     this._dialogTitleElement = this.querySelector('sbb-dialog-title')!;
     this._dialogContentElement = this.querySelector('sbb-dialog-content')!.shadowRoot!
       .firstElementChild as HTMLElement;
+    this._dialogActionsElement = this.querySelector('sbb-dialog-actions') || undefined;
 
     if (!this._willOpen.emit()) {
       return;
@@ -405,13 +408,14 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     const hideOnScroll = this._dialogTitleElement.hideOnScroll;
     const hideHeader =
       !!hideOnScroll && isBreakpoint('zero', hideOnScroll, { includeMaxBreakpoint: true });
-    this.toggleAtribute('data-hide-header', !hideHeader ? false : value);
-    this._dialogTitleElement.toggleAtribute('data-hide-header', !hideHeader ? false : value);
+    this.toggleAttribute('data-hide-header', !hideHeader ? false : value);
+    this._dialogTitleElement.toggleAttribute('data-hide-header', !hideHeader ? false : value);
   }
 
   private _setOverflowsDataAttribute(): void {
-    this.toggleAtribute('data-overflows', this._overflows);
-    this._dialogTitleElement.toggleAtribute('data-overflows', this._overflows);
+    this.toggleAttribute('data-overflows', this._overflows);
+    this._dialogTitleElement.toggleAttribute('data-overflows', this._overflows);
+    this._dialogActionsElement ?? this._dialogActionsElement.toggleAttribute('data-overflows', this._overflows);
   }
 
   protected override render(): TemplateResult {
@@ -428,9 +432,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
           >
             <slot name="title"></slot>
             <slot name="content"></slot>
-            <div class="sbb-dialog__footer">
-              <slot name="action-group"></slot>
-            </div>
+            <slot name="actions"></slot>
           </div>
         </div>
       </div>

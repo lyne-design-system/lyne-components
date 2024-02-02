@@ -31,6 +31,7 @@ import '../image';
 import '../action-group';
 import '../dialog-title';
 import '../dialog-content';
+import '../dialog-actions';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
@@ -160,13 +161,8 @@ const triggerButton = (dialogId: string): TemplateResult => html`
   </sbb-button>
 `;
 
-const actionGroup = (negative: boolean): TemplateResult => html`
-  <sbb-action-group
-    slot="action-group"
-    align-group="stretch"
-    orientation="vertical"
-    horizontal-from="medium"
-  >
+const actionGroup = (negative: unknown): TemplateResult => html`
+  <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">
     <sbb-block-link
       align-self="start"
       icon-name="chevron-small-left-small"
@@ -178,7 +174,7 @@ const actionGroup = (negative: boolean): TemplateResult => html`
     </sbb-block-link>
     <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
     <sbb-button sbb-dialog-close> Confirm </sbb-button>
-  </sbb-action-group>
+  </sbb-dialog-actions>
 `;
 
 const codeStyle: Args = {
@@ -226,7 +222,7 @@ const dialogHeader = (args): TemplateResult => html`
     accessibility-close-label=${args.accessibilityCloseLabel}
     accessibility-back-label=${args.accessibilityBackLabel}
     ?negative=${args.negative}
-    hide-on-scroll="small"
+    hide-on-scroll
     >Title</sbb-dialog-title
   >
 `;
@@ -238,7 +234,7 @@ const dialogHeader = (args: Args): TemplateResult => html`
     accessibility-close-label=${args.accessibilityCloseLabel}
     accessibility-back-label=${args.accessibilityBackLabel}
     ?negative=${args.negative}
-    hide-on-scroll="small"
+    hide-on-scroll
     >Title</sbb-dialog-title
   >
 `;
