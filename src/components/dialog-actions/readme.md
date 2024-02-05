@@ -42,3 +42,25 @@ The `sbb-dialog-actions` is a component . . .
 > Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
 
 <!-- Auto Generated Below -->
+
+## Properties
+
+| Name             | Attribute         | Privacy | Type                                        | Default        | Description                                                                                                     |
+| ---------------- | ----------------- | ------- | ------------------------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------- |
+| `alignGroup`     | `align-group`     | public  | `'start' \| 'center' \| 'stretch' \| 'end'` | `'start'`      | Set the slotted `<sbb-action-group>` children's alignment.                                                      |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom`                         | `'medium'`     | Overrides the behaviour of `orientation` property.                                                              |
+| `orientation`    | `orientation`     | public  | `SbbOrientation`                            | `'horizontal'` | Indicates the orientation of the components inside the `<sbb-action-group>`.                                    |
+| `buttonSize`     | `button-size`     | public  | `SbbButtonSize`                             | `'l'`          | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances. |
+| `linkSize`       | `link-size`       | public  | `SbbLinkSize`                               | `'m'`          | Size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.     |
+
+## Events
+
+| Name          | Type               | Description               | Inherited From |
+| ------------- | ------------------ | ------------------------- | -------------- |
+| `myEventName` | `CustomEvent<any>` | TODO: Document this event |                |
+
+## Slots
+
+| Name | Description                                      |
+| ---- | ------------------------------------------------ |
+|      | Use the unnamed slot to add `sbb-TODO` elements. |

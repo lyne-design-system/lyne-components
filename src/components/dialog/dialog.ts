@@ -415,7 +415,8 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   private _setOverflowsDataAttribute(): void {
     this.toggleAttribute('data-overflows', this._overflows);
     this._dialogTitleElement.toggleAttribute('data-overflows', this._overflows);
-    this._dialogActionsElement ?? this._dialogActionsElement.toggleAttribute('data-overflows', this._overflows);
+    this._dialogActionsElement ??
+      this._dialogActionsElement.toggleAttribute('data-overflows', this._overflows);
   }
 
   protected override render(): TemplateResult {
