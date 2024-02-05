@@ -456,7 +456,7 @@ describe('sbb-dialog with long content', () => {
     await openDialog(element);
     expect(element).not.to.have.attribute('data-hide-header');
 
-    const content = element.shadowRoot.querySelector('.sbb-dialog__content');
+    const content = element.shadowRoot!.querySelector('.sbb-dialog__content')!;
 
     // Scroll down.
     content.scrollTo(0, 50);
