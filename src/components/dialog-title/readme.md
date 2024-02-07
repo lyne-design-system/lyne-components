@@ -58,6 +58,6 @@ The `sbb-dialog-title` is a component . . .
 
 ## Events
 
-| Name                | Type               | Description               | Inherited From |
-| ------------------- | ------------------ | ------------------------- | -------------- |
-| `requestBackAction` | `CustomEvent<any>` | TODO: Document this event |                |
+| Name                | Type                | Description                                | Inherited From |
+| ------------------- | ------------------- | ------------------------------------------ | -------------- |
+| `requestBackAction` | `CustomEvent<void>` | Emits whenever the back button is clicked. |                |

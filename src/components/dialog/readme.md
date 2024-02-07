@@ -94,13 +94,12 @@ It's possible to display the component in `negative` variant using the self-name
 
 ## Events
 
-| Name                | Type                | Description                                                                     | Inherited From |
-| ------------------- | ------------------- | ------------------------------------------------------------------------------- | -------------- |
-| `willOpen`          | `CustomEvent<void>` | Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled. |                |
-| `didOpen`           | `CustomEvent<void>` | Emits whenever the `sbb-dialog` is opened.                                      |                |
-| `willClose`         | `CustomEvent<void>` | Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled. |                |
-| `didClose`          | `CustomEvent<void>` | Emits whenever the `sbb-dialog` is closed.                                      |                |
-| `requestBackAction` | `CustomEvent<void>` | Emits whenever the back button is clicked.                                      |                |
+| Name        | Type                | Description                                                                     | Inherited From |
+| ----------- | ------------------- | ------------------------------------------------------------------------------- | -------------- |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled. |                |
+| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-dialog` is opened.                                      |                |
+| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled. |                |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-dialog` is closed.                                      |                |
 
 ## CSS Properties
 
@@ -110,8 +109,9 @@ It's possible to display the component in `negative` variant using the self-name
 
 ## Slots
 
-| Name           | Description                                                  |
-| -------------- | ------------------------------------------------------------ |
-|                | Use the unnamed slot to add content to the `sbb-dialog`.     |
-| `title`        | Use this slot to provide a title.                            |
-| `action-group` | Use this slot to display a `sbb-action-group` in the footer. |
+| Name      | Description                                              |
+| --------- | -------------------------------------------------------- |
+|           | Use the unnamed slot to add content to the `sbb-dialog`. |
+| `title`   | Use this slot to provide a `sbb-dialog-title`.           |
+| `title`   | Use this slot to provide a `sbb-dialog-content`.         |
+| `actions` | Use this slot to provide a `sbb-dialog-actions`.         |
