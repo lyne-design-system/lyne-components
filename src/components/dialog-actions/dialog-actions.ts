@@ -8,23 +8,11 @@ import { setAttribute } from '../core/dom';
 import style from './dialog-actions.scss?lit&inline';
 
 /**
- * Describe the purpose of the component with a single short sentence.
- *
- * @slot - Use the unnamed slot to add `sbb-TODO` elements.
- * @event {CustomEvent<any>} myEventName - TODO: Document this event
+ * Use this component to display a footer into an `sbb-dialog` with an action group.
  */
 @customElement('sbb-dialog-actions')
 export class SbbDialogActionsElement extends SbbActionGroupElement {
   public static override styles: CSSResultGroup = [SbbActionGroupElement.styles, style];
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    // do stuff
-  }
 
   protected override render(): TemplateResult {
     setAttribute(this, 'slot', 'actions');

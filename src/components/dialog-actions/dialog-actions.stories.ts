@@ -1,36 +1,29 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../core/dom';
-
-import readme from './readme.md?raw';
 import './dialog-actions';
+import readme from './readme.md?raw';
 
-const myProp: InputType = {
-  control: {
-    type: 'text',
-  },
-};
+import '../button';
+import '../link';
 
-const defaultArgTypes: ArgTypes = {
-  'my-prop': myProp,
-};
+const Template = (): TemplateResult =>
+  html`<sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">
+    <sbb-link
+      align-self="start"
+      icon-name="chevron-small-left-small"
+      href="https://www.sbb.ch/en/"
+      sbb-dialog-close
+    >
+      Link
+    </sbb-link>
+    <sbb-button variant="secondary" sbb-dialog-close> Cancel </sbb-button>
+    <sbb-button variant="primary" sbb-dialog-close> Confirm </sbb-button>
+  </sbb-dialog-actions>`;
 
-const defaultArgs: Args = {
-  'my-prop': 'Label',
-};
-
-const Template = (args: Args): TemplateResult =>
-  html`<sbb-dialog-actions ${sbbSpread(args)}></sbb-dialog-actions>`;
-
-export const Default: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
+export const Default: StoryObj = { render: Template };
 
 const meta: Meta = {
   decorators: [
@@ -45,7 +38,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-dialog-actions',
+  title: 'components/sbb-dialog/sbb-dialog-actions',
 };
 
 export default meta;
