@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
@@ -39,7 +39,6 @@ let nextId = 0;
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-dialog` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-dialog` is closed.
- * @event {CustomEvent<void>} requestBackAction - Emits whenever the back button is clicked.
  * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
@@ -52,7 +51,6 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     didOpen: 'didOpen',
     willClose: 'willClose',
     didClose: 'didClose',
-    backClick: 'requestBackAction',
   } as const;
 
   /**
@@ -137,6 +135,8 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     this._dialogContentElement = this.querySelector('sbb-dialog-content')!.shadowRoot!
       .firstElementChild as HTMLElement;
     this._dialogActionsElement = this.querySelector('sbb-dialog-actions') || undefined;
+
+    this._syncNegative();
 
     if (!this._willOpen.emit()) {
       return;
@@ -235,6 +235,22 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
 
     if (this._state === 'opened') {
       applyInertMechanism(this);
+    }
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('negative')) {
+      this._syncNegative();
+    }
+  }
+
+  private _syncNegative(): void {
+    if (this._dialogTitleElement) {
+      this._dialogTitleElement.negative = this.negative;
+    }
+
+    if (this._dialogActionsElement) {
+      toggleDatasetEntry(this._dialogActionsElement!, 'negative', this.negative);
     }
   }
 
@@ -415,8 +431,9 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   private _setOverflowsDataAttribute(): void {
     this.toggleAttribute('data-overflows', this._overflows);
     this._dialogTitleElement.toggleAttribute('data-overflows', this._overflows);
-    this._dialogActionsElement ??
+    if (this._dialogActionsElement) {
       this._dialogActionsElement.toggleAttribute('data-overflows', this._overflows);
+    }
   }
 
   protected override render(): TemplateResult {

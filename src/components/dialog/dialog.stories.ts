@@ -18,6 +18,7 @@ import { waitForComponentsReady } from '../../storybook/testing/wait-for-compone
 import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
 import { sbbSpread } from '../core/dom';
 import sampleImages from '../core/images';
+import { SbbDialogTitleElement } from '../dialog-title';
 
 import { SbbDialogElement } from './dialog';
 import readme from './readme.md?raw';
@@ -29,7 +30,6 @@ import '../title';
 import '../form-field';
 import '../image';
 import '../action-group';
-import '../dialog-title';
 import '../dialog-content';
 import '../dialog-actions';
 
@@ -47,15 +47,6 @@ const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   await userEvent.click(button);
 };
 
-const titleContent: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Header',
-  },
-};
-
 const titleLevel: InputType = {
   control: {
     type: 'inline-radio',
@@ -70,6 +61,16 @@ const titleBackButton: InputType = {
   control: {
     type: 'boolean',
   },
+  table: {
+    category: 'Header',
+  },
+};
+
+const hideOnScroll: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: [false, '', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
   table: {
     category: 'Header',
   },
@@ -122,25 +123,25 @@ const backdropAction: InputType = {
 };
 
 const basicArgTypes: ArgTypes = {
-  'title-content': titleContent,
-  'title-level': titleLevel,
-  'title-back-button': titleBackButton,
+  titleLevel,
+  titleBackButton,
+  hideOnScroll,
+  accessibilityCloseLabel,
+  accessibilityBackLabel,
   negative,
   'accessibility-label': accessibilityLabel,
-  'accessibility-close-label': accessibilityCloseLabel,
-  'accessibility-back-label': accessibilityBackLabel,
   'disable-animation': disableAnimation,
   'backdrop-action': backdropAction,
 };
 
 const basicArgs: Args = {
-  'title-content': 'A describing title of the dialog',
-  'title-level': undefined,
-  'title-back-button': true,
+  titleLevel: undefined,
+  titleBackButton: true,
+  hideOnScroll: hideOnScroll.options[1],
+  accessibilityCloseLabel: 'Close dialog',
+  accessibilityBackLabel: 'Go back',
   negative: false,
-  'accessibility-label': undefined,
-  'accessibility-close-label': undefined,
-  'accessibility-back-label': undefined,
+  'accessibility-label': 'Dialog aria-label',
   'disable-animation': isChromatic(),
   'backdrop-action': backdropAction.options[0],
 };
@@ -206,15 +207,20 @@ const textBlockStyle: Args = {
   borderRadius: 'var(--sbb-border-radius-4x)',
 };
 
-const dialogHeader = (args: Args): TemplateResult => html`
+const dialogHeader = (
+  titleLevel: number,
+  titleBackButton: boolean,
+  hideOnScroll: any,
+  accessibilityCloseLabel: string,
+  accessibilityBackLabel: string,
+): TemplateResult => html`
   <sbb-dialog-title
-    title-level=${args.titleLevel}
-    ?title-back-button=${args.titleBackButton}
-    accessibility-close-label=${args.accessibilityCloseLabel}
-    accessibility-back-label=${args.accessibilityBackLabel}
-    ?negative=${args.negative}
-    hide-on-scroll=""
-    >Title</sbb-dialog-title
+    title-level=${titleLevel}
+    ?title-back-button=${titleBackButton}
+    hide-on-scroll=${hideOnScroll}
+    accessibility-close-label=${accessibilityCloseLabel}
+    accessibility-back-label=${accessibilityBackLabel}
+    >A describing title of the dialog</sbb-dialog-title
   >
 `;
 
@@ -227,10 +233,23 @@ const textBlock = (): TemplateResult => html`
   </div>
 `;
 
-const DefaultTemplate = (args: Args): TemplateResult => html`
+const DefaultTemplate = ({
+  titleLevel,
+  titleBackButton,
+  hideOnScroll,
+  accessibilityCloseLabel,
+  accessibilityBackLabel,
+  ...args
+}: Args): TemplateResult => html`
   ${triggerButton('my-dialog-1')}
   <sbb-dialog data-testid="dialog" id="my-dialog-1" ${sbbSpread(args)}>
-    ${dialogHeader(args)}
+    ${dialogHeader(
+      titleLevel,
+      titleBackButton,
+      hideOnScroll,
+      accessibilityCloseLabel,
+      accessibilityBackLabel,
+    )}
     <sbb-dialog-content>
       <p id="dialog-content-1" style=${styleMap({ margin: '0' })}>Dialog content</p>
     </sbb-dialog-content>
@@ -255,10 +274,23 @@ const SlottedTitleTemplate = (args: Args): TemplateResult => html`
   </sbb-dialog>
 `;
 
-const LongContentTemplate = (args: Args): TemplateResult => html`
+const LongContentTemplate = ({
+  titleLevel,
+  titleBackButton,
+  hideOnScroll,
+  accessibilityCloseLabel,
+  accessibilityBackLabel,
+  ...args
+}: Args): TemplateResult => html`
   ${triggerButton('my-dialog-3')}
   <sbb-dialog data-testid="dialog" id="my-dialog-3" ${sbbSpread(args)}>
-    ${dialogHeader(args)}
+    ${dialogHeader(
+      titleLevel,
+      titleBackButton,
+      hideOnScroll,
+      accessibilityCloseLabel,
+      accessibilityBackLabel,
+    )}
     <sbb-dialog-content>
       Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
       like summer-light upon the trees. Near him sat the Lady Arwen. To his surprise Frodo saw that
@@ -394,7 +426,6 @@ export const SlottedTitle: StoryObj = {
   argTypes: basicArgTypes,
   args: {
     ...basicArgs,
-    'title-content': undefined,
     'title-back-button': false,
   },
   play: isChromatic() ? playStory : undefined,
@@ -447,7 +478,7 @@ const meta: Meta = {
         SbbDialogElement.events.didOpen,
         SbbDialogElement.events.willClose,
         SbbDialogElement.events.didClose,
-        SbbDialogElement.events.backClick,
+        SbbDialogTitleElement.events.backClick,
       ],
     },
     backgrounds: {

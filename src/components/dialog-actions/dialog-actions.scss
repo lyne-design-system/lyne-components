@@ -15,7 +15,7 @@
   background-color: var(--sbb-dialog-background-color);
   border-block-start: var(--sbb-dialog-actions-border);
 
-  :host([data-overflows]:not([negative])) & {
+  :host([data-overflows]:not([data-negative])) & {
     @include sbb.shadow-level-9-soft;
   }
 }

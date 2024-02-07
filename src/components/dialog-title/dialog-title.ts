@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { LanguageController } from '../core/common-behaviors';
 import type { Breakpoint } from '../core/dom';
 import { setAttribute } from '../core/dom';
-import { ConnectedAbortController, EventEmitter } from '../core/eventing';
+import { EventEmitter } from '../core/eventing';
 import { i18nCloseDialog, i18nGoBack } from '../core/i18n';
 import type { TitleLevel } from '../title';
 import { SbbTitleElement } from '../title';
@@ -15,7 +15,7 @@ import style from './dialog-title.scss?lit&inline';
 
 /**
  * It displays a title inside a dialog header.
- * @event {CustomEvent<any>} requestBackAction - TODO: Document this event
+ * @event {CustomEvent<void>} requestBackAction - Emits whenever the back button is clicked.
  */
 @customElement('sbb-dialog-title')
 export class SbbDialogTitleElement extends SbbTitleElement {
@@ -61,28 +61,11 @@ export class SbbDialogTitleElement extends SbbTitleElement {
   }
   private _hideOnScroll: false | '' | Breakpoint = false;
 
-  private _abort = new ConnectedAbortController(this);
   private _backClick: EventEmitter<any> = new EventEmitter(
     this,
     SbbDialogTitleElement.events.backClick,
   );
   private _language = new LanguageController(this);
-
-  private _onClickFn(): void {
-    this._backClick.emit();
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('click', () => this._onClickFn(), { signal });
-    // do stuff
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    // do stuff
-  }
 
   protected override render(): TemplateResult {
     setAttribute(this, 'slot', 'title');
