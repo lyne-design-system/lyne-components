@@ -33,8 +33,9 @@ let nextId = 0;
  * It displays an interactive overlay element.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-dialog`.
- * @slot title - Use this slot to provide a title.
- * @slot action-group - Use this slot to display a `sbb-action-group` in the footer.
+ * @slot title - Use this slot to provide a `sbb-dialog-title`.
+ * @slot title - Use this slot to provide a `sbb-dialog-content`.
+ * @slot actions - Use this slot to provide a `sbb-dialog-actions`.
  * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-dialog` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled.

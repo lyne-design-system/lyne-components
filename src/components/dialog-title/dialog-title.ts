@@ -15,6 +15,7 @@ import style from './dialog-title.scss?lit&inline';
 
 /**
  * It displays a title inside a dialog header.
+ *
  * @event {CustomEvent<void>} requestBackAction - Emits whenever the back button is clicked.
  */
 @customElement('sbb-dialog-title')
