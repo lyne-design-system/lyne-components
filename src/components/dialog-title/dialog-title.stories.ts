@@ -6,22 +6,61 @@ import { html } from 'lit';
 
 import { sbbSpread } from '../core/dom';
 
+import { SbbDialogTitleElement } from './dialog-title';
 import readme from './readme.md?raw';
 
-import './dialog-title';
+const level: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: [1, 2, 3, 4, 5, 6],
+};
 
-const titleContent: InputType = {
+const titleBackButton: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const hideOnScroll: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: [false, '', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+};
+
+const accessibilityCloseLabel: InputType = {
   control: {
     type: 'text',
+  },
+  table: {
+    category: 'Accessibility',
+  },
+};
+
+const accessibilityBackLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Accessibility',
   },
 };
 
 const defaultArgTypes: ArgTypes = {
-  'title-content': titleContent,
+  level,
+  'title-back-button': titleBackButton,
+  'hide-on-scroll': hideOnScroll,
+  'accessibility-close-label': accessibilityCloseLabel,
+  'accessibility-back-label': accessibilityBackLabel,
 };
 
 const defaultArgs: Args = {
-  'title-content': 'Title content',
+  level: level.options[0],
+  'title-back-button': true,
+  'hide-on-scroll': hideOnScroll.options[0],
+  'accessibility-close-label': 'Close dialog',
+  'accessibility-back-label': 'Go back',
 };
 
 const Template = (args: Args): TemplateResult =>
@@ -39,6 +78,9 @@ const meta: Meta = {
     withActions as Decorator,
   ],
   parameters: {
+    actions: {
+      handles: [SbbDialogTitleElement.events.backClick],
+    },
     backgrounds: {
       disable: true,
     },

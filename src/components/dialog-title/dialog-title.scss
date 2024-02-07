@@ -7,15 +7,8 @@
 :host {
   --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s) 0;
 
-  // --sbb-dialog-header-margin-block-start: 0;
-
   display: contents;
 }
-
-// :host([data-hide-header]) {
-//   // Hide transition
-//   --sbb-dialog-header-margin-block-start: calc(var(--sbb-dialog-header-height) * -1);
-// }
 
 :host([data-overflows]:not([data-fullscreen])) {
   --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s);
