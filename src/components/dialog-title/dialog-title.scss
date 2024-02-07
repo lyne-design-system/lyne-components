@@ -10,7 +10,7 @@
   display: contents;
 }
 
-:host([data-overflows]:not([data-fullscreen])) {
+:host([data-overflows]) {
   --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s);
 }
 
@@ -48,16 +48,8 @@
     }
   }
 
-  :host([data-fullscreen]) & {
-    position: fixed;
-    width: var(--sbb-dialog-width);
-    background-color: transparent;
-    padding-inline: var(--sbb-spacing-responsive-xs);
-    padding-block-start: var(--sbb-spacing-responsive-xs);
-  }
-
   &[data-has-visible-focus-within]:focus-within,
-  :host([data-overflows]:not([data-fullscreen], [negative], [data-hide-header])) & {
+  :host([data-overflows]:not([negative], [data-hide-header])) & {
     @include sbb.shadow-level-9-soft;
   }
 

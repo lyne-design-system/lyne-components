@@ -240,28 +240,6 @@ describe('sbb-dialog', () => {
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
-  it('does not have the fullscreen attribute', async () => {
-    await openDialog(element);
-
-    expect(element).not.to.have.attribute('data-fullscreen');
-  });
-
-  it('renders in fullscreen mode if no title is provided', async () => {
-    element = await fixture(html`
-      <sbb-dialog id="my-dialog-2" disable-animation>
-        Dialog content.
-        <div slot="action-group">Action group</div>
-      </sbb-dialog>
-    `);
-    ariaLiveRef = element.shadowRoot!.querySelector('sbb-screenreader-only')!;
-
-    await openDialog(element);
-
-    await waitForCondition(() => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}`);
-
-    expect(element).to.have.attribute('data-fullscreen');
-  });
-
   it('closes stacked dialogs one by one on ESC key pressed', async () => {
     element = await fixture(html`
       <sbb-dialog id="my-dialog-3" title-content="Title" disable-animation>

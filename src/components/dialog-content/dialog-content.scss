@@ -19,12 +19,6 @@
   transition: var(--sbb-dialog-content-transition);
   z-index: -1;
 
-  :host([data-fullscreen]) & {
-    padding-block-start: var(--sbb-spacing-fixed-20x);
-    padding-inline: var(--sbb-layout-base-offset-responsive);
-    height: 100vh;
-  }
-
   // In order to improve the header transition on mobile (especially iOS) we use
   // a combination of the transform and margin properties on touch devices,
   // while on desktop we use just the margin-block for a better transition of the visible scrollbar.

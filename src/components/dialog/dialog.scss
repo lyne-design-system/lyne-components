@@ -91,12 +91,6 @@
   --sbb-dialog-header-margin-block-start: calc(var(--sbb-dialog-header-height) * -1);
 }
 
-:host([data-fullscreen]) {
-  --sbb-dialog-backdrop-color: transparent;
-  --sbb-dialog-max-width: 100%;
-  --sbb-dialog-max-height: 100%;
-}
-
 :host([negative]) {
   @include sbb.scrollbar-variables--color-negative;
 
@@ -110,11 +104,7 @@
   --sbb-dialog-animation-duration: 0.1ms;
 }
 
-:host([data-fullscreen]:not([negative])) {
-  --sbb-dialog-background-color: var(--sbb-color-milk);
-}
-
-:host([data-overflows]:not([data-fullscreen], [negative])) {
+:host([data-overflows]:not([negative])) {
   --sbb-dialog-actions-border: none;
 }
 
@@ -160,10 +150,6 @@
   color: var(--sbb-dialog-color);
   background-color: var(--sbb-dialog-background-color);
 
-  :host([data-fullscreen]) & {
-    border-radius: 0;
-  }
-
   :host([data-state]:not([data-state='closed'])) & {
     display: block;
 
@@ -186,10 +172,7 @@
   @include sbb.mq($from: medium) {
     border-radius: var(--sbb-dialog-border-radius);
     overflow: hidden;
-
-    :host(:not([data-fullscreen])) & {
-      height: fit-content;
-    }
+    height: fit-content;
   }
 }
 
