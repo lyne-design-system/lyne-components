@@ -109,9 +109,8 @@ It's possible to display the component in `negative` variant using the self-name
 
 ## Slots
 
-| Name      | Description                                              |
-| --------- | -------------------------------------------------------- |
-|           | Use the unnamed slot to add content to the `sbb-dialog`. |
-| `title`   | Use this slot to provide a `sbb-dialog-title`.           |
-| `title`   | Use this slot to provide a `sbb-dialog-content`.         |
-| `actions` | Use this slot to provide a `sbb-dialog-actions`.         |
+| Name      | Description                                      |
+| --------- | ------------------------------------------------ |
+| `title`   | Use this slot to provide a `sbb-dialog-title`.   |
+| `content` | Use this slot to provide a `sbb-dialog-content`. |
+| `actions` | Use this slot to provide a `sbb-dialog-actions`. |

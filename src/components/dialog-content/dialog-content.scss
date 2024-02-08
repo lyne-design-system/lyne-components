@@ -8,7 +8,7 @@
   display: contents;
 }
 
-.sbb-dialog__content {
+.sbb-dialog-content {
   @include sbb.scrollbar-rules;
 
   padding-inline: var(--sbb-dialog-padding-inline);

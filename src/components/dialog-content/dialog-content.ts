@@ -19,7 +19,7 @@ export class SbbDialogContentElement extends LitElement {
     setAttribute(this, 'slot', 'content');
 
     return html`
-      <div class="sbb-dialog__content">
+      <div class="sbb-dialog-content">
         <slot></slot>
       </div>
     `;

@@ -141,7 +141,7 @@ const basicArgs: Args = {
   accessibilityCloseLabel: 'Close dialog',
   accessibilityBackLabel: 'Go back',
   negative: false,
-  'accessibility-label': 'Dialog aria-label',
+  'accessibility-label': undefined,
   'disable-animation': isChromatic(),
   'backdrop-action': backdropAction.options[0],
 };
@@ -265,8 +265,8 @@ const LongContentTemplate = ({
   accessibilityBackLabel,
   ...args
 }: Args): TemplateResult => html`
-  ${triggerButton('my-dialog-3')}
-  <sbb-dialog data-testid="dialog" id="my-dialog-3" ${sbbSpread(args)}>
+  ${triggerButton('my-dialog-2')}
+  <sbb-dialog data-testid="dialog" id="my-dialog-2" ${sbbSpread(args)}>
     ${dialogHeader(
       level,
       titleBackButton,
@@ -304,7 +304,7 @@ const FormTemplate = ({
   accessibilityBackLabel,
   ...args
 }: Args): TemplateResult => html`
-  ${triggerButton('my-dialog-4')}
+  ${triggerButton('my-dialog-3')}
   <div id="returned-value">
     <div style=${styleMap(formDetailsStyle)}>
       <div>Your message: <span id="returned-value-message">Hello 👋</span></div>
@@ -313,7 +313,7 @@ const FormTemplate = ({
   </div>
   <sbb-dialog
     data-testid="dialog"
-    id="my-dialog-4"
+    id="my-dialog-3"
     @willClose=${(event: CustomEvent) => {
       if (event.detail.returnValue) {
         document.getElementById('returned-value-message')!.innerHTML =
@@ -363,8 +363,8 @@ const NoFooterTemplate = ({
   accessibilityBackLabel,
   ...args
 }: Args): TemplateResult => html`
-  ${triggerButton('my-dialog-5')}
-  <sbb-dialog data-testid="dialog" id="my-dialog-5" ${sbbSpread(args)}>
+  ${triggerButton('my-dialog-4')}
+  <sbb-dialog data-testid="dialog" id="my-dialog-4" ${sbbSpread(args)}>
     ${dialogHeader(
       level,
       titleBackButton,
@@ -380,6 +380,40 @@ const NoFooterTemplate = ({
         in the Rye
       </p>
     </sbb-dialog-content>
+  </sbb-dialog>
+`;
+
+const NestedTemplate = ({
+  level,
+  titleBackButton,
+  hideOnScroll,
+  accessibilityCloseLabel,
+  accessibilityBackLabel,
+  ...args
+}: Args): TemplateResult => html`
+  ${triggerButton('my-dialog-5')}
+  <sbb-dialog data-testid="dialog" id="my-dialog-5" ${sbbSpread(args)}>
+    ${dialogHeader(
+      level,
+      titleBackButton,
+      hideOnScroll,
+      accessibilityCloseLabel,
+      accessibilityBackLabel,
+    )}
+    <sbb-dialog-content
+      >Click the button to open a nested
+      dialog.&nbsp;${triggerButton('my-dialog-6')}</sbb-dialog-content
+    >
+    <sbb-dialog data-testid="nested-dialog" id="my-dialog-6" ${sbbSpread(args)}>
+      ${dialogHeader(
+        level,
+        titleBackButton,
+        hideOnScroll,
+        accessibilityCloseLabel,
+        accessibilityBackLabel,
+      )}
+      <sbb-dialog-content>Nested dialog content.</sbb-dialog-content>
+    </sbb-dialog>
   </sbb-dialog>
 `;
 
@@ -423,6 +457,13 @@ export const Form: StoryObj = {
 
 export const NoFooter: StoryObj = {
   render: NoFooterTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+  play: isChromatic() ? playStory : undefined,
+};
+
+export const Nested: StoryObj = {
+  render: NestedTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
   play: isChromatic() ? playStory : undefined,

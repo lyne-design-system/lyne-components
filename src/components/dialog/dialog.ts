@@ -32,9 +32,8 @@ let nextId = 0;
 /**
  * It displays an interactive overlay element.
  *
- * @slot - Use the unnamed slot to add content to the `sbb-dialog`.
  * @slot title - Use this slot to provide a `sbb-dialog-title`.
- * @slot title - Use this slot to provide a `sbb-dialog-content`.
+ * @slot content - Use this slot to provide a `sbb-dialog-content`.
  * @slot actions - Use this slot to provide a `sbb-dialog-actions`.
  * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-dialog` is opened.
@@ -350,6 +349,8 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
   private _onDialogAnimationEnd(event: AnimationEvent): void {
+    console.log('Animation');
+
     if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
       this._didOpen.emit();
@@ -386,7 +387,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     // Take accessibility label or current string in title section
     const label =
       this.accessibilityLabel ||
-      (this.shadowRoot!.querySelector('.sbb-dialog__title') as HTMLElement)?.innerText.trim();
+      (this.querySelector('sbb-dialog-title') as HTMLElement)!.innerText.trim();
 
     // If the text content remains the same, on VoiceOver the aria-live region is not announced a second time.
     // In order to support reading on every opening, we toggle an invisible space.
@@ -452,6 +453,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
             <slot name="title"></slot>
             <slot name="content"></slot>
             <slot name="actions"></slot>
+            <slot></slot>
           </div>
         </div>
       </div>

@@ -9,16 +9,16 @@ describe('sbb-dialog-title', () => {
   let element: SbbDialogTitleElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-dialog-title></sbb-dialog-title>`);
+    element = await fixture(html`<sbb-dialog-title title-back-button>Title</sbb-dialog-title>`);
   });
 
   it('renders', async () => {
     assert.instanceOf(element, SbbDialogTitleElement);
   });
 
-  it('emits on click', async () => {
-    const myEventNameSpy = new EventSpy(SbbDialogTitleElement.events.myEventName);
-    element.click();
+  it('emits requestBackAction on back button click', async () => {
+    const myEventNameSpy = new EventSpy(SbbDialogTitleElement.events.backClick);
+    (element.shadowRoot!.querySelector('.sbb-dialog__back')! as HTMLElement).click();
     await waitForLitRender(element);
     expect(myEventNameSpy.count).to.be.equal(1);
   });
