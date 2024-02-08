@@ -39,7 +39,7 @@
   }
 
   // Apply show/hide animation unless it has a visible focus within.
-  &:not([data-has-visible-focus-within]:focus-within) {
+  :host(:not([data-has-visible-focus-within])) & {
     transform: translateY(var(--sbb-dialog-header-margin-block-start));
     transition: {
       property: box-shadow, transform;
@@ -48,7 +48,7 @@
     }
   }
 
-  &[data-has-visible-focus-within]:focus-within,
+  :host([data-overflows][data-has-visible-focus-within]) &,
   :host([data-overflows]:not([negative], [data-hide-header])) & {
     @include sbb.shadow-level-9-soft;
   }

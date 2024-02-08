@@ -2,6 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { FocusVisibleWithinController } from '../../core/a11y';
 import { LanguageController } from '../../core/common-behaviors';
 import type { Breakpoint } from '../../core/dom';
 import { breakpoints, setAttribute } from '../../core/dom';
@@ -80,6 +81,11 @@ export class SbbDialogTitleElement extends SbbTitleElement {
     SbbDialogTitleElement.events.backClick,
   );
   private _language = new LanguageController(this);
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    new FocusVisibleWithinController(this);
+  }
 
   protected override render(): TemplateResult {
     setAttribute(this, 'slot', 'title');
