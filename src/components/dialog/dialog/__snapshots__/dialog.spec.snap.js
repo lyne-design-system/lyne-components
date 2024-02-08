@@ -14,8 +14,6 @@ snapshots["sbb-dialog renders"] =
       </slot>
       <slot name="actions">
       </slot>
-      <slot>
-      </slot>
     </div>
   </div>
 </div>

@@ -326,7 +326,7 @@ describe('sbb-dialog', () => {
         <sbb-dialog-title>Title</sbb-dialog-title>
         <sbb-dialog-content>Dialog content</sbb-dialog-content>
 
-        <sbb-dialog id="inner-dialog" disable-animation>
+        <sbb-dialog id="inner-dialog" slot="content" disable-animation>
           <sbb-dialog-title>Inner Dialog title</sbb-dialog-title>
           <sbb-dialog-content>Dialog content</sbb-dialog-content>
         </sbb-dialog>

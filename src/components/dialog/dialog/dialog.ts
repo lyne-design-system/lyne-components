@@ -349,7 +349,7 @@ export class SbbDialogElement extends LitElement {
       dialogCloseElement.getAttribute('type') === 'submit'
         ? (hostContext('form', dialogCloseElement) as HTMLFormElement)
         : undefined;
-    this.close(closestForm, dialogCloseElement);
+    dialogRefs[dialogRefs.length - 1].close(closestForm, dialogCloseElement);
   }
 
   // Wait for dialog transition to complete.
@@ -460,7 +460,6 @@ export class SbbDialogElement extends LitElement {
             <slot name="title"></slot>
             <slot name="content"></slot>
             <slot name="actions"></slot>
-            <slot></slot>
           </div>
         </div>
       </div>
