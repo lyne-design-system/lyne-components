@@ -245,6 +245,11 @@ export class SbbDialogElement extends LitElement {
     }
   }
 
+  protected override firstUpdated(): void {
+    this._dialogTitleElement = this.querySelector('sbb-dialog-title')!;
+    this._syncNegative();
+  }
+
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('negative')) {
       this._syncNegative();
