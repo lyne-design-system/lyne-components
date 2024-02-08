@@ -2,14 +2,14 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController } from '../core/common-behaviors';
-import type { Breakpoint } from '../core/dom';
-import { setAttribute } from '../core/dom';
-import { EventEmitter } from '../core/eventing';
-import { i18nCloseDialog, i18nGoBack } from '../core/i18n';
-import type { TitleLevel } from '../title';
-import { SbbTitleElement } from '../title';
-import '../button';
+import { LanguageController } from '../../core/common-behaviors';
+import type { Breakpoint } from '../../core/dom';
+import { setAttribute } from '../../core/dom';
+import { EventEmitter } from '../../core/eventing';
+import { i18nCloseDialog, i18nGoBack } from '../../core/i18n';
+import type { TitleLevel } from '../../title';
+import { SbbTitleElement } from '../../title';
+import '../../button';
 
 import style from './dialog-title.scss?lit&inline';
 

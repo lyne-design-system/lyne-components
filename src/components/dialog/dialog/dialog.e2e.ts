@@ -2,10 +2,12 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { i18nDialog } from '../core/i18n';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
+import { i18nDialog } from '../../core/i18n';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
 
 import { SbbDialogElement } from './dialog';
+import '../../button';
+import '../../icon';
 import '../dialog-title';
 import '../dialog-content';
 import '../dialog-actions';

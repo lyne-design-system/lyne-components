@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { setAttribute } from '../core/dom';
+import { setAttribute } from '../../core/dom';
 
 import style from './dialog-content.scss?lit&inline';
 

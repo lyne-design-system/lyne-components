@@ -3,18 +3,20 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { FocusHandler, getFirstFocusableElement, setModalityOnNextFocus } from '../core/a11y';
+import { FocusHandler, getFirstFocusableElement, setModalityOnNextFocus } from '../../core/a11y';
+import { LanguageController, NamedSlotStateController } from '../../core/common-behaviors';
 import {
-  LanguageController,
-  NamedSlotStateController,
-  SbbNegativeMixin,
-} from '../core/common-behaviors';
-import { ScrollHandler, isValidAttribute, hostContext, isBreakpoint } from '../core/dom';
-import { EventEmitter } from '../core/eventing';
-import { i18nDialog } from '../core/i18n';
-import { AgnosticResizeObserver } from '../core/observers';
-import type { SbbOverlayState } from '../core/overlay';
-import { applyInertMechanism, removeInertMechanism } from '../core/overlay';
+  ScrollHandler,
+  toggleDatasetEntry,
+  isValidAttribute,
+  hostContext,
+  isBreakpoint,
+} from '../../core/dom';
+import { EventEmitter } from '../../core/eventing';
+import { i18nDialog } from '../../core/i18n';
+import { AgnosticResizeObserver } from '../../core/observers';
+import type { SbbOverlayState } from '../../core/overlay';
+import { applyInertMechanism, removeInertMechanism } from '../../core/overlay';
 import type { SbbDialogActionsElement } from '../dialog-actions';
 import type { SbbDialogTitleElement } from '../dialog-title';
 
@@ -44,7 +46,7 @@ let nextId = 0;
  * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
  */
 @customElement('sbb-dialog')
-export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
+export class SbbDialogElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -57,6 +59,11 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
    * Backdrop click action.
    */
   @property({ attribute: 'backdrop-action' }) public backdropAction: 'close' | 'none' = 'close';
+
+  /**
+   * Negative coloring variant flag.
+   */
+  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /**
    * This will be forwarded as aria-label to the relevant nested element.
@@ -426,15 +433,15 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     const hideOnScroll = this._dialogTitleElement.hideOnScroll;
     const hideHeader =
       !!hideOnScroll && isBreakpoint('zero', hideOnScroll, { includeMaxBreakpoint: true });
-    this.toggleAttribute('data-hide-header', !hideHeader ? false : value);
-    this._dialogTitleElement.toggleAttribute('data-hide-header', !hideHeader ? false : value);
+    toggleDatasetEntry(this, 'hideHeader', !hideHeader ? false : value);
+    toggleDatasetEntry(this._dialogTitleElement, 'hideHeader', !hideHeader ? false : value);
   }
 
   private _setOverflowsDataAttribute(): void {
-    this.toggleAttribute('data-overflows', this._overflows);
-    this._dialogTitleElement.toggleAttribute('data-overflows', this._overflows);
+    toggleDatasetEntry(this, 'overflows', this._overflows);
+    toggleDatasetEntry(this._dialogTitleElement, 'overflows', this._overflows);
     if (this._dialogActionsElement) {
-      this._dialogActionsElement.toggleAttribute('data-overflows', this._overflows);
+      toggleDatasetEntry(this._dialogActionsElement!, 'overflows', this._overflows);
     }
   }
 

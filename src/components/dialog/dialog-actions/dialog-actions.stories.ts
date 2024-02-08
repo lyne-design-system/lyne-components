@@ -6,8 +6,8 @@ import { html } from 'lit';
 import './dialog-actions';
 import readme from './readme.md?raw';
 
-import '../button';
-import '../link';
+import '../../button';
+import '../../link';
 
 const Template = (): TemplateResult =>
   html`<sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">

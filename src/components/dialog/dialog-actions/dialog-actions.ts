@@ -2,8 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbActionGroupElement } from '../action-group';
-import { setAttribute } from '../core/dom';
+import { SbbActionGroupElement } from '../../action-group';
+import { setAttribute } from '../../core/dom';
 
 import style from './dialog-actions.scss?lit&inline';
 
