@@ -4,38 +4,34 @@ It offers the following features:
 - creates a backdrop for disabling interaction below the modal;
 - disables scrolling of the page content while open;
 - manages focus properly by setting it on the first focusable element;
-- can have a header and a footer, both of which are optional;
-- can host a [sbb-action-group](/docs/components-sbb-action-group--docs) component in the footer;
+- can host a [sbb-dialog-actions](/docs/components-sbb-dialog-actions--docs) component in the footer;
 - has a close button, which is always visible;
 - can display a back button next to the title;
 - adds the appropriate ARIA roles automatically.
 
 ```html
-<sbb-dialog> Dialog content. </sbb-dialog>
+<sbb-dialog>
+  <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+</sbb-dialog>
 ```
 
 ## Slots
 
-The content is projected in an unnamed slot, while the dialog's title can be provided via the `titleContent` property or via slot `name="title"`.
-It's also possible to display buttons in the component's footer using the `action-group` slot with the `sbb-action-group` component.
+There are three slots: `title`, `content` and `actions`, which can respectively be used to provide an `sbb-dialog-title`, `sbb-dialog-content` and an `sbb-dialog-actions`.
 
-**NOTE**:
-
-- The component will automatically set size `m` on slotted `sbb-action-group`;
-- If the title is not present, the footer will not be displayed even if provided;
-- If the title is not present, the dialog will be displayed in fullscreen mode with the close button in the content section along with the back button
-  (if visible, see [next paragraph](#interactions)).
+**NOTE:**
+It's not necessary to set the slots explicitly on the dialog's inner components, as they already have an implicit slot name.
 
 ```html
-<sbb-dialog title-content="Title"> Dialog content. </sbb-dialog>
-
 <sbb-dialog>
-  <span slot="title"> My dialog title </span>
-  Dialog content.
-  <sbb-action-group slot="action-group">
-    <sbb-button sbb-dialog-close>Abort</sbb-button>
-    <sbb-button>Confirm</sbb-button>
-  </sbb-action-group>
+  <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+  <sbb-dialog-action>
+    <sbb-link sbb-dialog-close>Link</sbb-link>
+    <sbb-button variant="secondary" sbb-dialog-close> Cancel </sbb-button>
+    <sbb-button variant="primary" sbb-dialog-close> Confirm </sbb-button>
+  </sbb-dialog-actions>
 </sbb-dialog>
 ```
 
@@ -47,9 +43,10 @@ whether it has been opened by click or keyboard, so that the focus can be better
 
 ```html
 <sbb-button label="Open dialog" click="openDialog(event, 'my-dialog')"></sbb-button>
-<sbb-dialog id="my-dialog" title-content="Title" title-back-button="true">
-  Dialog content.
-  <div slot="action-group">...</div>
+
+<sbb-dialog id="my-dialog">
+  <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
 </sbb-dialog>
 
 <script>
@@ -67,8 +64,7 @@ emit a close event with an optional result as a payload.
 The component can also be dismissed by clicking on the close button, clicking on the backdrop, pressing the `Esc` key,
 or, if an element within the `sbb-dialog` has the `sbb-dialog-close` attribute, by clicking on it.
 
-You can also set the property `titleBackButton` to display the back button in the title section
-(or content section, if title is omitted) which will emit the event `requestBackAction` when clicked.
+You can also set the property `titleBackButton` on the `sbb-dialog-title` component to display the back button in the title section which will emit the event `requestBackAction` when clicked.
 
 ## Style
 

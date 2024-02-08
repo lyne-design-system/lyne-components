@@ -136,7 +136,7 @@ const basicArgTypes: ArgTypes = {
 const basicArgs: Args = {
   level: level.options[0],
   titleBackButton: true,
-  hideOnScroll: hideOnScroll.options[1],
+  hideOnScroll: hideOnScroll.options[7],
   accessibilityCloseLabel: 'Close dialog',
   accessibilityBackLabel: 'Go back',
   negative: false,
@@ -161,7 +161,7 @@ const triggerButton = (dialogId: string): TemplateResult => html`
   </sbb-button>
 `;
 
-const actionGroup = (negative: boolean): TemplateResult => html`
+const dialogActions = (negative: boolean): TemplateResult => html`
   <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">
     <sbb-link
       align-self="start"
@@ -206,7 +206,7 @@ const textBlockStyle: Args = {
   borderRadius: 'var(--sbb-border-radius-4x)',
 };
 
-const dialogHeader = (
+const dialogTitle = (
   level: number,
   titleBackButton: boolean,
   hideOnScroll: false | Breakpoint,
@@ -242,7 +242,7 @@ const DefaultTemplate = ({
 }: Args): TemplateResult => html`
   ${triggerButton('my-dialog-1')}
   <sbb-dialog data-testid="dialog" id="my-dialog-1" ${sbbSpread(args)}>
-    ${dialogHeader(
+    ${dialogTitle(
       level,
       titleBackButton,
       hideOnScroll,
@@ -252,7 +252,7 @@ const DefaultTemplate = ({
     <sbb-dialog-content>
       <p id="dialog-content-1" style=${styleMap({ margin: '0' })}>Dialog content</p>
     </sbb-dialog-content>
-    ${actionGroup(args.negative)}
+    ${dialogActions(args.negative)}
   </sbb-dialog>
 `;
 
@@ -266,7 +266,7 @@ const LongContentTemplate = ({
 }: Args): TemplateResult => html`
   ${triggerButton('my-dialog-2')}
   <sbb-dialog data-testid="dialog" id="my-dialog-2" ${sbbSpread(args)}>
-    ${dialogHeader(
+    ${dialogTitle(
       level,
       titleBackButton,
       hideOnScroll,
@@ -291,7 +291,7 @@ const LongContentTemplate = ({
       other songs of the Blessed Realm, many times tonight. Come on!’ —J.R.R. Tolkien, The Lord of
       the Rings: The Fellowship of the Ring, “Many Meetings” ${textBlock()}
     </sbb-dialog-content>
-    ${actionGroup(args.negative)}
+    ${dialogActions(args.negative)}
   </sbb-dialog>
 `;
 
@@ -323,7 +323,7 @@ const FormTemplate = ({
     }}
     ${sbbSpread(args)}
   >
-    ${dialogHeader(
+    ${dialogTitle(
       level,
       titleBackButton,
       hideOnScroll,
@@ -364,7 +364,7 @@ const NoFooterTemplate = ({
 }: Args): TemplateResult => html`
   ${triggerButton('my-dialog-4')}
   <sbb-dialog data-testid="dialog" id="my-dialog-4" ${sbbSpread(args)}>
-    ${dialogHeader(
+    ${dialogTitle(
       level,
       titleBackButton,
       hideOnScroll,
@@ -392,7 +392,7 @@ const NestedTemplate = ({
 }: Args): TemplateResult => html`
   ${triggerButton('my-dialog-5')}
   <sbb-dialog data-testid="dialog" id="my-dialog-5" ${sbbSpread(args)}>
-    ${dialogHeader(
+    ${dialogTitle(
       level,
       titleBackButton,
       hideOnScroll,
@@ -404,7 +404,7 @@ const NestedTemplate = ({
       dialog.&nbsp;${triggerButton('my-dialog-6')}</sbb-dialog-content
     >
     <sbb-dialog data-testid="nested-dialog" id="my-dialog-6" slot="content" ${sbbSpread(args)}>
-      ${dialogHeader(
+      ${dialogTitle(
         level,
         titleBackButton,
         hideOnScroll,

@@ -1,45 +1,14 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
-
-The `sbb-dialog-actions` is a component . . .
+The `sbb-dialog-actions` component extends the [sbb-action-group](/docs/components-sbb-action-group--docs) component. Use it in combination with the [sbb-dialog](/docs/components-sbb-dialog--docs) to display a footer with an action group.
 
 ```html
-<sbb-dialog-actions></sbb-dialog-actions>
+<sbb-dialog-action>
+    <sbb-link sbb-dialog-close>Link</sbb-link>
+    <sbb-button variant="secondary" sbb-dialog-close> Cancel </sbb-button>
+    <sbb-button variant="primary" sbb-dialog-close> Confirm </sbb-button>
+</sbb-dialog-actions>
 ```
 
-## Slots
-
-> Describe slot naming and usage and provide an example of slotted content.
-
-## States
-
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
-
-## Style
-
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
-
-## Interactions
-
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
-
-## Events
-
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
-
-## Accessibility
-
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+It has an implicit slot name: `actions`.
 
 <!-- Auto Generated Below -->
 

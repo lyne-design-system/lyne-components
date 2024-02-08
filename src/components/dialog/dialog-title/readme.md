@@ -1,45 +1,28 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
-
-The `sbb-dialog-title` is a component . . .
+The `sbb-dialog-title` component extends the [sbb-title](/docs/components-sbb-title--docs) component. Use it in combination with the [sbb-dialog](/docs/components-sbb-dialog--docs) to display a header in the dialog with a title, a close button and an optional back button.
 
 ```html
-<sbb-dialog-title></sbb-dialog-title>
+<sbb-dialog-title
+  title-back-button
+  hide-on-scroll="small"
+  accessibility-close-label="Close button"
+  accessibility-back-label="Back button"
+  >A describing title of the dialog</sbb-dialog-title
+>
 ```
 
-## Slots
-
-> Describe slot naming and usage and provide an example of slotted content.
+It has an implicit slot name: `title`.
 
 ## States
 
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
-
-## Style
-
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
+The title can have a `negative` state which is automatically synchronised with the negative state of the dialog. In addition, the title can be hidden when scrolling down the content, to provide more space for reading the content itself; this can be done thanks to the `hide-on-scroll` property, which can determine whether to hide the title and up to which breakpoint.
 
 ## Interactions
 
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
+A close button is always displayed and can be used to close the dialog. Optionally, a back button can be shown with the property `title-back-button` (default is `false`).
 
 ## Events
 
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
-
-## Accessibility
-
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+If a back button is displayd it emits a `requestBackAction` event on click.
 
 <!-- Auto Generated Below -->
 
