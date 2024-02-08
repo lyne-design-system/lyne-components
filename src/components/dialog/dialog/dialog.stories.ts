@@ -16,7 +16,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread, type Breakpoint } from '../../core/dom';
 import sampleImages from '../../core/images';
 import { SbbDialogTitleElement } from '../dialog-title';
 
@@ -69,7 +69,7 @@ const hideOnScroll: InputType = {
   control: {
     type: 'select',
   },
-  options: [false, true, 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: [false, 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
   table: {
     category: 'Title',
   },
@@ -209,7 +209,7 @@ const textBlockStyle: Args = {
 const dialogHeader = (
   level: number,
   titleBackButton: boolean,
-  hideOnScroll: any,
+  hideOnScroll: false | Breakpoint,
   accessibilityCloseLabel: string,
   accessibilityBackLabel: string,
 ): TemplateResult => html`

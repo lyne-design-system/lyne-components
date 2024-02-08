@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { LanguageController } from '../../core/common-behaviors';
 import type { Breakpoint } from '../../core/dom';
-import { setAttribute } from '../../core/dom';
+import { breakpoints, setAttribute } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseDialog, i18nGoBack } from '../../core/i18n';
 import type { TitleLevel } from '../../title';
@@ -53,15 +53,27 @@ export class SbbDialogTitleElement extends SbbTitleElement {
   /**
    * Whether to hide the title up to a certain breakpoint.
    */
-  @property({ attribute: 'hide-on-scroll' })
-  public set hideOnScroll(value: false | '' | Breakpoint) {
-    this._hideOnScroll =
-      value === '' || value === 'true' ? 'ultra' : value === 'false' ? false : value;
-  }
-  public get hideOnScroll(): false | '' | Breakpoint {
-    return this._hideOnScroll;
-  }
-  private _hideOnScroll: false | '' | Breakpoint = false;
+  @property({
+    attribute: 'hide-on-scroll',
+    converter: (value) => {
+      if (value === 'true' || value == '') {
+        return 'ultra';
+      }
+
+      if (value === 'false') {
+        return false;
+      }
+
+      const isBreakpointValue = (x: any): x is Breakpoint => breakpoints.includes(x);
+
+      if (isBreakpointValue(value)) {
+        return value;
+      } else {
+        return false;
+      }
+    },
+  })
+  public hideOnScroll: false | Breakpoint = false;
 
   private _backClick: EventEmitter<any> = new EventEmitter(
     this,

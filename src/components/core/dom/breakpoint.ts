@@ -1,6 +1,7 @@
 import { isBrowser } from './platform';
 
-export type Breakpoint = 'zero' | 'micro' | 'small' | 'medium' | 'wide' | 'large' | 'ultra';
+export const breakpoints = ['zero', 'micro', 'small', 'medium', 'wide', 'large', 'ultra'] as const;
+export type Breakpoint = (typeof breakpoints)[number];
 
 /**
  * Checks whether the document matches a particular media query.
