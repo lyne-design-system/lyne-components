@@ -69,7 +69,7 @@ const hideOnScroll: InputType = {
   control: {
     type: 'select',
   },
-  options: [false, '', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: [false, true, 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
   table: {
     category: 'Title',
   },

@@ -55,7 +55,8 @@ export class SbbDialogTitleElement extends SbbTitleElement {
    */
   @property({ attribute: 'hide-on-scroll' })
   public set hideOnScroll(value: false | '' | Breakpoint) {
-    this._hideOnScroll = value === '' ? 'ultra' : value;
+    this._hideOnScroll =
+      value === '' || value === 'true' ? 'ultra' : value === 'false' ? false : value;
   }
   public get hideOnScroll(): false | '' | Breakpoint {
     return this._hideOnScroll;

@@ -356,8 +356,6 @@ export class SbbDialogElement extends LitElement {
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
   private _onDialogAnimationEnd(event: AnimationEvent): void {
-    console.log('Animation');
-
     if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
       this._didOpen.emit();
