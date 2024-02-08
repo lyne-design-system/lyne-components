@@ -10,7 +10,7 @@ describe('sbb-dialog', () => {
     const root = await fixture(html`<sbb-dialog></sbb-dialog>`);
 
     expect(root).dom.to.be.equal(`<sbb-dialog data-state="closed"></sbb-dialog>`);
-    expect(root).shadowDom.to.be.equalSnapshot();
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   testA11yTreeSnapshot(html`<sbb-dialog></sbb-dialog>`);
