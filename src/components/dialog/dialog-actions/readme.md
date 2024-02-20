@@ -1,11 +1,13 @@
 The `sbb-dialog-actions` component extends the [sbb-action-group](/docs/components-sbb-action-group--docs) component. Use it in combination with the [sbb-dialog](/docs/components-sbb-dialog--docs) to display a footer with an action group.
 
 ```html
-<sbb-dialog-action>
-    <sbb-link sbb-dialog-close>Link</sbb-link>
-    <sbb-button variant="secondary" sbb-dialog-close> Cancel </sbb-button>
-    <sbb-button variant="primary" sbb-dialog-close> Confirm </sbb-button>
-</sbb-dialog-actions>
+<sbb-dialog>
+    <sbb-dialog-action>
+        <sbb-link sbb-dialog-close>Link</sbb-link>
+        <sbb-button variant="secondary" sbb-dialog-close> Cancel </sbb-button>
+        <sbb-button variant="primary" sbb-dialog-close> Confirm </sbb-button>
+    </sbb-dialog-actions>
+</sbb-dialog>
 ```
 
 It has an implicit slot name: `actions`.
@@ -21,3 +23,9 @@ It has an implicit slot name: `actions`.
 | `orientation`    | `orientation`     | public  | `SbbOrientation`                            | `'horizontal'` | Indicates the orientation of the components inside the `<sbb-action-group>`.                                    |
 | `buttonSize`     | `button-size`     | public  | `SbbButtonSize`                             | `'l'`          | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances. |
 | `linkSize`       | `link-size`       | public  | `SbbLinkSize`                               | `'m'`          | Size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.     |
+
+## Slots
+
+| Name | Description                                                                                |
+| ---- | ------------------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add `sbb-link` or `sbb-button` elements to the `sbb-action-group`. |

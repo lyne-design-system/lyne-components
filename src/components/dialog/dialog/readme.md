@@ -70,6 +70,13 @@ You can also set the property `backButton` on the `sbb-dialog-title` component t
 
 It's possible to display the component in `negative` variant using the self-named property.
 
+```html
+<sbb-dialog negative>
+  <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+</sbb-dialog>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
