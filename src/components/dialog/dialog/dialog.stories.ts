@@ -151,9 +151,9 @@ const openDialog = (_event: PointerEvent, id: string): void => {
   dialog.open();
 };
 
-const triggerButton = (dialogId: string): TemplateResult => html`
+const triggerButton = (dialogId: string, triggerId?: string): TemplateResult => html`
   <sbb-button
-    data-testid="dialog-trigger"
+    data-testid=${triggerId || 'dialog-trigger'}
     size="m"
     type="button"
     @click=${(event: PointerEvent) => openDialog(event, dialogId)}
@@ -372,7 +372,7 @@ const NestedTemplate = ({
     ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
     <sbb-dialog-content
       >Click the button to open a nested
-      dialog.&nbsp;${triggerButton('my-dialog-6')}</sbb-dialog-content
+      dialog.&nbsp;${triggerButton('my-dialog-6', 'nested-trigger-id')}</sbb-dialog-content
     >
     <sbb-dialog data-testid="nested-dialog" id="my-dialog-6" slot="content" ${sbbSpread(args)}>
       ${dialogTitle(
