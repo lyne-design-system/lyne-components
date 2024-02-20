@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { FocusVisibleWithinController } from '../../core/a11y';
 import { LanguageController } from '../../core/common-behaviors';
 import type { Breakpoint } from '../../core/dom';
-import { breakpoints, setAttribute } from '../../core/dom';
+import { setAttribute } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseDialog, i18nGoBack } from '../../core/i18n';
 import type { TitleLevel } from '../../title';
@@ -35,7 +35,7 @@ export class SbbDialogTitleElement extends SbbTitleElement {
   /**
    * Whether a back button is displayed next to the title.
    */
-  @property({ attribute: 'title-back-button', type: Boolean }) public titleBackButton = false;
+  @property({ attribute: 'back-button', type: Boolean }) public backButton = false;
 
   /**
    * This will be forwarded as aria-label to the close button element.
@@ -54,27 +54,14 @@ export class SbbDialogTitleElement extends SbbTitleElement {
   /**
    * Whether to hide the title up to a certain breakpoint.
    */
-  @property({
-    attribute: 'hide-on-scroll',
-    converter: (value) => {
-      if (value === 'true' || value == '') {
-        return 'ultra';
-      }
-
-      if (value === 'false') {
-        return false;
-      }
-
-      const isBreakpointValue = (x: any): x is Breakpoint => breakpoints.includes(x);
-
-      if (isBreakpointValue(value)) {
-        return value;
-      } else {
-        return false;
-      }
-    },
-  })
-  public hideOnScroll: false | Breakpoint = false;
+  @property({ attribute: 'hide-on-scroll' })
+  public set hideOnScroll(value: '' | Breakpoint | undefined) {
+    this._hideOnScroll = value === '' ? 'ultra' : value;
+  }
+  public get hideOnScroll(): '' | Breakpoint | undefined {
+    return this._hideOnScroll;
+  }
+  private _hideOnScroll: '' | Breakpoint | undefined;
 
   private _backClick: EventEmitter<any> = new EventEmitter(
     this,
@@ -118,7 +105,7 @@ export class SbbDialogTitleElement extends SbbTitleElement {
 
     return html`
       <div class="sbb-dialog__header">
-        ${this.titleBackButton ? backButton : nothing} ${super.render()} ${closeButton}
+        ${this.backButton ? backButton : nothing} ${super.render()} ${closeButton}
       </div>
     `;
   }

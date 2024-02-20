@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { FocusHandler, getFirstFocusableElement, setModalityOnNextFocus } from '../../core/a11y';
-import { LanguageController, NamedSlotStateController } from '../../core/common-behaviors';
+import { LanguageController } from '../../core/common-behaviors';
 import {
   ScrollHandler,
   toggleDatasetEntry,
@@ -226,8 +226,6 @@ export class SbbDialogElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    new NamedSlotStateController(this);
-
     this._state = this._state || 'closed';
     this._dialogController?.abort();
     this._dialogController = new AbortController();
@@ -246,6 +244,7 @@ export class SbbDialogElement extends LitElement {
   }
 
   protected override firstUpdated(): void {
+    this._ariaLiveRef = this.shadowRoot!.querySelector('.sbb-screen-reader-only')!;
     this._dialogTitleElement = this.querySelector('sbb-dialog-title')!;
     this._syncNegative();
   }

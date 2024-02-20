@@ -190,7 +190,7 @@ const Template = (args: Args): TemplateResult => html`
           </sbb-secondary-button>
 
           <sbb-dialog id="my-dialog" title-content="My Dialog">
-            <sbb-dialog-title title-back-button>My Dialog</sbb-dialog-title>
+            <sbb-dialog-title back-button>My Dialog</sbb-dialog-title>
 
             <sbb-dialog-content>
               <p style="margin-top: 0;">
@@ -230,7 +230,7 @@ const Template = (args: Args): TemplateResult => html`
           </sbb-dialog>
 
           <sbb-dialog id="my-stacked-dialog">
-            <sbb-dialog-title title-back-button>Stacked Dialog</sbb-dialog-title>
+            <sbb-dialog-title back-button>Stacked Dialog</sbb-dialog-title>
             <sbb-dialog-content>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua.

@@ -64,7 +64,7 @@ emit a close event with an optional result as a payload.
 The component can also be dismissed by clicking on the close button, clicking on the backdrop, pressing the `Esc` key,
 or, if an element within the `sbb-dialog` has the `sbb-dialog-close` attribute, by clicking on it.
 
-You can also set the property `titleBackButton` on the `sbb-dialog-title` component to display the back button in the title section which will emit the event `requestBackAction` when clicked.
+You can also set the property `backButton` on the `sbb-dialog-title` component to display the back button in the title section which will emit the event `requestBackAction` when clicked.
 
 ## Style
 

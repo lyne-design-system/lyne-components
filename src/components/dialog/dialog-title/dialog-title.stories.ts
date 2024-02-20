@@ -16,7 +16,7 @@ const level: InputType = {
   options: [1, 2, 3, 4, 5, 6],
 };
 
-const titleBackButton: InputType = {
+const backButton: InputType = {
   control: {
     type: 'boolean',
   },
@@ -26,7 +26,7 @@ const hideOnScroll: InputType = {
   control: {
     type: 'select',
   },
-  options: [false, '', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
 };
 
 const accessibilityCloseLabel: InputType = {
@@ -49,7 +49,7 @@ const accessibilityBackLabel: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   level,
-  'title-back-button': titleBackButton,
+  'back-button': backButton,
   'hide-on-scroll': hideOnScroll,
   'accessibility-close-label': accessibilityCloseLabel,
   'accessibility-back-label': accessibilityBackLabel,
@@ -57,7 +57,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   level: level.options[0],
-  'title-back-button': true,
+  'back-button': true,
   'hide-on-scroll': hideOnScroll.options[0],
   'accessibility-close-label': 'Close dialog',
   'accessibility-back-label': 'Go back',
