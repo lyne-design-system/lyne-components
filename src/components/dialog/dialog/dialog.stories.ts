@@ -16,7 +16,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
-import { sbbSpread, type Breakpoint, breakpoints } from '../../core/dom';
+import { sbbSpread, breakpoints } from '../../core/dom';
 import sampleImages from '../../core/images';
 import type { TitleLevel } from '../../title';
 import { SbbDialogTitleElement } from '../dialog-title';
@@ -53,7 +53,7 @@ const hideHeader = async ({ canvasElement }: StoryContext): Promise<void> => {
   // Scroll the content to hide the title.
   setTimeout(() => {
     canvas.getByTestId('content').shadowRoot?.firstElementChild?.scroll(0, 50);
-  }, 250);
+  }, 500);
 };
 
 const level: InputType = {
@@ -221,7 +221,7 @@ const textBlockStyle: Args = {
 const dialogTitle = (
   level: TitleLevel,
   backButton: boolean,
-  hideOnScroll: 'Deactivate hide on scroll' | '' | Breakpoint,
+  hideOnScroll: any,
   accessibilityCloseLabel: string,
   accessibilityBackLabel: string,
 ): TemplateResult => html`
