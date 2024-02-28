@@ -2,11 +2,11 @@ The `sbb-dialog-actions` component extends the [sbb-action-group](/docs/componen
 
 ```html
 <sbb-dialog>
-    <sbb-dialog-action>
-        <sbb-link sbb-dialog-close>Link</sbb-link>
-        <sbb-button variant="secondary" sbb-dialog-close> Cancel </sbb-button>
-        <sbb-button variant="primary" sbb-dialog-close> Confirm </sbb-button>
-    </sbb-dialog-actions>
+  <sbb-dialog-action>
+    <sbb-link sbb-dialog-close>Link</sbb-link>
+    <sbb-button variant="secondary" sbb-dialog-close> Cancel </sbb-button>
+    <sbb-button variant="primary" sbb-dialog-close> Confirm </sbb-button>
+  </sbb-dialog-actions>
 </sbb-dialog>
 ```
 

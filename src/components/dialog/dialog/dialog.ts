@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { FocusHandler, getFirstFocusableElement, setModalityOnNextFocus } from '../../core/a11y';
-import { LanguageController } from '../../core/common-behaviors';
+import { LanguageController, SbbNegativeMixin } from '../../core/common-behaviors';
 import {
   ScrollHandler,
   toggleDatasetEntry,
@@ -46,7 +46,7 @@ let nextId = 0;
  * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
  */
 @customElement('sbb-dialog')
-export class SbbDialogElement extends LitElement {
+export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -59,11 +59,6 @@ export class SbbDialogElement extends LitElement {
    * Backdrop click action.
    */
   @property({ attribute: 'backdrop-action' }) public backdropAction: 'close' | 'none' = 'close';
-
-  /**
-   * Negative coloring variant flag.
-   */
-  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /**
    * This will be forwarded as aria-label to the relevant nested element.
@@ -108,10 +103,10 @@ export class SbbDialogElement extends LitElement {
   /** Emits whenever the `sbb-dialog` is closed. */
   private _didClose: EventEmitter = new EventEmitter(this, SbbDialogElement.events.didClose);
 
-  private _dialogTitleElement!: SbbDialogTitleElement;
-  private _dialogTitleHeight!: number;
-  private _dialogContentElement!: HTMLElement;
-  private _dialogActionsElement?: SbbDialogActionsElement;
+  private _dialogTitleElement: SbbDialogTitleElement | null = null;
+  private _dialogTitleHeight?: number;
+  private _dialogContentElement: HTMLElement | null = null;
+  private _dialogActionsElement: SbbDialogActionsElement | null = null;
   private _dialogCloseElement?: HTMLElement;
   private _dialogController!: AbortController;
   private _openDialogController!: AbortController;
@@ -138,10 +133,10 @@ export class SbbDialogElement extends LitElement {
     this._lastFocusedElement = document.activeElement as HTMLElement;
 
     // Initialize dialog elements
-    this._dialogTitleElement = this.querySelector('sbb-dialog-title')!;
-    this._dialogContentElement = this.querySelector('sbb-dialog-content')!.shadowRoot!
+    this._dialogTitleElement = this.querySelector('sbb-dialog-title');
+    this._dialogContentElement = this.querySelector('sbb-dialog-content')?.shadowRoot!
       .firstElementChild as HTMLElement;
-    this._dialogActionsElement = this.querySelector('sbb-dialog-actions') || undefined;
+    this._dialogActionsElement = this.querySelector('sbb-dialog-actions');
 
     this._syncNegative();
 
@@ -193,13 +188,17 @@ export class SbbDialogElement extends LitElement {
   }
 
   private _onContentScroll(): void {
+    if (!this._dialogContentElement) {
+      return;
+    }
+
     const hasVisibleHeader = this.dataset.hideHeader === undefined;
 
     // Check whether hiding the header would make the scrollbar disappear
     // and prevent the hiding animation if so.
     if (
       hasVisibleHeader &&
-      this._dialogContentElement.clientHeight + this._dialogTitleHeight >=
+      this._dialogContentElement.clientHeight + this._dialogTitleHeight! >=
         this._dialogContentElement.scrollHeight
     ) {
       return;
@@ -245,6 +244,8 @@ export class SbbDialogElement extends LitElement {
 
   protected override firstUpdated(): void {
     this._ariaLiveRef = this.shadowRoot!.querySelector('.sbb-screen-reader-only')!;
+
+    // Synchronize the negative state before the first opening to avoid a possible color flash if it is negative.
     this._dialogTitleElement = this.querySelector('sbb-dialog-title')!;
     this._syncNegative();
   }
@@ -371,7 +372,7 @@ export class SbbDialogElement extends LitElement {
       this._focusHandler.trap(this);
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._setHideHeaderDataAttribute(false);
-      this._dialogContentElement.scrollTo(0, 0);
+      this._dialogContentElement?.scrollTo(0, 0);
       this._state = 'closed';
       removeInertMechanism();
       setModalityOnNextFocus(this._lastFocusedElement);
@@ -394,9 +395,7 @@ export class SbbDialogElement extends LitElement {
     this._ariaLiveRefToggle = !this._ariaLiveRefToggle;
 
     // Take accessibility label or current string in title section
-    const label =
-      this.accessibilityLabel ||
-      (this.querySelector('sbb-dialog-title') as HTMLElement)!.innerText.trim();
+    const label = this.accessibilityLabel || this._dialogTitleElement?.innerText.trim();
 
     // If the text content remains the same, on VoiceOver the aria-live region is not announced a second time.
     // In order to support reading on every opening, we toggle an invisible space.
@@ -419,29 +418,32 @@ export class SbbDialogElement extends LitElement {
   }
 
   private _setDialogHeaderHeight(): void {
-    this._dialogTitleHeight = this._dialogTitleElement.shadowRoot!.firstElementChild!.clientHeight;
+    this._dialogTitleHeight = this._dialogTitleElement?.shadowRoot!.firstElementChild!.clientHeight;
     this.style.setProperty('--sbb-dialog-header-height', `${this._dialogTitleHeight}px`);
   }
 
   private _onContentResize(): void {
     this._setDialogHeaderHeight();
     // Check whether the content overflows and set the `overflows` attribute.
-    this._overflows =
-      this._dialogContentElement.scrollHeight > this._dialogContentElement.clientHeight;
+    this._overflows = this._dialogContentElement
+      ? this._dialogContentElement?.scrollHeight > this._dialogContentElement?.clientHeight
+      : false;
     this._setOverflowsDataAttribute();
   }
 
   private _setHideHeaderDataAttribute(value: boolean): void {
-    const hideOnScroll = this._dialogTitleElement.hideOnScroll;
+    const hideOnScroll = this._dialogTitleElement?.hideOnScroll;
     const hideHeader =
       !!hideOnScroll && isBreakpoint('zero', hideOnScroll, { includeMaxBreakpoint: true });
     toggleDatasetEntry(this, 'hideHeader', !hideHeader ? false : value);
-    toggleDatasetEntry(this._dialogTitleElement, 'hideHeader', !hideHeader ? false : value);
+    this._dialogTitleElement &&
+      toggleDatasetEntry(this._dialogTitleElement, 'hideHeader', !hideHeader ? false : value);
   }
 
   private _setOverflowsDataAttribute(): void {
     toggleDatasetEntry(this, 'overflows', this._overflows);
-    toggleDatasetEntry(this._dialogTitleElement, 'overflows', this._overflows);
+    this._dialogTitleElement &&
+      toggleDatasetEntry(this._dialogTitleElement, 'overflows', this._overflows);
     if (this._dialogActionsElement) {
       toggleDatasetEntry(this._dialogActionsElement!, 'overflows', this._overflows);
     }

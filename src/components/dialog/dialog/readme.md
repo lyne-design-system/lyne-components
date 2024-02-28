@@ -84,9 +84,9 @@ It's possible to display the component in `negative` variant using the self-name
 | Name                 | Attribute             | Privacy | Type                  | Default   | Description                                                          |
 | -------------------- | --------------------- | ------- | --------------------- | --------- | -------------------------------------------------------------------- |
 | `backdropAction`     | `backdrop-action`     | public  | `'close' \| 'none'`   | `'close'` | Backdrop click action.                                               |
-| `negative`           | `negative`            | public  | `boolean`             | `false`   | Negative coloring variant flag.                                      |
 | `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined` |           | This will be forwarded as aria-label to the relevant nested element. |
 | `disableAnimation`   | `disable-animation`   | public  | `boolean`             | `false`   | Whether the animation is enabled.                                    |
+| `negative`           | `negative`            | public  | `boolean`             | `false`   | Negative coloring variant flag.                                      |
 
 ## Methods
 

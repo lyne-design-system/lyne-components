@@ -5,10 +5,8 @@ import { customElement, property } from 'lit/decorators.js';
 import { FocusVisibleWithinController } from '../../core/a11y';
 import { LanguageController } from '../../core/common-behaviors';
 import type { Breakpoint } from '../../core/dom';
-import { setAttribute } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseDialog, i18nGoBack } from '../../core/i18n';
-import type { TitleLevel } from '../../title';
 import { SbbTitleElement } from '../../title';
 import '../../button';
 
@@ -25,12 +23,6 @@ export class SbbDialogTitleElement extends SbbTitleElement {
   public static readonly events: Record<string, string> = {
     backClick: 'requestBackAction',
   } as const;
-
-  /**
-   * Visual level for the title. Optional, if not set, the value of level will be used.
-   */
-  @property({ attribute: 'visual-level', reflect: true }) public override visualLevel?: TitleLevel =
-    '3';
 
   /**
    * Whether a back button is displayed next to the title.
@@ -69,14 +61,23 @@ export class SbbDialogTitleElement extends SbbTitleElement {
   );
   private _language = new LanguageController(this);
 
+  public constructor() {
+    super();
+    this.level = '2';
+    this.visualLevel = '3';
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
     new FocusVisibleWithinController(this);
   }
 
-  protected override render(): TemplateResult {
-    setAttribute(this, 'slot', 'title');
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    this.setAttribute('slot', 'title');
+    return super.createRenderRoot();
+  }
 
+  protected override render(): TemplateResult {
     const closeButton = html`
       <sbb-button
         class="sbb-dialog__close"

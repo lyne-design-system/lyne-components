@@ -12,7 +12,7 @@ It has an implicit slot name: `title`.
 
 ## States
 
-The title can have a `negative` state which is automatically synchronised with the negative state of the dialog.
+The title can have a `negative` state which is automatically synchronized with the negative state of the dialog.
 
 In addition, the title can be hidden when scrolling down the content, to provide more space for reading the content itself; this can be done thanks to the `hide-on-scroll` property, which can determine whether to hide the title and up to which breakpoint.
 
@@ -42,13 +42,13 @@ If a back button is displayd it emits a `requestBackAction` event on click.
 
 | Name                      | Attribute                   | Privacy | Type                            | Default | Description                                                                                                                                                                                    |
 | ------------------------- | --------------------------- | ------- | ------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `visualLevel`             | `visual-level`              | public  | `TitleLevel \| undefined`       | `'3'`   | Visual level for the title. Optional, if not set, the value of level will be used.                                                                                                             |
 | `backButton`              | `back-button`               | public  | `boolean`                       | `false` | Whether a back button is displayed next to the title.                                                                                                                                          |
 | `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined`    |         | This will be forwarded as aria-label to the close button element.                                                                                                                              |
 | `accessibilityBackLabel`  | `accessibility-back-label`  | public  | `\| string     \| undefined`    |         | This will be forwarded as aria-label to the back button element.                                                                                                                               |
 | `hideOnScroll`            | `hide-on-scroll`            | public  | `'' \| Breakpoint \| undefined` |         | Whether to hide the title up to a certain breakpoint.                                                                                                                                          |
+| `level`                   | `level`                     | public  | `TitleLevel \| undefined`       | `'2'`   | Title level                                                                                                                                                                                    |
+| `visualLevel`             | `visual-level`              | public  | `TitleLevel \| undefined`       | `'3'`   | Visual level for the title. Optional, if not set, the value of level will be used.                                                                                                             |
 | `negative`                | `negative`                  | public  | `boolean`                       | `false` | Negative coloring variant flag.                                                                                                                                                                |
-| `level`                   | `level`                     | public  | `TitleLevel \| undefined`       | `'1'`   | Title level                                                                                                                                                                                    |
 | `visuallyHidden`          | `visually-hidden`           | public  | `boolean \| undefined`          |         | Sometimes we need a title in the markup to present a proper hierarchy to the screen readers while we do not want to let that title appear visually. In this case we set visuallyHidden to true |
 
 ## Events

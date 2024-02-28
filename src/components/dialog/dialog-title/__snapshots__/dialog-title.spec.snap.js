@@ -3,13 +3,13 @@ export const snapshots = {};
 
 snapshots["sbb-dialog-title renders"] = 
 `<div class="sbb-dialog__header">
-  <h1
+  <h2
     class="sbb-title"
     role="presentation"
   >
     <slot>
     </slot>
-  </h1>
+  </h2>
   <sbb-button
     aria-label="Close secondary window"
     class="sbb-dialog__close"

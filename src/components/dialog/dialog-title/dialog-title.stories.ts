@@ -4,7 +4,7 @@ import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-c
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../core/dom';
+import { breakpoints, sbbSpread } from '../../core/dom';
 
 import { SbbDialogTitleElement } from './dialog-title';
 import readme from './readme.md?raw';
@@ -26,7 +26,7 @@ const hideOnScroll: InputType = {
   control: {
     type: 'select',
   },
-  options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: breakpoints,
 };
 
 const accessibilityCloseLabel: InputType = {
@@ -56,7 +56,6 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  level: level.options[0],
   'back-button': true,
   'hide-on-scroll': hideOnScroll.options[0],
   'accessibility-close-label': 'Close dialog',

@@ -3,7 +3,6 @@ import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbActionGroupElement } from '../../action-group';
-import { setAttribute } from '../../core/dom';
 
 import style from './dialog-actions.scss?lit&inline';
 
@@ -14,9 +13,12 @@ import style from './dialog-actions.scss?lit&inline';
 export class SbbDialogActionsElement extends SbbActionGroupElement {
   public static override styles: CSSResultGroup = [SbbActionGroupElement.styles, style];
 
-  protected override render(): TemplateResult {
-    setAttribute(this, 'slot', 'actions');
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    this.setAttribute('slot', 'actions');
+    return super.createRenderRoot();
+  }
 
+  protected override render(): TemplateResult {
     return html` <div class="sbb-dialog-actions">${super.render()}</div> `;
   }
 }

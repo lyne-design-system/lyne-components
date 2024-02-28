@@ -11,12 +11,12 @@ import type {
 } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
-import { sbbSpread, type Breakpoint } from '../../core/dom';
+import { sbbSpread, type Breakpoint, breakpoints } from '../../core/dom';
 import sampleImages from '../../core/images';
 import type { TitleLevel } from '../../title';
 import { SbbDialogTitleElement } from '../dialog-title';
@@ -26,10 +26,8 @@ import readme from './readme.md?raw';
 
 import '../../button';
 import '../../link';
-import '../../title';
 import '../../form-field';
 import '../../image';
-import '../../action-group';
 import '../dialog-content';
 import '../dialog-actions';
 
@@ -45,6 +43,17 @@ const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
 
   const button = canvas.getByTestId('dialog-trigger');
   await userEvent.click(button);
+};
+
+const hideHeader = async ({ canvasElement }: StoryContext): Promise<void> => {
+  const canvas = within(canvasElement);
+
+  await playStory({ canvasElement } as StoryContext);
+
+  // Scroll the content to hide the title.
+  setTimeout(() => {
+    canvas.getByTestId('content').shadowRoot?.firstElementChild?.scroll(0, 50);
+  }, 250);
 };
 
 const level: InputType = {
@@ -70,7 +79,7 @@ const hideOnScroll: InputType = {
   control: {
     type: 'select',
   },
-  options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: ['Deactivate hide on scroll', ...breakpoints],
   table: {
     category: 'Title',
   },
@@ -135,9 +144,9 @@ const basicArgTypes: ArgTypes = {
 };
 
 const basicArgs: Args = {
-  level: level.options[0],
+  level: level.options[1],
   backButton: true,
-  hideOnScroll: hideOnScroll.options[6],
+  hideOnScroll: hideOnScroll.options[7],
   accessibilityCloseLabel: 'Close dialog',
   accessibilityBackLabel: 'Go back',
   negative: false,
@@ -210,14 +219,14 @@ const textBlockStyle: Args = {
 const dialogTitle = (
   level: TitleLevel,
   backButton: boolean,
-  hideOnScroll: '' | Breakpoint,
+  hideOnScroll: 'Deactivate hide on scroll' | '' | Breakpoint,
   accessibilityCloseLabel: string,
   accessibilityBackLabel: string,
 ): TemplateResult => html`
   <sbb-dialog-title
     level=${level}
     ?back-button=${backButton}
-    hide-on-scroll=${hideOnScroll}
+    hide-on-scroll=${hideOnScroll === 'Deactivate hide on scroll' ? nothing : hideOnScroll}
     accessibility-close-label=${accessibilityCloseLabel}
     accessibility-back-label=${accessibilityBackLabel}
     >A describing title of the dialog</sbb-dialog-title
@@ -262,7 +271,7 @@ const LongContentTemplate = ({
   ${triggerButton('my-dialog-2')}
   <sbb-dialog data-testid="dialog" id="my-dialog-2" ${sbbSpread(args)}>
     ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
-    <sbb-dialog-content>
+    <sbb-dialog-content data-testid="content">
       Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
       like summer-light upon the trees. Near him sat the Lady Arwen. To his surprise Frodo saw that
       Aragorn stood beside her; his dark cloak was thrown back, and he seemed to be clad in
@@ -423,6 +432,13 @@ export const LongContent: StoryObj = {
   argTypes: basicArgTypes,
   args: { ...basicArgs },
   play: isChromatic() ? playStory : undefined,
+};
+
+export const HiddenTitle: StoryObj = {
+  render: LongContentTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+  play: isChromatic() ? hideHeader : undefined,
 };
 
 export const Form: StoryObj = {

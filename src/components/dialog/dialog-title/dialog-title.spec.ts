@@ -8,8 +8,8 @@ describe('sbb-dialog-title', () => {
 
     expect(root).dom.to.be.equal(`
       <sbb-dialog-title
-       aria-level="1"
-       level="1"
+       aria-level="2"
+       level="2"
        role="heading"
        slot="title"
        visual-level="3">Title</sbb-dialog-title>
