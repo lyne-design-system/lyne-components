@@ -163,6 +163,8 @@ const openDialog = (_event: PointerEvent, id: string): void => {
 const triggerButton = (dialogId: string, triggerId?: string): TemplateResult => html`
   <sbb-button
     data-testid=${triggerId || 'dialog-trigger'}
+    aria-haspopup="dialog"
+    aria-controls=${dialogId}
     size="m"
     type="button"
     @click=${(event: PointerEvent) => openDialog(event, dialogId)}

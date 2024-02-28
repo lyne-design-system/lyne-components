@@ -42,7 +42,12 @@ It is necessary to pass the event object to the `open()` method to allow the dia
 whether it has been opened by click or keyboard, so that the focus can be better handled.
 
 ```html
-<sbb-button label="Open dialog" click="openDialog(event, 'my-dialog')"></sbb-button>
+<sbb-button
+  label="Open dialog"
+  click="openDialog(event, 'my-dialog')"
+  aria-haspopup="dialog"
+  aria-controls="my-dialog"
+></sbb-button>
 
 <sbb-dialog id="my-dialog">
   <sbb-dialog-title>Title</sbb-dialog-title>
@@ -76,6 +81,16 @@ It's possible to display the component in `negative` variant using the self-name
   <sbb-dialog-content>Dialog content.</sbb-dialog-content>
 </sbb-dialog>
 ```
+
+The default `z-index` of the component is set to `1000`; to specify a custom stack order, the
+`z-index` can be changed by defining the CSS variable `--sbb-dialog-z-index`.
+
+## Accessibility
+
+When using a button to trigger the dialog, ensure to manage the appropriate ARIA attributes on the button element itself. This includes: `aria-haspopup="dialog"` that signals to assistive technologies that the button controls a dialog element,
+`aria-controls="dialog-id"` that connects the button to the dialog by referencing the dialog's ID. Consider using `aria-expanded` to indicate the dialog's current state (open or closed).
+
+The `sbb-dialog` component may visually hide the title thanks to the `hideOnScroll` property of the [sbb-dialog-title](/docs/components-sbb-dialog-title--docs) to create more space for content, this is useful especially on smaller screens. Screen readers and other assistive technologies will still have access to the title information for context.
 
 <!-- Auto Generated Below -->
 
