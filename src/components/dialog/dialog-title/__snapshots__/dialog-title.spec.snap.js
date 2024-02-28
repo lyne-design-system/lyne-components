@@ -27,3 +27,51 @@ snapshots["sbb-dialog-title renders"] =
 `;
 /* end snapshot sbb-dialog-title renders */
 
+snapshots["sbb-dialog-title A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Close secondary window"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-dialog-title A11y tree Chrome */
+
+snapshots["sbb-dialog-title A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Close secondary window"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-dialog-title A11y tree Firefox */
+
+snapshots["sbb-dialog-title A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Close secondary window"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-dialog-title A11y tree Safari */
+
