@@ -11,7 +11,7 @@ snapshots["sbb-dialog-content A11y tree Chrome"] =
 `;
 /* end snapshot sbb-dialog-content A11y tree Chrome */
 
-snapshots["sbb-dialog-actions A11y tree Firefox"] = 
+snapshots["sbb-dialog-content A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -19,9 +19,9 @@ snapshots["sbb-dialog-actions A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-dialog-actions A11y tree Firefox */
+/* end snapshot sbb-dialog-content A11y tree Firefox */
 
-snapshots["sbb-dialog-actions A11y tree Safari"] = 
+snapshots["sbb-dialog-content A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -29,4 +29,5 @@ snapshots["sbb-dialog-actions A11y tree Safari"] =
 }
 </p>
 `;
-/* end snapshot sbb-dialog-actions A11y tree Safari */
+/* end snapshot sbb-dialog-content A11y tree Safari */
+
