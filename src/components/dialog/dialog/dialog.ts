@@ -243,7 +243,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   }
 
   protected override firstUpdated(): void {
-    this._ariaLiveRef = this.shadowRoot!.querySelector('.sbb-screen-reader-only')!;
+    this._ariaLiveRef = this.shadowRoot!.querySelector('sbb-screenreader-only')!;
 
     // Synchronize the negative state before the first opening to avoid a possible color flash if it is negative.
     this._dialogTitleElement = this.querySelector('sbb-dialog-title')!;
