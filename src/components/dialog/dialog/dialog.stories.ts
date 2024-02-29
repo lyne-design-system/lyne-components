@@ -51,9 +51,8 @@ const hideHeader = async ({ canvasElement }: StoryContext): Promise<void> => {
   await playStory({ canvasElement } as StoryContext);
 
   // Scroll the content to hide the title.
-  setTimeout(() => {
-    canvas.getByTestId('content').shadowRoot?.firstElementChild?.scroll(0, 50);
-  }, 500);
+  await new Promise((resolve) => setTimeout(resolve, 500));
+  canvas.getByTestId('content').shadowRoot?.firstElementChild?.scroll(0, 50);
 };
 
 const level: InputType = {
@@ -146,7 +145,7 @@ const basicArgTypes: ArgTypes = {
 const basicArgs: Args = {
   level: level.options[1],
   backButton: true,
-  hideOnScroll: hideOnScroll.options[7],
+  hideOnScroll: hideOnScroll.options[0],
   accessibilityCloseLabel: 'Close dialog',
   accessibilityBackLabel: 'Go back',
   negative: false,
@@ -439,7 +438,7 @@ export const LongContent: StoryObj = {
 export const HiddenTitle: StoryObj = {
   render: LongContentTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs },
+  args: { ...basicArgs, hideOnScroll: hideOnScroll.options[7] },
   play: isChromatic() ? hideHeader : undefined,
 };
 

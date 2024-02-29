@@ -47,13 +47,13 @@ export class SbbDialogTitleElement extends SbbTitleElement {
    * Whether to hide the title up to a certain breakpoint.
    */
   @property({ attribute: 'hide-on-scroll' })
-  public set hideOnScroll(value: '' | Breakpoint | undefined) {
-    this._hideOnScroll = value === '' ? 'ultra' : value;
+  public set hideOnScroll(value: '' | Breakpoint | boolean) {
+    this._hideOnScroll = value === '' ? true : value;
   }
-  public get hideOnScroll(): '' | Breakpoint | undefined {
+  public get hideOnScroll(): Breakpoint | boolean {
     return this._hideOnScroll;
   }
-  private _hideOnScroll: '' | Breakpoint | undefined;
+  private _hideOnScroll: Breakpoint | boolean = false;
 
   private _backClick: EventEmitter<any> = new EventEmitter(
     this,

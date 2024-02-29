@@ -432,9 +432,11 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   }
 
   private _setHideHeaderDataAttribute(value: boolean): void {
-    const hideOnScroll = this._dialogTitleElement?.hideOnScroll;
+    const hideOnScroll = this._dialogTitleElement?.hideOnScroll ?? false;
     const hideHeader =
-      !!hideOnScroll && isBreakpoint('zero', hideOnScroll, { includeMaxBreakpoint: true });
+      typeof hideOnScroll === 'boolean'
+        ? hideOnScroll
+        : isBreakpoint('zero', hideOnScroll, { includeMaxBreakpoint: true });
     toggleDatasetEntry(this, 'hideHeader', !hideHeader ? false : value);
     this._dialogTitleElement &&
       toggleDatasetEntry(this._dialogTitleElement, 'hideHeader', !hideHeader ? false : value);
