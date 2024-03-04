@@ -3357,6 +3357,13 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.5.tgz#ec10755e871497bcd83efe927e43ec46e8c0747e"
   integrity sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==
 
+"@types/mkdirp@^1.0.1":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@types/mkdirp/-/mkdirp-1.0.2.tgz#8d0bad7aa793abe551860be1f7ae7f3198c16666"
+  integrity sha512-o0K1tSO0Dx5X6xlU5F1D6625FawhC3dU3iqr25lluNv/+/QIVH8RLNEiVokgIZo+mz+87w/3Mkg/VvQS+J51fQ==
+  dependencies:
+    "@types/node" "*"
+
 "@types/mocha@^10.0.4":
   version "10.0.6"
   resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-10.0.6.tgz#818551d39113081048bdddbef96701b4e8bb9d1b"
@@ -3391,6 +3398,20 @@
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/@types/parse5/-/parse5-6.0.3.tgz#705bb349e789efa06f43f128cef51240753424cb"
   integrity sha512-SuT16Q1K51EAVPz1K29DJ/sXjhSQ0zjvsypYJ6tlwVsRV9jwW5Adq2ch8Dq8kDBCkYnELS7N7VNCSB5nC56t/g==
+
+"@types/pixelmatch@^5.2.2":
+  version "5.2.6"
+  resolved "https://registry.yarnpkg.com/@types/pixelmatch/-/pixelmatch-5.2.6.tgz#fba6de304ac958495f27d85989f5c6bb7499a686"
+  integrity sha512-wC83uexE5KGuUODn6zkm9gMzTwdY5L0chiK+VrKcDfEjzxh1uadlWTvOmAbCpnM9zx/Ww3f8uKlYQVnO/TrqVg==
+  dependencies:
+    "@types/node" "*"
+
+"@types/pngjs@^6.0.0":
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/@types/pngjs/-/pngjs-6.0.4.tgz#9a457aebabd944efde1a773a0fa1d74933e8021b"
+  integrity sha512-atAK9xLKOnxiuArxcHovmnOUUGBZOQ3f0vCf43FnoKs6XnqiambT1kkJWmdo71IR+BoXSh+CueeFR0GfH3dTlQ==
+  dependencies:
+    "@types/node" "*"
 
 "@types/pretty-hrtime@^1.0.0":
   version "1.0.3"
@@ -4007,6 +4028,20 @@
     "@web/test-runner-chrome" "^0.15.0"
     "@web/test-runner-core" "^0.13.0"
     puppeteer "^20.0.0"
+
+"@web/test-runner-visual-regression@0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-visual-regression/-/test-runner-visual-regression-0.9.0.tgz#9875a4871a24f8bf520c97b80ce548e81bce51e6"
+  integrity sha512-06M1WffLy+BJo08s57RumKYUULD/UB8u7DgZ8/MJZYCt+7r4Vt54w34CwSGHCpeDLY8Z/YkxecafvzDjuLnEJQ==
+  dependencies:
+    "@types/mkdirp" "^1.0.1"
+    "@types/pixelmatch" "^5.2.2"
+    "@types/pngjs" "^6.0.0"
+    "@web/test-runner-commands" "^0.9.0"
+    "@web/test-runner-core" "^0.13.0"
+    mkdirp "^1.0.4"
+    pixelmatch "^5.2.1"
+    pngjs "^7.0.0"
 
 "@web/test-runner@0.18.0":
   version "0.18.0"
@@ -10290,6 +10325,13 @@ pirates@^4.0.4, pirates@^4.0.6:
   resolved "https://registry.yarnpkg.com/pirates/-/pirates-4.0.6.tgz#3018ae32ecfcff6c29ba2267cbf21166ac1f36b9"
   integrity sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==
 
+pixelmatch@^5.2.1:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/pixelmatch/-/pixelmatch-5.3.0.tgz#5e5321a7abedfb7962d60dbf345deda87cb9560a"
+  integrity sha512-o8mkY4E/+LNUf6LzX96ht6k6CEDi65k9G2rjMtBe9Oo+VPKSvl+0GKHuH/AlG+GA5LPG/i5hrekkxUc3s2HU+Q==
+  dependencies:
+    pngjs "^6.0.0"
+
 pkg-dir@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/pkg-dir/-/pkg-dir-3.0.0.tgz#2749020f239ed990881b1f71210d51eb6523bea3"
@@ -10329,6 +10371,16 @@ pluralize@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-8.0.0.tgz#1a6fa16a38d12a1901e0320fa017051c539ce3b1"
   integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
+
+pngjs@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-6.0.0.tgz#ca9e5d2aa48db0228a52c419c3308e87720da821"
+  integrity sha512-TRzzuFRRmEoSW/p1KVAmiOgPco2Irlah+bGFCeNfJXxxYGwSw7YwAOAcd7X28K/m5bjBWKsC29KyoMfHbypayg==
+
+pngjs@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-7.0.0.tgz#a8b7446020ebbc6ac739db6c5415a65d17090e26"
+  integrity sha512-LKWqWJRhstyYo9pGvgor/ivk2w94eSjE3RGVuzLGlr3NmD8bf7RcYGze1mNdEHRP6TRP6rMuDHk5t44hnTRyow==
 
 polished@^4.2.2:
   version "4.3.1"

@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
+import { testVisualRegressionSnapshot, waitForLitRender } from '../../core/testing';
 
 import '../../form-field';
 import './button';
@@ -110,5 +110,9 @@ describe('sbb-button', () => {
     );
     const button = root.querySelector('sbb-button');
     expect(button).to.have.attribute('data-icon-small');
+  });
+
+  testVisualRegressionSnapshot({
+    'sbb-button': html`<sbb-button>My Button</sbb-button>`,
   });
 });

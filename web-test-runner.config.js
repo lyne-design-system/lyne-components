@@ -1,13 +1,17 @@
+import { existsSync, readFileSync } from 'fs';
+import { dirname, join } from 'path';
 import { Worker } from 'worker_threads';
+
 import { defaultReporter, dotReporter, summaryReporter } from '@web/test-runner';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
-import { existsSync, readFileSync } from 'fs';
+import { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugin';
 import * as glob from 'glob';
 import * as sass from 'sass';
 import { createServer } from 'vite';
 
+const root = new URL('./', import.meta.url);
 const isCIEnvironment = !!process.env.CI || process.argv.includes('--ci');
 const isDebugMode = process.argv.includes('--debug');
 const firefox = process.argv.includes('--firefox');
@@ -59,7 +63,7 @@ const testRunnerHtml = (testFramework, _config, group) => `
 
 // Temporary workaround, until all files are migrated to ssr testing.
 const e2eFiles = glob
-  .sync('**/*.e2e.ts', { cwd: new URL('.', import.meta.url) })
+  .sync('**/*.e2e.ts', { cwd: root })
   .filter((f) => readFileSync(f, 'utf8').includes('${fixture.name}'));
 
 /** @type {import('@web/test-runner').TestRunnerConfig} */
@@ -72,7 +76,19 @@ export default {
   nodeResolve: true,
   reporters: isDebugMode ? [defaultReporter(), summaryReporter()] : [minimalReporter()],
   browsers: browsers,
-  plugins: [vitePlugin(), a11ySnapshotPlugin()],
+  plugins: [
+    vitePlugin(),
+    a11ySnapshotPlugin(),
+    visualRegressionPlugin({
+      update: process.argv.includes('--update-visual-baseline'),
+      getBaselineName: ({ browser, name, testFile }) =>
+        join(dirname(testFile), `__snapshot__/baseline/${name}-${browser}.png`),
+      getDiffName: ({ browser, name, testFile }) =>
+        join(dirname(testFile), `__snapshot__/failed/${name}-${browser}-diff.png`),
+      getFailedName: ({ browser, name, testFile }) =>
+        join(dirname(testFile), `__snapshot__/failed/${name}-${browser}.png`),
+    }),
+  ],
   testFramework: {
     config: {
       timeout: '6000',
