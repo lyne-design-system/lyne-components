@@ -18,7 +18,7 @@ import { waitForComponentsReady } from '../../../storybook/testing/wait-for-comp
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
 import { sbbSpread, breakpoints } from '../../core/dom';
 import sampleImages from '../../core/images';
-import type { TitleLevel } from '../../title';
+import type { SbbTitleLevel } from '../../title';
 import { SbbDialogTitleElement } from '../dialog-title';
 
 import { SbbDialogElement } from './dialog';
@@ -218,7 +218,7 @@ const textBlockStyle: Args = {
 };
 
 const dialogTitle = (
-  level: TitleLevel,
+  level: SbbTitleLevel,
   backButton: boolean,
   hideOnScroll: any,
   accessibilityCloseLabel: string,
