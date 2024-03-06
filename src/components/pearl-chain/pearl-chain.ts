@@ -1,4 +1,4 @@
-import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
+import { addMinutes, differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -11,6 +11,10 @@ import { isRideLeg } from '../core/timetable.js';
 import style from './pearl-chain.scss?lit&inline';
 
 type Status = 'progress' | 'future' | 'past';
+type Time = {
+  time?: Date;
+  delay: number;
+};
 
 /**
  * It visually displays journey information.
@@ -78,26 +82,37 @@ export class SbbPearlChainElement extends LitElement {
     return 0;
   }
 
-  private _getProgress(start?: Date, end?: Date): number {
-    if (!start || !end) {
+  private _getProgress(start?: Time, end?: Time): number {
+    if (!start?.time || !end?.time) {
       return 0;
     }
-    const total = differenceInMinutes(end, start);
-    const progress = differenceInMinutes(this._now(), start);
+
+    const startWithDelay = addMinutes(start.time, start.delay);
+    const endWithDelay = addMinutes(end.time, end.delay);
+    const total = differenceInMinutes(endWithDelay, startWithDelay);
+    const progress = differenceInMinutes(this._now(), startWithDelay);
 
     return total && (progress / total) * 100;
   }
 
-  private _getStatus(end?: Date, start?: Date): Status {
-    if (start && end && isBefore(start, this._now()) && isAfter(end, this._now())) {
+  private _getStatus(start?: Time, end?: Time): Status {
+    const startWithDelay = start && start.time && addMinutes(start.time, start.delay);
+    const endWithDelay = end && end.time && addMinutes(end.time, end.delay);
+
+    if (
+      startWithDelay &&
+      isBefore(startWithDelay, this._now()) &&
+      endWithDelay &&
+      isAfter(endWithDelay, this._now())
+    ) {
       return 'progress';
-    } else if (end && isBefore(end, this._now())) {
+    } else if (endWithDelay && isBefore(endWithDelay, this._now())) {
       return 'past';
     }
     return 'future';
   }
 
-  private _renderPosition(start?: Date, end?: Date): TemplateResult | undefined {
+  private _renderPosition(start?: Time, end?: Time): TemplateResult | undefined {
     const currentPosition = this._getProgress(start, end);
     if (currentPosition < 0 && currentPosition > 100) return undefined;
 
@@ -121,9 +136,18 @@ export class SbbPearlChainElement extends LitElement {
 
     const departureTime =
       rideLegs?.length && removeTimezoneFromISOTimeString(rideLegs[0]?.departure?.time);
+    const departureWithDelay = departureTime && {
+      time: departureTime,
+      delay: rideLegs[0].departure.delay || 0,
+    };
+
     const arrivalTime =
       rideLegs?.length &&
       removeTimezoneFromISOTimeString(rideLegs[rideLegs?.length - 1].arrival?.time);
+    const arrivalTimeDelay = arrivalTime && {
+      time: arrivalTime,
+      delay: rideLegs.at(-1)?.arrival.delay || 0,
+    };
 
     const departureNotServiced = ((): string => {
       return rideLegs &&
@@ -154,14 +178,17 @@ export class SbbPearlChainElement extends LitElement {
         : '';
     })();
 
+    const status =
+      departureWithDelay &&
+      arrivalTimeDelay &&
+      this._getStatus(departureWithDelay, arrivalTimeDelay);
+
     const statusClassDeparture =
-      rideLegs && departureTime && arrivalTime && !departureCancelClass
-        ? 'sbb-pearl-chain__bullet--' + this._getStatus(arrivalTime, departureTime)
-        : '';
+      rideLegs && status && !departureCancelClass ? 'sbb-pearl-chain__bullet--' + status : '';
 
     const statusClassArrival =
-      rideLegs && arrivalTime && !arrivalCancelClass
-        ? 'sbb-pearl-chain__bullet--' + this._getStatus(arrivalTime)
+      rideLegs && status && !arrivalCancelClass
+        ? 'sbb-pearl-chain__bullet--' + this._getStatus(undefined, arrivalTimeDelay)
         : '';
 
     if (this._isAllCancelled(rideLegs)) {
@@ -208,16 +235,22 @@ export class SbbPearlChainElement extends LitElement {
 
           const cancelled = serviceAlteration?.cancelled ? 'sbb-pearl-chain__leg--disruption' : '';
 
+          const legDepartureWithDelay = { time: departure, delay: leg.departure.delay || 0 };
+          const legArrivalWithDelay = { time: arrival, delay: leg.arrival.delay || 0 };
+          const status = this._getStatus(legDepartureWithDelay, legArrivalWithDelay);
+
           const legStatus =
             !cancelled &&
-            this._getStatus(departure, arrival) &&
-            'sbb-pearl-chain__leg--' + this._getStatus(arrival, departure);
+            this._getStatus(legDepartureWithDelay, legArrivalWithDelay) &&
+            'sbb-pearl-chain__leg--' + status;
 
           const legStyle = (): Record<string, string> => {
             return {
               '--sbb-pearl-chain-leg-width': `${duration}%`,
-              ...(this._getStatus(arrival, departure) === 'progress' && !cancelled
-                ? { '--sbb-pearl-chain-leg-status': `${this._getProgress(departure, arrival)}%` }
+              ...(status === 'progress' && !cancelled
+                ? {
+                    '--sbb-pearl-chain-leg-status': `${this._getProgress(legDepartureWithDelay, legArrivalWithDelay)}%`,
+                  }
                 : {}),
             };
           };
@@ -229,8 +262,8 @@ export class SbbPearlChainElement extends LitElement {
             ${index > 0 && index < rideLegs.length
               ? html`<span class="sbb-pearl-chain__stop ${departureSkippedBullet}"></span>`
               : nothing}
-            ${this._getStatus(arrival, departure) === 'progress' && !cancelled
-              ? this._renderPosition(departure, arrival)
+            ${status === 'progress' && !cancelled
+              ? this._renderPosition(legDepartureWithDelay, legArrivalWithDelay)
               : nothing}
           </div>`;
         })}
