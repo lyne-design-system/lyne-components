@@ -62,7 +62,11 @@ export class SbbPearlChainElement extends LitElement {
   }
 
   private _isAllCancelled(legs: PtRideLeg[]): boolean {
-    return legs?.every((leg) => leg?.serviceJourney?.serviceAlteration?.cancelled);
+    return legs?.some(
+      (leg) =>
+        leg?.serviceJourney?.serviceAlteration?.cancelled ||
+        leg?.serviceJourney?.serviceAlteration?.partiallyCancelled,
+    );
   }
 
   private _getRelativeDuration(legs: PtRideLeg[], leg: PtRideLeg): number {
