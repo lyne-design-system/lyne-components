@@ -28,9 +28,9 @@ It's not necessary to set the slots explicitly on the dialog's inner components,
   <sbb-dialog-title>Title</sbb-dialog-title>
   <sbb-dialog-content>Dialog content.</sbb-dialog-content>
   <sbb-dialog-action>
-    <sbb-link sbb-dialog-close>Link</sbb-link>
-    <sbb-button variant="secondary" sbb-dialog-close> Cancel </sbb-button>
-    <sbb-button variant="primary" sbb-dialog-close> Confirm </sbb-button>
+    <sbb-block-link sbb-dialog-close>Link</sbb-block-link>
+    <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
+    <sbb-button sbb-dialog-close> Confirm </sbb-button>
   </sbb-dialog-actions>
 </sbb-dialog>
 ```

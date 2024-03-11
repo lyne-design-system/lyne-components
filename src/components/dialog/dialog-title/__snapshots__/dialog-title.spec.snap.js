@@ -10,9 +10,12 @@ snapshots["sbb-dialog-title renders"] =
     <slot>
     </slot>
   </h2>
-  <sbb-button
+  <sbb-secondary-button
     aria-label="Close secondary window"
     class="sbb-dialog__close"
+    data-action=""
+    data-button=""
+    data-sbb-button=""
     dir="ltr"
     icon-name="cross-small"
     role="button"
@@ -20,9 +23,8 @@ snapshots["sbb-dialog-title renders"] =
     size="m"
     tabindex="0"
     type="button"
-    variant="secondary"
   >
-  </sbb-button>
+  </sbb-secondary-button>
 </div>
 `;
 /* end snapshot sbb-dialog-title renders */

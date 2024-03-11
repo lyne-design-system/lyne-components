@@ -174,7 +174,7 @@ const triggerButton = (dialogId: string, triggerId?: string): TemplateResult => 
 
 const dialogActions = (negative: boolean): TemplateResult => html`
   <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">
-    <sbb-link
+    <sbb-block-link
       align-self="start"
       icon-name="chevron-small-left-small"
       href="https://www.sbb.ch/en/"
@@ -182,9 +182,9 @@ const dialogActions = (negative: boolean): TemplateResult => html`
       sbb-dialog-close
     >
       Link
-    </sbb-link>
-    <sbb-button variant="secondary" sbb-dialog-close> Cancel </sbb-button>
-    <sbb-button variant="primary" sbb-dialog-close> Confirm </sbb-button>
+    </sbb-block-link>
+    <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
+    <sbb-button sbb-dialog-close> Confirm </sbb-button>
   </sbb-dialog-actions>
 `;
 
@@ -198,7 +198,7 @@ const formDetailsStyle: Args = {
   marginTop: 'var(--sbb-spacing-fixed-4x)',
   padding: 'var(--sbb-spacing-fixed-4x)',
   borderRadius: 'var(--sbb-border-radius-8x)',
-  backgroundColor: 'var(--sbb-color-milk-default)',
+  backgroundColor: 'var(--sbb-color-milk)',
 };
 
 const formStyle: Args = {
@@ -212,8 +212,8 @@ const textBlockStyle: Args = {
   position: 'relative',
   marginBlockStart: '1rem',
   padding: '1rem',
-  backgroundColor: 'var(--sbb-color-milk-default)',
-  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default)',
+  backgroundColor: 'var(--sbb-color-milk)',
+  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud)',
   borderRadius: 'var(--sbb-border-radius-4x)',
 };
 

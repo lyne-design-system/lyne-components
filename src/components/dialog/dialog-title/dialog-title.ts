@@ -1,6 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { FocusVisibleWithinController } from '../../core/a11y';
 import { LanguageController } from '../../core/common-behaviors';
@@ -78,31 +79,33 @@ export class SbbDialogTitleElement extends SbbTitleElement {
   }
 
   protected override render(): TemplateResult {
+    const TAG_NAME = this.negative ? 'sbb-transparent-button' : 'sbb-secondary-button';
+
+    /* eslint-disable lit/binding-positions */
     const closeButton = html`
-      <sbb-button
+      <${unsafeStatic(TAG_NAME)}
         class="sbb-dialog__close"
         aria-label=${this.accessibilityCloseLabel || i18nCloseDialog[this._language.current]}
-        variant=${this.negative ? 'transparent' : 'secondary'}
         ?negative=${this.negative}
         size="m"
         type="button"
         icon-name="cross-small"
         sbb-dialog-close
-      ></sbb-button>
+      ></${unsafeStatic(TAG_NAME)}>
     `;
 
     const backButton = html`
-      <sbb-button
+      <${unsafeStatic(TAG_NAME)}
         class="sbb-dialog__back"
         aria-label=${this.accessibilityBackLabel || i18nGoBack[this._language.current]}
-        variant=${this.negative ? 'transparent' : 'secondary'}
         ?negative=${this.negative}
         size="m"
         type="button"
         icon-name="chevron-small-left-small"
         @click=${() => this._backClick.emit()}
-      ></sbb-button>
+      ></${unsafeStatic(TAG_NAME)}>
     `;
+    /* eslint-enable lit/binding-positions */
 
     return html`
       <div class="sbb-dialog__header">

@@ -57,6 +57,13 @@ If a back button is displayd it emits a `requestBackAction` event on click.
 | ------------------- | ------------------- | ------------------------------------------ | -------------- |
 | `requestBackAction` | `CustomEvent<void>` | Emits whenever the back button is clicked. |                |
 
+## CSS Properties
+
+| Name                             | Default                           | Description                      |
+| -------------------------------- | --------------------------------- | -------------------------------- |
+| `--sbb-title-margin-block-start` | `var(--sbb-spacing-responsive-m)` | Margin block start of the title. |
+| `--sbb-title-margin-block-end`   | `var(--sbb-spacing-responsive-s)` | Margin block end of the title.   |
+
 ## Slots
 
 | Name | Description                                |

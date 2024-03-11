@@ -11,16 +11,16 @@ import '../../link';
 
 const Template = (): TemplateResult =>
   html`<sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">
-    <sbb-link
+    <sbb-block-link
       align-self="start"
       icon-name="chevron-small-left-small"
       href="https://www.sbb.ch/en/"
       sbb-dialog-close
     >
       Link
-    </sbb-link>
-    <sbb-button variant="secondary" sbb-dialog-close> Cancel </sbb-button>
-    <sbb-button variant="primary" sbb-dialog-close> Confirm </sbb-button>
+    </sbb-block-link>
+    <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
+    <sbb-button sbb-dialog-close> Confirm </sbb-button>
   </sbb-dialog-actions>`;
 
 export const Default: StoryObj = { render: Template };

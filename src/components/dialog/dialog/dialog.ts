@@ -1,7 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { html } from 'lit/static-html.js';
 
 import { FocusHandler, getFirstFocusableElement, setModalityOnNextFocus } from '../../core/a11y';
 import { LanguageController, SbbNegativeMixin } from '../../core/common-behaviors';

@@ -61,32 +61,6 @@
 }
 
 :host([data-hide-header]) {
-  --sbb-dialog-header-margin-block-start: calc(var(--sbb-dialog-header-height) * -1);
-
-  // Hide transition
-  --sbb-dialog-header-transition-timing: cubic-bezier(0.4, 0, 1, 1);
-}
-
-:host(:not([data-hide-header])) {
-  // Show transition
-  --sbb-dialog-header-transition-timing: cubic-bezier(0, 0, 0.2, 1);
-}
-
-:host([data-hide-header]) {
-  // Hide transition
-  --sbb-dialog-content-transition: transform var(--sbb-dialog-header-transition-duration)
-    var(--sbb-dialog-animation-easing);
-  --sbb-dialog-header-margin-block-start: calc(var(--sbb-dialog-header-height) * -1);
-}
-
-:host(:not([data-hide-header])) {
-  // Show transition
-  --sbb-dialog-content-transition: transform var(--sbb-dialog-header-transition-duration)
-      var(--sbb-dialog-animation-easing),
-    margin 0s var(--sbb-dialog-header-transition-duration);
-}
-
-:host([data-hide-header]) {
   // Hide transition
   --sbb-dialog-header-margin-block-start: calc(var(--sbb-dialog-header-height) * -1);
 }
