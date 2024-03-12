@@ -4,14 +4,14 @@ import { sbbInputModalityDetector } from './input-modality-detector';
 
 // Determine whether the element has a visible focus within.
 export class FocusVisibleWithinController implements ReactiveController {
-  private _focusinHanlder = (): void => {
+  private _focusinHandler = (): void => {
     this._host.toggleAttribute(
       'data-has-visible-focus-within',
       sbbInputModalityDetector.mostRecentModality === 'keyboard',
     );
   };
 
-  private _focusoutHanlder = (): void => {
+  private _focusoutHandler = (): void => {
     this._host.toggleAttribute('data-has-visible-focus-within', false);
   };
 
@@ -20,12 +20,12 @@ export class FocusVisibleWithinController implements ReactiveController {
   }
 
   public hostConnected(): void {
-    this._host.addEventListener('focusin', this._focusinHanlder);
-    this._host.addEventListener('focusout', this._focusoutHanlder);
+    this._host.addEventListener('focusin', this._focusinHandler);
+    this._host.addEventListener('focusout', this._focusoutHandler);
   }
 
   public hostDisconnected(): void {
-    this._host.removeEventListener('focusin', this._focusinHanlder);
-    this._host.removeEventListener('focusout', this._focusoutHanlder);
+    this._host.removeEventListener('focusin', this._focusinHandler);
+    this._host.removeEventListener('focusout', this._focusoutHandler);
   }
 }
