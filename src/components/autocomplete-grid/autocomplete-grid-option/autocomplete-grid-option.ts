@@ -149,7 +149,7 @@ export class SbbAutocompleteGridOptionElement extends SbbDisabledMixin(
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    const parentGroup = this.closest?.('sbb-optgroup'); // fixme
+    const parentGroup = this.closest?.('sbb-autocomplete-grid-optgroup');
     if (parentGroup) {
       this._disabledFromGroup = parentGroup.disabled;
     }

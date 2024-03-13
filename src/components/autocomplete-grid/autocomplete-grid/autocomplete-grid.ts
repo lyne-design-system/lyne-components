@@ -286,7 +286,7 @@ export class SbbAutocompleteGridElement extends SlotChildObserver(SbbNegativeMix
     this.querySelectorAll?.('sbb-divider').forEach((divider) => (divider.negative = this.negative));
 
     this.querySelectorAll?.<SbbAutocompleteGridOptionElement | SbbOptGroupElement>(
-      'sbb-autocomplete-grid-option, sbb-optgroup', // FIXME
+      'sbb-autocomplete-grid-option, sbb-autocomplete-grid-optgroup',
     ).forEach((element) => toggleDatasetEntry(element, 'negative', this.negative));
 
     this.querySelectorAll?.<SbbAutocompleteGridButtonElement>(

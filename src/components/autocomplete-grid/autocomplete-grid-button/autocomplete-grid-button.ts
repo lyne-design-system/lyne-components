@@ -47,7 +47,7 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const parentGroup = this.closest?.('sbb-optgroup'); // fixme
+    const parentGroup = this.closest?.('sbb-autocomplete-grid-optgroup');
     if (parentGroup) {
       this._disabledFromGroup = parentGroup.disabled;
     }

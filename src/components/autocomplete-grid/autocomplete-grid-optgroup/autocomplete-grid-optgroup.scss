@@ -1,0 +1,51 @@
+@use '../../core/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-optgroup-divider-display: block;
+  --sbb-optgroup-divider-spacing: 0;
+  --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-4x);
+  --sbb-optgroup-label-padding-inline: var(--sbb-spacing-fixed-4x);
+  --sbb-optgroup-label-font-size: var(--sbb-typo-scale-0-75x);
+  --sbb-optgroup-label-color: var(--sbb-color-metal);
+}
+
+:host(:first-child) {
+  --sbb-optgroup-divider-display: none;
+  --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-2x);
+}
+
+:host([data-negative]) {
+  --sbb-optgroup-label-color: var(--sbb-color-smoke);
+}
+
+.sbb-optgroup {
+  margin-block: var(--sbb-spacing-fixed-4x);
+  margin-inline: var(--sbb-spacing-fixed-4x);
+}
+
+.sbb-optgroup__label {
+  @include sbb.text-xxs--regular;
+
+  display: flex;
+  column-gap: var(--sbb-spacing-responsive-xxxs);
+  color: var(--sbb-optgroup-label-color);
+  -webkit-text-fill-color: var(--sbb-optgroup-label-color);
+  padding-inline: var(--sbb-optgroup-label-padding-inline);
+  padding-block: var(--sbb-optgroup-label-padding-start) var(--sbb-spacing-fixed-2x);
+}
+
+.sbb-optgroup__divider {
+  display: var(--sbb-optgroup-divider-display);
+  padding-block: var(--sbb-optgroup-divider-spacing);
+}
+
+// Align the group label to the option label
+.sbb-optgroup__icon-space {
+  // Can be overridden by the 'preserve-icon-space' on the autocomplete
+  display: var(--sbb-option-icon-container-display, none);
+  min-width: var(--sbb-size-icon-ui-small);
+}
