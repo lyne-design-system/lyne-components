@@ -9,77 +9,68 @@ import {
   SbbDisabledMixin,
   SbbIconNameMixin,
 } from '../../core/common-behaviors';
-import { isSafari, isValidAttribute, isAndroid, setAttribute } from '../../core/dom';
+import {
+  isSafari,
+  isValidAttribute,
+  isAndroid,
+  toggleDatasetEntry,
+  setAttribute,
+} from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { AgnosticMutationObserver } from '../../core/observers';
 
-import style from './option.scss?lit&inline';
-
+import style from './autocomplete-grid-option.scss?lit&inline';
 import '../../icon';
-import '../../screen-reader-only';
-import '../../visual-checkbox';
 
 let nextId = 0;
 
-/** Configuration for the attribute to look at if component is nested in a sbb-checkbox-group */
+/** Configuration for the attribute to look at if component is nested in a sbb-optgroup */
 const optionObserverConfig: MutationObserverInit = {
   attributeFilter: ['data-group-disabled', 'data-negative'],
 };
 
-export type SbbOptionVariant = 'autocomplete' | 'select';
-
 /**
- * It displays on option item which can be used in `sbb-select` or `sbb-autocomplete`.
+ * It displays on option item which can be used in `sbb-autocomplete-grid`.
  *
  * @slot - Use the unnamed slot to add content to the option label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
- * @event {CustomEvent<void>} optionSelectionChange - Emits when the option selection status changes.
- * @event {CustomEvent<void>} optionSelected - Emits when an option was selected by user.
+ * @event {CustomEvent<void>} autocompleteOptionSelectionChange - Emits when the option selection status changes.
+ * @event {CustomEvent<void>} autocompleteOptionSelected - Emits when an option was selected by user.
  * @cssprop [--sbb-option-icon-container-display=none] - Can be used to reserve space even
  * when preserve-icon-space on autocomplete is not set or iconName is not set.
  */
-@customElement('sbb-option')
 @hostAttributes({
-  role: 'option',
+  role: 'gridcell',
 })
-export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
+@customElement('sbb-autocomplete-grid-option')
+export class SbbAutocompleteGridOptionElement extends SbbDisabledMixin(
+  SbbIconNameMixin(LitElement),
+) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    selectionChange: 'optionSelectionChange',
-    optionSelected: 'optionSelected',
+    selectionChange: 'autocompleteOptionSelectionChange',
+    optionSelected: 'autocompleteOptionSelected',
   } as const;
 
   /** Value of the option. */
-  @property()
-  public set value(value: string) {
-    this.setAttribute('value', `${value}`);
-  }
-  public get value(): string {
-    return this.getAttribute('value') ?? '';
-  }
+  @property() public value?: string;
 
   /** Whether the option is currently active. */
   @property({ reflect: true, type: Boolean }) public active?: boolean;
 
   /** Whether the option is selected. */
-  @property({ type: Boolean })
-  public set selected(value: boolean) {
-    this.toggleAttribute('selected', value);
-  }
-  public get selected(): boolean {
-    return this.hasAttribute('selected');
-  }
+  @property({ reflect: true, type: Boolean }) public selected = false;
 
   /** Emits when the option selection status changes. */
   private _selectionChange: EventEmitter = new EventEmitter(
     this,
-    SbbOptionElement.events.selectionChange,
+    SbbAutocompleteGridOptionElement.events.selectionChange,
   );
 
   /** Emits when an option was selected by user. */
   private _optionSelected: EventEmitter = new EventEmitter(
     this,
-    SbbOptionElement.events.optionSelected,
+    SbbAutocompleteGridOptionElement.events.optionSelected,
   );
 
   /** Whether to apply the negative styling */
@@ -96,8 +87,9 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   /** Disable the highlight of the label. */
   @state() private _disableLabelHighlight: boolean = false;
 
-  private _optionId = `sbb-option-${++nextId}`;
-  private _variant!: SbbOptionVariant;
+  @state() private _groupLabel: string | null = null;
+
+  private _optionId = `sbb-autocomplete-grid-option-${++nextId}`;
   private _abort = new ConnectedAbortController(this);
 
   /**
@@ -112,16 +104,6 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
     this._onOptionAttributesChange(mutationsList),
   );
 
-  private get _isAutocomplete(): boolean {
-    return this._variant === 'autocomplete';
-  }
-  private get _isSelect(): boolean {
-    return this._variant === 'select';
-  }
-  private get _isMultiple(): boolean {
-    return !!this.closest?.('sbb-select')?.hasAttribute('multiple');
-  }
-
   public constructor() {
     super();
     new NamedSlotStateController(this);
@@ -134,6 +116,14 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
    */
   public highlight(value: string): void {
     this._highlightString = value;
+  }
+
+  /**
+   * Set the option group label (used for a11y)
+   * @param value the label of the option group
+   */
+  public setGroupLabel(value: string): void {
+    this._groupLabel = value;
   }
 
   /**
@@ -153,18 +143,13 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
       return;
     }
 
-    if (this._isMultiple) {
-      event.stopPropagation();
-      this.setSelectedViaUserInteraction(!this.selected);
-    } else {
-      this.setSelectedViaUserInteraction(true);
-    }
+    this.setSelectedViaUserInteraction(true);
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    const parentGroup = this.closest?.('sbb-optgroup');
+    const parentGroup = this.closest?.('sbb-optgroup'); // fixme
     if (parentGroup) {
       this._disabledFromGroup = parentGroup.disabled;
     }
@@ -172,11 +157,9 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
 
     this._negative = !!this.closest?.(
       // :is() selector not possible due to test environment
-      `sbb-autocomplete[negative],sbb-select[negative],sbb-form-field[negative]`,
+      `sbb-autocomplete-grid[negative],sbb-form-field[negative]`,
     );
-    this.toggleAttribute('data-negative', this._negative);
-
-    this._setVariantByContext();
+    toggleDatasetEntry(this, 'negative', this._negative);
 
     this.addEventListener('click', (e: MouseEvent) => this._selectByClick(e), {
       signal,
@@ -187,14 +170,6 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._optionAttributeObserver.disconnect();
-  }
-
-  private _setVariantByContext(): void {
-    if (this.closest?.('sbb-autocomplete')) {
-      this._variant = 'autocomplete';
-    } else if (this.closest?.('sbb-select')) {
-      this._variant = 'select';
-    }
   }
 
   /** Observe changes on data attributes and set the appropriate values. */
@@ -209,20 +184,11 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   }
 
   private _setupHighlightHandler(event: Event): void {
-    if (!this._isAutocomplete) {
-      this._disableLabelHighlight = true;
-      return;
-    }
-
     const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
     const labelNodes = slotNodes.filter((el) => el.nodeType === Node.TEXT_NODE) as Text[];
 
     // Disable the highlight if the slot contain more than just text nodes
-    if (
-      labelNodes.length === 0 ||
-      slotNodes.filter((n) => !(n instanceof Element) || n.localName !== 'template').length !==
-        labelNodes.length
-    ) {
+    if (labelNodes.length === 0 || slotNodes.length !== labelNodes.length) {
       this._disableLabelHighlight = true;
       return;
     }
@@ -257,51 +223,29 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   }
 
   protected override render(): TemplateResult {
-    const isMultiple = this._isMultiple;
     setAttribute(this, 'tabindex', isAndroid() && !this.disabled && 0);
-    setAttribute(this, 'data-variant', this._variant);
-    setAttribute(this, 'data-multiple', isMultiple);
     setAttribute(this, 'data-disable-highlight', this._disableLabelHighlight);
-    setAttribute(this, 'aria-selected', `${this.selected}`);
+    setAttribute(this, 'aria-selected', `${this.selected}`); // fixme check this on keynav
     setAttribute(this, 'aria-disabled', `${this.disabled || this._disabledFromGroup}`);
     assignId(() => this._optionId)(this);
 
     return html`
       <div class="sbb-option__container">
         <div class="sbb-option">
-          <!-- Icon -->
-          ${!isMultiple
-            ? html` <span class="sbb-option__icon"> ${this.renderIconSlot()} </span>`
-            : nothing}
+          <span class="sbb-option__icon"> ${this.renderIconSlot()} </span>
 
-          <!-- Checkbox -->
-          ${isMultiple
-            ? html` <sbb-visual-checkbox
-                ?checked=${this.selected}
-                ?disabled=${this.disabled || this._disabledFromGroup}
-                ?negative=${this._negative}
-              ></sbb-visual-checkbox>`
-            : nothing}
-
-          <!-- Label -->
           <span class="sbb-option__label">
             <slot @slotchange=${this._setupHighlightHandler}></slot>
 
-            <!-- Search highlight -->
-            ${this._isAutocomplete && this._label && !this._disableLabelHighlight
-              ? this._getHighlightedLabel()
-              : nothing}
-            ${this._inertAriaGroups && this.getAttribute('data-group-label')
-              ? html` <sbb-screen-reader-only>
-                  (${this.getAttribute('data-group-label')})</sbb-screen-reader-only
-                >`
+            ${this._label && !this._disableLabelHighlight ? this._getHighlightedLabel() : nothing}
+            ${this._inertAriaGroups && this._groupLabel
+              ? html`
+                  <span class="sbb-option__group-label--visually-hidden">
+                    (${this._groupLabel})
+                  </span>
+                `
               : nothing}
           </span>
-
-          <!-- Selected tick -->
-          ${this._isSelect && !isMultiple && this.selected
-            ? html`<sbb-icon name="tick-small"></sbb-icon>`
-            : nothing}
         </div>
       </div>
     `;
@@ -311,10 +255,10 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-option': SbbOptionElement;
+    'sbb-autocomplete-grid-option': SbbAutocompleteGridOptionElement;
   }
 
   interface GlobalEventHandlersEventMap {
-    optionSelectionChange: CustomEvent<void>;
+    autocompleteOptionSelectionChange: CustomEvent<void>;
   }
 }

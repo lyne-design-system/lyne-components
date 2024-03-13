@@ -1,0 +1,133 @@
+@use '../../core/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-option-color: var(--sbb-color-charcoal);
+  --sbb-option-background-color: inherit;
+  --sbb-option-background-color-hover: var(--sbb-color-milk);
+  --sbb-option-background-color-active: var(--sbb-color-cloud);
+  --sbb-option-disabled-border-color: var(--sbb-color-graphite);
+  --sbb-option-disabled-background-color: var(--sbb-color-milk);
+  --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
+  --sbb-option-justify-content: start;
+  --sbb-option-min-height: var(--sbb-size-button-m-min-height);
+  --sbb-option-cursor: pointer;
+  --sbb-option-border-radius: var(--sbb-border-radius-4x);
+  --sbb-option-icon-color: var(--sbb-color-metal);
+}
+
+:host([data-negative]) {
+  --sbb-option-color: var(--sbb-color-milk);
+  --sbb-option-icon-color: var(--sbb-color-smoke);
+  --sbb-option-background-color-hover: var(--sbb-color-charcoal);
+  --sbb-option-background-color-active: var(--sbb-color-iron);
+  --sbb-option-disabled-border-color: var(--sbb-color-smoke);
+  --sbb-option-disabled-background-color: var(--sbb-color-charcoal);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
+
+:host([active]) {
+  --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
+}
+
+:host(:hover:not([disabled], [data-group-disabled])) {
+  @include sbb.hover-mq($hover: true) {
+    --sbb-option-background-color: var(--sbb-option-background-color-hover);
+  }
+}
+
+:host(:active:not([disabled], [data-group-disabled])) {
+  --sbb-option-background-color: var(--sbb-option-background-color-active);
+}
+
+// if the highlight is enabled, hide the slot content
+:host(:not([data-disable-highlight])) {
+  .sbb-option__label slot {
+    display: none;
+  }
+}
+
+:host(:is([data-group-disabled], [disabled])) {
+  --sbb-option-cursor: default;
+
+  @include sbb.if-forced-colors {
+    --sbb-option-color: GrayText;
+  }
+}
+
+.sbb-option__label--highlight {
+  :host(:not(:is([disabled], [data-group-disabled]))) & {
+    @include sbb.text--bold;
+    @include sbb.if-forced-colors {
+      color: Highlight;
+    }
+  }
+}
+
+.sbb-option__container {
+  background-color: var(--sbb-option-background-color);
+}
+
+.sbb-option {
+  @include sbb.text-s--regular;
+
+  display: flex;
+  align-items: center;
+  column-gap: var(--sbb-option-column-gap);
+  justify-content: var(--sbb-option-justify-content);
+  color: var(--sbb-option-color);
+  background-color: var(--sbb-option-background-color);
+  cursor: var(--sbb-option-cursor);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-fill-color: var(--sbb-option-color);
+
+  :host([active]) & {
+    @include sbb.focus-outline;
+
+    border-radius: var(--sbb-option-border-radius);
+  }
+
+  // Add inner border and background for disabled option when it's not multiple
+  :host(:is([data-group-disabled], [disabled]):not([data-multiple])) & {
+    position: relative;
+    z-index: 0;
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      inset: #{sbb.px-to-rem-build(6)};
+      border: var(--sbb-border-width-1x) dashed var(--sbb-option-disabled-border-color);
+      border-radius: var(--sbb-border-radius-2x);
+      background-color: var(--sbb-option-disabled-background-color);
+      z-index: -1;
+
+      @include sbb.if-forced-colors {
+        border-color: GrayText;
+      }
+    }
+  }
+}
+
+.sbb-option__icon {
+  display: flex;
+  min-width: var(--sbb-size-icon-ui-small);
+  min-height: var(--sbb-size-icon-ui-small);
+  color: var(--sbb-option-icon-color);
+
+  :host(:not([data-slot-names~='icon'], [icon-name])) & {
+    // Can be overridden by the 'preserve-icon-space' on the autocomplete
+    display: var(--sbb-option-icon-container-display, none);
+  }
+}
+
+.sbb-option__label {
+  white-space: initial;
+}
+
+.sbb-option__group-label--visually-hidden {
+  @include sbb.screen-reader-only;
+}

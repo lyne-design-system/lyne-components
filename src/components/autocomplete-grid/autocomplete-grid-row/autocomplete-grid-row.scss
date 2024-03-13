@@ -1,0 +1,13 @@
+@use '../../core/styles/index' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+.sbb-autocomplete-grid-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: var(--sbb-spacing-responsive-xxxs);
+  padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
+}

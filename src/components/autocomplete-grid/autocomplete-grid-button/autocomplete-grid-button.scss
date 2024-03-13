@@ -1,0 +1,13 @@
+@use '../../core/styles/index' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+}
+
+@include sbb.icon-button('.sbb-autocomplete-grid-button', '::slotted(sbb-icon), sbb-icon');

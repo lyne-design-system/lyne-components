@@ -2,12 +2,15 @@ import { isServer, type ReactiveElement } from 'lit';
 
 import type { AbstractConstructor } from './constructor';
 
-function applyAttributes(instance: ReactiveElement, attributes: Record<string, string>): void {
+function applyAttributes(
+  instance: ReactiveElement,
+  attributes: Record<string, string | null>,
+): void {
   for (const [name, value] of Object.entries(attributes)) {
     if (value) {
       instance.setAttribute(name, value);
     } else {
-      instance.toggleAttribute(name, true);
+      instance.toggleAttribute(name, value !== null);
     }
   }
 }
@@ -30,7 +33,7 @@ function applyAttributes(instance: ReactiveElement, attributes: Record<string, s
  * @param attributes A record of attributes to apply to the element.
  */
 export const hostAttributes =
-  (attributes: Record<string, string>) => (target: AbstractConstructor<ReactiveElement>) =>
+  (attributes: Record<string, string | null>) => (target: AbstractConstructor<ReactiveElement>) =>
     (target as typeof ReactiveElement).addInitializer((instance: ReactiveElement) => {
       if (isServer) {
         applyAttributes(instance, attributes);
