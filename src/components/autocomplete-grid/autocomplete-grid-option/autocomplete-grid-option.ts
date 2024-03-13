@@ -9,13 +9,7 @@ import {
   SbbDisabledMixin,
   SbbIconNameMixin,
 } from '../../core/common-behaviors';
-import {
-  isSafari,
-  isValidAttribute,
-  isAndroid,
-  toggleDatasetEntry,
-  setAttribute,
-} from '../../core/dom';
+import { isSafari, isValidAttribute, isAndroid, setAttribute } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { AgnosticMutationObserver } from '../../core/observers';
 
@@ -159,7 +153,7 @@ export class SbbAutocompleteGridOptionElement extends SbbDisabledMixin(
       // :is() selector not possible due to test environment
       `sbb-autocomplete-grid[negative],sbb-form-field[negative]`,
     );
-    toggleDatasetEntry(this, 'negative', this._negative);
+    this.toggleAttribute('data-negative', this._negative);
 
     this.addEventListener('click', (e: MouseEvent) => this._selectByClick(e), {
       signal,

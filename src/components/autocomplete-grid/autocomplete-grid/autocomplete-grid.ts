@@ -11,7 +11,6 @@ import {
   findReferencedElement,
   isSafari,
   isValidAttribute,
-  toggleDatasetEntry,
   isBrowser,
 } from '../../core/dom';
 import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
@@ -287,7 +286,7 @@ export class SbbAutocompleteGridElement extends SlotChildObserver(SbbNegativeMix
 
     this.querySelectorAll?.<SbbAutocompleteGridOptionElement | SbbOptGroupElement>(
       'sbb-autocomplete-grid-option, sbb-autocomplete-grid-optgroup',
-    ).forEach((element) => toggleDatasetEntry(element, 'negative', this.negative));
+    ).forEach((element) => element.toggleAttribute('data-negative', this.negative));
 
     this.querySelectorAll?.<SbbAutocompleteGridButtonElement>(
       'sbb-autocomplete-grid-button',
@@ -308,9 +307,8 @@ export class SbbAutocompleteGridElement extends SlotChildObserver(SbbNegativeMix
     this._openPanelEventsController?.abort();
 
     this._originElement = undefined;
-    toggleDatasetEntry(
-      this,
-      'optionPanelOriginBorderless',
+    this.toggleAttribute(
+      'data-option-panel-origin-borderless',
       !!this.closest?.('sbb-form-field')?.hasAttribute('borderless'),
     );
 
@@ -562,7 +560,7 @@ export class SbbAutocompleteGridElement extends SlotChildObserver(SbbNegativeMix
     if (this._activeColumnIndex !== 0) {
       this._row[this._activeItemIndex]
         .querySelectorAll('sbb-autocomplete-grid-button')
-        .forEach((e) => toggleDatasetEntry(e, 'focusVisible', false));
+        .forEach((e) => e.toggleAttribute('data-focus-visible', false));
     }
 
     this._activeItemIndex = next;
@@ -586,7 +584,7 @@ export class SbbAutocompleteGridElement extends SlotChildObserver(SbbNegativeMix
     if (nextElement instanceof SbbAutocompleteGridOptionElement) {
       nextElement.active = true;
     } else {
-      toggleDatasetEntry(nextElement, 'focusVisible', true);
+      nextElement.toggleAttribute('data-focus-visible', true);
     }
 
     const lastActiveElement: SbbAutocompleteGridOptionElement | SbbAutocompleteGridButtonElement =
@@ -594,7 +592,7 @@ export class SbbAutocompleteGridElement extends SlotChildObserver(SbbNegativeMix
     if (lastActiveElement instanceof SbbAutocompleteGridOptionElement) {
       lastActiveElement.active = false;
     } else {
-      toggleDatasetEntry(lastActiveElement, 'focusVisible', false);
+      lastActiveElement.toggleAttribute('data-focus-visible', false);
     }
     this.triggerElement?.setAttribute('aria-activedescendant', nextElement.id);
     nextElement.scrollIntoView({ block: 'nearest' });
@@ -611,7 +609,7 @@ export class SbbAutocompleteGridElement extends SlotChildObserver(SbbNegativeMix
     if (this._activeColumnIndex !== 0) {
       this._row[this._activeItemIndex]
         .querySelectorAll('sbb-autocomplete-grid-button')
-        .forEach((e) => toggleDatasetEntry(e, 'focusVisible', false));
+        .forEach((e) => e.toggleAttribute('data-focus-visible', false));
     }
     this._activeItemIndex = -1;
     this._activeColumnIndex = 0;

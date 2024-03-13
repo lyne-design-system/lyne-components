@@ -3,7 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbDisabledMixin, SlotChildObserver } from '../../core/common-behaviors';
-import { isSafari, isValidAttribute, toggleDatasetEntry, setAttribute } from '../../core/dom';
+import { isSafari, isValidAttribute, setAttribute } from '../../core/dom';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option';
 
@@ -45,7 +45,7 @@ export class SbbAutocompleteGridOptgroupElement extends SlotChildObserver(
     super.connectedCallback();
     this._negativeObserver?.disconnect();
     this._negative = !!this.closest?.(`:is(sbb-autocomplete-grid, sbb-form-field)[negative]`);
-    toggleDatasetEntry(this, 'negative', this._negative);
+    this.toggleAttribute('data-negative', this._negative);
 
     this._negativeObserver.observe(this, {
       attributes: true,
@@ -86,7 +86,7 @@ export class SbbAutocompleteGridOptgroupElement extends SlotChildObserver(
 
   private _proxyDisabledToOptions(): void {
     for (const option of this._options) {
-      toggleDatasetEntry(option, 'groupDisabled', this.disabled);
+      option.toggleAttribute('data-group-disabled', this.disabled);
     }
   }
 
