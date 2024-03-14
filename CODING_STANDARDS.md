@@ -452,11 +452,9 @@ depending on context, this should be discussed at design level. Also in many cas
 `this._element.closest(selector)` can be used instead, which is far more performant. **
 
 ```ts
-@Element() element!: HTMLElement;
-
 connectedCallback() {
   // Check if the current element is nested in either an `<a>` or `<button>` element.
-  this._isNestedInButtonAnchor = !!hostContext('a,button', this.el);
+  this._isNestedInButtonAnchor = !!hostContext('a,button', this);
 }
 ```
 
@@ -593,10 +591,10 @@ For example, rather than
 
 ```scss
 :host {
-  --width: 200px;
+  --sbb-width: 200px;
 
   display: flex;
-  width: var(--width);
+  width: var(--sbb-width);
 }
 ```
 
@@ -604,12 +602,12 @@ you can write
 
 ```scss
 :host {
-  --width: 200px;
+  --sbb-width: 200px;
 }
 
 .component {
   display: flex;
-  width: var(--width);
+  width: var(--sbb-width);
 }
 ```
 
@@ -622,7 +620,7 @@ This is a low-effort task that makes a big difference for low-vision users. Exam
 
 @include sbb.if-forced-colors {
   .unicorn-motorcycle {
-    border: 1px solid #fff !important;
+    border: var(--sbb-border-width-1x) solid #fff !important;
   }
 }
 ```
