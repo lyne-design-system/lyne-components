@@ -21,10 +21,10 @@ const buttonObserverConfig: MutationObserverInit = {
  *
  * @slot icon - Slot used to display the icon, if one is set
  */
+@customElement('sbb-autocomplete-grid-button')
 @hostAttributes({
   tabindex: null,
 })
-@customElement('sbb-autocomplete-grid-button')
 export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniButtonBaseElement) {
   public static override styles: CSSResultGroup = style;
 

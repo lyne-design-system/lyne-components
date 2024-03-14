@@ -11,10 +11,10 @@ import style from './autocomplete-grid-actions.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-mini-button` elements.
  */
+@customElement('sbb-autocomplete-grid-actions')
 @hostAttributes({
   role: 'gridcell',
 })
-@customElement('sbb-autocomplete-grid-actions')
 export class SbbAutocompleteGridActionsElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 

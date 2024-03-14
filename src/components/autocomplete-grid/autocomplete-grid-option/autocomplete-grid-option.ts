@@ -33,10 +33,10 @@ const optionObserverConfig: MutationObserverInit = {
  * @cssprop [--sbb-option-icon-container-display=none] - Can be used to reserve space even
  * when preserve-icon-space on autocomplete is not set or iconName is not set.
  */
+@customElement('sbb-autocomplete-grid-option')
 @hostAttributes({
   role: 'gridcell',
 })
-@customElement('sbb-autocomplete-grid-option')
 export class SbbAutocompleteGridOptionElement extends SbbDisabledMixin(
   SbbIconNameMixin(LitElement),
 ) {

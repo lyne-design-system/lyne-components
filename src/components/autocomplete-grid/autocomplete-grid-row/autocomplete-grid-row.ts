@@ -11,10 +11,10 @@ let autocompleteRowNextId = 0;
 /**
  * Describe the purpose of the component with a single short sentence.
  */
+@customElement('sbb-autocomplete-grid-row')
 @hostAttributes({
   role: 'row',
 })
-@customElement('sbb-autocomplete-grid-row')
 export class SbbAutocompleteGridRowElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   private _rowId = ++autocompleteRowNextId;
