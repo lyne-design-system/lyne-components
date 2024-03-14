@@ -73,6 +73,12 @@ Add the `--debug` param to enable breakpoint debugging and the detailed test rep
 
 To start the showcase, run `yarn start`. This will run the devserver in watch mode.
 
+## Commits
+
+Commits have to follow `Conventional Commits` standard ([https://www.conventionalcommits.org/](https://www.conventionalcommits.org/)).
+
+To make sure developers properly style their commit messages, we use `husky` together with `commit-lint`.
+
 ## Well Known Issues
 
 ### `playwright`: `browserType.launch: Executable doesn't exist at ...`
