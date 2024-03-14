@@ -28,6 +28,20 @@ snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static
 `;
 /* end snapshot sbb-transparent-button-static renders a sbb-transparent-button-static without icon ShadowDom */
 
+snapshots["ShadowDom"] = 
+`<span class="sbb-action-base sbb-transparent-button-static">
+  <span class="sbb-button__icon">
+    <slot name="icon">
+    </slot>
+  </span>
+  <span class="sbb-button__label">
+    <slot>
+    </slot>
+  </span>
+</span>
+`;
+/* end snapshot ShadowDom */
+
 snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static with slotted icon Dom"] = 
 `<sbb-transparent-button-static
   data-action=""
