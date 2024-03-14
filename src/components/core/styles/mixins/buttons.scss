@@ -29,7 +29,7 @@
     @include icon-button-variables-negative;
   }
 
-  :host(:is([disabled], [data-disabled])) {
+  :host(:is([disabled], [data-disabled], [data-group-disabled])) {
     @include icon-button-disabled(#{$button-selector});
   }
 
@@ -42,11 +42,11 @@
     @include icon-button-focus-visible(#{$button-selector});
   }
 
-  :host(:not([disabled], [data-disabled], :active, [data-active]):hover) {
+  :host(:not([disabled], [data-disabled], [data-group-disabled], :active, [data-active]):hover) {
     @include icon-button-hover(#{$button-selector});
   }
 
-  :host(:not([disabled], [data-disabled]):is(:active, [data-active])) {
+  :host(:not([disabled], [data-disabled], [data-group-disabled]):is(:active, [data-active])) {
     @include icon-button-active(#{$button-selector});
   }
 }

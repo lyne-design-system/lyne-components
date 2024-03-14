@@ -89,13 +89,13 @@ const ariaLabel: InputType = {
 
 const active: InputType = {
   control: {
-    type: 'text',
+    type: 'boolean',
   },
 };
 
 const focusVisible: InputType = {
   control: {
-    type: 'text',
+    type: 'boolean',
   },
 };
 

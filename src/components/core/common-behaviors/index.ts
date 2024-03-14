@@ -11,6 +11,7 @@ export * from './language-controller';
 export * from './link-base-element';
 export * from './named-slot-state-controller';
 export * from './named-slot-list-mixin';
+export * from './option-base-element';
 export * from './negative-mixin';
 export * from './required-mixin';
 export * from './update-scheduler';

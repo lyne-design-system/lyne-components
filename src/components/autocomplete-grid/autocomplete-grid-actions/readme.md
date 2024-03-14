@@ -45,6 +45,6 @@ The `sbb-autocomplete-grid-actions` is a component . . .
 
 ## Slots
 
-| Name | Description                                             |
-| ---- | ------------------------------------------------------- |
-|      | Use the unnamed slot to add `sbb-mini-button` elements. |
+| Name | Description                                                          |
+| ---- | -------------------------------------------------------------------- |
+|      | Use the unnamed slot to add `sbb-autocomplete-grid-button` elements. |

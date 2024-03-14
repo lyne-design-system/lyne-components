@@ -8,12 +8,14 @@ import {
 } from '../../core/common-behaviors';
 import { isValidAttribute, setAttribute } from '../../core/dom';
 import { AgnosticMutationObserver } from '../../core/observers';
+import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option';
 
+import '../../icon';
 import style from './autocomplete-grid-button.scss?lit&inline';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-optgroup */
 const buttonObserverConfig: MutationObserverInit = {
-  attributeFilter: ['data-group-disabled', 'data-negative'], // fixme negative
+  attributeFilter: ['data-group-disabled'],
 };
 
 /**
@@ -61,6 +63,13 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
 
   public dispatchClick(event: KeyboardEvent): void {
     return super.dispatchClickEvent(event);
+  }
+
+  /** Gets the SbbAutocompleteGridOptionElement on the same row of the button. */
+  public get optionOnSameRow(): SbbAutocompleteGridOptionElement | null {
+    return this.closest?.('sbb-autocomplete-grid-row')!.querySelector(
+      'sbb-autocomplete-grid-option',
+    );
   }
 
   protected override renderTemplate(): TemplateResult {

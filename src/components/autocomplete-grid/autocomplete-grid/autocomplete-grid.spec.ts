@@ -1,6 +1,9 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { isSafari } from '../../core/dom';
+import { describeIf } from '../../core/testing';
+
 import type { SbbAutocompleteGridElement } from './autocomplete-grid';
 import './autocomplete-grid';
 import '../autocomplete-grid-row';
@@ -30,11 +33,23 @@ describe('sbb-autocomplete-grid', () => {
     `);
   });
 
-  it('Dom', async () => {
-    await expect(root).dom.to.be.equalSnapshot();
+  describeIf(!isSafari(), 'Chrome-Firefox', async () => {
+    it('Dom', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
+
+    it('ShadowDom', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
   });
 
-  it('ShadowDom', async () => {
-    await expect(root).shadowDom.to.be.equalSnapshot();
+  describeIf(isSafari(), 'Safari', async () => {
+    it('Dom', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
+
+    it('ShadowDom', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
   });
 });

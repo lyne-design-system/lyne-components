@@ -51,7 +51,7 @@ const Template = ({ numberOfButtons, ...args }: Args): TemplateResult => html`
       (_, i) => html`
         <sbb-autocomplete-grid-button
           ${sbbSpread(args)}
-          icon-name=${i === 0 ? 'pen-small' : i === 1 ? 'trash-small' : 'rss-small'}
+          icon-name=${i === 0 ? 'star-small' : i === 1 ? 'pen-small' : 'trash-small'}
         ></sbb-autocomplete-grid-button>
       `,
     )}
@@ -62,6 +62,12 @@ export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+};
+
+export const Negative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true },
 };
 
 export const Multiple: StoryObj = {

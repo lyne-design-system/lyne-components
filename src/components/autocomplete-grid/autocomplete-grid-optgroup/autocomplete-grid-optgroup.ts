@@ -2,9 +2,10 @@ import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbDisabledMixin, SlotChildObserver } from '../../core/common-behaviors';
+import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/common-behaviors';
 import { isSafari, isValidAttribute, setAttribute } from '../../core/dom';
 import { AgnosticMutationObserver } from '../../core/observers';
+import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button';
 import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option';
 
 import style from './autocomplete-grid-optgroup.scss?lit&inline';
@@ -16,8 +17,8 @@ import '../../divider';
  * @slot - Use the unnamed slot to add `sbb-autocomplete-grid-option` elements to the `sbb-autocomplete-grid-optgroup`.
  */
 @customElement('sbb-autocomplete-grid-optgroup')
-export class SbbAutocompleteGridOptgroupElement extends SlotChildObserver(
-  SbbDisabledMixin(LitElement),
+export class SbbAutocompleteGridOptgroupElement extends SbbDisabledMixin(
+  SbbHydrationMixin(LitElement),
 ) {
   public static override styles: CSSResultGroup = style;
 
@@ -39,6 +40,12 @@ export class SbbAutocompleteGridOptgroupElement extends SlotChildObserver(
     return Array.from(
       this.querySelectorAll?.('sbb-autocomplete-grid-option') ?? [],
     ) as SbbAutocompleteGridOptionElement[];
+  }
+
+  private get _buttons(): SbbAutocompleteGridButtonElement[] {
+    return Array.from(
+      this.querySelectorAll?.('sbb-autocomplete-grid-button') ?? [],
+    ) as SbbAutocompleteGridButtonElement[];
   }
 
   public override connectedCallback(): void {
@@ -70,7 +77,7 @@ export class SbbAutocompleteGridOptgroupElement extends SlotChildObserver(
     this._negativeObserver?.disconnect();
   }
 
-  protected override checkChildren(): void {
+  private _handleSlotchange(): void {
     this._proxyDisabledToOptions();
     this._proxyGroupLabelToOptions();
     this._highlightOptions();
@@ -79,14 +86,22 @@ export class SbbAutocompleteGridOptgroupElement extends SlotChildObserver(
   private _proxyGroupLabelToOptions(): void {
     if (!this._inertAriaGroups) {
       return;
+    } else if (this.label) {
+      for (const option of this._options) {
+        option.setAttribute('data-group-label', this.label);
+        option.requestUpdate?.();
+      }
+    } else {
+      for (const option of this._options) {
+        option.removeAttribute('data-group-label');
+        option.requestUpdate?.();
+      }
     }
-
-    this._options.forEach((opt) => opt.setGroupLabel(this.label));
   }
 
   private _proxyDisabledToOptions(): void {
-    for (const option of this._options) {
-      option.toggleAttribute('data-group-disabled', this.disabled);
+    for (const el of [...this._options, ...this._buttons]) {
+      el.toggleAttribute('data-group-disabled', this.disabled);
     }
   }
 
@@ -119,7 +134,7 @@ export class SbbAutocompleteGridOptgroupElement extends SlotChildObserver(
         <div class="sbb-optgroup__icon-space"></div>
         <span>${this.label}</span>
       </div>
-      <slot></slot>
+      <slot @slotchange=${this._handleSlotchange}></slot>
     `;
   }
 }

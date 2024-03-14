@@ -115,7 +115,10 @@ const createOptions = (args: Args): TemplateResult[] =>
           >${`${args.value} ${i + 1}`}</sbb-autocomplete-grid-option
         >
         <sbb-autocomplete-grid-actions>
-          <sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>
+          <sbb-autocomplete-grid-button
+            icon-name="pie-small"
+            ?disabled=${args.disabledSingle && i === 0}
+          ></sbb-autocomplete-grid-button>
         </sbb-autocomplete-grid-actions>
       </sbb-autocomplete-grid-row>
     `;

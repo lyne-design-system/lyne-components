@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { assignId, getNextElementIndex } from '../../core/a11y';
-import { hostAttributes, SbbNegativeMixin, SlotChildObserver } from '../../core/common-behaviors';
+import { hostAttributes, SbbNegativeMixin, SbbHydrationMixin } from '../../core/common-behaviors';
 import {
   setAttribute,
   getDocumentWritingMode,
@@ -47,7 +47,7 @@ let nextId = 0;
 @hostAttributes({
   dir: getDocumentWritingMode(),
 })
-export class SbbAutocompleteGridElement extends SlotChildObserver(SbbNegativeMixin(LitElement)) {
+export class SbbAutocompleteGridElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -277,7 +277,7 @@ export class SbbAutocompleteGridElement extends SlotChildObserver(SbbNegativeMix
     this._didLoad = true;
   }
 
-  public override checkChildren(): void {
+  private _handleSlotchange(): void {
     this._highlightOptions(this.triggerElement?.value);
   }
 
@@ -547,6 +547,9 @@ export class SbbAutocompleteGridElement extends SlotChildObserver(SbbNegativeMix
 
     // Get and activate the next active option
     const next = getNextElementIndex(event, this._activeItemIndex, filteredOptions.length);
+    if (isNaN(next)) {
+      return;
+    }
     const nextActiveOption = filteredOptions[next];
     nextActiveOption.active = true;
     this.triggerElement?.setAttribute('aria-activedescendant', nextActiveOption.id);
@@ -573,12 +576,16 @@ export class SbbAutocompleteGridElement extends SlotChildObserver(SbbNegativeMix
       return;
     }
 
-    const elementsInRow: NodeListOf<
-      SbbAutocompleteGridOptionElement | SbbAutocompleteGridButtonElement
-    > = this._row[this._activeItemIndex].querySelectorAll(
-      'sbb-autocomplete-grid-option, sbb-autocomplete-grid-button',
-    );
+    const elementsInRow: (SbbAutocompleteGridOptionElement | SbbAutocompleteGridButtonElement)[] =
+      Array.from(
+        this._row[this._activeItemIndex].querySelectorAll<
+          SbbAutocompleteGridOptionElement | SbbAutocompleteGridButtonElement
+        >('sbb-autocomplete-grid-option, sbb-autocomplete-grid-button'),
+      ).filter((el) => !el.disabled && !isValidAttribute(el, 'data-group-disabled'));
     const next: number = getNextElementIndex(event, this._activeColumnIndex, elementsInRow.length);
+    if (isNaN(next)) {
+      return;
+    }
     const nextElement: SbbAutocompleteGridOptionElement | SbbAutocompleteGridButtonElement =
       elementsInRow[next];
     if (nextElement instanceof SbbAutocompleteGridOptionElement) {
@@ -655,7 +662,7 @@ export class SbbAutocompleteGridElement extends SlotChildObserver(SbbNegativeMix
               id=${!this._ariaRoleOnHost ? this._overlayId : nothing}
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >
-              <slot></slot>
+              <slot @slotchange=${this._handleSlotchange}></slot>
             </div>
           </div>
         </div>

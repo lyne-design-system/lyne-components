@@ -47,17 +47,11 @@ The `sbb-autocomplete-grid-option` is a component . . .
 
 | Name       | Attribute   | Privacy | Type                   | Default | Description                                                                                                                      |
 | ---------- | ----------- | ------- | ---------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `value`    | `value`     | public  | `string \| undefined`  |         | Value of the option.                                                                                                             |
-| `active`   | `active`    | public  | `boolean \| undefined` |         | Whether the option is currently active.                                                                                          |
-| `selected` | `selected`  | public  | `boolean`              | `false` | Whether the option is selected.                                                                                                  |
 | `disabled` | `disabled`  | public  | `boolean`              | `false` | Whether the component is disabled.                                                                                               |
 | `iconName` | `icon-name` | public  | `string \| undefined`  |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-
-## Methods
-
-| Name            | Privacy | Description                                | Parameters      | Return | Inherited From |
-| --------------- | ------- | ------------------------------------------ | --------------- | ------ | -------------- |
-| `setGroupLabel` | public  | Set the option group label (used for a11y) | `value: string` | `void` |                |
+| `value`    | `value`     | public  | `string`               |         | Value of the option.                                                                                                             |
+| `active`   | `active`    | public  | `boolean \| undefined` |         | Whether the option is currently active.                                                                                          |
+| `selected` | `selected`  | public  | `boolean`              |         | Whether the option is selected.                                                                                                  |
 
 ## Events
 
