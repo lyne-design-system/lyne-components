@@ -47,8 +47,8 @@ The `sbb-autocomplete-grid-optgroup` is a component . . .
 
 | Name       | Attribute  | Privacy | Type      | Default | Description                        |
 | ---------- | ---------- | ------- | --------- | ------- | ---------------------------------- |
-| `label`    | `label`    | public  | `string`  |         | Option group label.                |
 | `disabled` | `disabled` | public  | `boolean` | `false` | Whether the component is disabled. |
+| `label`    | `label`    | public  | `string`  |         | Option group label.                |
 
 ## Slots
 

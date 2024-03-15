@@ -60,6 +60,19 @@ export class SbbOptionElement extends SbbOptionBaseElement {
     return !!this.closest?.('sbb-select')?.hasAttribute('multiple');
   }
 
+  protected setAttributeFromParent(): void {
+    const parentGroup = this.closest?.('sbb-optgroup');
+    if (parentGroup) {
+      this.disabledFromGroup = parentGroup.disabled;
+    }
+
+    this.negative = !!this.closest?.(
+      // :is() selector not possible due to test environment
+      `sbb-autocomplete[negative],sbb-form-field[negative]`,
+    );
+    this.toggleAttribute('data-group-negative', this.negative);
+  }
+
   protected selectByClick(event: MouseEvent): void {
     if (this.disabled || this.disabledFromGroup) {
       event.stopPropagation();

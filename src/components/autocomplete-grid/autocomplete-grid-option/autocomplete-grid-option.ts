@@ -43,6 +43,19 @@ export class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
     SbbAutocompleteGridOptionElement.events.optionSelected,
   );
 
+  protected setAttributeFromParent(): void {
+    const parentGroup = this.closest?.('sbb-autocomplete-grid-optgroup');
+    if (parentGroup) {
+      this.disabledFromGroup = parentGroup.disabled;
+    }
+
+    this.negative = !!this.closest?.(
+      // :is() selector not possible due to test environment
+      `sbb-autocomplete-grid[negative],sbb-form-field[negative]`,
+    );
+    this.toggleAttribute('data-group-negative', this.negative);
+  }
+
   protected selectByClick(event: MouseEvent): void {
     if (this.disabled || this.disabledFromGroup) {
       event.stopPropagation();

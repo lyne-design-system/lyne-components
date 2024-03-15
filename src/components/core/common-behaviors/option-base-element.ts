@@ -63,6 +63,7 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
   private _abort = new ConnectedAbortController(this);
   protected abstract selectByClick(event: MouseEvent): void;
   protected abstract setupHighlightHandler(event: Event): void;
+  protected abstract setAttributeFromParent(): void;
 
   /**
    * On Safari, the groups labels are not read by VoiceOver.
@@ -103,19 +104,9 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
-    const parentGroup = this.closest?.('sbb-autocomplete-grid-optgroup');
-    if (parentGroup) {
-      this.disabledFromGroup = parentGroup.disabled;
-    }
+    this.setAttributeFromParent();
     this._optionAttributeObserver.observe(this, optionObserverConfig);
-
-    this.negative = !!this.closest?.(
-      // :is() selector not possible due to test environment
-      `sbb-autocomplete-grid[negative],sbb-form-field[negative]`,
-    );
-    this.toggleAttribute('data-group-negative', this.negative);
-
+    const signal = this._abort.signal;
     this.addEventListener('click', (e: MouseEvent) => this.selectByClick(e), {
       signal,
       passive: true,
