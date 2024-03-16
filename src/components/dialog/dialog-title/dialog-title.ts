@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { FocusVisibleWithinController } from '../../core/a11y';
-import { LanguageController } from '../../core/common-behaviors';
+import { LanguageController, hostAttributes } from '../../core/common-behaviors';
 import type { Breakpoint } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseDialog, i18nGoBack } from '../../core/i18n';
@@ -19,6 +19,9 @@ import style from './dialog-title.scss?lit&inline';
  * @event {CustomEvent<void>} requestBackAction - Emits whenever the back button is clicked.
  */
 @customElement('sbb-dialog-title')
+@hostAttributes({
+  slot: 'title',
+})
 export class SbbDialogTitleElement extends SbbTitleElement {
   public static override styles: CSSResultGroup = [SbbTitleElement.styles, style];
   public static readonly events: Record<string, string> = {
@@ -71,11 +74,6 @@ export class SbbDialogTitleElement extends SbbTitleElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     new FocusVisibleWithinController(this);
-  }
-
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    this.setAttribute('slot', 'title');
-    return super.createRenderRoot();
   }
 
   protected override render(): TemplateResult {

@@ -3,6 +3,7 @@ import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbActionGroupElement } from '../../action-group';
+import { hostAttributes } from '../../core/common-behaviors';
 
 import style from './dialog-actions.scss?lit&inline';
 
@@ -10,13 +11,11 @@ import style from './dialog-actions.scss?lit&inline';
  * Use this component to display a footer into an `sbb-dialog` with an action group.
  */
 @customElement('sbb-dialog-actions')
+@hostAttributes({
+  slot: 'actions',
+})
 export class SbbDialogActionsElement extends SbbActionGroupElement {
   public static override styles: CSSResultGroup = [SbbActionGroupElement.styles, style];
-
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    this.setAttribute('slot', 'actions');
-    return super.createRenderRoot();
-  }
 
   protected override render(): TemplateResult {
     return html` <div class="sbb-dialog-actions">${super.render()}</div> `;

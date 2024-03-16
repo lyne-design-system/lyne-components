@@ -5,13 +5,7 @@ import { html } from 'lit/static-html.js';
 
 import { FocusHandler, getFirstFocusableElement, setModalityOnNextFocus } from '../../core/a11y';
 import { LanguageController, SbbNegativeMixin } from '../../core/common-behaviors';
-import {
-  ScrollHandler,
-  toggleDatasetEntry,
-  isValidAttribute,
-  hostContext,
-  isBreakpoint,
-} from '../../core/dom';
+import { ScrollHandler, isValidAttribute, hostContext, isBreakpoint } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { i18nDialog } from '../../core/i18n';
 import { AgnosticResizeObserver } from '../../core/observers';
@@ -262,7 +256,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     }
 
     if (this._dialogActionsElement) {
-      toggleDatasetEntry(this._dialogActionsElement!, 'negative', this.negative);
+      this._dialogActionsElement.toggleAttribute('data-negative', this.negative);
     }
   }
 
@@ -437,17 +431,17 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
       typeof hideOnScroll === 'boolean'
         ? hideOnScroll
         : isBreakpoint('zero', hideOnScroll, { includeMaxBreakpoint: true });
-    toggleDatasetEntry(this, 'hideHeader', !hideHeader ? false : value);
+    this.toggleAttribute('data-hide-header', !hideHeader ? false : value);
     this._dialogTitleElement &&
-      toggleDatasetEntry(this._dialogTitleElement, 'hideHeader', !hideHeader ? false : value);
+      this._dialogTitleElement.toggleAttribute('data-hide-header', !hideHeader ? false : value);
   }
 
   private _setOverflowsDataAttribute(): void {
-    toggleDatasetEntry(this, 'overflows', this._overflows);
+    this.toggleAttribute('data-overflows', this._overflows);
     this._dialogTitleElement &&
-      toggleDatasetEntry(this._dialogTitleElement, 'overflows', this._overflows);
+      this._dialogTitleElement.toggleAttribute('data-overflows', this._overflows);
     if (this._dialogActionsElement) {
-      toggleDatasetEntry(this._dialogActionsElement!, 'overflows', this._overflows);
+      this._dialogActionsElement.toggleAttribute('data-overflows', this._overflows);
     }
   }
 
