@@ -6,7 +6,8 @@ import { html } from 'lit';
 import './dialog-actions';
 import readme from './readme.md?raw';
 
-import '../../button';
+import '../../button/button';
+import '../../button/secondary-button';
 import '../../link';
 
 const Template = (): TemplateResult =>

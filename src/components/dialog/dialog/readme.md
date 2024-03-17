@@ -82,9 +82,6 @@ It's possible to display the component in `negative` variant using the self-name
 </sbb-dialog>
 ```
 
-The default `z-index` of the component is set to `1000`; to specify a custom stack order, the
-`z-index` can be changed by defining the CSS variable `--sbb-dialog-z-index`.
-
 ## Accessibility
 
 When using a button to trigger the dialog, ensure to manage the appropriate ARIA attributes on the button element itself. This includes: `aria-haspopup="dialog"` that signals to assistive technologies that the button controls a dialog element,

@@ -51,8 +51,8 @@ const hideHeader = async ({ canvasElement }: StoryContext): Promise<void> => {
   await playStory({ canvasElement } as StoryContext);
 
   // Scroll the content to hide the title.
-  await new Promise((resolve) => setTimeout(resolve, 500));
   canvas.getByTestId('content').shadowRoot?.firstElementChild?.scroll(0, 50);
+  await new Promise((resolve) => setTimeout(resolve, 500));
 };
 
 const level: InputType = {

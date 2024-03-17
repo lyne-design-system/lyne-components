@@ -34,7 +34,7 @@ A close button is always displayed and can be used to close the dialog. Optional
 
 ## Events
 
-If a back button is displayd it emits a `requestBackAction` event on click.
+If a back button is displayed it emits a `requestBackAction` event on click.
 
 <!-- Auto Generated Below -->
 

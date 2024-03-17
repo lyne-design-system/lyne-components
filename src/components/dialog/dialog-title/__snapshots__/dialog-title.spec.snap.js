@@ -36,6 +36,10 @@ snapshots["sbb-dialog-title A11y tree Chrome"] =
   "name": "",
   "children": [
     {
+      "role": "text",
+      "name": "Title"
+    },
+    {
       "role": "button",
       "name": "Close secondary window"
     }
@@ -52,6 +56,10 @@ snapshots["sbb-dialog-title A11y tree Firefox"] =
   "name": "",
   "children": [
     {
+      "role": "text leaf",
+      "name": "Title"
+    },
+    {
       "role": "button",
       "name": "Close secondary window"
     }
@@ -67,6 +75,11 @@ snapshots["sbb-dialog-title A11y tree Safari"] =
   "role": "WebArea",
   "name": "",
   "children": [
+    {
+      "role": "heading",
+      "name": "Title",
+      "level": 2
+    },
     {
       "role": "button",
       "name": "Close secondary window"

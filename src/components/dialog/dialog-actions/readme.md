@@ -26,6 +26,6 @@ It has an implicit slot name: `actions`.
 
 ## Slots
 
-| Name | Description                                                                                      |
-| ---- | ------------------------------------------------------------------------------------------------ |
-|      | Use the unnamed slot to add `sbb-block-link` or `sbb-button` elements to the `sbb-action-group`. |
+| Name | Description                                                                                        |
+| ---- | -------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add `sbb-block-link` or `sbb-button` elements to the `sbb-dialog-actions`. |

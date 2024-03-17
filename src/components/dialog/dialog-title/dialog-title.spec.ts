@@ -20,5 +20,5 @@ describe('sbb-dialog-title', () => {
     await expect(root).shadowDom.to.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(html`<sbb-dialog-title></sbb-dialog-title>`);
+  testA11yTreeSnapshot(html`<sbb-dialog-title>Title</sbb-dialog-title>`);
 });
