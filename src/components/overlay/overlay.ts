@@ -269,15 +269,15 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
       setModalityOnNextFocus(this._lastFocusedElement);
       // Manually focus last focused element
       this._lastFocusedElement?.focus();
-      this._didClose.emit({
-        returnValue: this._returnValue,
-        closeTarget: this._overlayCloseElement,
-      });
       this._openOverlayController?.abort();
       this._focusHandler.disconnect();
       this._removeInstanceFromGlobalCollection();
       // Enable scrolling for content below the overlay if no overlay is open
       !overlayRefs.length && this._scrollHandler.enableScroll();
+      this._didClose.emit({
+        returnValue: this._returnValue,
+        closeTarget: this._overlayCloseElement,
+      });
     }
   }
 

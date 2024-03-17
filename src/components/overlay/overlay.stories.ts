@@ -12,7 +12,7 @@ import type {
 import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
+import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
@@ -131,27 +131,27 @@ const triggerButton = (overlayId: string, triggerId?: string): TemplateResult =>
   </sbb-button>
 `;
 
-const codeStyle: Args = {
+const codeStyle: Readonly<StyleInfo> = {
   padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
   borderRadius: 'var(--sbb-border-radius-4x)',
   backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
 };
 
-const formDetailsStyle: Args = {
+const formDetailsStyle: Readonly<StyleInfo> = {
   marginTop: 'var(--sbb-spacing-fixed-4x)',
   padding: 'var(--sbb-spacing-fixed-4x)',
   borderRadius: 'var(--sbb-border-radius-8x)',
   backgroundColor: 'var(--sbb-color-milk)',
 };
 
-const formStyle: Args = {
+const formStyle: Readonly<StyleInfo> = {
   display: 'flex',
   flexWrap: 'wrap',
   alignItems: 'center',
   gap: 'var(--sbb-spacing-fixed-4x)',
 };
 
-const textBlockStyle = (negative: boolean): Args => {
+const textBlockStyle = (negative: boolean): Readonly<StyleInfo> => {
   return {
     position: 'relative',
     marginBlockStart: '1rem',
@@ -174,11 +174,7 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('my-overlay-2')}
   <sbb-overlay data-testid="overlay" id="my-overlay-2" ${sbbSpread(args)}>
     <div class="overlay-content" data-testid="content">
-      <sbb-title
-        visual-level="2"
-        ?negative=${args.negative}
-        style=${styleMap({ 'margin-block-start': '0' })}
-      >
+      <sbb-title visual-level="2" ?negative=${args.negative} style="margin-block-start: 0">
         Many Meetings
       </sbb-title>
       Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
@@ -188,7 +184,7 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
       to Frodo that Arwen turned towards him, and the light of her eyes fell on him from afar and
       pierced his heart.
       <sbb-image
-        style=${styleMap({ 'margin-block': '1rem' })}
+        style="margin-block: 1rem"
         image-src=${sampleImages[1]}
         alt="Natural landscape"
         data-chromatic="ignore"
@@ -223,7 +219,7 @@ const FormTemplate = (args: Args): TemplateResult => html`
     ${sbbSpread(args)}
   >
     <div class="overlay-content">
-      <div style=${styleMap({ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' })}>
+      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
         Submit the form below to close the overlay box using the
         <code style=${styleMap(codeStyle)}>close(result?: any, target?: HTMLElement)</code>
         method and returning the form values to update the details.

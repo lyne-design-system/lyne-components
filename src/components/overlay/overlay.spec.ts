@@ -1,17 +1,24 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { waitForLitRender } from '../core/testing';
 import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
 
-import '.';
+import type { SbbOverlayElement } from './overlay';
+import './overlay';
 
 describe('sbb-overlay', () => {
-  it('renders', async () => {
-    const root = await fixture(html`<sbb-overlay></sbb-overlay>`);
-
-    expect(root).dom.to.be.equal(`<sbb-overlay data-state="closed"></sbb-overlay>`);
+  let root: SbbOverlayElement;
+  beforeEach(async () => {
+    root = await fixture(html`<sbb-overlay disable-animation></sbb-overlay>`);
+    root.open();
+    await waitForLitRender(root);
+  });
+  it('renders - Dom', async () => {
+    await expect(root).dom.to.be.equalSnapshot();
+  });
+  it('renders - ShadowDom', async () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
-
-  testA11yTreeSnapshot(html`<sbb-overlay></sbb-overlay>`);
+  testA11yTreeSnapshot();
 });
