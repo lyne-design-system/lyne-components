@@ -72,10 +72,6 @@
   --sbb-dialog-color: var(--sbb-color-white);
   --sbb-dialog-background-color: var(--sbb-color-midnight);
   --sbb-dialog-actions-border: none;
-
-  @include sbb.if-forced-colors {
-    --sbb-dialog-actions-border: var(--sbb-border-width-1x) solid Highlight;
-  }
 }
 
 :host([disable-animation]) {
@@ -84,10 +80,6 @@
 
 :host([data-overflows]:not([negative])) {
   --sbb-dialog-actions-border: none;
-
-  @include sbb.if-forced-colors {
-    --sbb-dialog-actions-border: var(--sbb-border-width-1x) solid Highlight;
-  }
 }
 
 :host(:not([data-state='closed'])) {

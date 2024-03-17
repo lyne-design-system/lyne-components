@@ -27,6 +27,7 @@
   padding-inline: var(--sbb-dialog-padding-inline);
   padding-block: var(--sbb-dialog-header-padding-block);
   background-color: var(--sbb-dialog-background-color);
+  border-block-end: var(--sbb-dialog-title-border);
   z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-z-index));
 
   // Apply show/hide animation unless it has a visible focus within.
@@ -42,6 +43,10 @@
   :host([data-overflows][data-has-visible-focus-within]) &,
   :host([data-overflows]:not([negative], [data-hide-header])) & {
     @include sbb.shadow-level-9-soft;
+
+    @include sbb.if-forced-colors {
+      --sbb-dialog-title-border: var(--sbb-border-width-1x) solid CanvasText;
+    }
   }
 
   @include sbb.mq($from: medium) {

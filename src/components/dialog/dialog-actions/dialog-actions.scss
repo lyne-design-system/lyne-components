@@ -2,6 +2,10 @@
 
 :host {
   display: contents;
+
+  @include sbb.if-forced-colors {
+    --sbb-dialog-actions-border: var(--sbb-border-width-1x) solid CanvasText;
+  }
 }
 
 .sbb-dialog-actions {
