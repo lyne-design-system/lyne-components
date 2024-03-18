@@ -24,7 +24,7 @@ In addition, the title can be hidden when scrolling down the content, to provide
 
 ## Interactions
 
-A close button is always displayed and can be used to close the dialog. Optionally, a back button can be shown with the property `back-button` (default is `false`).
+A close button is always displayed and can be used to close the dialog. Optionally, a back button can be shown with the property `back-button` (default is `false`). Note that setting an `accessibilityBackLabel` will also display a back button.
 
 ```html
 <sbb-dialog>

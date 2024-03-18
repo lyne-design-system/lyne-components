@@ -71,6 +71,12 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
+export const NoBackButton: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'back-button': false, 'accessibility-back-label': undefined },
+};
+
 const meta: Meta = {
   decorators: [
     (story) => html` <div style="padding: 2rem;">${story()}</div> `,

@@ -449,6 +449,17 @@ export const Form: StoryObj = {
   play: isChromatic() ? playStory : undefined,
 };
 
+export const NoBackButton: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    backButton: false,
+    accessibilityBackLabel: undefined,
+  },
+  play: isChromatic() ? playStory : undefined,
+};
+
 export const NoFooter: StoryObj = {
   render: NoFooterTemplate,
   argTypes: basicArgTypes,

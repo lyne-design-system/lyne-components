@@ -7,7 +7,6 @@ snapshots["sbb-dialog renders an open dialog Dom"] =
   disable-animation=""
 >
   <sbb-dialog-title
-    aria-level="2"
     level="2"
     role="heading"
     slot="title"

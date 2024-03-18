@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
@@ -74,6 +74,12 @@ export class SbbDialogTitleElement extends SbbTitleElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     new FocusVisibleWithinController(this);
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('backButton') || changedProperties.has('accessibilityBackLabel')) {
+      this.backButton = !this.backButton && !!this.accessibilityBackLabel ? true : this.backButton;
+    }
   }
 
   protected override render(): TemplateResult {
