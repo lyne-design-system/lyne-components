@@ -29,9 +29,6 @@ It's possible to display the component in `negative` variant using the self-name
 </sbb-overlay>
 ```
 
-The default `z-index` of the component is set to `1000`; to specify a custom stack order, the
-`z-index` can be changed by defining the CSS variable `--sbb-overlay-z-index`.
-
 ## Interactions
 
 In order to show the overlay, you need to call the `open(event?: PointerEvent)` method on the `sbb-overlay` component.
