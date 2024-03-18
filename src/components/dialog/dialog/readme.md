@@ -109,12 +109,12 @@ The `sbb-dialog` component may visually hide the title thanks to the `hideOnScro
 
 ## Events
 
-| Name        | Type                | Description                                                                     | Inherited From |
-| ----------- | ------------------- | ------------------------------------------------------------------------------- | -------------- |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled. |                |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-dialog` is opened.                                      |                |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled. |                |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-dialog` is closed.                                      |                |
+| Name        | Type                             | Description                                                                     | Inherited From |
+| ----------- | -------------------------------- | ------------------------------------------------------------------------------- | -------------- |
+| `willOpen`  | `CustomEvent<void>`              | Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled. |                |
+| `didOpen`   | `CustomEvent<void>`              | Emits whenever the `sbb-dialog` is opened.                                      |                |
+| `willClose` | `CustomEvent<void>`              | Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled. |                |
+| `didClose`  | `CustomEvent<CloseEventDetails>` | Emits whenever the `sbb-dialog` is closed.                                      |                |
 
 ## CSS Properties
 
