@@ -108,8 +108,7 @@ snapshots["sbb-dialog renders an open dialog A11y tree Safari"] =
   "children": [
     {
       "role": "heading",
-      "name": "Title",
-      "level": 2
+      "name": "Title"
     },
     {
       "role": "text",

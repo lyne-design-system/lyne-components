@@ -77,8 +77,7 @@ snapshots["sbb-dialog-title A11y tree Safari"] =
   "children": [
     {
       "role": "heading",
-      "name": "Title",
-      "level": 2
+      "name": "Title"
     },
     {
       "role": "button",
