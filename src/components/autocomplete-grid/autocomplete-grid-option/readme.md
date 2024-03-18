@@ -1,45 +1,86 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
-
-The `sbb-autocomplete-grid-option` is a component . . .
+The `sbb-autocomplete-grid-option` is a component which can be used to display items in the
+[sbb-autocomplete-grid](/docs/components-sbb-autocomplete-sbb-autocomplete-grid--docs).
 
 ```html
-<sbb-autocomplete-grid-option></sbb-autocomplete-grid-option>
+<sbb-form-field label="Label">
+  <input />
+  <sbb-autocomplete-grid>
+    <sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
+      <sbb-autocomplete-grid-actions>
+        <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+      </sbb-autocomplete-grid-actions>
+    </sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-option value="2">Option 2</sbb-autocomplete-grid-option>
+      <sbb-autocomplete-grid-actions>
+        <sbb-autocomplete-grid-button icon-name="trash-small"></sbb-autocomplete-grid-button>
+      </sbb-autocomplete-grid-actions>
+    </sbb-autocomplete-grid-row>
+  </sbb-autocomplete-grid>
+</sbb-form-field>
 ```
 
 ## Slots
 
-> Describe slot naming and usage and provide an example of slotted content.
+It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
+at the component start using the `iconName` property or via custom content using the `icon` slot.
+
+```html
+<sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
+
+<sbb-autocomplete-grid-option value="1" icon-name="coins-small"
+  >Option 1</sbb-autocomplete-grid-option
+>
+```
 
 ## States
 
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
+Like the native `option`, the component has a `value` property.
 
-## Style
+The `selected`, `disabled` and `active` properties are connected to the self-named states.
+When disabled, the selection via click is prevented.
+If the `sbb-autocomplete-grid-option` is nested in a `sbb-autocomplete-grid-optgroup` component, it inherits from the parent the `disabled` state.
 
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
+```html
+<sbb-autocomplete-grid-option value="value" selected>Option label</sbb-autocomplete-grid-option>
 
-## Interactions
+<sbb-autocomplete-grid-option value="value" active>Option label</sbb-autocomplete-grid-option>
 
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
+<sbb-autocomplete-grid-option value="value" disabled>Option label</sbb-autocomplete-grid-option>
+```
 
 ## Events
 
-> Describe events triggered by the component and possibly how to get information from the payload.
+Consumers can listen to the `optionSelected` event on the `sbb-autocomplete-grid-option` component to intercept the selected value;
+the event is triggered if the element has been selected by some user interaction. Alternatively,
+the `selectionChange` event can be listened to, which is triggered if the element has been both selected or deselected.
 
-## Keyboard interaction
+## Style
 
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
+If the label slot contains only a **text node**, it is possible to search for text in the `sbb-autocomplete-grid-option` using the
+`highlight` method, passing the desired text; if the text is present it will be highlighted in bold.
 
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
+```html
+<!-- Supported scenario -->
+<sbb-autocomplete-grid-option> Highlightable caption</sbb-autocomplete-grid-option>
+
+<!-- Not supported scenarios -->
+<sbb-autocomplete-grid-option>
+  <span>Not highlightable caption</span>
+</sbb-autocomplete-grid-option>
+
+<sbb-autocomplete-grid-option>
+  <img src="..." />
+  Highlightable caption
+</sbb-autocomplete-grid-option>
+```
 
 ## Accessibility
 
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+The `sbb-autocomplete-grid` follows the combobox `grid` pattern;
+this means that the `sbb-autocomplete-grid-option` has a `gridcell` role and its `id` is set from `sbb-autocomplete-grid-row`'s `id`,
+which is needed to correctly set the `aria-activedescendant` on the related `input`.
 
 <!-- Auto Generated Below -->
 

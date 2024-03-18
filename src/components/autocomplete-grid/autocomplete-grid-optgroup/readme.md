@@ -1,45 +1,66 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
+The `sbb-optgroup` is a component used to group more [sbb-autocomplete-grid-option](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-option--docs)
+within a [sbb-autocomplete-grid](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid--docs).
 
-The `sbb-autocomplete-grid-optgroup` is a component . . .
+A [sbb-divider](/docs/components-sbb-divider--docs) is displayed at the bottom of the component.
 
 ```html
-<sbb-autocomplete-grid-optgroup></sbb-autocomplete-grid-optgroup>
+<sbb-form-field label="Label">
+  <input />
+  <sbb-autocomplete-grid>
+    <sbb-autocomplete-grid-optgroup>
+      <sbb-autocomplete-grid-row>
+        <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
+        <sbb-autocomplete-grid-actions>
+          <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+        </sbb-autocomplete-grid-actions>
+      </sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-row>
+        <sbb-autocomplete-grid-option value="2">Option 2</sbb-autocomplete-grid-option>
+        <sbb-autocomplete-grid-actions>
+          <sbb-autocomplete-grid-button icon-name="trash-small"></sbb-autocomplete-grid-button>
+        </sbb-autocomplete-grid-actions>
+      </sbb-autocomplete-grid-row>
+    </sbb-autocomplete-grid-optgroup>
+  </sbb-autocomplete-grid>
+</sbb-form-field>
 ```
 
 ## Slots
 
-> Describe slot naming and usage and provide an example of slotted content.
+It is possible to provide a set of `sbb-autocomplete-grid-option` via an unnamed slot;
+the component has also a `label` property as name of the group.
+
+```html
+<sbb-autocomplete-grid-optgroup label="Group">
+  <sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-option value="1" selected>1</sbb-autocomplete-grid-option>
+  </sbb-autocomplete-grid-row>
+  <sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-option value="2">2</sbb-autocomplete-grid-option>
+  </sbb-autocomplete-grid-row>
+  <sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-option value="3">3</sbb-autocomplete-grid-option>
+  </sbb-autocomplete-grid-row>
+</sbb-autocomplete-grid-optgroup>
+```
 
 ## States
 
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
+The component has a `disabled` property which sets all the `sbb-autocomplete-grid-option` in the group as disabled.
 
-## Style
-
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
-
-## Interactions
-
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
-
-## Events
-
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
-
-## Accessibility
-
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+```html
+<sbb-autocomplete-grid-optgroup label="Disabled group" disabled>
+  <sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-option value="A">A</sbb-autocomplete-grid-option>
+  </sbb-autocomplete-grid-row>
+  <sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-option value="B">B</sbb-autocomplete-grid-option>
+  </sbb-autocomplete-grid-row>
+  <sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-option value="C">C</sbb-autocomplete-grid-option>
+  </sbb-autocomplete-grid-row>
+</sbb-autocomplete-grid-optgroup>
+```
 
 <!-- Auto Generated Below -->
 

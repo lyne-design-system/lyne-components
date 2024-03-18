@@ -1,45 +1,131 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
+The `sbb-autocomplete-grid` is a component that can be used to display a panel of suggested options connected to a text input.
 
-The `sbb-autocomplete-grid` is a component . . .
+It's possible to set the element to which the component's panel will be attached using the `origin` prop,
+and the input which will work as a trigger using the `trigger` prop.
+Both accept an id or an element reference.
 
 ```html
-<sbb-autocomplete-grid></sbb-autocomplete-grid>
+<!-- Origin element -->
+<div id="autocomplete-origin">Another origin</div>
+
+<!-- Trigger element -->
+<input id="autocomplete-txt" placeholder="Another trigger element" />
+
+<sbb-autocomplete-grid origin="autocomplete-origin" trigger="autocomplete-txt">
+  <sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
+    <sbb-autocomplete-grid-actions>
+      <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+    </sbb-autocomplete-grid-actions>
+  </sbb-autocomplete-grid-row>
+  <sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-option value="2">Option 2</sbb-autocomplete-grid-option>
+    <sbb-autocomplete-grid-actions>
+      <sbb-autocomplete-grid-button icon-name="trash-small"></sbb-autocomplete-grid-button>
+    </sbb-autocomplete-grid-actions>
+  </sbb-autocomplete-grid-row>
+</sbb-autocomplete-grid>
 ```
 
-## Slots
+## In `sbb-form-field`
 
-> Describe slot naming and usage and provide an example of slotted content.
+If the component is used within a [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs),
+it will automatically connect to the native `<input>` as trigger and will display the option panel above or below the `sbb-form-field`.
 
-## States
+```html
+<!-- Origin element -->
+<sbb-form-field label="Label">
+  <!-- Trigger element -->
+  <input placeholder="Trigger element" />
 
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
+  <sbb-autocomplete-grid>
+    <sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
+      <sbb-autocomplete-grid-actions>
+        <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+      </sbb-autocomplete-grid-actions>
+    </sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-option value="2">Option 2</sbb-autocomplete-grid-option>
+      <sbb-autocomplete-grid-actions>
+        <sbb-autocomplete-grid-button icon-name="trash-small"></sbb-autocomplete-grid-button>
+      </sbb-autocomplete-grid-actions>
+    </sbb-autocomplete-grid-row>
+  </sbb-autocomplete-grid>
+</sbb-form-field>
+```
 
 ## Style
 
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
+### Option highlight
 
-## Interactions
+By default, the `sbb-autocomplete-grid` will highlight the label of the `sbb-autocomplete-grid-option` in the panel,
+if it matches the typed text.
+See the [sbb-autocomplete-grid-option](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-option--docs) for more details.
 
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
+### Option grouping
+
+The displayed `sbb-autocomplete-grid-option` can be collected into groups using `sbb-autocomplete-grid-optgroup` element:
+
+```html
+<!-- Origin element -->
+<sbb-form-field label="Label">
+  <!-- Trigger element -->
+  <input placeholder="Trigger element" />
+
+  <sbb-autocomplete-grid>
+    <sbb-autocomplete-grid-optgroup>
+      <sbb-autocomplete-grid-row>
+        <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
+        <sbb-autocomplete-grid-actions>
+          <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+        </sbb-autocomplete-grid-actions>
+      </sbb-autocomplete-grid-row>
+      ...
+    </sbb-autocomplete-grid-optgroup>
+    <sbb-autocomplete-grid-optgroup>
+      <sbb-autocomplete-grid-row>
+        <sbb-autocomplete-grid-option value="100">Option 100</sbb-autocomplete-grid-option>
+        <sbb-autocomplete-grid-actions>
+          <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+        </sbb-autocomplete-grid-actions>
+      </sbb-autocomplete-grid-row>
+      ...
+    </sbb-autocomplete-grid-optgroup>
+  </sbb-autocomplete-grid>
+</sbb-form-field>
+```
 
 ## Events
 
-> Describe events triggered by the component and possibly how to get information from the payload.
+The `sbb-autocomplete-grid-option` emits the `optionSelected` event when selected via user interaction.
 
 ## Keyboard interaction
 
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
+The options panel opens on `focus`, `click` or `input` events on the trigger element, or on `ArrowDown` keypress;
+it can be closed on backdrop click, or using the `Escape` or `Tab` keys.
 
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
+| Keyboard               | Action                                                  |
+| ---------------------- | ------------------------------------------------------- |
+| <kbd>Down Arrow</kbd>  | Navigate to the next option. Open the panel, if closed. |
+| <kbd>Up Arrow</kbd>    | Navigate to the previous option.                        |
+| <kbd>Right Arrow</kbd> | Navigate to the next button.                            |
+| <kbd>Left Arrow</kbd>  | Navigate to the previous button.                        |
+| <kbd>Enter</kbd>       | Select the active option/button.                        |
+| <kbd>Escape</kbd>      | Close the autocomplete panel.                           |
 
 ## Accessibility
 
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+The `sbb-autocomplete-grid` implements the [ARIA combobox-grid interaction pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/grid-combo/).
+
+The text input trigger specifies `role="combobox"` while the content of the pop-up applies `role="grid"`.
+The inner option and actions have `role="gridcell"`, while the buttons inside the action have `role="button"`.
+Note that since the focus must always be on the connected input, those buttons can't be reached via <kbd>Tab</kbd>,
+but only with arrow navigation; note also that when a button is reached, going up or down will move to the previous/next option
+and not to the previous/next button.
+
+The component preserves focus on the input trigger,
+using `aria-activedescendant` to support navigation though the autocomplete options.
 
 <!-- Auto Generated Below -->
 

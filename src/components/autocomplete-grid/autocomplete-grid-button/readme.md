@@ -1,45 +1,89 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
-
-The `sbb-autocomplete-grid-button` is a component . . .
+The `sbb-autocomplete-grid-button` component provides the same functionality as a native icon-only `<button>` enhanced with the SBB Design.
+It's mainly designed to be used within the [sbb-autocomplete-grid-actions](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-actions--docs)
+inside a [sbb-autocomplete-grid](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid--docs).
 
 ```html
-<sbb-autocomplete-grid-button></sbb-autocomplete-grid-button>
+<sbb-form-field label="Label">
+  <input />
+  <sbb-autocomplete-grid>
+    <sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
+      <sbb-autocomplete-grid-actions>
+        <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+      </sbb-autocomplete-grid-actions>
+    </sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-option value="2">Option 2</sbb-autocomplete-grid-option>
+      <sbb-autocomplete-grid-actions>
+        <sbb-autocomplete-grid-button icon-name="trash-small"></sbb-autocomplete-grid-button>
+      </sbb-autocomplete-grid-actions>
+    </sbb-autocomplete-grid-row>
+  </sbb-autocomplete-grid>
+</sbb-form-field>
 ```
 
 ## Slots
 
-> Describe slot naming and usage and provide an example of slotted content.
+The component can display a `sbb-icon` using the `iconName` property or via custom content using the `icon` slot.
 
-## States
+```html
+<sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
 
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
+<sbb-autocomplete-grid-button>
+  <sbb-icon slot="icon" name="info"></sbb-icon>
+</sbb-autocomplete-grid-button>
+```
+
+## Button properties
+
+The component is internally rendered as a button,
+accepting its associated properties (`type`, `name`, `value` and `form`).
+
+```html
+<sbb-autocomplete-grid-button
+  icon-name="coins-small"
+  type="button"
+  name="tickets"
+  form="buy"
+  value="tickets"
+>
+</sbb-autocomplete-grid-button>
+```
 
 ## Style
 
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
+The component has a negative variant which can be set using the `negative` property.
+
+The component can be displayed in `disabled` state using the self-named property.
+
+```html
+<sbb-autocomplete-grid-button icon-name="pen-small" negative></sbb-autocomplete-grid-button>
+
+<sbb-autocomplete-grid-button icon-name="pen-small" disabled></sbb-autocomplete-grid-button>
+```
+
+If the component is used within a [sbb-autocomplete-grid-optgroup](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-optgroup--docs),
+it can be disabled by disabling the group.
+
+### Focus outline
+
+Please make sure that the focus outline appears in the correct color if the component is used on a dark background.
+You can set it by re-defining the css var on `sbb-autocomplete-grid-button` or any parent element:
+
+```css
+sbb-autocomplete-grid-button {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
+```
 
 ## Interactions
 
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
-
-## Events
-
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
+When the button is clicked, an event is triggered; the behavior is up to the consumer.
+It's possible to fetch the button's related `sbb-autocomplete-grid-option` using the `optionOnSameRow` method.
 
 ## Accessibility
 
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+Use the accessibility properties to describe the purpose of the `sbb-autocomplete-grid-button` for screen-reader users.
 
 <!-- Auto Generated Below -->
 
