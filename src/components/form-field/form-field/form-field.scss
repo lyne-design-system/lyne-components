@@ -10,7 +10,7 @@
   --sbb-form-field-border-style: solid;
   --sbb-form-field-border-radius: var(--sbb-border-radius-4x);
   --sbb-form-field-border-width: var(--sbb-border-width-1x);
-  --sbb-form-field-height: var(--sbb-size-form-element-m-min-height);
+  --sbb-form-field-min-height: var(--sbb-size-form-element-m-min-height);
   --sbb-form-field-label-color: var(--sbb-color-metal);
   --sbb-form-field-prefix-color: var(--sbb-color-metal);
   --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-3x);
@@ -60,7 +60,7 @@
 }
 
 :host([size='l']) {
-  --sbb-form-field-height: var(--sbb-size-form-element-l-min-height);
+  --sbb-form-field-min-height: var(--sbb-size-form-element-l-min-height);
   --sbb-form-field-padding-inline: var(--sbb-spacing-responsive-xxxs);
 }
 
@@ -160,6 +160,10 @@
   --sbb-form-field-background-color: var(--sbb-color-white);
 }
 
+:host([data-input-type='textarea']) {
+  --sbb-form-field-max-height: fit-content;
+}
+
 .sbb-form-field__space-wrapper {
   @include sbb.zero-width-space;
 
@@ -175,11 +179,17 @@
   border: var(--sbb-form-field-border-width) var(--sbb-form-field-border-style)
     var(--sbb-form-field-border-color);
   border-radius: var(--sbb-form-field-border-radius);
-  height: var(--sbb-form-field-height);
+  min-height: var(--sbb-form-field-min-height);
+  max-height: var(--sbb-form-field-max-height);
   background-color: var(--sbb-form-field-background-color);
 
   :host([data-input-focused][data-focus-origin='keyboard']) & {
     @include sbb.focus-outline;
+  }
+
+  // Prevents page content from shifting on textarea focus
+  :host([data-input-focused][data-input-type='textarea']) & {
+    margin-block-end: calc(var(--sbb-form-field-border-width) / 2 * -1);
   }
 
   // In high contrast, there is no borderless variant
@@ -203,15 +213,26 @@
   }
 }
 
+::slotted(*[slot='prefix']) {
+  color: var(--sbb-form-field-prefix-color);
+}
+
 // Ensure slotted inline elements are vertically centered
 ::slotted(*[slot='prefix']),
 ::slotted(*[slot='suffix']) {
   min-width: var(--sbb-icon-svg-width);
   display: flex;
-}
 
-::slotted(*[slot='prefix']) {
-  color: var(--sbb-form-field-prefix-color);
+  :host([data-input-type='textarea']) & {
+    // Stick the prefix and the suffix to the top
+    align-self: start;
+    position: relative;
+    inset-block-start: calc(
+      (var(--sbb-form-field-min-height) - var(--sbb-size-icon-ui-small)) / 2 - var(
+          --sbb-form-field-border-width
+        )
+    );
+  }
 }
 
 ::slotted(sbb-form-field-clear) {
@@ -291,6 +312,11 @@
     }
   }
 
+  // Prevents label from shifting on textarea focus
+  :host(:not([data-input-focused])[data-input-type='textarea']) & {
+    padding-block-start: var(--sbb-form-field-border-width);
+  }
+
   // If floating-label is activated and there is no focus in it (except for select) and no popup is open
   // and input is empty
   // then apply the label transition.
@@ -317,7 +343,7 @@
 
 // Input
 
-.sbb-form-field__input ::slotted(:where(input, select, sbb-select)) {
+.sbb-form-field__input ::slotted(:where(input, select, textarea, sbb-select)) {
   @include sbb.text-m--regular;
   @include sbb.ellipsis;
   @include sbb.input-reset;
@@ -368,6 +394,26 @@
 
 .sbb-form-field__input ::slotted(:where(select, sbb-select)) {
   padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
+}
+
+.sbb-form-field__input ::slotted(textarea) {
+  resize: vertical;
+  white-space: normal;
+  overflow-y: scroll;
+  min-height: calc((var(--sbb-typo-line-height-body-text) * 1em));
+
+  // Prevents input from shifting on textarea focus
+  :host(:not([data-input-focused])) & {
+    padding-block-start: var(--sbb-form-field-border-width);
+  }
+
+  :host(:is(:not([data-slot-names~='label'], [label]), [hidden-label])) & {
+    padding-block-start: calc(
+      var(--sbb-form-field-min-height) / 2 - (var(--sbb-typo-line-height-body-text) * 0.5em) - var(
+          --sbb-form-field-border-width
+        )
+    );
+  }
 }
 
 .sbb-form-field__error {
