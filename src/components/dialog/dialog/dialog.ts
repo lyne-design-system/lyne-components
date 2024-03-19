@@ -1,6 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
 import { FocusHandler, getFirstFocusableElement, setModalityOnNextFocus } from '../../core/a11y';
@@ -16,10 +17,10 @@ import type { SbbDialogTitleElement } from '../dialog-title';
 
 import style from './dialog.scss?lit&inline';
 
-import '../button/secondary-button';
-import '../button/transparent-button';
-import '../screenreader-only';
-import '../title';
+import '../../button/secondary-button';
+import '../../button/transparent-button';
+import '../../screenreader-only';
+import '../../title';
 
 // A global collection of existing dialogs
 const dialogRefs: SbbDialogElement[] = [];
@@ -245,8 +246,6 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   }
 
   protected override firstUpdated(): void {
-    this._ariaLiveRef = this.shadowRoot!.querySelector('sbb-screenreader-only')!;
-
     // Synchronize the negative state before the first opening to avoid a possible color flash if it is negative.
     this._dialogTitleElement = this.querySelector('sbb-dialog-title')!;
     this._syncNegative();
