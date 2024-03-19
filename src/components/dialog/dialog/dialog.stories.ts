@@ -51,8 +51,8 @@ const hideHeader = async ({ canvasElement }: StoryContext): Promise<void> => {
   await playStory({ canvasElement } as StoryContext);
 
   // Scroll the content to hide the title.
-  canvas.getByTestId('content').shadowRoot?.firstElementChild?.scroll(0, 50);
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await new Promise((resolve) => setTimeout(resolve, 250));
+  setTimeout(() => canvas.getByTestId('image').scrollIntoView(), 250);
 };
 
 const level: InputType = {
@@ -283,6 +283,7 @@ const LongContentTemplate = ({
         style=${styleMap({ 'margin-block': '1rem' })}
         image-src=${sampleImages[1]}
         alt="Natural landscape"
+        data-testid="image"
         data-chromatic="ignore"
       ></sbb-image>
       He stood still enchanted, while the sweet syllables of the elvish song fell like clear jewels
