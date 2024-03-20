@@ -400,7 +400,7 @@
   @include sbb.scrollbar;
 
   resize: vertical;
-  white-space: normal;
+  white-space: break-spaces;
   overflow-y: auto;
   min-height: calc((var(--sbb-typo-line-height-body-text) * 1em));
 
