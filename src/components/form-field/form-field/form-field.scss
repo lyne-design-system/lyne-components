@@ -397,10 +397,16 @@
 }
 
 .sbb-form-field__input ::slotted(textarea) {
+  @include sbb.scrollbar;
+
   resize: vertical;
   white-space: normal;
-  overflow-y: scroll;
+  overflow-y: auto;
   min-height: calc((var(--sbb-typo-line-height-body-text) * 1em));
+
+  :host([negative]) & {
+    @include sbb.scrollbar($negative: true);
+  }
 
   // Prevents input from shifting on textarea focus
   :host(:not([data-input-focused])) & {
