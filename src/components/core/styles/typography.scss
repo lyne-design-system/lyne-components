@@ -2,6 +2,7 @@
 @use './mixins/a11y';
 @use './mixins/layout';
 @use './mixins/lists';
+@use './mixins/scrollbar';
 @use './mixins/typo';
 
 @include font-face.font-declarations;
@@ -27,12 +28,12 @@ sup {
 
 // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
 sbb-form-field {
-  input:disabled::placeholder {
+  :where(input, textarea):disabled::placeholder {
     color: var(--sbb-color-granite);
     -webkit-text-fill-color: var(--sbb-color-granite);
   }
 
-  &[floating-label] input::placeholder {
+  &[floating-label] :where(input, textarea)::placeholder {
     color: transparent;
     -webkit-text-fill-color: transparent;
 
@@ -40,6 +41,14 @@ sbb-form-field {
       color: Canvas;
       -webkit-text-fill-color: Canvas;
     }
+  }
+
+  textarea {
+    @include scrollbar.scrollbar;
+  }
+
+  &[negative] textarea {
+    @include scrollbar.scrollbar($negative: true);
   }
 }
 
