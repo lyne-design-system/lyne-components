@@ -175,39 +175,44 @@
   display: flex;
   align-items: center;
   gap: var(--sbb-form-field-gap);
-  padding-inline: calc(var(--sbb-form-field-padding-inline) - var(--sbb-form-field-border-width));
-  border: var(--sbb-form-field-border-width) var(--sbb-form-field-border-style)
-    var(--sbb-form-field-border-color);
+  padding-inline: var(--sbb-form-field-padding-inline);
   border-radius: var(--sbb-form-field-border-radius);
   min-height: var(--sbb-form-field-min-height);
   max-height: var(--sbb-form-field-max-height);
   background-color: var(--sbb-form-field-background-color);
+  position: relative;
+
+  // Use ::before to avoid content shifting when border width changes.
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    border: var(--sbb-form-field-border-width) var(--sbb-form-field-border-style)
+      var(--sbb-form-field-border-color);
+    border-radius: var(--sbb-form-field-border-radius);
+  }
 
   :host([data-input-focused][data-focus-origin='keyboard']) & {
     @include sbb.focus-outline;
   }
 
-  // Prevents page content from shifting on textarea focus
-  :host([data-input-focused][data-input-type='textarea']) & {
-    margin-block-end: calc(var(--sbb-form-field-border-width) / 2 * -1);
-  }
-
   // In high contrast, there is no borderless variant
   @media (forced-colors: none) {
     :host(:is([borderless], [data-input-type='sbb-slider'])) & {
-      border-color: transparent;
+      &::before {
+        border-color: transparent;
+      }
     }
 
     :host(:is([data-input-focused], [data-has-popup-open])[borderless]) & {
-      position: relative;
-
       &::after {
         content: '';
         position: absolute;
         border-block-end: var(--sbb-border-width-1x) var(--sbb-form-field-border-style)
           var(--sbb-form-field-border-color);
-        inset-inline: calc(var(--sbb-form-field-padding-inline) - 2 * var(--sbb-border-width-1x));
-        inset-block-end: calc(-2 * var(--sbb-border-width-1x));
+        inset-inline: var(--sbb-form-field-padding-inline);
+        inset-block-end: 0;
       }
     }
   }
@@ -312,11 +317,6 @@
     }
   }
 
-  // Prevents label from shifting on textarea focus
-  :host(:not([data-input-focused])[data-input-type='textarea']) & {
-    padding-block-start: var(--sbb-form-field-border-width);
-  }
-
   // If floating-label is activated and there is no focus in it (except for select) and no popup is open
   // and input is empty
   // then apply the label transition.
@@ -407,11 +407,6 @@
 
   :host([negative]) & {
     @include sbb.scrollbar($negative: true);
-  }
-
-  // Prevents input from shifting on textarea focus
-  :host(:not([data-input-focused])) & {
-    padding-block-start: var(--sbb-form-field-border-width);
   }
 
   :host(:is(:not([data-slot-names~='label'], [label]), [hidden-label])) & {
