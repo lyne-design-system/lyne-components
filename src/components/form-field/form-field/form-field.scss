@@ -399,6 +399,7 @@
 .sbb-form-field__input ::slotted(textarea) {
   @include sbb.scrollbar;
 
+  position: relative;
   resize: vertical;
   white-space: break-spaces;
   overflow-y: auto;
@@ -419,6 +420,47 @@
           --sbb-form-field-border-width
         )
     );
+  }
+}
+
+// Custom resize  handle
+
+:host([data-input-type='textarea']) .sbb-form-field__input-container {
+  &::after {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    display: block;
+    width: var(--sbb-spacing-fixed-4x);
+    height: var(--sbb-spacing-fixed-4x);
+    background-color: var(--sbb-form-field-background-color);
+    inset-inline-end: #{sbb.px-to-rem-build(-4)};
+    inset-block-end: #{sbb.px-to-rem-build(5)};
+  }
+}
+
+:host([data-input-type='textarea']) .sbb-form-field__input {
+  &::before,
+  &::after {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    width: #{sbb.px-to-rem-build(6)};
+    height: #{sbb.px-to-rem-build(6)};
+    border-block-end: var(--sbb-border-width-1x) solid var(--sbb-color-smoke);
+    border-inline-start: var(--sbb-border-width-1x) solid var(--sbb-color-smoke);
+    inset-inline-end: #{sbb.px-to-rem-build(2)};
+    inset-block-end: #{sbb.px-to-rem-build(9)};
+    z-index: 1;
+  }
+
+  &::before {
+    margin-bottom: var(--sbb-spacing-fixed-1x);
+    transform: rotate(135deg);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
   }
 }
 
