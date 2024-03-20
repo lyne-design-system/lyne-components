@@ -92,13 +92,13 @@ When using a button to trigger the overlay, ensure to manage the appropriate ARI
 
 ## Events
 
-| Name                | Type                             | Description                                                                      | Inherited From |
-| ------------------- | -------------------------------- | -------------------------------------------------------------------------------- | -------------- |
-| `willOpen`          | `CustomEvent<void>`              | Emits whenever the `sbb-overlay` starts the opening transition. Can be canceled. |                |
-| `didOpen`           | `CustomEvent<void>`              | Emits whenever the `sbb-overlay` is opened.                                      |                |
-| `willClose`         | `CustomEvent<void>`              | Emits whenever the `sbb-overlay` begins the closing transition. Can be canceled. |                |
-| `didClose`          | `CustomEvent<CloseEventDetails>` | Emits whenever the `sbb-overlay` is closed.                                      |                |
-| `requestBackAction` | `CustomEvent<void>`              | Emits whenever the back button is clicked.                                       |                |
+| Name                | Type                                       | Description                                                                      | Inherited From |
+| ------------------- | ------------------------------------------ | -------------------------------------------------------------------------------- | -------------- |
+| `willOpen`          | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` starts the opening transition. Can be canceled. |                |
+| `didOpen`           | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` is opened.                                      |                |
+| `willClose`         | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` begins the closing transition. Can be canceled. |                |
+| `didClose`          | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the `sbb-overlay` is closed.                                      |                |
+| `requestBackAction` | `CustomEvent<void>`                        | Emits whenever the back button is clicked.                                       |                |
 
 ## CSS Properties
 

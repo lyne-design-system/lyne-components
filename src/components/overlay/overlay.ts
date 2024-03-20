@@ -17,7 +17,7 @@ import style from './overlay.scss?lit&inline';
 const overlayRefs: SbbOverlayElement[] = [];
 let nextId = 0;
 
-type CloseEventDetails = {
+export type SbbOverlayCloseEventDetails = {
   returnValue?: any;
   closeTarget?: HTMLElement;
 };
@@ -29,7 +29,7 @@ type CloseEventDetails = {
  * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-overlay` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-overlay` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-overlay` begins the closing transition. Can be canceled.
- * @event {CustomEvent<CloseEventDetails>} didClose - Emits whenever the `sbb-overlay` is closed.
+ * @event {CustomEvent<SbbOverlayCloseEventDetails>} didClose - Emits whenever the `sbb-overlay` is closed.
  * @event {CustomEvent<void>} requestBackAction - Emits whenever the back button is clicked.
  * @cssprop [--sbb-overlay-z-index=var(--sbb-overlay-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
@@ -72,7 +72,7 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
     | undefined;
 
   /**
-   * This will be forwarded as aria-label to the relevant nested element.
+   * This will be forwarded as aria-label adn will describe the purpose of the dialog.
    */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
@@ -105,7 +105,7 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
   private _willClose: EventEmitter = new EventEmitter(this, SbbOverlayElement.events.willClose);
 
   /** Emits whenever the `sbb-overlay` is closed. */
-  private _didClose: EventEmitter<CloseEventDetails> = new EventEmitter(
+  private _didClose: EventEmitter<SbbOverlayCloseEventDetails> = new EventEmitter(
     this,
     SbbOverlayElement.events.didClose,
   );

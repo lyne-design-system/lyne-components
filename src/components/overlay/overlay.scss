@@ -7,13 +7,10 @@
 :host {
   @include sbb.scrollbar-variables;
 
-  --sbb-overlay-padding-inline: var(--sbb-spacing-fixed-5x);
-  --sbb-overlay-color: var(--sbb-color-black);
   --sbb-overlay-background-color: var(--sbb-color-milk);
-  --sbb-overlay-width: 100%;
   --sbb-overlay-height: 100%;
   --sbb-overlay-inset: 0 auto auto 0;
-  --sbb-overlay-padding-block: var(--sbb-spacing-responsive-s);
+  --sbb-overlay-padding-block: var(--sbb-spacing-responsive-l);
   --sbb-overlay-animation-duration: var(--sbb-animation-duration-6x);
   --sbb-overlay-animation-easing: ease;
   --sbb-overlay-pointer-events: none;
@@ -22,19 +19,8 @@
 
   position: fixed;
   inset: var(--sbb-overlay-inset);
+  background-color: var(--sbb-overlay-background-color);
   z-index: var(--sbb-overlay-z-index, var(--sbb-overlay-z-index));
-
-  @include sbb.mq($from: micro) {
-    --sbb-overlay-padding-inline: var(--sbb-spacing-fixed-6x);
-  }
-
-  @include sbb.mq($from: small) {
-    --sbb-overlay-padding-inline: var(--sbb-spacing-fixed-12x);
-  }
-
-  @include sbb.mq($from: medium) {
-    --sbb-overlay-padding-inline: var(--sbb-spacing-responsive-s);
-  }
 }
 
 :host(:is([data-state='opened'], [data-state='opening'])) {
@@ -63,6 +49,14 @@
   align-items: center;
   position: fixed;
   inset: var(--sbb-overlay-inset);
+
+  :host(:not([expanded])) & {
+    @include sbb.page-spacing;
+  }
+
+  :host([expanded]) & {
+    @include sbb.page-spacing-expanded;
+  }
 }
 
 .sbb-overlay {
@@ -72,11 +66,9 @@
   margin: auto;
   padding: 0;
   border: none;
-  width: var(--sbb-overlay-width);
   height: var(--sbb-overlay-height);
   overflow: auto;
   color: var(--sbb-overlay-color);
-  background-color: var(--sbb-overlay-background-color);
 
   :host([data-state]:not([data-state='closed'])) & {
     display: block;
@@ -92,33 +84,15 @@
     pointer-events: none;
     animation-name: close;
   }
-
-  @include sbb.if-forced-colors {
-    outline: var(--sbb-border-width-1x) solid CanvasText;
-  }
-
-  @include sbb.mq($from: medium) {
-    overflow: hidden;
-    height: fit-content;
-  }
 }
 
 .sbb-overlay__wrapper {
   display: flex;
   flex-direction: column;
-  width: var(--sbb-overlay-width);
   height: var(--sbb-overlay-height);
   outline: none;
   position: fixed;
   word-break: break-word;
-
-  :host(:not([expanded])) & {
-    @include sbb.page-spacing;
-  }
-
-  :host([expanded]) & {
-    @include sbb.page-spacing-expanded;
-  }
 
   @include sbb.mq($from: medium) {
     position: sticky;
@@ -134,21 +108,13 @@
   pointer-events: none;
   align-items: start;
   justify-content: space-between;
-  width: var(--sbb-overlay-width);
+  width: 100%;
   padding-inline: var(--sbb-spacing-responsive-xs);
   padding-block-start: var(--sbb-spacing-responsive-xs);
-  z-index: var(--sbb-overlay-z-index, var(--sbb-overlay-z-index));
+  z-index: 1;
 
   * {
     pointer-events: all;
-  }
-
-  :host(:not([expanded])) & {
-    @include sbb.page-spacing;
-  }
-
-  :host([expanded]) & {
-    @include sbb.page-spacing-expanded;
   }
 }
 
@@ -161,7 +127,7 @@
 
   height: 100vh;
   padding-inline: var(--sbb-layout-base-offset-responsive);
-  padding-block: var(--sbb-spacing-fixed-20x) var(--sbb-overlay-padding-block);
+  padding-block: var(--sbb-overlay-padding-block);
   overflow: auto;
 }
 
