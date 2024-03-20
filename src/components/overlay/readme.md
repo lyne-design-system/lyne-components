@@ -79,7 +79,7 @@ When using a button to trigger the overlay, ensure to manage the appropriate ARI
 | `backButton`              | `back-button`               | public  | `boolean`                    | `false` | Whether a back button is displayed next to the title.                                                                 |
 | `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the close button element.                                                     |
 | `accessibilityBackLabel`  | `accessibility-back-label`  | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the back button element.                                                      |
-| `accessibilityLabel`      | `accessibility-label`       | public  | `string \| undefined`        |         | This will be forwarded as aria-label to the relevant nested element.                                                  |
+| `accessibilityLabel`      | `accessibility-label`       | public  | `string \| undefined`        |         | This will be forwarded as aria-label adn will describe the purpose of the dialog.                                     |
 | `disableAnimation`        | `disable-animation`         | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                                     |
 | `negative`                | `negative`                  | public  | `boolean`                    | `false` | Negative coloring variant flag.                                                                                       |
 
