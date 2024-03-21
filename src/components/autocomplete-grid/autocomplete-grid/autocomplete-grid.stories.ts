@@ -25,7 +25,7 @@ import '../../form-field';
 const getOption = (event: Event): void => {
   const button = event.target as SbbAutocompleteGridButtonElement;
   const div: HTMLDivElement = document.createElement('div');
-  div.innerText = `Button has been clicked on row with label: '${button.optionOnSameRow?.textContent}' and value: '${button.optionOnSameRow?.value}'`;
+  div.innerText = `Button '${button.iconName}' clicked on row '${button.optionOnSameRow?.textContent}' / value: '${button.optionOnSameRow?.value}'`;
   (event.currentTarget as HTMLElement).closest('div')!.querySelector('#container')!.prepend(div);
 };
 
@@ -105,6 +105,15 @@ const optionIconName: InputType = {
   },
 };
 
+const disableOption: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Option',
+  },
+};
+
 const buttonIconName: InputType = {
   control: {
     type: 'text',
@@ -130,6 +139,7 @@ const defaultArgTypes: ArgTypes = {
 
   // Option args
   optionIconName,
+  disableOption,
 
   // Button args
   buttonIconName,
@@ -151,23 +161,32 @@ const defaultArgs: Args = {
 
   // Option args
   optionIconName: 'clock-small',
+  disableOption: false,
 
   // Button args
   buttonIconName: 'pen-small',
 };
 
-const createRows1 = (optionIconName: string, buttonIconName: string): TemplateResult => html`
+const createRows1 = (
+  optionIconName: string,
+  buttonIconName: string,
+  disableOption: boolean,
+): TemplateResult => html`
   ${repeat(
     new Array(3),
     (_, i: number) => html`
       <sbb-autocomplete-grid-row>
-        <sbb-autocomplete-grid-option value=${`1-${i + 1}`} icon-name=${optionIconName || nothing}
+        <sbb-autocomplete-grid-option
+          value=${`1-${i + 1}`}
+          icon-name=${optionIconName || nothing}
+          ?disabled=${disableOption && i === 1}
           >${`Option 1-${i + 1}`}</sbb-autocomplete-grid-option
         >
         <sbb-autocomplete-grid-actions>
           <sbb-autocomplete-grid-button
             icon-name=${buttonIconName}
             aria-label=${buttonIconName}
+            ?disabled=${disableOption && i === 1}
             @click=${(event: Event) => getOption(event)}
           ></sbb-autocomplete-grid-button>
         </sbb-autocomplete-grid-actions>
@@ -176,23 +195,25 @@ const createRows1 = (optionIconName: string, buttonIconName: string): TemplateRe
   )}
 `;
 
-const createRows2 = (buttonIconName: string): TemplateResult => html`
+const createRows2 = (buttonIconName: string, disableOption: boolean): TemplateResult => html`
   ${repeat(
     new Array(3),
     (_, i: number) => html`
       <sbb-autocomplete-grid-row>
-        <sbb-autocomplete-grid-option value=${`2-${i + 1}`}
+        <sbb-autocomplete-grid-option value=${`2-${i + 1}`} ?disabled=${disableOption && i === 1}
           >${`Option 2-${i + 1}`}</sbb-autocomplete-grid-option
         >
         <sbb-autocomplete-grid-actions>
           <sbb-autocomplete-grid-button
             icon-name=${buttonIconName}
             aria-label=${buttonIconName}
+            ?disabled=${disableOption && i === 1}
             @click=${(event: Event) => getOption(event)}
           ></sbb-autocomplete-grid-button>
           <sbb-autocomplete-grid-button
             icon-name="trash-small"
             aria-label="trash-small"
+            ?disabled=${disableOption && i === 1}
             @click=${(event: Event) => getOption(event)}
           ></sbb-autocomplete-grid-button>
         </sbb-autocomplete-grid-actions>
@@ -242,11 +263,18 @@ const Template = (args: Args): TemplateResult => html`
         ?disable-animation=${args.disableAnimation}
         ?preserve-icon-space=${args.preserveIconSpace}
       >
-        ${createRows1(args.optionIconName, args.buttonIconName)} ${createRows2(args.buttonIconName)}
+        ${createRows1(args.optionIconName, args.buttonIconName, args.disableOption)}
+        ${createRows2(args.buttonIconName, args.disableOptio1n)}
       </sbb-autocomplete-grid>
     </sbb-form-field>
     ${textBlock()}
-    <div id="container" style="padding-block: 1rem;"></div>
+    <div
+      id="container"
+      style=${styleMap({
+        color: args.negative ? 'var(--sbb-color-white)' : 'var(--sbb-color-black)',
+        paddingBlock: '1rem',
+      })}
+    ></div>
   </div>
 `;
 

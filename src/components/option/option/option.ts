@@ -1,4 +1,4 @@
-import type { TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
@@ -10,6 +10,7 @@ import { EventEmitter } from '../../core/eventing';
 import '../../icon';
 import '../../screen-reader-only';
 import '../../visual-checkbox';
+import style from './option.scss?lit&inline';
 
 let nextId = 0;
 
@@ -30,6 +31,7 @@ export type SbbOptionVariant = 'autocomplete' | 'select';
   role: 'option',
 })
 export class SbbOptionElement extends SbbOptionBaseElement {
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     selectionChange: 'optionSelectionChange',
     optionSelected: 'optionSelected',
@@ -70,7 +72,7 @@ export class SbbOptionElement extends SbbOptionBaseElement {
       // :is() selector not possible due to test environment
       `sbb-autocomplete[negative],sbb-form-field[negative]`,
     );
-    this.toggleAttribute('data-group-negative', this.negative);
+    this.toggleAttribute('data-negative', this.negative);
   }
 
   protected selectByClick(event: MouseEvent): void {

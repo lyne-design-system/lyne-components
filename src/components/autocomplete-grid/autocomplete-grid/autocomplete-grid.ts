@@ -7,6 +7,7 @@ import { SbbAutocompleteBaseElement } from '../../core/common-behaviors/autocomp
 import { getDocumentWritingMode, isValidAttribute, setAttribute } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import { setAriaComboBoxAttributes } from '../../core/overlay';
+import type { SbbDividerElement } from '../../divider';
 import type { SbbOptGroupElement, SbbOptionElement } from '../../option';
 import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button';
 import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option';
@@ -70,9 +71,12 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
     return Array.from(this.querySelectorAll?.('sbb-autocomplete-grid-option') ?? []);
   }
 
-  // fixme
   private get _row(): SbbAutocompleteGridRowElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-autocomplete-grid-row') ?? []);
+    return (
+      Array.from(this.querySelectorAll?.('sbb-autocomplete-grid-row')).filter(
+        (row) => !row.hasAttribute('data-disabled'),
+      ) ?? []
+    );
   }
 
   /** When an option is selected, update the input value and close the autocomplete. */
@@ -120,15 +124,13 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
   }
 
   protected syncNegative(): void {
-    this.querySelectorAll?.('sbb-divider').forEach((divider) => (divider.negative = this.negative));
+    this.querySelectorAll?.<SbbDividerElement | SbbAutocompleteGridButtonElement>(
+      'sbb-divider, sbb-autocomplete-grid-button',
+    ).forEach((e) => (e.negative = this.negative));
 
     this.querySelectorAll?.<SbbAutocompleteGridOptionElement | SbbOptGroupElement>(
-      'sbb-autocomplete-grid-option, sbb-autocomplete-grid-optgroup',
+      'sbb-autocomplete-grid-row, sbb-autocomplete-grid-option, sbb-autocomplete-grid-optgroup',
     ).forEach((element) => element.toggleAttribute('data-negative', this.negative));
-
-    this.querySelectorAll?.<SbbAutocompleteGridButtonElement>(
-      'sbb-autocomplete-grid-button',
-    ).forEach((element) => (element.negative = this.negative));
   }
 
   protected openedPanelKeyboardInteraction(event: KeyboardEvent): void {
@@ -146,13 +148,11 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
         this.selectByKeyboard(event);
         break;
 
-      // FIXME
       case 'ArrowDown':
       case 'ArrowUp':
         this.setNextActiveOption(event);
         break;
 
-      // FIXME
       case 'ArrowRight':
       case 'ArrowLeft':
         this._setNextHorizontalActiveElement(event);
@@ -160,7 +160,6 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
     }
   }
 
-  // TODO
   protected selectByKeyboard(event: KeyboardEvent): void {
     if (this._activeColumnIndex !== 0) {
       (
@@ -191,22 +190,21 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
     this.triggerElement?.setAttribute('aria-activedescendant', nextActiveOption.id);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
-    // Reset the previous active option
-    const lastActiveOption = filteredOptions[this._activeItemIndex];
-    if (lastActiveOption) {
-      lastActiveOption.active = false;
-    }
+    // Reset the previous active option/button
     if (this._activeColumnIndex !== 0) {
       this._row[this._activeItemIndex]
         .querySelectorAll('sbb-autocomplete-grid-button')
         .forEach((e) => e.toggleAttribute('data-focus-visible', false));
+    } else {
+      const lastActiveOption = filteredOptions[this._activeItemIndex];
+      if (lastActiveOption) {
+        lastActiveOption.active = false;
+      }
     }
-
     this._activeItemIndex = next;
     this._activeColumnIndex = 0;
   }
 
-  // FIXME
   private _setNextHorizontalActiveElement(event: KeyboardEvent): void {
     if (this._activeItemIndex < 0) {
       return;
@@ -242,17 +240,18 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
     this._activeColumnIndex = next;
   }
 
-  // FIXME
   protected resetActiveElement(): void {
-    const activeElement = this.options[this._activeItemIndex];
-
-    if (activeElement) {
-      activeElement.active = false;
-    }
     if (this._activeColumnIndex !== 0) {
       this._row[this._activeItemIndex]
         .querySelectorAll('sbb-autocomplete-grid-button')
         .forEach((e) => e.toggleAttribute('data-focus-visible', false));
+    } else {
+      const activeElement = this.options.filter(
+        (opt) => !opt.disabled && !isValidAttribute(opt, 'data-group-disabled'),
+      )[this._activeItemIndex];
+      if (activeElement) {
+        activeElement.active = false;
+      }
     }
     this._activeItemIndex = -1;
     this._activeColumnIndex = 0;

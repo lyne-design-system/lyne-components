@@ -1,4 +1,4 @@
-import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
+import { html, LitElement, nothing, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 import { isAndroid, isSafari, isValidAttribute, setAttribute } from '../dom';
@@ -9,7 +9,6 @@ import { AgnosticMutationObserver } from '../observers';
 import { SbbDisabledMixin } from './disabled-mixins';
 import { SbbIconNameMixin } from './icon-name-mixin';
 import { NamedSlotStateController } from './named-slot-state-controller';
-import style from './option-base-element.scss?lit&inline';
 
 /** Configuration for the attribute to look at if component is nested in an option group */
 const optionObserverConfig: MutationObserverInit = {
@@ -17,8 +16,6 @@ const optionObserverConfig: MutationObserverInit = {
 };
 
 export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
-  public static override styles: CSSResultGroup = style;
-
   /** Value of the option. */
   @property()
   public set value(value: string) {

@@ -8,7 +8,7 @@ import {
 } from '../../core/common-behaviors';
 import { isValidAttribute, setAttribute } from '../../core/dom';
 import { AgnosticMutationObserver } from '../../core/observers';
-import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option';
+import { type SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option';
 
 import '../../icon';
 import style from './autocomplete-grid-button.scss?lit&inline';
@@ -62,7 +62,26 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
   }
 
   public dispatchClick(event: KeyboardEvent): void {
-    return super.dispatchClickEvent(event);
+    return this.dispatchClickEvent(event);
+  }
+
+  // Event needs to be dispatched from the action element; in autocomplete-grid,
+  // the input has always the focus, so the `event.target` on parent class is the input and not the button.
+  protected override dispatchClickEvent(event: KeyboardEvent): void {
+    const { altKey, ctrlKey, metaKey, shiftKey } = event;
+    this.dispatchEvent(
+      new PointerEvent('click', {
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+        pointerId: -1,
+        pointerType: '',
+        altKey,
+        ctrlKey,
+        metaKey,
+        shiftKey,
+      }),
+    );
   }
 
   /** Gets the SbbAutocompleteGridOptionElement on the same row of the button. */

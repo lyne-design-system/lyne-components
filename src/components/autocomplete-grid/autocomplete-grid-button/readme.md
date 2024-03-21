@@ -106,6 +106,12 @@ Use the accessibility properties to describe the purpose of the `sbb-autocomplet
 | --------------- | ------- | ----------- | ---------------------- | ------ | -------------- |
 | `dispatchClick` | public  |             | `event: KeyboardEvent` | `void` |                |
 
+## Events
+
+| Name    | Type           | Description | Inherited From |
+| ------- | -------------- | ----------- | -------------- |
+| `click` | `PointerEvent` |             |                |
+
 ## Slots
 
 | Name   | Description                                  |
