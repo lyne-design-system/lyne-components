@@ -34,14 +34,22 @@ const negative: InputType = {
   },
 };
 
+const disabled: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   numberOfButtons,
   negative,
+  disabled,
 };
 
 const defaultArgs: Args = {
   numberOfButtons: 1,
   negative: false,
+  disabled: false,
 };
 
 const Template = ({ numberOfButtons, ...args }: Args): TemplateResult => html`
@@ -68,6 +76,12 @@ export const Negative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, negative: true },
+};
+
+export const Disabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
 };
 
 export const Multiple: StoryObj = {

@@ -11,6 +11,7 @@
 :host {
   @include sbb.options-panel-overlay-variables;
 
+  --sbb-options-pointer-events: all;
   --sbb-options-panel-internal-z-index: var(--sbb-autocomplete-z-index, var(--sbb-overlay-z-index));
 }
 
@@ -21,6 +22,7 @@
 :host(:not([data-state])),
 :host([data-state='closed']) {
   --sbb-options-panel-visibility: hidden;
+  --sbb-options-pointer-events: none;
 }
 
 :host([data-state='opening']) {
@@ -128,6 +130,8 @@
 .sbb-autocomplete__options {
   @include sbb.scrollbar-rules;
   @include sbb.optionsOverlay;
+
+  pointer-events: var(--sbb-options-pointer-events);
 
   @include sbb.if-forced-colors {
     border: var(--sbb-border-width-1x) solid CanvasText;
