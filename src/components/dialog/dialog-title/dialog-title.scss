@@ -1,0 +1,59 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s) 0;
+
+  display: contents;
+}
+
+:host([data-overflows]) {
+  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s);
+}
+
+.sbb-title {
+  flex: 1;
+  overflow: hidden;
+  align-self: center;
+
+  // Overwrite sbb-title default margin
+  margin: 0;
+}
+
+.sbb-dialog__header {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-6x);
+  align-items: start;
+  justify-content: space-between;
+  padding-inline: var(--sbb-dialog-padding-inline);
+  padding-block: var(--sbb-dialog-header-padding-block);
+  background-color: var(--sbb-dialog-background-color);
+  border-block-end: var(--sbb-dialog-title-border);
+  z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-z-index));
+
+  // Apply show/hide animation unless it has a visible focus within.
+  :host(:not([data-has-visible-focus-within])) & {
+    transform: translateY(var(--sbb-dialog-header-margin-block-start));
+    transition: {
+      property: box-shadow, transform;
+      duration: var(--sbb-dialog-animation-duration);
+      timing-function: var(--sbb-dialog-animation-easing);
+    }
+  }
+
+  :host([data-overflows][data-has-visible-focus-within]) &,
+  :host([data-overflows]:not([negative], [data-hide-header])) & {
+    @include sbb.shadow-level-9-soft;
+
+    @include sbb.if-forced-colors {
+      --sbb-dialog-title-border: var(--sbb-border-width-1x) solid CanvasText;
+    }
+  }
+
+  @include sbb.mq($from: medium) {
+    border-radius: var(--sbb-dialog-border-radius) var(--sbb-dialog-border-radius) 0 0;
+  }
+}
+
+.sbb-dialog__close {
+  margin-inline-start: auto;
+}

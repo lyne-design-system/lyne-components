@@ -189,24 +189,28 @@ const Template = (args: Args): TemplateResult => html`
             All purchased tickets
           </sbb-secondary-button>
 
-          <sbb-dialog id="my-dialog" title-content="My Dialog" title-back-button>
-            <p style="margin-top: 0;">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            </p>
+          <sbb-dialog id="my-dialog" title-content="My Dialog">
+            <sbb-dialog-title back-button>My Dialog</sbb-dialog-title>
 
-            <sbb-secondary-button
-              size="m"
-              @click=${() =>
-                (document.getElementById('my-stacked-dialog') as SbbDialogElement).open()}
-            >
-              Open stacked dialog
-            </sbb-secondary-button>
+            <sbb-dialog-content>
+              <p style="margin-top: 0;">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur.
+              </p>
+              <sbb-button
+                variant="secondary"
+                size="m"
+                @click=${() =>
+                  (document.getElementById('my-stacked-dialog') as SbbDialogElement).open()}
+              >
+                Open stacked dialog
+              </sbb-button>
+            </sbb-dialog-content>
 
-            <sbb-action-group
-              slot="action-group"
+            <sbb-dialog-actions
               align-group="stretch"
               orientation="vertical"
               horizontal-from="medium"
@@ -222,12 +226,15 @@ const Template = (args: Args): TemplateResult => html`
               </sbb-block-link>
               <sbb-secondary-button size="m" sbb-dialog-close> Cancel </sbb-secondary-button>
               <sbb-button size="m" sbb-dialog-close> Button </sbb-button>
-            </sbb-action-group>
+            </sbb-dialog-actions>
           </sbb-dialog>
 
-          <sbb-dialog id="my-stacked-dialog" title-content="Stacked Dialog" title-back-button>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua.
+          <sbb-dialog id="my-stacked-dialog">
+            <sbb-dialog-title back-button>Stacked Dialog</sbb-dialog-title>
+            <sbb-dialog-content>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua.
+            </sbb-dialog-content>
           </sbb-dialog>
         </div>
       </div>

@@ -1,0 +1,21 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  display: contents;
+
+  @include sbb.if-forced-colors {
+    --sbb-dialog-actions-border: var(--sbb-border-width-1x) solid CanvasText;
+  }
+}
+
+.sbb-dialog-actions {
+  padding-inline: var(--sbb-dialog-padding-inline);
+  padding-block: var(--sbb-spacing-responsive-s);
+  margin-block-start: auto;
+  background-color: var(--sbb-dialog-background-color);
+  border-block-start: var(--sbb-dialog-actions-border);
+
+  :host([data-overflows]:not([data-negative])) & {
+    @include sbb.shadow-level-9-soft;
+  }
+}

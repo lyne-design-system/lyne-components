@@ -2,11 +2,15 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { i18nDialog } from '../core/i18n';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
+import { i18nDialog } from '../../core/i18n';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
 
 import { SbbDialogElement } from './dialog';
-import '../title';
+import '../../button';
+import '../../icon';
+import '../dialog-title';
+import '../dialog-content';
+import '../dialog-actions';
 
 async function openDialog(element: SbbDialogElement): Promise<void> {
   const willOpen = new EventSpy(SbbDialogElement.events.willOpen);
@@ -32,9 +36,10 @@ describe('sbb-dialog', () => {
   beforeEach(async () => {
     await setViewport({ width: 900, height: 600 });
     element = await fixture(html`
-      <sbb-dialog id="my-dialog-1" title-content="Title" disable-animation>
-        Dialog content.
-        <div slot="action-group">Action group</div>
+      <sbb-dialog id="my-dialog-1" disable-animation>
+        <sbb-dialog-title>Title</sbb-dialog-title>
+        <sbb-dialog-content>Dialog content</sbb-dialog-content>
+        <sbb-dialog-actions>Action group</sbb-dialog-actions>
       </sbb-dialog>
     `);
     ariaLiveRef = element.shadowRoot!.querySelector('sbb-screenreader-only')!;
@@ -197,7 +202,9 @@ describe('sbb-dialog', () => {
   });
 
   it('closes the dialog on close button click', async () => {
-    const closeButton = element.shadowRoot!.querySelector('[sbb-dialog-close]') as HTMLElement;
+    const closeButton = element
+      .querySelector('sbb-dialog-title')!
+      .shadowRoot!.querySelector('[sbb-dialog-close]') as HTMLElement;
     const willClose = new EventSpy(SbbDialogElement.events.willClose);
     const didClose = new EventSpy(SbbDialogElement.events.didClose);
 
@@ -240,37 +247,18 @@ describe('sbb-dialog', () => {
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
-  it('does not have the fullscreen attribute', async () => {
-    await openDialog(element);
-
-    expect(element).not.to.have.attribute('data-fullscreen');
-  });
-
-  it('renders in fullscreen mode if no title is provided', async () => {
-    element = await fixture(html`
-      <sbb-dialog id="my-dialog-2" disable-animation>
-        Dialog content.
-        <div slot="action-group">Action group</div>
-      </sbb-dialog>
-    `);
-    ariaLiveRef = element.shadowRoot!.querySelector('sbb-screenreader-only')!;
-
-    await openDialog(element);
-
-    await waitForCondition(() => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}`);
-
-    expect(element).to.have.attribute('data-fullscreen');
-  });
-
   it('closes stacked dialogs one by one on ESC key pressed', async () => {
     element = await fixture(html`
-      <sbb-dialog id="my-dialog-3" title-content="Title" disable-animation>
-        Dialog content.
-        <div slot="action-group">Action group</div>
+      <sbb-dialog id="my-dialog-3" disable-animation>
+        <sbb-dialog-title>Title</sbb-dialog-title>
+        <sbb-dialog-content>Dialog content</sbb-dialog-content>
+        <sbb-dialog-actions>Action group</sbb-dialog-actions>
       </sbb-dialog>
 
-      <sbb-dialog id="stacked-dialog" disable-animation title-content="Stacked title">
-        Stacked dialog.
+      <sbb-dialog id="stacked-dialog" disable-animation>
+        <sbb-dialog-title>Stacked title</sbb-dialog-title>
+        <sbb-dialog-content>Dialog content</sbb-dialog-content>
+        <sbb-dialog-actions>Action group</sbb-dialog-actions>
       </sbb-dialog>
     `);
 
@@ -334,12 +322,13 @@ describe('sbb-dialog', () => {
   it('does not close the dialog on other overlay click', async () => {
     await setViewport({ width: 900, height: 600 });
     element = await fixture(html`
-      <sbb-dialog id="my-dialog-4" title-content="Title" disable-animation>
-        Dialog content.
-        <div slot="action-group">Action group</div>
-        <sbb-dialog id="inner-dialog" title-content="Inner Dialog title" disable-animation>
-          Dialog content.
-          <div slot="action-group">Action group</div>
+      <sbb-dialog id="my-dialog-4" disable-animation>
+        <sbb-dialog-title>Title</sbb-dialog-title>
+        <sbb-dialog-content>Dialog content</sbb-dialog-content>
+
+        <sbb-dialog id="inner-dialog" slot="content" disable-animation>
+          <sbb-dialog-title>Inner Dialog title</sbb-dialog-title>
+          <sbb-dialog-content>Dialog content</sbb-dialog-content>
         </sbb-dialog>
       </sbb-dialog>
     `);
@@ -413,5 +402,64 @@ describe('sbb-dialog', () => {
     );
 
     expect(ariaLiveRef.textContent!.trim()).to.be.equal(`${i18nDialog.en}, Special Dialog`);
+  });
+});
+
+describe('sbb-dialog with long content', () => {
+  let element: SbbDialogElement;
+
+  beforeEach(async () => {
+    await setViewport({ width: 900, height: 300 });
+    element = await fixture(html`
+      <sbb-dialog id="my-dialog-1" disable-animation>
+        <sbb-dialog-title hide-on-scroll="">Title</sbb-dialog-title>
+        <sbb-dialog-content>
+          Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his
+          face like summer-light upon the trees. Near him sat the Lady Arwen. To his surprise Frodo
+          saw that Aragorn stood beside her; his dark cloak was thrown back, and he seemed to be
+          clad in elven-mail, and a star shone on his breast. They spoke together, and then suddenly
+          it seemed to Frodo that Arwen turned towards him, and the light of her eyes fell on him
+          from afar and pierced his heart. He stood still enchanted, while the sweet syllables of
+          the elvish song fell like clear jewels of blended word and melody. 'It is a song to
+          Elbereth,'' said Bilbo. 'They will sing that, and other songs of the Blessed Realm, many
+          times tonight. Come on!’ —J.R.R. Tolkien, The Lord of the Rings: The Fellowship of the
+          Ring, “Many Meetings” J.R.R. Tolkien, the mastermind behind Middle-earth's enchanting
+          world, was born on January 3, 1892. With "The Hobbit" and "The Lord of the Rings", he
+          pioneered fantasy literature. Tolkien's linguistic brilliance and mythic passion converge
+          in a literary legacy that continues to transport readers to magical realms.
+        </sbb-dialog-content>
+        <sbb-dialog-actions>Action group</sbb-dialog-actions>
+      </sbb-dialog>
+    `);
+  });
+
+  it('renders', () => {
+    assert.instanceOf(element, SbbDialogElement);
+  });
+
+  it('sets the data-overflows attribute', async () => {
+    await openDialog(element);
+
+    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.have.attribute('data-overflows', '');
+  });
+
+  it('shows/hides the dialog header on scroll', async () => {
+    await openDialog(element);
+    expect(element).not.to.have.attribute('data-hide-header');
+
+    const content = element.querySelector('sbb-dialog-content')!.shadowRoot!.firstElementChild!;
+
+    // Scroll down.
+    content.scrollTo(0, 50);
+    await waitForCondition(() => element.hasAttribute('data-hide-header'));
+
+    expect(element).to.have.attribute('data-hide-header');
+
+    // Scroll up.
+    content.scrollTo(0, 0);
+    await waitForCondition(() => !element.hasAttribute('data-hide-header'));
+
+    expect(element).not.to.have.attribute('data-hide-header');
   });
 });

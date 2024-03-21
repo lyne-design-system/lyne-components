@@ -1,0 +1,26 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  display: contents;
+}
+
+.sbb-dialog-content {
+  @include sbb.scrollbar-rules;
+
+  padding-inline: var(--sbb-dialog-padding-inline);
+  padding-block: var(--sbb-dialog-padding-block);
+  overflow: auto;
+  transform: translateY(var(--sbb-dialog-header-margin-block-start));
+  margin-block: 0 calc(var(--sbb-dialog-header-height) * -1);
+  transition: var(--sbb-dialog-content-transition);
+  z-index: -1;
+
+  // In order to improve the header transition on mobile (especially iOS) we use
+  // a combination of the transform and margin properties on touch devices,
+  // while on desktop we use just the margin-block for a better transition of the visible scrollbar.
+  @include sbb.mq($from: medium) {
+    transform: unset;
+    margin-block: var(--sbb-dialog-header-margin-block-start) 0;
+    transition: margin var(--sbb-dialog-animation-duration) var(--sbb-dialog-animation-easing);
+  }
+}
