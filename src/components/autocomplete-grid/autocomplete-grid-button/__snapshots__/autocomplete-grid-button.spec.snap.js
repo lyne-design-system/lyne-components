@@ -61,22 +61,6 @@ snapshots["sbb-autocomplete-grid-button renders disabled Dom"] =
 `;
 /* end snapshot sbb-autocomplete-grid-button renders disabled Dom */
 
-snapshots["sbb-autocomplete-grid-button renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-button renders A11y tree Firefox */
-
 snapshots["sbb-autocomplete-grid-button renders disabled ShadowDom"] = 
 `<span class="sbb-action-base sbb-autocomplete-grid-button">
   <slot name="icon">
@@ -109,23 +93,6 @@ snapshots["sbb-autocomplete-grid-button renders disabled A11y tree Chrome"] =
 `;
 /* end snapshot sbb-autocomplete-grid-button renders disabled A11y tree Chrome */
 
-snapshots["sbb-autocomplete-grid-button renders disabled A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-button renders disabled A11y tree Firefox */
-
 snapshots["sbb-autocomplete-grid-button renders negative without icon Dom"] = 
 `<sbb-autocomplete-grid-button
   aria-disabled="false"
@@ -147,6 +114,39 @@ snapshots["sbb-autocomplete-grid-button renders negative without icon ShadowDom"
 </span>
 `;
 /* end snapshot sbb-autocomplete-grid-button renders negative without icon ShadowDom */
+
+snapshots["sbb-autocomplete-grid-button renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": ""
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid-button renders A11y tree Firefox */
+
+snapshots["sbb-autocomplete-grid-button renders disabled A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "",
+      "disabled": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid-button renders disabled A11y tree Firefox */
 
 snapshots["sbb-autocomplete-grid-button renders A11y tree Safari"] = 
 `<p>
