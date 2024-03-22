@@ -21,12 +21,12 @@ import {
 } from '../overlay';
 
 import style from './autocomplete-base-element.scss?lit&inline';
+import { SbbHydrationMixin } from './hydration-mixin';
 import { SbbNegativeMixin } from './negative-mixin';
 import type { SbbOptionBaseElement } from './option-base-element';
-import { SlotChildObserver } from './slot-child-observer';
 
-export abstract class SbbAutocompleteBaseElement extends SlotChildObserver(
-  SbbNegativeMixin(LitElement),
+export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
+  SbbHydrationMixin(LitElement),
 ) {
   public static override styles: CSSResultGroup = style;
 
@@ -170,7 +170,7 @@ export abstract class SbbAutocompleteBaseElement extends SlotChildObserver(
     this._didLoad = true;
   }
 
-  public override checkChildren(): void {
+  private _handleSlotchange(): void {
     this._highlightOptions(this.triggerElement?.value);
   }
 
@@ -434,7 +434,7 @@ export abstract class SbbAutocompleteBaseElement extends SlotChildObserver(
               id=${!this.ariaRoleOnHost ? this.overlayId : nothing}
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >
-              <slot></slot>
+              <slot @slotchange=${this._handleSlotchange}></slot>
             </div>
           </div>
         </div>

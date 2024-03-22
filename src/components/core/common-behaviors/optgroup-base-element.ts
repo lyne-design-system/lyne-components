@@ -13,11 +13,11 @@ import { isSafari, isValidAttribute, setAttribute } from '../dom';
 import { AgnosticMutationObserver } from '../observers';
 
 import { SbbDisabledMixin } from './disabled-mixins';
+import { SbbHydrationMixin } from './hydration-mixin';
 import style from './optgroup-base-element.scss?lit&inline';
 import type { SbbOptionBaseElement } from './option-base-element';
-import { SlotChildObserver } from './slot-child-observer';
 
-export abstract class SbbOptgroupBaseElement extends SlotChildObserver(
+export abstract class SbbOptgroupBaseElement extends SbbHydrationMixin(
   SbbDisabledMixin(LitElement),
 ) {
   public static override styles: CSSResultGroup = style;
@@ -67,7 +67,7 @@ export abstract class SbbOptgroupBaseElement extends SlotChildObserver(
     this._negativeObserver?.disconnect();
   }
 
-  protected override checkChildren(): void {
+  private _handleSlotchange(): void {
     this.proxyDisabledToOptions();
     this._proxyGroupLabelToOptions();
     this._highlightOptions();
@@ -76,9 +76,17 @@ export abstract class SbbOptgroupBaseElement extends SlotChildObserver(
   private _proxyGroupLabelToOptions(): void {
     if (!this._inertAriaGroups) {
       return;
+    } else if (this.label) {
+      for (const option of this.options) {
+        option.setAttribute('data-group-label', this.label);
+        option.requestUpdate?.();
+      }
+    } else {
+      for (const option of this.options) {
+        option.removeAttribute('data-group-label');
+        option.requestUpdate?.();
+      }
     }
-
-    this.options.forEach((opt) => opt.setGroupLabel(this.label));
   }
 
   protected proxyDisabledToOptions(): void {
@@ -116,7 +124,7 @@ export abstract class SbbOptgroupBaseElement extends SlotChildObserver(
         <div class="sbb-optgroup__icon-space"></div>
         <span>${this.label}</span>
       </div>
-      <slot></slot>
+      <slot @slotchange=${this._handleSlotchange}></slot>
     `;
   }
 }

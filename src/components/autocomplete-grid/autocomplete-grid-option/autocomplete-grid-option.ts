@@ -92,7 +92,7 @@ export class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
     if (
       labelNodes.length === 0 ||
       slotNodes.filter((n) => !(n instanceof Element) || n.localName !== 'template').length !==
-      labelNodes.length
+        labelNodes.length
     ) {
       this.disableLabelHighlight = true;
       return;

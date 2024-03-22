@@ -109,11 +109,10 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 
 ## Methods
 
-| Name            | Privacy | Description              | Parameters | Return | Inherited From             |
-| --------------- | ------- | ------------------------ | ---------- | ------ | -------------------------- |
-| `checkChildren` | public  |                          |            | `void` | SbbAutocompleteBaseElement |
-| `open`          | public  | Opens the autocomplete.  |            | `void` | SbbAutocompleteBaseElement |
-| `close`         | public  | Closes the autocomplete. |            | `void` | SbbAutocompleteBaseElement |
+| Name    | Privacy | Description              | Parameters | Return | Inherited From             |
+| ------- | ------- | ------------------------ | ---------- | ------ | -------------------------- |
+| `open`  | public  | Opens the autocomplete.  |            | `void` | SbbAutocompleteBaseElement |
+| `close` | public  | Closes the autocomplete. |            | `void` | SbbAutocompleteBaseElement |
 
 ## Events
 
