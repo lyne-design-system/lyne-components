@@ -56,7 +56,7 @@
   position: fixed;
   inset: var(--sbb-popover-inset);
   pointer-events: none;
-  z-index: var(--sbb-popover-z-index, var(--sbb-overlay-z-index));
+  z-index: var(--sbb-popover-z-index, var(--sbb-overlay-default-z-index));
   color: var(--sbb-popover-color);
 }
 

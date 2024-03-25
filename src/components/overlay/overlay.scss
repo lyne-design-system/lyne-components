@@ -20,7 +20,7 @@
   position: fixed;
   inset: var(--sbb-overlay-inset);
   background-color: var(--sbb-overlay-background-color);
-  z-index: var(--sbb-overlay-z-index, var(--sbb-overlay-z-index));
+  z-index: var(--sbb-overlay-z-index, var(--sbb-overlay-default-z-index));
 }
 
 :host(:is([data-state='opened'], [data-state='opening'])) {

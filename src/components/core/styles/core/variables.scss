@@ -65,7 +65,7 @@
   --sbb-time-input-max-width: #{functions.px-to-rem-build(58)};
 
   // Overlay
-  --sbb-overlay-z-index: 1000;
+  --sbb-overlay-default-z-index: 1000;
 
   // Infinity border radius, can be used to achieve rounded border on start and end
   // TODO: Check if infinity is supported by all browsers (e.g. Firefox) -> calc(1em * infinity);

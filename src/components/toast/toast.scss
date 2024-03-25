@@ -75,7 +75,7 @@
 }
 
 .sbb-toast {
-  z-index: var(--sbb-toast-z-index, var(--sbb-overlay-z-index));
+  z-index: var(--sbb-toast-z-index, var(--sbb-overlay-default-z-index));
   pointer-events: auto;
   margin: var(--sbb-toast-margin);
   padding-block: var(--sbb-toast-padding-block);

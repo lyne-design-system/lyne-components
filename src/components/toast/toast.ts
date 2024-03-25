@@ -35,9 +35,9 @@ const toastRefs = new Set<SbbToastElement>();
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-toast` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-toast` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-toast` is closed.
- * @cssprop [--sbb-toast-z-index=var(--sbb-overlay-z-index)] - To specify a custom stack order,
+ * @cssprop [--sbb-toast-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
- * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
+ * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-toast')
 export class SbbToastElement extends SbbIconNameMixin(LitElement) {

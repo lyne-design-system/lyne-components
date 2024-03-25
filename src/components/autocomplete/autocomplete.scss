@@ -11,7 +11,10 @@
 :host {
   @include sbb.options-panel-overlay-variables;
 
-  --sbb-options-panel-internal-z-index: var(--sbb-autocomplete-z-index, var(--sbb-overlay-z-index));
+  --sbb-options-panel-internal-z-index: var(
+    --sbb-autocomplete-z-index,
+    var(--sbb-overlay-default-z-index)
+  );
 }
 
 :host([negative]) {

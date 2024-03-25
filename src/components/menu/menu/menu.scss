@@ -73,7 +73,7 @@
   pointer-events: none;
   inset: var(--sbb-menu-inset);
   height: var(--sbb-menu-container-height);
-  z-index: var(--sbb-menu-z-index, var(--sbb-overlay-z-index));
+  z-index: var(--sbb-menu-z-index, var(--sbb-overlay-default-z-index));
 
   // Menu backdrop (only visible on mobile)
   &::before {
