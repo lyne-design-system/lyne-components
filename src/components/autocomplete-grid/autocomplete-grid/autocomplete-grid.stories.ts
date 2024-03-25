@@ -352,6 +352,7 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
+      data-testid="form-field"
     >
       <input
         placeholder="Placeholder"
