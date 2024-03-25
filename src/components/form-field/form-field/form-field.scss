@@ -241,6 +241,7 @@
 // Ensure slotted inline elements are vertically centered
 ::slotted(*[slot='prefix']),
 ::slotted(*[slot='suffix']) {
+  display: flex;
   min-width: var(--sbb-icon-svg-width);
   margin-block-start: calc((var(--sbb-form-field-min-height) - var(--sbb-size-icon-ui-small)) / 2);
 }
@@ -255,7 +256,6 @@
         sbb-popover-trigger
       )
   ) {
-  display: flex;
   height: fit-content;
 }
 
