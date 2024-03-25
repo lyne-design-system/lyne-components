@@ -1,5 +1,7 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { fixture } from '../../core/testing/private';
 
 import type { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option';
 import '../autocomplete-grid';

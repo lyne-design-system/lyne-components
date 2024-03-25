@@ -1,7 +1,7 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import './__noPrefixName__';
-import { fixture } from '../../../src/components/core/testing';
+import { fixture } from '../../../src/components/core/testing/private';
 
 describe(`__name__`, () => {
   it('renders', async () => {

@@ -21,7 +21,13 @@ export class SbbAutocompleteGridRowElement extends LitElement {
 
   public constructor() {
     super();
-    this.setAttribute('id', `sbb-autocomplete-grid-row-${this._rowId}`);
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    if (!this.id) {
+      this.id = `sbb-autocomplete-grid-row-${this._rowId}`;
+    }
   }
 
   private _setChildrenParameters(event: Event): void {
@@ -30,17 +36,19 @@ export class SbbAutocompleteGridRowElement extends LitElement {
       return;
     }
 
-    elements
-      .find(
-        (e): e is SbbAutocompleteGridOptionElement => e.tagName === 'SBB-AUTOCOMPLETE-GRID-OPTION',
-      )
-      ?.setAttribute('id', `sbb-autocomplete-grid-item-${this._rowId}x0`);
-    elements
-      .find(
-        (e): e is SbbAutocompleteGridActionsElement =>
-          e.tagName === 'SBB-AUTOCOMPLETE-GRID-ACTIONS',
-      )
-      ?.setAttribute('id', `sbb-autocomplete-grid-item-${this._rowId}x1`);
+    const option = elements.find(
+      (e): e is SbbAutocompleteGridOptionElement => e.tagName === 'SBB-AUTOCOMPLETE-GRID-OPTION',
+    );
+    if (option && !option.id) {
+      option.setAttribute('id', `sbb-autocomplete-grid-item-${this._rowId}x0`);
+    }
+
+    const action = elements.find(
+      (e): e is SbbAutocompleteGridActionsElement => e.tagName === 'SBB-AUTOCOMPLETE-GRID-ACTIONS',
+    );
+    if (action && !action.id) {
+      action.setAttribute('id', `sbb-autocomplete-grid-item-${this._rowId}x1`);
+    }
   }
 
   protected override render(): TemplateResult {

@@ -1,8 +1,8 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import type { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button';
 import '../autocomplete-grid';

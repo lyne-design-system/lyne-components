@@ -1,15 +1,12 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { assignId } from '../../core/a11y';
 import { hostAttributes, SbbOptionBaseElement } from '../../core/common-behaviors';
 import { EventEmitter } from '../../core/eventing';
 
 import '../../icon';
 import '../../screenreader-only';
 import style from './autocomplete-grid-option.scss?lit&inline';
-
-let nextId = 0;
 
 /**
  * It displays on option item which can be used in `sbb-autocomplete-grid`.
@@ -31,8 +28,6 @@ export class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
     selectionChange: 'autocompleteOptionSelectionChange',
     optionSelected: 'autocompleteOptionSelected',
   } as const;
-
-  private _optionId = `sbb-autocomplete-grid-option-${++nextId}`;
 
   /** Emits when the option selection status changes. */
   protected selectionChange: EventEmitter = new EventEmitter(
@@ -104,7 +99,6 @@ export class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
   }
 
   protected override render(): TemplateResult {
-    assignId(() => this._optionId)(this);
     return super.render();
   }
 }

@@ -1,8 +1,9 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { isSafari } from '../../core/dom';
 import { describeIf } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 
 import './autocomplete-grid-optgroup';
 import '../autocomplete-grid';

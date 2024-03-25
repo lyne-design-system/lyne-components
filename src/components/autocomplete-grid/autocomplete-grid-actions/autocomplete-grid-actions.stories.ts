@@ -84,6 +84,12 @@ export const Disabled: StoryObj = {
   args: { ...defaultArgs, disabled: true },
 };
 
+export const DisabledNegative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true, negative: true },
+};
+
 export const Multiple: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,

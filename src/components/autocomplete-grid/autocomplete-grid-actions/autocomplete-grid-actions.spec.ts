@@ -1,5 +1,7 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { fixture } from '../../core/testing/private';
 
 import type { SbbAutocompleteGridActionsElement } from './autocomplete-grid-actions';
 import '../autocomplete-grid';
@@ -32,5 +34,12 @@ describe('sbb-autocomplete-grid-actions', () => {
 
   it('ShadowDom', async () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
+  });
+
+  it('id check', () => {
+    expect(root.id).to.be.equal('sbb-autocomplete-grid-item-3x1');
+    expect(root.querySelector('sbb-autocomplete-grid-button')!.id).to.be.equal(
+      'sbb-autocomplete-grid-item-3x1x0',
+    );
   });
 });
