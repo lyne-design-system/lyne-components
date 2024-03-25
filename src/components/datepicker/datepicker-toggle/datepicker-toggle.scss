@@ -7,13 +7,14 @@
 :host {
   --sbb-datepicker-control-radius: var(--sbb-border-radius-4x);
   --sbb-datepicker-control-color: var(--sbb-color-black);
+
+  display: inline-flex;
 }
 
 sbb-popover-trigger {
+  --sbb-button-display: flex;
+
   color: var(--sbb-datepicker-control-color);
-  display: flex;
-  align-items: center;
-  -webkit-tap-highlight-color: transparent;
 }
 
 sbb-icon {

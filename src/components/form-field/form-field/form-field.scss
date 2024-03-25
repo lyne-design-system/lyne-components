@@ -265,6 +265,11 @@
   }
 }
 
+// As the calendar should be shown below the form field border, we have to stretch the toggle's height.
+::slotted(sbb-datepicker-toggle) {
+  height: calc((var(--sbb-form-field-min-height) + var(--sbb-size-icon-ui-small)) / 2);
+}
+
 @include sbb.if-forced-colors {
   // Align with prefix color
   ::slotted(*[slot='suffix']) {

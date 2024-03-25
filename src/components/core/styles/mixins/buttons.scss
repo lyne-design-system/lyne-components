@@ -112,6 +112,7 @@
       color: var(--sbb-button-color-default-text);
       cursor: pointer;
       user-select: none;
+      display: var(--sbb-button-display);
 
       // Renders background and border in the background absolute to enable the hover animation
       &::before {
