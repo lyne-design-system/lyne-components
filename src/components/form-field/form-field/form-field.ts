@@ -497,9 +497,11 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
             <div class="sbb-form-field__input">
               <slot @slotchange=${this._onSlotInputChange}></slot>
             </div>
-            ${['SELECT', 'SBB-SELECT'].includes(this._input?.tagName as string)
+            ${['SELECT', 'SBB-SELECT', 'TEXTAREA'].includes(this._input?.tagName as string)
               ? html`<sbb-icon
-                  name="chevron-small-down-small"
+                  name="chevron-small-down${this._input?.tagName === 'TEXTAREA'
+                    ? '-flat'
+                    : ''}-small"
                   class="sbb-form-field__select-input-icon"
                 ></sbb-icon>`
               : nothing}

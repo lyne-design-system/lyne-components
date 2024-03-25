@@ -265,12 +265,24 @@
 }
 
 .sbb-form-field__select-input-icon {
-  @include sbb.absolute-center-y;
-
-  inset-inline-end: 0;
+  position: absolute;
   pointer-events: none;
   color: var(--sbb-form-field-arrow-color);
-  margin-block-start: calc(-1 * var(--sbb-form-field-margin-block-start) / 2);
+  z-index: 1;
+
+  :host(:not([data-input-type='textarea'])) & {
+    @include sbb.absolute-center-y;
+
+    inset-inline-end: 0;
+    margin-block-start: calc(-1 * var(--sbb-form-field-margin-block-start) / 2);
+  }
+
+  :host([data-input-type='textarea']) & {
+    cursor: row-resize;
+    color: var(--sbb-color-smoke);
+    inset-block-end: 0;
+    inset-inline-end: #{sbb.px-to-rem-build(-7)};
+  }
 }
 
 .sbb-form-field__input-container {
@@ -430,36 +442,11 @@
     pointer-events: none;
     position: absolute;
     display: block;
-    width: var(--sbb-spacing-fixed-4x);
-    height: var(--sbb-spacing-fixed-4x);
+    width: #{sbb.px-to-rem-build(14)};
+    height: #{sbb.px-to-rem-build(12)};
     background-color: var(--sbb-form-field-background-color);
     inset-inline-end: #{sbb.px-to-rem-build(-4)};
     inset-block-end: #{sbb.px-to-rem-build(5)};
-  }
-}
-
-:host([data-input-type='textarea']) .sbb-form-field__input {
-  &::before,
-  &::after {
-    content: '';
-    pointer-events: none;
-    position: absolute;
-    width: #{sbb.px-to-rem-build(6)};
-    height: #{sbb.px-to-rem-build(6)};
-    border-block-end: var(--sbb-border-width-1x) solid var(--sbb-color-smoke);
-    border-inline-start: var(--sbb-border-width-1x) solid var(--sbb-color-smoke);
-    inset-inline-end: #{sbb.px-to-rem-build(2)};
-    inset-block-end: #{sbb.px-to-rem-build(9)};
-    z-index: 1;
-  }
-
-  &::before {
-    margin-bottom: var(--sbb-spacing-fixed-1x);
-    transform: rotate(135deg);
-  }
-
-  &::after {
-    transform: rotate(-45deg);
   }
 }
 
