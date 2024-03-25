@@ -66,7 +66,7 @@
 .sbb-slider__wrapper {
   display: flex;
   gap: var(--sbb-spacing-fixed-2x);
-  padding-block: var(--sbb-spacing-fixed-1x);
+  padding-block: calc(var(--sbb-spacing-fixed-1x) / 2);
   color: var(--sbb-slider-icon-color);
 }
 

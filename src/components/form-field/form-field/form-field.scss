@@ -172,10 +172,9 @@
   --sbb-form-field-label-to-input-overlapping: 0rem;
 }
 
-// Should be after other definitions to override overflow and background
+// Should be after other definitions to override overflow
 :host([data-input-type='sbb-slider']) {
   --sbb-form-field-overflow: visible;
-  --sbb-form-field-background-color: var(--sbb-color-white);
 }
 
 :host([data-input-type='textarea']) {
@@ -263,9 +262,9 @@
   @include sbb.absolute-center-y;
 
   inset-inline-end: 0;
-  position: absolute;
   pointer-events: none;
   color: var(--sbb-form-field-arrow-color);
+  margin-block-start: calc(-1 * var(--sbb-form-field-margin-block-start) / 2);
 }
 
 .sbb-form-field__input-container {
