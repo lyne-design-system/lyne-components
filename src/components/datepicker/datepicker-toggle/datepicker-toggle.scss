@@ -15,6 +15,9 @@ sbb-popover-trigger {
   --sbb-button-display: flex;
 
   color: var(--sbb-datepicker-control-color);
+
+  // Enables taking full height in order to shift the calendar position to the border bottom of the form field.
+  height: unset;
 }
 
 sbb-icon {

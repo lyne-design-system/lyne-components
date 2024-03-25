@@ -246,19 +246,6 @@
   margin-block-start: calc((var(--sbb-form-field-min-height) - var(--sbb-size-icon-ui-small)) / 2);
 }
 
-::slotted(
-    :is(
-        sbb-datepicker-next-day,
-        sbb-datepicker-previous-day,
-        sbb-datepicker-toggle,
-        sbb-form-field-clear,
-        sbb-mini-button,
-        sbb-popover-trigger
-      )
-  ) {
-  height: fit-content;
-}
-
 ::slotted(sbb-form-field-clear) {
   :host(:is([data-input-empty], [data-disabled], [data-readonly])) & {
     display: none;
