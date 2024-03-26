@@ -489,6 +489,20 @@ export const WithOptionGroupDisabled: StoryObj = {
   play: isChromatic() ? playStory : undefined,
 };
 
+export const WithOptionGroupNegativeDisabled: StoryObj = {
+  render: OptionGroupTemplate,
+  argTypes: withGroupsArgTypes,
+  args: { ...withGroupsDefaultArgs, negative: true, disableGroup: true },
+  play: isChromatic() ? playStory : undefined,
+};
+
+export const WithOptionGroupNegativeOptionDisabled: StoryObj = {
+  render: OptionGroupTemplate,
+  argTypes: withGroupsArgTypes,
+  args: { ...withGroupsDefaultArgs, negative: true, disableOption: true },
+  play: isChromatic() ? playStory : undefined,
+};
+
 export const Scroll: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
