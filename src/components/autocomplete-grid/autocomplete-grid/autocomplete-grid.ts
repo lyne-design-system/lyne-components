@@ -16,13 +16,13 @@ import type { SbbAutocompleteGridRowElement } from '../autocomplete-grid-row';
 let nextId = 0;
 
 /**
- * Combined with a native input, it displays a panel with a list of available options.
+ * Combined with a native input, it displays a panel with a list of available options with connected buttons.
  *
- * @slot - Use the unnamed slot to add `sbb-option` or `sbb-optgroup` elements to the `sbb-autocomplete`.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-autocomplete` starts the opening transition. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-autocomplete` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-autocomplete` begins the closing transition. Can be canceled.
- * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-autocomplete` is closed.
+ * @slot - Use the unnamed slot to add `sbb-autocomplete-grid-row` or `sbb-autocomplete-grid-optgroup` elements to the `sbb-autocomplete-grid`.
+ * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-autocomplete-grid` starts the opening transition. Can be canceled.
+ * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-autocomplete-grid` is opened.
+ * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-autocomplete-grid` begins the closing transition. Can be canceled.
+ * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-autocomplete-grid` is closed.
  * @cssprop [--sbb-autocomplete-z-index=var(--sbb-overlay-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
@@ -266,7 +266,6 @@ export class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
     return !this.ariaRoleOnHost ? 'grid' : nothing;
   }
 
-  // FIXME
   protected override render(): TemplateResult {
     setAttribute(this, 'role', this.ariaRoleOnHost ? 'grid' : null);
     this.ariaRoleOnHost && assignId(() => this.overlayId)(this);

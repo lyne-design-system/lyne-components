@@ -11,25 +11,53 @@ import '../autocomplete-grid-actions';
 import '../autocomplete-grid-button';
 
 describe('sbb-autocomplete-grid-option', () => {
-  let root: SbbAutocompleteGridOptionElement;
-  beforeEach(async () => {
-    root = (
-      await fixture(html`
-        <sbb-autocomplete-grid origin="anchor">
-          <sbb-autocomplete-grid-row>
-            <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
-          </sbb-autocomplete-grid-row>
-        </sbb-autocomplete-grid>
-        <div id="anchor"></div>
-      `)
-    ).querySelector('sbb-autocomplete-grid-option')!;
+  describe('default', () => {
+    let root: SbbAutocompleteGridOptionElement;
+    beforeEach(async () => {
+      root = (
+        await fixture(html`
+          <sbb-autocomplete-grid origin="anchor">
+            <sbb-autocomplete-grid-row>
+              <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
+            </sbb-autocomplete-grid-row>
+          </sbb-autocomplete-grid>
+          <div id="anchor"></div>
+        `)
+      ).querySelector('sbb-autocomplete-grid-option')!;
+    });
+
+    it('Dom', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
+
+    it('ShadowDom', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
   });
 
-  it('Dom', async () => {
-    await expect(root).dom.to.be.equalSnapshot();
-  });
+  describe('disabled', () => {
+    let root: SbbAutocompleteGridOptionElement;
+    beforeEach(async () => {
+      root = (
+        await fixture(html`
+          <sbb-autocomplete-grid origin="anchor">
+            <sbb-autocomplete-grid-row>
+              <sbb-autocomplete-grid-option value="1" disabled
+                >Option 1</sbb-autocomplete-grid-option
+              >
+            </sbb-autocomplete-grid-row>
+          </sbb-autocomplete-grid>
+          <div id="anchor"></div>
+        `)
+      ).querySelector('sbb-autocomplete-grid-option')!;
+    });
 
-  it('ShadowDom', async () => {
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    it('Dom', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
+
+    it('ShadowDom', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
   });
 });

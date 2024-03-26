@@ -413,7 +413,6 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     removeAriaComboBoxAttributes(element);
   }
 
-  // FIXME
   protected override render(): TemplateResult {
     setAttribute(this, 'data-state', this.state);
 

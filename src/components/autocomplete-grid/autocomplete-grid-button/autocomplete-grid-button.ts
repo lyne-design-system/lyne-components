@@ -86,8 +86,9 @@ export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(SbbMiniBu
 
   /** Gets the SbbAutocompleteGridOptionElement on the same row of the button. */
   public get optionOnSameRow(): SbbAutocompleteGridOptionElement | null {
-    return this.closest?.('sbb-autocomplete-grid-row')!.querySelector(
-      'sbb-autocomplete-grid-option',
+    return (
+      this.closest?.('sbb-autocomplete-grid-row')?.querySelector('sbb-autocomplete-grid-option') ||
+      null
     );
   }
 

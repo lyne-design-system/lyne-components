@@ -19,7 +19,7 @@ describe('sbb-autocomplete-grid-optgroup', () => {
     root = (
       await fixture(html`
         <sbb-autocomplete-grid origin="anchor">
-          <sbb-autocomplete-grid-optgroup>
+          <sbb-autocomplete-grid-optgroup label="Group">
             <sbb-autocomplete-grid-row>
               <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
             </sbb-autocomplete-grid-row>

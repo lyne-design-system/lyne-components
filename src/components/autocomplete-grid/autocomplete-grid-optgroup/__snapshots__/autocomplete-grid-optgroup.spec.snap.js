@@ -4,6 +4,8 @@ export const snapshots = {};
 snapshots["sbb-autocomplete-grid-optgroup Chrome-Firefox Dom"] = 
 `<sbb-autocomplete-grid-optgroup
   aria-disabled="false"
+  aria-label="Group"
+  label="Group"
   role="group"
 >
   <sbb-autocomplete-grid-row
@@ -56,6 +58,7 @@ snapshots["sbb-autocomplete-grid-optgroup Chrome-Firefox ShadowDom"] =
   <div class="sbb-optgroup__icon-space">
   </div>
   <span>
+    Group
   </span>
 </div>
 <slot>
@@ -64,7 +67,7 @@ snapshots["sbb-autocomplete-grid-optgroup Chrome-Firefox ShadowDom"] =
 /* end snapshot sbb-autocomplete-grid-optgroup Chrome-Firefox ShadowDom */
 
 snapshots["sbb-autocomplete-grid-optgroup Safari Dom"] = 
-`<sbb-autocomplete-grid-optgroup>
+`<sbb-autocomplete-grid-optgroup label="Group">
   <sbb-autocomplete-grid-row
     id="sbb-autocomplete-grid-row-1"
     role="row"
@@ -72,6 +75,7 @@ snapshots["sbb-autocomplete-grid-optgroup Safari Dom"] =
     <sbb-autocomplete-grid-option
       aria-disabled="false"
       aria-selected="false"
+      data-group-label="Group"
       data-slot-names="unnamed"
       id="sbb-autocomplete-grid-item-1x0"
       role="gridcell"
@@ -87,6 +91,7 @@ snapshots["sbb-autocomplete-grid-optgroup Safari Dom"] =
     <sbb-autocomplete-grid-option
       aria-disabled="false"
       aria-selected="false"
+      data-group-label="Group"
       data-slot-names="unnamed"
       id="sbb-autocomplete-grid-item-2x0"
       role="gridcell"
@@ -115,6 +120,7 @@ snapshots["sbb-autocomplete-grid-optgroup Safari ShadowDom"] =
   <div class="sbb-optgroup__icon-space">
   </div>
   <span>
+    Group
   </span>
 </div>
 <slot>

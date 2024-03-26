@@ -1,4 +1,12 @@
-The `sbb-autocomplete-grid` is a component that can be used to display a panel of suggested options connected to a text input.
+The `sbb-autocomplete-grid` is a component that can be used to display a panel of suggested options connected to a text input,
+with each option connected to a one or more buttons.
+The component is strictly connected to:
+
+- the [sbb-autocomplete-grid-row](/docs/components-sbb-autocomplete-sbb-autocomplete-grid-row--docs), which is a wrapper for both option and buttons;
+- the [sbb-autocomplete-grid-option](/docs/components-sbb-autocomplete-sbb-autocomplete-grid-option--docs), which displays a selectable option within a panel;
+- the [sbb-autocomplete-grid-actions](/docs/components-sbb-autocomplete-sbb-autocomplete-grid-actions--docs), which is a wrapper for button elements;
+- the [sbb-autocomplete-grid-button](/docs/components-sbb-autocomplete-sbb-autocomplete-grid-button--docs), which displays a button within a row;
+- the [sbb-autocomplete-grid-optgroup](/docs/components-sbb-autocomplete-sbb-autocomplete-grid-optgroup--docs), which can be used to group more row within a group.
 
 It's possible to set the element to which the component's panel will be attached using the `origin` prop,
 and the input which will work as a trigger using the `trigger` prop.
@@ -150,12 +158,12 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 
 ## Events
 
-| Name        | Type                | Description                                                                           | Inherited From |
-| ----------- | ------------------- | ------------------------------------------------------------------------------------- | -------------- |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` starts the opening transition. Can be canceled. |                |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is opened.                                      |                |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` begins the closing transition. Can be canceled. |                |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is closed.                                      |                |
+| Name        | Type                | Description                                                                                | Inherited From |
+| ----------- | ------------------- | ------------------------------------------------------------------------------------------ | -------------- |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` starts the opening transition. Can be canceled. |                |
+| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` is opened.                                      |                |
+| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` begins the closing transition. Can be canceled. |                |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` is closed.                                      |                |
 
 ## CSS Properties
 
@@ -165,6 +173,6 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 
 ## Slots
 
-| Name | Description                                                                                    |
-| ---- | ---------------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add `sbb-option` or `sbb-optgroup` elements to the `sbb-autocomplete`. |
+| Name | Description                                                                                                                          |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add `sbb-autocomplete-grid-row` or `sbb-autocomplete-grid-optgroup` elements to the `sbb-autocomplete-grid`. |

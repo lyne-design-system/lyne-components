@@ -63,7 +63,7 @@ The component can be displayed in `disabled` state using the self-named property
 ```
 
 If the component is used within a [sbb-autocomplete-grid-optgroup](/docs/components-sbb-autocomplete-grid-sbb-autocomplete-grid-optgroup--docs),
-it can be disabled by disabling the group.
+it can be disabled by disabling the optgroup.
 
 ### Focus outline
 
@@ -83,7 +83,11 @@ It's possible to fetch the button's related `sbb-autocomplete-grid-option` using
 
 ## Accessibility
 
-Use the accessibility properties to describe the purpose of the `sbb-autocomplete-grid-button` for screen-reader users.
+The `sbb-autocomplete-grid` follows the combobox `grid` pattern;
+this means that the `sbb-autocomplete-grid-button` has a `button` role and its `id` is set based on the `sbb-autocomplete-grid-actions`'s `id`,
+which is needed to correctly set the `aria-activedescendant` on the related `input`.
+Moreover, the `sbb-autocomplete-grid-button` can't be focused via <kbd>Tab</kbd> due to the used pattern,
+since the focus must always stay on the connected `<input>`.
 
 <!-- Auto Generated Below -->
 

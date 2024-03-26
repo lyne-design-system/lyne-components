@@ -7,11 +7,10 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import type { SbbAutocompleteElement } from '../../autocomplete';
-import type { SbbAutocompleteGridElement } from '../../autocomplete-grid';
 import { isSafari, isValidAttribute, setAttribute } from '../dom';
 import { AgnosticMutationObserver } from '../observers';
 
+import type { SbbAutocompleteBaseElement } from './autocomplete-base-element';
 import { SbbDisabledMixin } from './disabled-mixins';
 import { SbbHydrationMixin } from './hydration-mixin';
 import style from './optgroup-base-element.scss?lit&inline';
@@ -38,7 +37,7 @@ export abstract class SbbOptgroupBaseElement extends SbbHydrationMixin(
 
   protected abstract get options(): SbbOptionBaseElement[];
   protected abstract setAttributeFromParent(): void;
-  protected abstract getAutocompleteParent(): SbbAutocompleteGridElement | SbbAutocompleteElement; // fixme autocomplete base element
+  protected abstract getAutocompleteParent(): SbbAutocompleteBaseElement | null;
 
   public override connectedCallback(): void {
     super.connectedCallback();

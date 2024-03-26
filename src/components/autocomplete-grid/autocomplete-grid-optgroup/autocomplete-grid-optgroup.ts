@@ -26,8 +26,8 @@ export class SbbAutocompleteGridOptgroupElement extends SbbOptgroupBaseElement {
     ) as SbbAutocompleteGridButtonElement[];
   }
 
-  protected getAutocompleteParent(): SbbAutocompleteGridElement {
-    return this.closest('sbb-autocomplete-grid')!; // fixme
+  protected getAutocompleteParent(): SbbAutocompleteGridElement | null {
+    return this.closest?.('sbb-autocomplete-grid') || null;
   }
 
   protected setAttributeFromParent(): void {

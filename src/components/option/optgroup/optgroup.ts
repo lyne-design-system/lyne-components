@@ -25,8 +25,8 @@ export class SbbOptGroupElement extends SbbOptgroupBaseElement {
     return Array.from(this.querySelectorAll?.('sbb-option') ?? []) as SbbOptionElement[];
   }
 
-  protected getAutocompleteParent(): SbbAutocompleteElement {
-    return this.closest('sbb-autocomplete')!; // fixme
+  protected getAutocompleteParent(): SbbAutocompleteElement | null {
+    return this.closest?.('sbb-autocomplete') || null;
   }
 
   protected setAttributeFromParent(): void {

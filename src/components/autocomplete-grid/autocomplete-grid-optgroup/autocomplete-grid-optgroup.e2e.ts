@@ -13,7 +13,7 @@ describe(`sbb-autocomplete-grid-optgroup with ${fixture.name}`, () => {
   beforeEach(async () => {
     element = await fixture(
       html`
-        <sbb-autocomplete-grid-optgroup>
+        <sbb-autocomplete-grid-optgroup label="Group 1">
           <sbb-autocomplete-grid-row>
             <sbb-autocomplete-grid-option id="option-1" value="1"
               >Option 1</sbb-autocomplete-grid-option
