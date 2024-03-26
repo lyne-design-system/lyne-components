@@ -16,7 +16,7 @@ import readme from './readme.md?raw';
 import './autocomplete-grid-row';
 import '../autocomplete-grid-actions';
 import '../autocomplete-grid-option';
-import '../../button/mini-button';
+import '../autocomplete-grid-button';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
@@ -40,13 +40,19 @@ const Template = ({ negative }: Args): TemplateResult => html`
   <sbb-autocomplete-grid-row ?data-negative=${negative}>
     <sbb-autocomplete-grid-option>Opt 1</sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-actions>
-      <sbb-mini-button icon-name="pie-small" ?negative=${negative}></sbb-mini-button>
+      <sbb-autocomplete-grid-button
+        icon-name="pie-small"
+        ?negative=${negative}
+      ></sbb-autocomplete-grid-button>
     </sbb-autocomplete-grid-actions>
   </sbb-autocomplete-grid-row>
   <sbb-autocomplete-grid-row ?data-negative=${negative}>
     <sbb-autocomplete-grid-option>Opt 2</sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-actions>
-      <sbb-mini-button icon-name="dog-small" ?negative=${negative}></sbb-mini-button>
+      <sbb-autocomplete-grid-button
+        icon-name="dog-small"
+        ?negative=${negative}
+      ></sbb-autocomplete-grid-button>
     </sbb-autocomplete-grid-actions>
   </sbb-autocomplete-grid-row>
 `;

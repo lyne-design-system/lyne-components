@@ -15,6 +15,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
+import '../autocomplete-grid-row';
 import './autocomplete-grid-actions';
 import '../autocomplete-grid-button';
 
@@ -53,17 +54,19 @@ const defaultArgs: Args = {
 };
 
 const Template = ({ numberOfButtons, ...args }: Args): TemplateResult => html`
-  <sbb-autocomplete-grid-actions>
-    ${repeat(
-      new Array(numberOfButtons),
-      (_, i) => html`
-        <sbb-autocomplete-grid-button
-          ${sbbSpread(args)}
-          icon-name=${i === 0 ? 'star-small' : i === 1 ? 'pen-small' : 'trash-small'}
-        ></sbb-autocomplete-grid-button>
-      `,
-    )}
-  </sbb-autocomplete-grid-actions>
+  <sbb-autocomplete-grid-row ?data-negative=${args.negative}>
+    <sbb-autocomplete-grid-actions>
+      ${repeat(
+        new Array(numberOfButtons),
+        (_, i) => html`
+          <sbb-autocomplete-grid-button
+            ${sbbSpread(args)}
+            icon-name=${i === 0 ? 'star-small' : i === 1 ? 'pen-small' : 'trash-small'}
+          ></sbb-autocomplete-grid-button>
+        `,
+      )}
+    </sbb-autocomplete-grid-actions>
+  </sbb-autocomplete-grid-row>
 `;
 
 export const Default: StoryObj = {
@@ -94,6 +97,24 @@ export const Multiple: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, numberOfButtons: 3 },
+};
+
+export const MultipleNegative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, numberOfButtons: 3, negative: true },
+};
+
+export const MultipleDisabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, numberOfButtons: 3, disabled: true },
+};
+
+export const MultipleDisabledNegative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, numberOfButtons: 3, disabled: true, negative: true },
 };
 
 const meta: Meta = {

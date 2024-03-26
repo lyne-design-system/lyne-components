@@ -14,6 +14,8 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
+import '../autocomplete-grid-row';
+import '../autocomplete-grid-actions';
 import './autocomplete-grid-button';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
@@ -126,11 +128,15 @@ const defaultArgs: Args = {
 };
 
 const Template = ({ active, focusVisible, ...args }: Args): TemplateResult => html`
-  <sbb-autocomplete-grid-button
-    ${sbbSpread(args)}
-    ?data-active=${active}
-    ?data-focus-visible=${focusVisible}
-  ></sbb-autocomplete-grid-button>
+  <sbb-autocomplete-grid-row ?data-negative=${args.negative}>
+    <sbb-autocomplete-grid-actions>
+      <sbb-autocomplete-grid-button
+        ${sbbSpread(args)}
+        ?data-active=${active}
+        ?data-focus-visible=${focusVisible}
+      ></sbb-autocomplete-grid-button>
+    </sbb-autocomplete-grid-actions>
+  </sbb-autocomplete-grid-row>
 `;
 
 export const Default: StoryObj = {
@@ -161,6 +167,24 @@ export const FocusVisible: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, focusVisible: true },
+};
+
+export const NegativeDisabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true, disabled: true },
+};
+
+export const NegativeActive: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true, active: true },
+};
+
+export const NegativeFocusVisible: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true, focusVisible: true },
 };
 
 const meta: Meta = {
