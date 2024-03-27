@@ -12,10 +12,7 @@ snapshots["sbb-overlay renders - Dom"] =
 
 snapshots["sbb-overlay renders - ShadowDom"] = 
 `<div class="sbb-overlay__container">
-  <div
-    class="sbb-overlay"
-    id="sbb-overlay-1"
-  >
+  <div class="sbb-overlay">
     <div class="sbb-overlay__wrapper">
       <div class="sbb-overlay__header">
         <sbb-secondary-button
@@ -46,7 +43,7 @@ snapshots["sbb-overlay renders - ShadowDom"] =
     </div>
   </div>
 </div>
-<sbb-screen-reader-only>
+<sbb-screen-reader-only aria-live="polite">
 </sbb-screen-reader-only>
 `;
 /* end snapshot sbb-overlay renders - ShadowDom */

@@ -1,6 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { FocusHandler, getFirstFocusableElement, setModalityOnNextFocus } from '../core/a11y';
@@ -20,7 +21,6 @@ import '../screen-reader-only';
 
 // A global collection of existing overlays
 const overlayRefs: SbbOverlayElement[] = [];
-let nextId = 0;
 
 export type SbbOverlayCloseEventDetails = {
   returnValue?: any;
@@ -128,7 +128,6 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
   private _focusHandler = new FocusHandler();
   private _scrollHandler = new ScrollHandler();
   private _returnValue: any;
-  private _overlayId = `sbb-overlay-${nextId++}`;
 
   // Last element which had focus before the overlay was opened.
   private _lastFocusedElement?: HTMLElement;
@@ -205,10 +204,6 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
     }
   }
 
-  protected override firstUpdated(): void {
-    this._ariaLiveRef = this.shadowRoot!.querySelector('sbb-screen-reader-only')!;
-  }
-
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._overlayController?.abort();
@@ -219,7 +214,7 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
   }
 
   private _removeInstanceFromGlobalCollection(): void {
-    overlayRefs.splice(overlayRefs.indexOf(this as SbbOverlayElement), 1);
+    overlayRefs.splice(overlayRefs.indexOf(this), 1);
   }
 
   private _attachOpenOverlayEvents(): void {
@@ -227,9 +222,9 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
     // Remove overlay label as soon as it is not needed anymore to prevent accessing it with browse mode.
     window.addEventListener(
       'keydown',
-      async (event: KeyboardEvent) => {
+      (event: KeyboardEvent) => {
         this._removeAriaLiveRefContent();
-        await this._onKeydownEvent(event);
+        this._onKeydownEvent(event);
       },
       {
         signal: this._openOverlayController.signal,
@@ -353,7 +348,6 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
         <div
           @animationend=${(event: AnimationEvent) => this._onOverlayAnimationEnd(event)}
           class="sbb-overlay"
-          id=${this._overlayId}
         >
           <div
             @click=${(event: Event) => this._closeOnSbbOverlayCloseClick(event)}
@@ -374,7 +368,10 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
           </div>
         </div>
       </div>
-      <sbb-screen-reader-only></sbb-screen-reader-only>
+      <sbb-screen-reader-only
+        aria-live="polite"
+        ${ref((el?: Element) => (this._ariaLiveRef = el as HTMLElement))}
+      ></sbb-screen-reader-only>
     `;
   }
 }

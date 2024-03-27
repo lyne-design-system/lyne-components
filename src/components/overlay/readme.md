@@ -1,4 +1,5 @@
-The `sbb-overlay` component provides a way to present content on top of the app's content and it's similar to the [sbb-dialog](/docs/components-sbb-dialog--docs).
+The `sbb-overlay` component provides a way to present content on top of the app's content
+and it's similar to the [sbb-dialog](/docs/components-sbb-dialog--docs).
 It offers the following features:
 
 - disables scrolling of the page content while open;
