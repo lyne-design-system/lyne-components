@@ -13,6 +13,10 @@ import { applyInertMechanism, removeInertMechanism } from '../core/overlay';
 
 import style from './overlay.scss?lit&inline';
 
+import '../button/secondary-button';
+import '../button/transparent-button';
+import '../screen-reader-only';
+
 // A global collection of existing overlays
 const overlayRefs: SbbOverlayElement[] = [];
 let nextId = 0;
@@ -201,7 +205,7 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
   }
 
   protected override firstUpdated(): void {
-    this._ariaLiveRef = this.shadowRoot!.querySelector('sbb-screenreader-only')!;
+    this._ariaLiveRef = this.shadowRoot!.querySelector('sbb-screen-reader-only')!;
   }
 
   public override disconnectedCallback(): void {
@@ -363,7 +367,7 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
           </div>
         </div>
       </div>
-      <sbb-screenreader-only></sbb-screenreader-only>
+      <sbb-screen-reader-only></sbb-screen-reader-only>
     `;
   }
 }

@@ -21,9 +21,15 @@ snapshots["sbb-overlay renders - ShadowDom"] =
         <sbb-secondary-button
           aria-label="Close secondary window"
           class="sbb-overlay__close"
+          data-action=""
+          data-button=""
+          data-sbb-button=""
+          dir="ltr"
           icon-name="cross-small"
+          role="button"
           sbb-overlay-close=""
           size="m"
+          tabindex="0"
           type="button"
         >
         </sbb-secondary-button>
@@ -35,10 +41,11 @@ snapshots["sbb-overlay renders - ShadowDom"] =
     </div>
   </div>
 </div>
-<sbb-screenreader-only>
-</sbb-screenreader-only>
+<sbb-screen-reader-only>
+</sbb-screen-reader-only>
 `;
 /* end snapshot sbb-overlay renders - ShadowDom */
+
 snapshots["sbb-overlay A11y tree Chrome"] = 
 `<p>
   {
@@ -46,8 +53,9 @@ snapshots["sbb-overlay A11y tree Chrome"] =
   "name": "",
   "children": [
     {
-      "role": "generic",
-      "name": "Close secondary window"
+      "role": "button",
+      "name": "Close secondary window",
+      "focused": true
     },
     {
       "role": "text",
@@ -66,8 +74,9 @@ snapshots["sbb-overlay A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "text container",
-      "name": "Close secondary window"
+      "role": "button",
+      "name": "Close secondary window",
+      "focused": true
     },
     {
       "role": "text leaf",
@@ -78,24 +87,4 @@ snapshots["sbb-overlay A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-overlay A11y tree Firefox */
-
-snapshots["sbb-overlay A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "Group",
-      "name": "Close secondary window"
-    },
-    {
-      "role": "text",
-      "name": "Dialog "
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-overlay A11y tree Safari */
 
