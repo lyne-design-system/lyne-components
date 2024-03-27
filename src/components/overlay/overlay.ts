@@ -1,7 +1,6 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { FocusHandler, getFirstFocusableElement, setModalityOnNextFocus } from '../core/a11y';
@@ -11,6 +10,7 @@ import { EventEmitter } from '../core/eventing';
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
 import type { SbbOverlayState } from '../core/overlay';
 import { applyInertMechanism, removeInertMechanism } from '../core/overlay';
+import type { SbbScreenReaderOnlyElement } from '../screen-reader-only';
 
 import style from './overlay.scss?lit&inline';
 
@@ -97,7 +97,7 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
     return this.dataset?.state as SbbOverlayState;
   }
 
-  private _ariaLiveRef!: HTMLElement;
+  private _ariaLiveRef!: SbbScreenReaderOnlyElement;
   private _ariaLiveRefToggle = false;
 
   /** Emits whenever the `sbb-overlay` starts the opening transition. */
@@ -211,6 +211,12 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
     this._focusHandler.disconnect();
     this._removeInstanceFromGlobalCollection();
     removeInertMechanism();
+  }
+
+  protected override firstUpdated(_changedProperties: PropertyValues): void {
+    this._ariaLiveRef =
+      this.shadowRoot!.querySelector<SbbScreenReaderOnlyElement>('sbb-screen-reader-only')!;
+    super.firstUpdated(_changedProperties);
   }
 
   private _removeInstanceFromGlobalCollection(): void {
@@ -368,10 +374,7 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
           </div>
         </div>
       </div>
-      <sbb-screen-reader-only
-        aria-live="polite"
-        ${ref((el?: Element) => (this._ariaLiveRef = el as HTMLElement))}
-      ></sbb-screen-reader-only>
+      <sbb-screen-reader-only aria-live="polite"></sbb-screen-reader-only>
     `;
   }
 }
