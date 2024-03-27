@@ -36,7 +36,7 @@ const supportedPopupTagNames = ['SBB-AUTOCOMPLETE', 'SBB-SELECT'];
 export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
-  private readonly _supportedNativeInputElements = ['INPUT', 'SELECT'];
+  private readonly _supportedNativeInputElements = ['INPUT', 'SELECT', 'TEXTAREA'];
   // List of supported element selectors in unnamed slot
   private readonly _supportedInputElements = [
     ...this._supportedNativeInputElements,
@@ -46,7 +46,12 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['BUTTON', 'SBB-POPOVER'];
 
-  private readonly _floatingLabelSupportedInputElements = ['INPUT', 'SELECT', 'SBB-SELECT'];
+  private readonly _floatingLabelSupportedInputElements = [
+    'INPUT',
+    'SELECT',
+    'TEXTAREA',
+    'SBB-SELECT',
+  ];
 
   private readonly _floatingLabelSupportedInputTypes = [
     'email',
@@ -245,6 +250,10 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
     this._applyAriaDescribedby();
     this._readInputState();
     this._registerInputListener();
+
+    if (this._input.tagName === 'TEXTAREA') {
+      this._input.setAttribute('rows', this._input.getAttribute('rows') || '3');
+    }
 
     this._formFieldAttributeObserver.disconnect();
     this._formFieldAttributeObserver.observe(this._input, {
@@ -488,9 +497,11 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
             <div class="sbb-form-field__input">
               <slot @slotchange=${this._onSlotInputChange}></slot>
             </div>
-            ${['SELECT', 'SBB-SELECT'].includes(this._input?.tagName as string)
+            ${['SELECT', 'SBB-SELECT', 'TEXTAREA'].includes(this._input?.tagName as string)
               ? html`<sbb-icon
-                  name="chevron-small-down-small"
+                  name="chevron-small-down${this._input?.tagName === 'TEXTAREA'
+                    ? '-flat'
+                    : ''}-small"
                   class="sbb-form-field__select-input-icon"
                 ></sbb-icon>`
               : nothing}

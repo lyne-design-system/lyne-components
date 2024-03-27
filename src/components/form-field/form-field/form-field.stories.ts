@@ -63,6 +63,22 @@ const TemplateBasicSelect = ({ cssClass, disabled }: Args): TemplateResult => ht
   </select>
 `;
 
+const TemplateBasicTextarea = ({
+  cssClass,
+  placeholder,
+  disabled,
+  readonly,
+  value,
+}: Args): TemplateResult => html`
+  <textarea
+    class=${cssClass}
+    placeholder=${placeholder}
+    ?disabled=${disabled}
+    ?readonly=${readonly}
+    value=${value}
+  ></textarea>
+`;
+
 const TemplateInput = ({
   'error-space': errorSpace,
   label,
@@ -271,6 +287,79 @@ const TemplateSelectWithIcons = (args: Args): TemplateResult => html`
       <sbb-icon name="pie-small"></sbb-icon>
     </span>
     ${TemplateBasicSelect(args)}
+    <span slot="suffix">${PopoverTrigger()}</span>
+  </sbb-form-field>
+`;
+
+const TemplateTextarea = (args: Args): TemplateResult => html`
+  <sbb-form-field
+    error-space=${args['error-space']}
+    label=${args.label}
+    ?optional=${args.optional}
+    size=${args.size}
+    ?borderless=${args.borderless}
+    width=${args.width}
+    ?hidden-label=${args['hidden-label']}
+    ?floating-label=${args['floating-label']}
+    ?negative=${args.negative}
+  >
+    ${TemplateBasicTextarea(args)}
+  </sbb-form-field>
+`;
+
+const TemplateTextareaWithErrorSpace = (args: Args): TemplateResult => {
+  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
+  sbbFormError.setAttribute('slot', 'error');
+  sbbFormError.textContent = args.errorText;
+
+  return html`
+    <form>
+      <div>
+        <sbb-form-field
+          error-space=${args['error-space']}
+          label=${args.label}
+          ?optional=${args.optional}
+          size=${args.size}
+          ?borderless=${args.borderless}
+          width=${args.width}
+          ?hidden-label=${args['hidden-label']}
+          ?floating-label=${args['floating-label']}
+          ?negative=${args.negative}
+        >
+          <textarea
+            @keyup=${(event: KeyboardEvent) => {
+              const input = event.currentTarget as HTMLInputElement;
+              if (input.value !== '') {
+                sbbFormError.remove();
+                input.classList.remove(args.cssClass);
+              } else {
+                input.closest('sbb-form-field')!.append(sbbFormError);
+                input.classList.add(args.cssClass);
+              }
+            }}
+            class=${args.cssClass}
+            placeholder=${args.placeholder}
+            ?disabled=${args.disabled}
+            ?readonly=${args.readonly}
+          ></textarea>
+          ${sbbFormError}
+        </sbb-form-field>
+      </div>
+      <div>
+        <div style=${styleMap({ color: 'var(--sbb-color-smoke)' })}>
+          Some text, right below the form-field, inside a div.
+        </div>
+      </div>
+    </form>
+  `;
+};
+
+const TemplateTextareaWithIcons = (args: Args): TemplateResult => html`
+  <sbb-form-field ${sbbSpread(args)}>
+    <span slot="prefix">
+      <sbb-icon name="pie-small"></sbb-icon>
+    </span>
+    ${TemplateBasicTextarea(args)}
     <span slot="suffix">${PopoverTrigger()}</span>
   </sbb-form-field>
 `;
@@ -629,6 +718,69 @@ export const SelectOptionalAndIcons: StoryObj = {
   args: { ...basicArgs, optional: true },
 };
 
+export const Textarea: StoryObj = {
+  render: TemplateTextarea,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
+
+export const TextareaWithoutBorder: StoryObj = {
+  render: TemplateTextarea,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, borderless: true },
+};
+
+export const TextareaDisabled: StoryObj = {
+  render: TemplateTextarea,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabled: true },
+};
+
+export const TextareaReadonly: StoryObj = {
+  render: TemplateTextarea,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, readonly: true },
+};
+
+export const TextareaErrorSpace: StoryObj = {
+  render: TemplateTextareaWithErrorSpace,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, 'error-space': 'reserve', cssClass: 'sbb-invalid' },
+};
+
+export const TextareaOptionalAndIcons: StoryObj = {
+  render: TemplateTextareaWithIcons,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true },
+};
+
+export const TextareaFloatingLabel: StoryObj = {
+  render: TemplateTextarea,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, 'floating-label': true, value: undefined },
+};
+
+export const TextareaFloatingLongLabel: StoryObj = {
+  render: TemplateTextarea,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    'floating-label': true,
+    value: undefined,
+    label: 'This is a very long label which receives ellipsis',
+  },
+};
+
+export const TextareaFloatingWithIcons: StoryObj = {
+  render: TemplateTextareaWithIcons,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    'floating-label': true,
+    value: undefined,
+  },
+};
+
 export const InputCollapsedWidth: StoryObj = {
   render: TemplateInput,
   argTypes: basicArgTypes,
@@ -805,6 +957,71 @@ export const InputWithIconsDisabledNegative: StoryObj = {
   render: TemplateInputWithIcons,
   argTypes: basicArgTypes,
   args: { ...basicArgs, disabled: true, negative: true },
+};
+
+export const TextareaNegative: StoryObj = {
+  render: TemplateTextarea,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, negative: true },
+};
+
+export const TextareaWithoutBorderNegative: StoryObj = {
+  render: TemplateTextarea,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, borderless: true, negative: true },
+};
+
+export const TextareaDisabledNegative: StoryObj = {
+  render: TemplateTextarea,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabled: true, negative: true },
+};
+
+export const TextareaReadonlyNegative: StoryObj = {
+  render: TemplateTextarea,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, readonly: true, negative: true },
+};
+
+export const TextareaErrorSpaceNegative: StoryObj = {
+  render: TemplateTextareaWithErrorSpace,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, 'error-space': 'reserve', cssClass: 'sbb-invalid', negative: true },
+};
+
+export const TextareaOptionalAndIconsNegative: StoryObj = {
+  render: TemplateTextareaWithIcons,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true, negative: true },
+};
+
+export const TextareaFloatingLabelNegative: StoryObj = {
+  render: TemplateTextarea,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, 'floating-label': true, value: undefined, negative: true },
+};
+
+export const TextareaFloatingLongLabelNegative: StoryObj = {
+  render: TemplateTextarea,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    'floating-label': true,
+    value: undefined,
+    label: 'This is a very long label which receives ellipsis',
+    negative: true,
+  },
+};
+
+export const TextareaFloatingWithIconsNegative: StoryObj = {
+  render: TemplateTextareaWithIcons,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    'floating-label': true,
+    value: undefined,
+    negative: true,
+  },
 };
 
 const meta: Meta = {

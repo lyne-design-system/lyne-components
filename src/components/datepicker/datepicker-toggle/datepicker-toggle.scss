@@ -7,14 +7,17 @@
 :host {
   --sbb-datepicker-control-radius: var(--sbb-border-radius-4x);
   --sbb-datepicker-control-color: var(--sbb-color-black);
+
+  display: inline-flex;
 }
 
 sbb-popover-trigger {
+  --sbb-button-display: flex;
+
   color: var(--sbb-datepicker-control-color);
-  height: var(--sbb-form-field-height);
-  display: flex;
-  align-items: center;
-  -webkit-tap-highlight-color: transparent;
+
+  // Enables taking full height in order to shift the calendar position to the border bottom of the form field.
+  height: unset;
 }
 
 sbb-icon {

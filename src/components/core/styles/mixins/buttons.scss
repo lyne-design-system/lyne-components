@@ -95,6 +95,8 @@
 @mixin icon-button-base($host-selector, $button-selector, $icon-selector) {
   #{$host-selector} {
     display: inline-block;
+    -webkit-tap-highlight-color: transparent;
+    height: fit-content;
 
     // Use !important here to not interfere with Firefox focus ring definition
     // which appears in normalize css of several frameworks.
@@ -111,6 +113,7 @@
       color: var(--sbb-button-color-default-text);
       cursor: pointer;
       user-select: none;
+      display: var(--sbb-button-display);
 
       // Renders background and border in the background absolute to enable the hover animation
       &::before {

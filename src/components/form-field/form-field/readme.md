@@ -20,6 +20,7 @@ The following components are designed to work inside a `sbb-form-field`:
 
 - `<input>`
 - `<select>`
+- `<textarea>`
 - [sbb-datepicker](/docs/components-sbb-datepicker-sbb-datepicker--docs) and its associated components
 - [sbb-select](/docs/components-sbb-select--docs)
 - [sbb-slider](/docs/components-sbb-slider--docs)
