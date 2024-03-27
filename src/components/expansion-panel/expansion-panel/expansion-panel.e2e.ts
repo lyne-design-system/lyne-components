@@ -1,4 +1,4 @@
-import { assert, expect } from '@open-wc/testing';
+import { aTimeout, assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
@@ -15,7 +15,7 @@ describe(`sbb-expansion-panel with ${fixture.name}`, () => {
   beforeEach(async () => {
     element = await fixture(
       html`
-        <sbb-expansion-panel disable-animation>
+        <sbb-expansion-panel>
           <sbb-expansion-panel-header icon-name="dog-medium">Header</sbb-expansion-panel-header>
           <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
         </sbb-expansion-panel>
@@ -49,7 +49,7 @@ describe(`sbb-expansion-panel with ${fixture.name}`, () => {
   it('has slotted elements with the correct properties when id are set', async () => {
     element = await fixture(
       html`
-        <sbb-expansion-panel disable-animation>
+        <sbb-expansion-panel>
           <sbb-expansion-panel-header id="header">Header</sbb-expansion-panel-header>
           <sbb-expansion-panel-content id="content">Content</sbb-expansion-panel-content>
         </sbb-expansion-panel>
@@ -85,6 +85,9 @@ describe(`sbb-expansion-panel with ${fixture.name}`, () => {
     const willCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.willClose);
     const didOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.didOpen);
     const didCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.didClose);
+
+    await waitForLitRender(element);
+    await aTimeout(100); // TODO: remove when the exp-panel has been migrated from transition to animation
 
     header.click();
     await waitForCondition(() => toggleExpandedEventSpy.events.length === 1);

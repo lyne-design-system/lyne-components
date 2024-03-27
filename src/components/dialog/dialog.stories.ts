@@ -96,12 +96,6 @@ const accessibilityBackLabel: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const backdropAction: InputType = {
   control: {
     type: 'select',
@@ -117,7 +111,6 @@ const basicArgTypes: ArgTypes = {
   'accessibility-label': accessibilityLabel,
   'accessibility-close-label': accessibilityCloseLabel,
   'accessibility-back-label': accessibilityBackLabel,
-  'disable-animation': disableAnimation,
   'backdrop-action': backdropAction,
 };
 
@@ -129,7 +122,6 @@ const basicArgs: Args = {
   'accessibility-label': undefined,
   'accessibility-close-label': undefined,
   'accessibility-back-label': undefined,
-  'disable-animation': isChromatic(),
   'backdrop-action': backdropAction.options[0],
 };
 

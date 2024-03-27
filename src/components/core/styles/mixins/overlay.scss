@@ -15,7 +15,10 @@
   --sbb-options-panel-border-radius: var(--sbb-border-radius-4x);
   --sbb-options-panel-options-border-radius: 0 0 var(--sbb-options-panel-border-radius)
     var(--sbb-options-panel-border-radius);
-  --sbb-options-panel-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-options-panel-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-4x)
+  );
   --sbb-options-panel-animation-timing-function: ease;
   --sbb-options-panel-gap-fix-opacity: 0;
   --sbb-options-panel-gap-fix-transform: none;

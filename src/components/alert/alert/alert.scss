@@ -19,7 +19,9 @@ $open-anim-opacity-to: 1;
   --sbb-alert-icon-size: #{sbb.px-to-rem-build(20)};
   --sbb-alert-close-icon-size: var(--sbb-size-icon-ui-small);
   --sbb-alert-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs);
-  --sbb-alert-animation-duration: var(--sbb-animation-duration-6x);
+
+  // By default, the open animation is disabled
+  --sbb-alert-open-animation-duration: 0.1ms;
 
   @include sbb.mq($from: medium) {
     --sbb-alert-icon-size: #{sbb.px-to-rem-build(28)};
@@ -33,9 +35,8 @@ $open-anim-opacity-to: 1;
   }
 }
 
-:host([disable-animation]) {
-  // To avoid flickering, we need 0 instead of 0.1ms here.
-  --sbb-alert-animation-duration: 0ms;
+:host(.sbb-animate) {
+  --sbb-alert-open-animation-duration: var(--sbb-animation-duration-6x);
 }
 
 :host([size='l']) {

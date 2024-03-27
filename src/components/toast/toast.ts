@@ -67,10 +67,6 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
    */
   @property() public politeness: 'polite' | 'assertive' | 'off' = 'polite';
 
-  /** Whether the animation is disabled. */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
   /** The state of the autocomplete. */
   @state() private _state: SbbOverlayState = 'closed';
 

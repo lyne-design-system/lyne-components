@@ -26,10 +26,6 @@ export class SbbLoadingIndicatorElement extends LitElement {
   /** Color variant. */
   @property({ reflect: true }) public color: 'default' | 'smoke' | 'white' = 'default';
 
-  /** Whether the animation is enabled. */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
   protected override render(): TemplateResult {
     return html`
       <span class="sbb-loading-indicator">

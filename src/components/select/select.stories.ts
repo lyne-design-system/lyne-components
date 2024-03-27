@@ -126,15 +126,6 @@ const readonly: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Select',
-  },
-};
-
 const numberOfOptions: InputType = {
   control: {
     type: 'number',
@@ -181,7 +172,6 @@ const defaultArgTypes: ArgTypes = {
   disabled,
   required,
   readonly,
-  'disable-animation': disableAnimation,
   numberOfOptions,
   disableOption,
   withOptionGroup,
@@ -198,7 +188,6 @@ const defaultArgs: Args = {
   disabled: false,
   required: false,
   readonly: false,
-  'disable-animation': isChromatic(),
   numberOfOptions: 5,
   disableOption: false,
   withOptionGroup: false,

@@ -34,7 +34,7 @@ describe(`sbb-dialog with ${fixture.name}`, () => {
     await setViewport({ width: 900, height: 600 });
     element = await fixture(
       html`
-        <sbb-dialog id="my-dialog-1" title-content="Title" disable-animation>
+        <sbb-dialog id="my-dialog-1" title-content="Title">
           Dialog content.
           <div slot="action-group">Action group</div>
         </sbb-dialog>
@@ -253,7 +253,7 @@ describe(`sbb-dialog with ${fixture.name}`, () => {
   it('renders in fullscreen mode if no title is provided', async () => {
     element = await fixture(
       html`
-        <sbb-dialog id="my-dialog-2" disable-animation>
+        <sbb-dialog id="my-dialog-2">
           Dialog content.
           <div slot="action-group">Action group</div>
         </sbb-dialog>
@@ -272,14 +272,12 @@ describe(`sbb-dialog with ${fixture.name}`, () => {
   it('closes stacked dialogs one by one on ESC key pressed', async () => {
     element = await fixture(
       html`
-        <sbb-dialog id="my-dialog-3" title-content="Title" disable-animation>
+        <sbb-dialog id="my-dialog-3" title-content="Title">
           Dialog content.
           <div slot="action-group">Action group</div>
         </sbb-dialog>
 
-        <sbb-dialog id="stacked-dialog" disable-animation title-content="Stacked title">
-          Stacked dialog.
-        </sbb-dialog>
+        <sbb-dialog id="stacked-dialog" title-content="Stacked title"> Stacked dialog. </sbb-dialog>
       `,
       { modules: ['./dialog.ts'] },
     );
@@ -346,10 +344,10 @@ describe(`sbb-dialog with ${fixture.name}`, () => {
     await setViewport({ width: 900, height: 600 });
     element = await fixture(
       html`
-        <sbb-dialog id="my-dialog-4" title-content="Title" disable-animation>
+        <sbb-dialog id="my-dialog-4" title-content="Title">
           Dialog content.
           <div slot="action-group">Action group</div>
-          <sbb-dialog id="inner-dialog" title-content="Inner Dialog title" disable-animation>
+          <sbb-dialog id="inner-dialog" title-content="Inner Dialog title">
             Dialog content.
             <div slot="action-group">Action group</div>
           </sbb-dialog>

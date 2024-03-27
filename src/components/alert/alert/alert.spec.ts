@@ -12,12 +12,12 @@ describe(`sbb-alert`, () => {
 
   it('should render default properties', async () => {
     element = await fixture(
-      html`<sbb-alert disable-animation title-content="Interruption">Alert content</sbb-alert>`,
+      html`<sbb-alert title-content="Interruption">Alert content</sbb-alert>`,
     );
 
     expect(element).dom.to.be.equal(
       `
-        <sbb-alert disable-animation title-content="Interruption" size="m" data-state="opening">
+        <sbb-alert title-content="Interruption" size="m" data-state="opening">
            Alert content
         </sbb-alert>
       `,
@@ -32,7 +32,6 @@ describe(`sbb-alert`, () => {
         title-content="Interruption"
         title-level="2"
         size="l"
-        disable-animation
         icon-name="disruption"
         accessibility-label="label"
         href="https://www.sbb.ch"
@@ -49,7 +48,6 @@ describe(`sbb-alert`, () => {
           title-content="Interruption"
           title-level="2"
           size="l"
-          disable-animation
           icon-name="disruption"
           accessibility-label="label"
           href="https://www.sbb.ch"
@@ -66,7 +64,6 @@ describe(`sbb-alert`, () => {
 
   testA11yTreeSnapshot(html`
     <sbb-alert
-      disable-animation
       title-content="Interruption"
       href="https://www.sbb.ch"
       accessibility-label="test-a11y-label"

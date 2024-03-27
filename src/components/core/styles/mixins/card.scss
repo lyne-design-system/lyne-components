@@ -12,7 +12,10 @@
 @mixin card-variables {
   --sbb-card-background-color: var(--sbb-color-white);
   --sbb-card-border-radius: var(--sbb-border-radius-4x);
-  --sbb-card-animation-duration: var(--sbb-animation-duration-1x);
+  --sbb-card-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-1x)
+  );
   --sbb-card-animation-easing: var(--sbb-animation-easing);
   --sbb-card-border-color: transparent;
   --sbb-card-border-style: solid;

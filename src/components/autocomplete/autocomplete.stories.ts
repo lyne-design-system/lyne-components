@@ -56,15 +56,6 @@ const readonly: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Autocomplete',
-  },
-};
-
 const preserveIconSpace: InputType = {
   control: {
     type: 'boolean',
@@ -124,7 +115,6 @@ const defaultArgTypes: ArgTypes = {
   negative,
   disabled,
   readonly,
-  disableAnimation,
   preserveIconSpace,
 
   // Option args
@@ -148,7 +138,6 @@ const defaultArgs: Args = {
   negative: false,
   disabled: false,
   readonly: false,
-  disableAnimation: isChromatic(),
 
   // Option args
   iconName: 'clock-small',
@@ -262,10 +251,7 @@ const Template = (args: Args): TemplateResult => html`
         ?readonly=${args.readonly}
       />
 
-      <sbb-autocomplete
-        ?disable-animation=${args.disableAnimation}
-        ?preserve-icon-space=${args.preserveIconSpace}
-      >
+      <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
         ${createOptionGroup1(args.iconName, args.disableOption)} ${createOptionGroup2()}
       </sbb-autocomplete>
     </sbb-form-field>
@@ -289,10 +275,7 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
         ?readonly=${args.readonly}
       />
 
-      <sbb-autocomplete
-        ?disable-animation=${args.disableAnimation}
-        ?preserve-icon-space=${args.preserveIconSpace}
-      >
+      <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
         <sbb-optgroup label="Group 1" ?disabled=${args.disableGroup}>
           ${createOptionGroup1(args.iconName, args.disableOption)}
         </sbb-optgroup>
@@ -319,10 +302,7 @@ const MixedTemplate = (args: Args): TemplateResult => html`
         ?readonly=${args.readonly}
       />
 
-      <sbb-autocomplete
-        ?disable-animation=${args.disableAnimation}
-        ?preserve-icon-space=${args.preserveIconSpace}
-      >
+      <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
         <sbb-option value="Option 1">
           <sbb-icon
             slot="icon"
@@ -374,10 +354,7 @@ const RequiredTemplate = (args: Args): TemplateResult => {
           }}
         />
 
-        <sbb-autocomplete
-          ?disable-animation=${args.disableAnimation}
-          ?preserve-icon-space=${args.preserveIconSpace}
-        >
+        <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
           <sbb-optgroup label="Group 1" ?disabled=${args.disableGroup}>
             ${createOptionGroup1(args.iconName, args.disableOption)}
           </sbb-optgroup>

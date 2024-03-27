@@ -1,7 +1,6 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
@@ -42,15 +41,6 @@ const size: InputType = {
 const value: InputType = {
   control: {
     type: 'text',
-  },
-  table: {
-    category: 'Toggle',
-  },
-};
-
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
   },
   table: {
     category: 'Toggle',
@@ -102,7 +92,6 @@ const defaultArgTypes: ArgTypes = {
   label,
   labelTwo,
   iconName,
-  'disable-animation': disableAnimation,
   ariaLabel,
 };
 
@@ -114,7 +103,6 @@ const defaultArgs: Args = {
   label: 'Bern',
   labelTwo: 'Zürich',
   iconName: undefined,
-  'disable-animation': isChromatic(),
   ariaLabel: undefined,
 };
 

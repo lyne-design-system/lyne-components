@@ -39,3 +39,13 @@
 @mixin scroll-margin-block-start {
   scroll-margin-block-start: var(--sbb-spacing-fixed-10x);
 }
+
+@mixin disable-animation {
+  --sbb-disable-animation-time: 0.1ms;
+  --sbb-disable-animation-zero-time: 0s;
+}
+
+@mixin enable-animation {
+  --sbb-disable-animation-time: initial;
+  --sbb-disable-animation-zero-time: initial;
+}

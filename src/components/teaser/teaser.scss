@@ -19,6 +19,10 @@
   --sbb-teaser-width: fit-content;
   --sbb-teaser-border-radius: var(--sbb-border-radius-4x);
   --sbb-teaser-brightness-hover: 1.075;
+  --sbb-teaser-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-4x)
+  );
 }
 
 :host([alignment='after']) {
@@ -75,7 +79,7 @@
   object-fit: cover;
   width: sbb.px-to-rem-build(300);
   filter: brightness(var(--sbb-teaser-brightness, 1));
-  transition: var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+  transition: var(--sbb-teaser-animation-duration) var(--sbb-animation-easing);
   aspect-ratio: 4/3;
 
   @include sbb.hover-mq($hover: true) {
@@ -91,7 +95,7 @@
   flex-shrink: 0;
   overflow: hidden;
   border-radius: var(--sbb-teaser-border-radius);
-  transition: var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+  transition: var(--sbb-teaser-animation-duration) var(--sbb-animation-easing);
 
   @include sbb.hover-mq($hover: true) {
     .sbb-teaser:hover & {

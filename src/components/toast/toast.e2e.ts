@@ -152,8 +152,8 @@ describe(`sbb-toast with ${fixture.name}`, () => {
   it('closes other toasts on open', async () => {
     const toast1 = await fixture<SbbToastElement>(
       html`
-        <sbb-toast id="toast1" disable-animation></sbb-toast>
-        <sbb-toast id="toast2" disable-animation></sbb-toast>
+        <sbb-toast id="toast1"></sbb-toast>
+        <sbb-toast id="toast2"></sbb-toast>
       `,
       { modules: ['./toast.ts'] },
     );

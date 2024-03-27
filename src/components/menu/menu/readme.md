@@ -57,6 +57,10 @@ As the menu opens, the focus will automatically be set to the first focusable it
 When using the `sbb-menu` as a select (e.g. language selection) it's recommended to use the `aria-pressed` attribute
 to identify which actions are active and which are not.
 
+## Animation
+
+Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
+
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -64,7 +68,6 @@ to identify which actions are active and which are not.
 | Name                     | Attribute                  | Privacy | Type                            | Default | Description                                                                                                                       |
 | ------------------------ | -------------------------- | ------- | ------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | `trigger`                | `trigger`                  | public  | `string \| HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. Accepts both a string (id of an element) or an HTML element.                      |
-| `disableAnimation`       | `disable-animation`        | public  | `boolean`                       | `false` | Whether the animation is enabled.                                                                                                 |
 | `listAccessibilityLabel` | `list-accessibility-label` | public  | `string \| undefined`           |         | This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list. |
 
 ## Methods

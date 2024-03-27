@@ -36,6 +36,10 @@ It's possible to set the first selected tab using the `initialSelectedIndex` pro
 <sbb-tab-group initial-selected-index="1"> ... </sbb-tab-group>
 ```
 
+## Animation
+
+Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
+
 <!-- Auto Generated Below -->
 
 ## Properties

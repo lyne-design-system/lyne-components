@@ -66,10 +66,6 @@ export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(L
    */
   @property() public trigger?: string | HTMLInputElement;
 
-  /** Whether the animation is disabled. */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
   /** Whether the icon space is preserved when no icon is set. */
   @property({ attribute: 'preserve-icon-space', reflect: true, type: Boolean })
   public preserveIconSpace?: boolean;

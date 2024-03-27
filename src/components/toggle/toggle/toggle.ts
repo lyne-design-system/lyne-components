@@ -70,12 +70,6 @@ export class SbbToggleElement extends LitElement {
   @property()
   public value: any | null;
 
-  /**
-   * Whether the animation is enabled.
-   */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
   private _loaded: boolean = false;
   private _toggleElement!: HTMLElement;
   private _toggleResizeObserver = new AgnosticResizeObserver(() =>

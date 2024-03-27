@@ -11,11 +11,6 @@
   line-height: 0;
 }
 
-// ":is([variant='circle'], ... )" is redundant but needed to enforce the specificity
-:host([disable-animation]:is([variant='circle'], [variant='window'])) {
-  --sbb-loading-indicator-duration: 0;
-}
-
 :host([color='smoke']) {
   --sbb-loading-indicator-color: var(--sbb-color-smoke);
 }
@@ -28,7 +23,7 @@
   --sbb-loading-indicator-height: var(--sbb-size-icon-ui-small);
   --sbb-loading-indicator-width: var(--sbb-size-icon-ui-small);
   --sbb-loading-indicator-padding: var(--sbb-border-width-2x);
-  --sbb-loading-indicator-duration: 1.5s;
+  --sbb-loading-indicator-duration: var(--sbb-disable-animation-zero-time, 1.5s);
   --sbb-loading-indicator-background-color: var(--sbb-color-white);
   --sbb-loading-indicator-circle-background: conic-gradient(
     from 90deg,
@@ -108,7 +103,7 @@
   --sbb-loading-indicator-height: sbb.px-to-rem-build(32);
   --sbb-loading-indicator-width: sbb.px-to-rem-build(55);
   --sbb-loading-indicator-padding: 0;
-  --sbb-loading-indicator-duration: 0.23s;
+  --sbb-loading-indicator-duration: var(--sbb-disable-animation-zero-time, 0.23s);
 }
 
 :host([variant='window'][size='small']) {

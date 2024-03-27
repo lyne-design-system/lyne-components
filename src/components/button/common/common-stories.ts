@@ -8,7 +8,6 @@ import type {
   StoryObj,
   WebComponentsRenderer,
 } from '@storybook/web-components';
-import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
@@ -50,7 +49,6 @@ const IconSlotTemplate = ({
 const LoadingIndicatorTemplate = ({ tag, text, ...args }: Args): TemplateResult => html`
   <${unsafeStatic(tag)} ${sbbSpread(args)}>
     <sbb-loading-indicator
-      ?disable-animation=${isChromatic()}
       slot="icon"
       variant="circle"
     ></sbb-loading-indicator>

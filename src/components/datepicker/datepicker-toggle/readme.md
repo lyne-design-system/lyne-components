@@ -36,11 +36,10 @@ both standalone or within the `sbb-form-field`, they must have the same parent e
 
 ## Properties
 
-| Name               | Attribute           | Privacy | Type                                          | Default | Description                        |
-| ------------------ | ------------------- | ------- | --------------------------------------------- | ------- | ---------------------------------- |
-| `datePicker`       | `date-picker`       | public  | `string \| SbbDatepickerElement \| undefined` |         | Datepicker reference.              |
-| `disableAnimation` | `disable-animation` | public  | `boolean`                                     | `false` | Whether the animation is disabled. |
-| `negative`         | `negative`          | public  | `boolean`                                     | `false` | Negative coloring variant flag.    |
+| Name         | Attribute     | Privacy | Type                                          | Default | Description                     |
+| ------------ | ------------- | ------- | --------------------------------------------- | ------- | ------------------------------- |
+| `datePicker` | `date-picker` | public  | `string \| SbbDatepickerElement \| undefined` |         | Datepicker reference.           |
+| `negative`   | `negative`    | public  | `boolean`                                     | `false` | Negative coloring variant flag. |
 
 ## Methods
 

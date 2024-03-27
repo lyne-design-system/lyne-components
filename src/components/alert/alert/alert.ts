@@ -49,9 +49,6 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
   /** You can choose between `m` or `l` size. */
   @property({ reflect: true }) public size: 'm' | 'l' = 'm';
 
-  /** Whether the fade in animation should be disabled. */
-  @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation = false;
-
   /**
    * Name of the icon which will be forward to the nested `sbb-icon`.
    * Choose the icons from https://icons.app.sbb.ch.

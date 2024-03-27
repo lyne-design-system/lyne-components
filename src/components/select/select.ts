@@ -80,10 +80,6 @@ export class SbbSelectElement extends UpdateScheduler(
   /** Whether the select is readonly. */
   @property({ type: Boolean }) public readonly = false;
 
-  /** Whether the animation is disabled. */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
   /** The state of the select. */
   @state() private _state: SbbOverlayState = 'closed';
 

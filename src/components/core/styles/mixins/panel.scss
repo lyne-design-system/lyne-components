@@ -20,7 +20,10 @@
   --sbb-panel-background-color-hover: var(--sbb-color-red);
   --sbb-panel-padding-inline: var(--sbb-spacing-responsive-m);
   --sbb-panel-gap: var(--sbb-spacing-responsive-xs);
-  --sbb-panel-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-panel-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-4x)
+  );
   --sbb-panel-animation-easing: var(--sbb-animation-easing);
 
   @include mediaqueries.mq($from: medium) {

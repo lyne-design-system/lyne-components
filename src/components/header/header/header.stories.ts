@@ -56,7 +56,7 @@ const HeaderBasicTemplate = (
     <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
       English
     </sbb-header-button>
-    <sbb-menu trigger="language-menu-trigger" ?disable-animation=${isChromatic()}>
+    <sbb-menu trigger="language-menu-trigger">
       <sbb-menu-button>Deutsch</sbb-menu-button>
       <sbb-menu-button>Français</sbb-menu-button>
       <sbb-menu-button>Italiano</sbb-menu-button>
@@ -89,11 +89,7 @@ const TemplateWithUserMenu = (args: Args): TemplateResult => html`
       >
         Christina Müller
       </sbb-header-button>
-      <sbb-menu
-        trigger="user-menu-trigger"
-        ?disable-animation=${isChromatic()}
-        data-testid="user-menu"
-      >
+      <sbb-menu trigger="user-menu-trigger" data-testid="user-menu">
         <sbb-menu-link icon-name="user-small" href="/"> Account </sbb-menu-link>
         <sbb-menu-button icon-name="tickets-class-small">Tickets</sbb-menu-button>
         <sbb-menu-button icon-name="shopping-cart-small" amount="1">

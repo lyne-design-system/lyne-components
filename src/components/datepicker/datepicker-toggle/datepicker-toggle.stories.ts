@@ -29,12 +29,6 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
 });
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const negative: InputType = {
   control: {
     type: 'boolean',
@@ -42,12 +36,10 @@ const negative: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  'disable-animation': disableAnimation,
   negative,
 };
 
 const defaultArgs: Args = {
-  'disable-animation': isChromatic(),
   negative: false,
 };
 

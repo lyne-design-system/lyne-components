@@ -72,18 +72,11 @@ const closeDelay: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
   'hover-trigger': hoverTrigger,
   'hide-close-button': hideCloseButton,
   'open-delay': openDelay,
   'close-delay': closeDelay,
-  'disable-animation': disableAnimation,
 };
 
 const defaultArgs: Args = {
@@ -91,7 +84,6 @@ const defaultArgs: Args = {
   'hide-close-button': false,
   'open-delay': undefined,
   'close-delay': undefined,
-  'disable-animation': isChromatic(),
 };
 
 const popoverTrigger = (position: Record<string, string>): TemplateResult => html`

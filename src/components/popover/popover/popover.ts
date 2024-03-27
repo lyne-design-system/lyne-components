@@ -73,10 +73,6 @@ export class SbbPopoverElement extends LitElement {
   /** Close the popover after a certain delay. */
   @property({ attribute: 'close-delay', type: Number }) public closeDelay? = 0;
 
-  /** Whether the animation is enabled. */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
   /** This will be forwarded as aria-label to the close button element. */
   @property({ attribute: 'accessibility-close-label' }) public accessibilityCloseLabel:
     | string

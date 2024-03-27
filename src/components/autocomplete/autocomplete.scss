@@ -52,10 +52,6 @@
   );
 }
 
-:host([disable-animation]) {
-  --sbb-options-panel-animation-duration: 0.1ms;
-}
-
 :host([preserve-icon-space]) {
   --sbb-option-icon-container-display: block;
 }

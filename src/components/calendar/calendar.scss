@@ -17,11 +17,14 @@
   --sbb-calendar-cell-selected-background-color: var(--sbb-color-charcoal);
   --sbb-calendar-cell-disabled-height: #{sbb.px-to-rem-build(1.5)};
   --sbb-calendar-cell-disabled-width: #{sbb.px-to-rem-build(25.5)};
-  --sbb-calendar-cell-transition-duration: var(--sbb-animation-duration-2x);
+  --sbb-calendar-cell-transition-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-2x)
+  );
   --sbb-calendar-cell-transition-easing-function: var(--sbb-animation-easing);
   --sbb-calendar-tables-gap: var(--sbb-spacing-fixed-10x);
   --sbb-calendar-table-animation-shift: #{sbb.px-to-rem-build(0.1)};
-  --sbb-calendar-table-animation-duration: 0.1ms;
+  --sbb-calendar-table-animation-duration: var(--sbb-disable-animation-time, 0.1ms);
   --sbb-calendar-table-column-spaces: 12;
   --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(44)};
   --sbb-calendar-control-view-change-color: var(--sbb-color-charcoal);

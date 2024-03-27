@@ -98,6 +98,10 @@ set the CSS class `sbb-header-shrinkable` on the desired `sbb-header-button`/`sb
 in the component's stories (see also [this Storybook issue](https://github.com/storybookjs/storybook/issues/8820)),
 so they were wrapped into a `style` tag and added to the Storybook's configuration file named `preview-head.html`.
 
+## Animation
+
+Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
+
 <!-- Auto Generated Below -->
 
 ## Properties

@@ -14,7 +14,10 @@
   --sbb-tab-title-inset: 0;
   --sbb-tab-title-marker-transform: scale(0);
   --sbb-tab-title-text-decoration: none;
-  --sbb-tab-title-animation-duration: var(--sbb-animation-duration-2x);
+  --sbb-tab-title-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-2x)
+  );
   --sbb-tab-title-animation-easing: var(--sbb-animation-easing);
   --sbb-tab-title-amount-color: var(--sbb-color-metal);
 

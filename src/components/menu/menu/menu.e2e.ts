@@ -21,7 +21,7 @@ describe(`sbb-menu with ${fixture.name}`, () => {
       html`
         <div>
           <sbb-button id="menu-trigger">Menu trigger</sbb-button>
-          <sbb-menu id="menu" trigger="menu-trigger" disable-animation>
+          <sbb-menu id="menu" trigger="menu-trigger">
             <sbb-block-link id="menu-link" href="#" size="xs">Profile</sbb-block-link>
             <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
             <sbb-menu-button id="menu-action-2" icon-name="pen-small" amount="1" disabled

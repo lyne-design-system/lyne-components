@@ -16,8 +16,8 @@ describe(`sbb-navigation-section with ${fixture.name}`, () => {
   beforeEach(async () => {
     const root = await fixture(
       html`
-        <sbb-navigation disable-animation>
-          <sbb-navigation-section disable-animation>
+        <sbb-navigation>
+          <sbb-navigation-section>
             <sbb-navigation-list>
               <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
               <sbb-navigation-button>Vacations & Recreation</sbb-navigation-button>

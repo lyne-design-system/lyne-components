@@ -26,7 +26,10 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   --sbb-button-border-width: var(--sbb-border-width-2x);
   --sbb-button-border-radius: var(--sbb-border-radius-infinity);
   --sbb-button-min-height: var(--sbb-size-button-l-min-height);
-  --sbb-button-transition-duration: var(--sbb-animation-duration-2x);
+  --sbb-button-transition-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-2x)
+  );
   --sbb-button-transition-easing-function: var(--sbb-animation-easing);
   --sbb-button-padding-block-min: var(--sbb-spacing-fixed-1x);
   --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);

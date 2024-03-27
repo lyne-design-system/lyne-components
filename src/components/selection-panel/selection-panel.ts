@@ -42,10 +42,6 @@ export class SbbSelectionPanelElement extends LitElement {
   /** Whether the unselected panel has a border. */
   @property({ reflect: true, type: Boolean }) public borderless = false;
 
-  /** Whether the animation is enabled. */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
   /** The state of the selection panel. */
   @state() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
 

@@ -15,7 +15,7 @@ describe(`sbb-notification with ${fixture.name}`, () => {
   beforeEach(async () => {
     element = await fixture(
       html`
-        <sbb-notification id="notification" disable-animation>
+        <sbb-notification id="notification">
           The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
           <sbb-link href="/">Link one</sbb-link>
         </sbb-notification>
@@ -33,7 +33,7 @@ describe(`sbb-notification with ${fixture.name}`, () => {
     const willCloseEventSpy = new EventSpy(SbbNotificationElement.events.willClose);
     const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose);
 
-    expect(element).not.to.be.null;
+    await waitForCondition(() => element.getAttribute('data-state') === 'opened');
     expect(element).to.have.attribute('data-state', 'opened');
 
     element.close();
@@ -62,7 +62,7 @@ describe(`sbb-notification with ${fixture.name}`, () => {
       '.sbb-notification__close',
     ) as SbbSecondaryButtonElement;
 
-    expect(element).not.to.be.null;
+    await waitForCondition(() => element.getAttribute('data-state') === 'opened');
     expect(element).to.have.attribute('data-state', 'opened');
 
     closeButton.click();

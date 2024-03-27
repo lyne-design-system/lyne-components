@@ -230,15 +230,6 @@ const dataNow: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Testing',
-  },
-};
-
 const basicArgTypes: ArgTypes = {
   value,
   form,
@@ -252,7 +243,6 @@ const basicArgTypes: ArgTypes = {
   dateHandling,
   'aria-label': ariaLabel,
   'data-now': dataNow,
-  disableAnimation,
 };
 
 const basicArgs: Args = {
@@ -267,7 +257,6 @@ const basicArgs: Args = {
   dateFilter: dateFilter.options[0],
   dateHandling: dateHandling.options[0],
   'aria-label': undefined,
-  disableAnimation: isChromatic(),
   dataNow: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
 };
 
@@ -332,17 +321,12 @@ const Template = ({
   wide,
   dateFilter,
   'data-now': dataNow,
-  disableAnimation,
   ...args
 }: Args): TemplateResult => {
   return html`
     <div style=${styleMap({ display: 'flex', gap: '0.25rem' })}>
       <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
-      <sbb-datepicker-toggle
-        date-picker="datepicker"
-        data-testid="toggle"
-        ?disable-animation=${disableAnimation}
-      ></sbb-datepicker-toggle>
+      <sbb-datepicker-toggle date-picker="datepicker" data-testid="toggle"></sbb-datepicker-toggle>
       <input ${sbbSpread(args)} id="datepicker-input" ${sbbSpread(getInputAttributes(min, max))} />
       <sbb-datepicker
         id="datepicker"
@@ -375,7 +359,6 @@ const TemplateFormField = ({
   dateFilter,
   dateHandling,
   'data-now': dataNow,
-  disableAnimation,
   ...args
 }: Args): TemplateResult => {
   return html`
@@ -389,10 +372,7 @@ const TemplateFormField = ({
       ${label ? html`<label>${label}</label>` : nothing}
       <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
       <sbb-datepicker-next-day></sbb-datepicker-next-day>
-      <sbb-datepicker-toggle
-        data-testid="toggle"
-        ?disable-animation=${disableAnimation}
-      ></sbb-datepicker-toggle>
+      <sbb-datepicker-toggle data-testid="toggle"></sbb-datepicker-toggle>
       <input ${sbbSpread(args)} ${sbbSpread(getInputAttributes(min, max))} />
       <sbb-datepicker
         .dateFilter=${dateFilter}

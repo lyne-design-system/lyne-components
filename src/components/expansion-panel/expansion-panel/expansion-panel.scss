@@ -5,7 +5,10 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-expansion-panel-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-expansion-panel-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-4x)
+  );
   --sbb-expansion-panel-background-color: var(--sbb-color-white);
   --sbb-expansion-panel-content-visibility: hidden;
   --sbb-expansion-panel-grid-template-rows: 0fr;
@@ -45,10 +48,6 @@
     padding var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing),
     opacity var(--sbb-expansion-panel-animation-duration)
       var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing);
-}
-
-:host([disable-animation]) {
-  --sbb-expansion-panel-animation-duration: 0.1ms;
 }
 
 :host([data-accordion][data-accordion-first]) {

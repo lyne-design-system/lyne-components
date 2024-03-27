@@ -86,12 +86,6 @@ const disabled: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
   headerText,
   iconName,
@@ -101,7 +95,6 @@ const defaultArgTypes: ArgTypes = {
   color,
   borderless,
   disabled,
-  'disable-animation': disableAnimation,
 };
 
 const defaultArgs: Args = {
@@ -113,7 +106,6 @@ const defaultArgs: Args = {
   color: color.options[0],
   borderless: false,
   disabled: false,
-  'disable-animation': false,
 };
 
 const Template = ({ headerText, iconName, contentText, ...args }: Args): TemplateResult => html`
@@ -198,12 +190,6 @@ export const LongText: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, headerText: longText, contentText: longText },
-};
-
-export const NoAnimation: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'disable-animation': true },
 };
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({

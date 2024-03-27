@@ -1,6 +1,5 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
@@ -115,12 +114,6 @@ const performanceMark: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
   alt: {},
   caption: {},
@@ -136,7 +129,6 @@ const defaultArgTypes: ArgTypes = {
   loading,
   'skip-lqip': skipLqip,
   'performance-mark': performanceMark,
-  'disable-animation': disableAnimation,
 };
 
 const defaultArgs: Args = {
@@ -155,7 +147,6 @@ const defaultArgs: Args = {
   loading: loading.options[1],
   'skip-lqip': false,
   'performance-mark': '',
-  'disable-animation': isChromatic(),
 };
 
 export const Default: StoryObj = {

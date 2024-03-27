@@ -1,6 +1,5 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -126,7 +125,6 @@ const Template = (args: Args): TemplateResult => html`
                     <sbb-pearl-chain
                       .legs=${[pastLeg, futureLeg]}
                       data-now=${new Date('2021-12-08T12:11:00+01:00').valueOf()}
-                      ?disable-animation=${isChromatic()}
                     ></sbb-pearl-chain>
                   </span>
                   <sbb-secondary-button-static icon-name="qrcode-small">
@@ -174,7 +172,6 @@ const Template = (args: Args): TemplateResult => html`
                     <sbb-pearl-chain
                       .legs=${[pastLeg, futureLeg]}
                       data-now=${new Date('2021-12-08T12:11:00+01:00').valueOf()}
-                      ?disable-animation=${isChromatic()}
                     ></sbb-pearl-chain>
                   </span>
                   <sbb-secondary-button-static> Details </sbb-secondary-button-static>

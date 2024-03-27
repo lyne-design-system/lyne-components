@@ -93,6 +93,10 @@ Nesting interactive controls like this interferes with many assistive technologi
 The component preserves focus on the input trigger,
 using `aria-activedescendant` to support navigation though the autocomplete options.
 
+## Animation
+
+Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
+
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -101,7 +105,6 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 | ------------------- | --------------------- | ------- | ----------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `origin`            | `origin`              | public  | `string \| HTMLElement \| undefined`      |         | The element where the autocomplete will attach; accepts both an element's id or an HTMLElement. If not set, will search for the first 'sbb-form-field' ancestor.                                                                                                                                                  |
 | `trigger`           | `trigger`             | public  | `string \| HTMLInputElement \| undefined` |         | The input element that will trigger the autocomplete opening; accepts both an element's id or an HTMLElement. By default, the autocomplete will open on focus, click, input or `ArrowDown` keypress of the 'trigger' element. If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor. |
-| `disableAnimation`  | `disable-animation`   | public  | `boolean`                                 | `false` | Whether the animation is disabled.                                                                                                                                                                                                                                                                                |
 | `preserveIconSpace` | `preserve-icon-space` | public  | `boolean \| undefined`                    |         | Whether the icon space is preserved when no icon is set.                                                                                                                                                                                                                                                          |
 | `originElement`     | -                     | public  | `HTMLElement`                             |         | Returns the element where autocomplete overlay is attached to.                                                                                                                                                                                                                                                    |
 | `triggerElement`    | -                     | public  | `HTMLInputElement \| undefined`           |         | Returns the trigger element.                                                                                                                                                                                                                                                                                      |

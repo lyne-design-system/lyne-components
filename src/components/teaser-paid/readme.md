@@ -11,6 +11,10 @@ The `sbb-teaser-paid` is a component with a background image and a chip with a t
 
 The `sbb-teaser-paid` component has two slots: the `image` slot, used to slot an `sbb-image` and the `chip` slot, used to slot an `sbb-chip`.
 
+## Animation
+
+Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
+
 <!-- Auto Generated Below -->
 
 ## Properties

@@ -71,22 +71,14 @@ const accessibilityCloseLabel: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const basicArgTypes: ArgTypes = {
   'aria-label': ariaLabel,
   'accessibility-close-label': accessibilityCloseLabel,
-  'disable-animation': disableAnimation,
 };
 
 const basicArgs: Args = {
   'aria-label': undefined,
   'accessibility-close-label': undefined,
-  'disable-animation': isChromatic(),
 };
 
 const triggerButton = (id: string): TemplateResult => html`
@@ -182,11 +174,7 @@ const WithNavigationSectionTemplate = (args: Args): TemplateResult => html`
     <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>
     <sbb-navigation-marker size="s">${navigationActionsS()}</sbb-navigation-marker>
 
-    <sbb-navigation-section
-      trigger="nav-1"
-      title-content="Title one"
-      ?disable-animation=${args['disable-animation']}
-    >
+    <sbb-navigation-section trigger="nav-1" title-content="Title one">
       ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
       ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
       <sbb-button size="m" style="width: fit-content"> All Tickets & Offers </sbb-button>
@@ -195,18 +183,13 @@ const WithNavigationSectionTemplate = (args: Args): TemplateResult => html`
     <sbb-navigation-section
       trigger="nav-2"
       title-content="Title two"
-      ?disable-animation=${args['disable-animation']}
       data-testid="navigation-section"
     >
       ${navigationList('Label', true)} ${navigationList('Label')} ${navigationList('Label')}
       ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
     </sbb-navigation-section>
 
-    <sbb-navigation-section
-      trigger="nav-3"
-      title-content="Title three"
-      ?disable-animation=${args['disable-animation']}
-    >
+    <sbb-navigation-section trigger="nav-3" title-content="Title three">
       ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
       <sbb-secondary-button
         size="m"

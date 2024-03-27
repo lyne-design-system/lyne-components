@@ -18,14 +18,17 @@ The `sbb-sticky-bar` content is provided via an unnamed slot.
 The `sbb-sticky-bar` inherits its variant from the `sbb-container` it's placed in.
 Optionally the user can set the `color` property on the `sbb-sticky-bar` in order to override the one inherited by the `sbb-container`. The color is only applied when the sticky bar is sticking, and will become transparent once it settles on the bottom of the container.
 
+## Animation
+
+Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
+
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name               | Attribute           | Privacy | Type                             | Default | Description                                          |
-| ------------------ | ------------------- | ------- | -------------------------------- | ------- | ---------------------------------------------------- |
-| `color`            | `color`             | public  | `'white' \| 'milk' \| undefined` |         | Color of the container, like transparent, white etc. |
-| `disableAnimation` | `disable-animation` | public  | `boolean`                        | `false` | Whether the animation is enabled.                    |
+| Name    | Attribute | Privacy | Type                             | Default | Description                                          |
+| ------- | --------- | ------- | -------------------------------- | ------- | ---------------------------------------------------- |
+| `color` | `color`   | public  | `'white' \| 'milk' \| undefined` |         | Color of the container, like transparent, white etc. |
 
 ## CSS Properties
 

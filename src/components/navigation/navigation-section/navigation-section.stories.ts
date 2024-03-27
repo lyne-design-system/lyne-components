@@ -45,20 +45,12 @@ const accessibilityLabel: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const basicArgTypes: ArgTypes = {
   'accessibility-label': accessibilityLabel,
-  'disable-animation': disableAnimation,
 };
 
 const basicArgs: Args = {
   'accessibility-label': undefined,
-  'disable-animation': isChromatic(),
 };
 
 const triggerButton = (id: string): TemplateResult => html`
@@ -90,12 +82,7 @@ const navigationList = (label: string): TemplateResult => html`
 
 const DefaultTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('navigation-trigger-1')}
-  <sbb-navigation
-    data-testid="navigation"
-    id="navigation"
-    trigger="navigation-trigger-1"
-    ?disable-animation=${args['disable-animation']}
-  >
+  <sbb-navigation data-testid="navigation" id="navigation" trigger="navigation-trigger-1">
     <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>
 
     <sbb-navigation-section

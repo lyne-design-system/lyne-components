@@ -113,24 +113,16 @@ const color: InputType = {
   options: ['default', 'smoke', 'white'],
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
   variant,
   size,
   color,
-  'disable-animation': disableAnimation,
 };
 
 const defaultArgs: Args = {
   variant: variant.options[0],
   size: size.options[0],
   color: color.options[0],
-  'disable-animation': isChromatic(),
 };
 
 export const WindowSmallDefault: StoryObj = {
@@ -192,12 +184,6 @@ export const Accessibility: StoryObj = {
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options[1] },
   play: isChromatic() ? playStory : undefined,
-};
-
-export const NoAnimation: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'disable-animation': true },
 };
 
 const meta: Meta = {

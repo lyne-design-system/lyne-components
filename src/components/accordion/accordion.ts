@@ -32,13 +32,6 @@ export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
   }
   private _titleLevel: SbbTitleLevel | null = null;
 
-  /**
-   * Whether the animation should be disabled.
-   * @controls SbbExpansionPanelElement.disableAnimation
-   */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
   /** Whether more than one sbb-expansion-panel can be open at the same time. */
   @property({ type: Boolean })
   public set multi(value: boolean) {
@@ -98,7 +91,6 @@ export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
     this._expansionPanels.forEach(
       (panel: SbbExpansionPanelElement, index: number, array: SbbExpansionPanelElement[]) => {
         panel.titleLevel = this.titleLevel;
-        panel.disableAnimation = this.disableAnimation;
         panel.toggleAttribute('data-accordion-first', index === 0);
         panel.toggleAttribute('data-accordion-last', index === array.length - 1);
       },

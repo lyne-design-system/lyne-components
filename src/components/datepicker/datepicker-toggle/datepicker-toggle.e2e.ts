@@ -61,7 +61,7 @@ describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
     const root = await fixture(
       html`
         <div>
-          <sbb-datepicker-toggle date-picker="datepicker" disable-animation></sbb-datepicker-toggle>
+          <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
           <sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
           <input id="datepicker-input" />
         </div>

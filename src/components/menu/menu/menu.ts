@@ -88,12 +88,6 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
   private _trigger: string | HTMLElement | null = null;
 
   /**
-   * Whether the animation is enabled.
-   */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
-  /**
    * This will be forwarded as aria-label to the inner list.
    * Used only if the menu automatically renders the actions inside as a list.
    */

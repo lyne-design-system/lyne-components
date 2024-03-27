@@ -20,7 +20,7 @@ describe(`sbb-popover with ${fixture.name}`, () => {
         html`
           <span>
             <sbb-button id="popover-trigger">Popover trigger</sbb-button>
-            <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
+            <sbb-popover id="popover" trigger="popover-trigger">
               Popover content.
               <sbb-link id="popover-link" href="#" sbb-popover-close>Link</sbb-link>
             </sbb-popover>
@@ -392,7 +392,7 @@ describe(`sbb-popover with ${fixture.name}`, () => {
         html`
           <span>
             <sbb-button id="popover-trigger">Popover trigger</sbb-button>
-            <sbb-popover id="popover" trigger="popover-trigger" disable-animation hide-close-button>
+            <sbb-popover id="popover" trigger="popover-trigger" hide-close-button>
               Popover content.
             </sbb-popover>
             <sbb-block-link href="#" id="interactive-background-element"
@@ -460,10 +460,8 @@ describe(`sbb-popover with ${fixture.name}`, () => {
           >
           <sbb-button id="popover-trigger">Popover trigger</sbb-button>
           <sbb-button id="another-popover-trigger">Another popover trigger</sbb-button>
-          <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
-            Popover content.
-          </sbb-popover>
-          <sbb-popover id="another-popover" trigger="another-popover-trigger" disable-animation>
+          <sbb-popover id="popover" trigger="popover-trigger"> Popover content. </sbb-popover>
+          <sbb-popover id="another-popover" trigger="another-popover-trigger">
             Another popover content.
           </sbb-popover>
         </div>

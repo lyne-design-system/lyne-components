@@ -66,6 +66,10 @@ The `sbb-slider` has the following behaviour on keypress when focused:
 | End         | Set the value to the maximum.                     |
 | Home        | Set the value to the minimum.                     |
 
+## Animation
+
+Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
+
 <!-- Auto Generated Below -->
 
 ## Properties

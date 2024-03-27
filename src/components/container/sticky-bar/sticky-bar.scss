@@ -6,8 +6,14 @@ $intersector-overlapping: 1px;
   @include sbb.box-sizing;
 
   --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xs);
-  --sbb-sticky-bar-fade-in-animation-duration: var(--sbb-animation-duration-5x);
-  --sbb-sticky-bar-fade-out-animation-duration: var(--sbb-animation-duration-2x);
+  --sbb-sticky-bar-fade-in-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-5x)
+  );
+  --sbb-sticky-bar-fade-out-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-2x)
+  );
   --sbb-sticky-bar-animation-easing: var(--sbb-animation-easing);
   --sbb-sticky-bar-border-radius: var(--sbb-border-radius-8x);
 
@@ -28,11 +34,6 @@ $intersector-overlapping: 1px;
 
 :host([data-sticking][color='milk']) {
   --sbb-sticky-bar-sticky-background-color: var(--sbb-color-milk);
-}
-
-:host([disable-animation]) {
-  --sbb-sticky-bar-fade-in-animation-duration: 0.1ms;
-  --sbb-sticky-bar-fade-out-animation-duration: 0.1ms;
 }
 
 .sbb-sticky-bar__wrapper {

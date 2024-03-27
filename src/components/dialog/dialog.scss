@@ -18,7 +18,10 @@
   --sbb-dialog-inset: 0 auto auto 0;
   --sbb-dialog-border-radius: var(--sbb-border-radius-8x);
   --sbb-dialog-padding-block: var(--sbb-spacing-responsive-s);
-  --sbb-dialog-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-dialog-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-6x)
+  );
   --sbb-dialog-animation-easing: ease;
   --sbb-dialog-pointer-events: none;
   --sbb-dialog-backdrop-visibility: hidden;
@@ -72,10 +75,6 @@
   --sbb-dialog-color: var(--sbb-color-white);
   --sbb-dialog-background-color: var(--sbb-color-midnight);
   --sbb-dialog-footer-border: none;
-}
-
-:host([disable-animation]) {
-  --sbb-dialog-animation-duration: 0.1ms;
 }
 
 :host([data-fullscreen]:not([negative])) {

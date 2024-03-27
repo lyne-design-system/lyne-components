@@ -19,7 +19,7 @@ describe(`sbb-popover-trigger with ${fixture.name}`, () => {
       html`
         <div>
           <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
-          <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
+          <sbb-popover id="popover" trigger="popover-trigger">
             Popover content.
             <sbb-link id="popover-link" sbb-popover-close>Link</sbb-link>
           </sbb-popover>

@@ -113,7 +113,7 @@
       var(--sbb-slider-value-fraction)
   );
   transition-property: width, height;
-  transition-duration: var(--sbb-animation-duration-1x);
+  transition-duration: var(--sbb-disable-animation-time, var(--sbb-animation-duration-1x));
   transition-timing-function: ease-in;
   background-color: var(--sbb-slider-knob-color);
   border: var(--sbb-slider-knob-border-size) var(--sbb-slider-knob-border-style)

@@ -44,27 +44,16 @@ const color: InputType = {
   options: ['unset', 'white', 'milk'],
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Sticky Bar',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
   expanded,
   color,
   containerColor,
-  disableAnimation,
 };
 
 const defaultArgs: Args = {
   expanded: false,
   color: color.options[0],
   containerColor: containerColor.options[0],
-  disableAnimation: isChromatic(),
 };
 
 const actionGroup = (): TemplateResult => html`
@@ -110,51 +99,26 @@ const Template = (): TemplateResult =>
     <sbb-secondary-button>Example</sbb-secondary-button>
   </sbb-sticky-bar>`;
 
-const DefaultTemplate = ({
-  color,
-  containerColor,
-  disableAnimation,
-  ...args
-}: Args): TemplateResult => html`
+const DefaultTemplate = ({ color, containerColor, ...args }: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${containerColor}>
     ${containerContent('Example title')} ${containerContent('Another one')}
     ${containerContent('And another one')} ${containerContent('And a last one')}
 
-    <sbb-sticky-bar
-      color=${color !== 'unset' ? color : nothing}
-      ?disable-animation=${disableAnimation}
-    >
-      ${actionGroup()}
-    </sbb-sticky-bar>
+    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
   </sbb-container>
 `;
 
-const ShortTemplate = ({
-  color,
-  containerColor,
-  disableAnimation,
-  ...args
-}: Args): TemplateResult => html`
+const ShortTemplate = ({ color, containerColor, ...args }: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${containerColor}>
     ${isChromatic()
       ? containerContentChromatic('Example title')
       : containerContent('Example title')}
 
-    <sbb-sticky-bar
-      color=${color !== 'unset' ? color : nothing}
-      ?disable-animation=${disableAnimation}
-    >
-      ${actionGroup()}
-    </sbb-sticky-bar>
+    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
   </sbb-container>
 `;
 
-const WithContentAfterTemplate = ({
-  color,
-  containerColor,
-  disableAnimation,
-  ...args
-}: Args): TemplateResult => html`
+const WithContentAfterTemplate = ({ color, containerColor, ...args }: Args): TemplateResult => html`
   <sbb-container
     ${sbbSpread(args)}
     color=${containerColor}
@@ -165,7 +129,6 @@ const WithContentAfterTemplate = ({
 
     <sbb-sticky-bar
       color=${color !== 'unset' ? color : nothing}
-      ?disable-animation=${disableAnimation}
       style="--sbb-sticky-bar-bottom-overlapping-height: var(--sbb-spacing-responsive-l);"
     >
       ${actionGroup()}

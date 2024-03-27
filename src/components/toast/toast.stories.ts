@@ -80,19 +80,12 @@ const iconName: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
   position,
   dismissible,
   timeout,
   politeness,
   'icon-name': iconName,
-  'disable-animation': disableAnimation,
 };
 
 const defaultArgs: Args = {
@@ -101,7 +94,6 @@ const defaultArgs: Args = {
   timeout: 6000,
   politeness: 'polite',
   'icon-name': 'circle-tick-small',
-  'disable-animation': isChromatic(),
 };
 
 const toastTemplate = (

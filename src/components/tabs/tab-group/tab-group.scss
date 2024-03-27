@@ -4,6 +4,13 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
+:host {
+  --sbb-tab-group-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-4x)
+  );
+}
+
 .tab-group {
   display: flex;
   flex-wrap: wrap;
@@ -11,7 +18,7 @@
 
 .tab-content {
   margin-block-start: var(--sbb-spacing-responsive-m);
-  transition: height var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+  transition: height var(--sbb-tab-group-animation-duration) var(--sbb-animation-easing);
 
   ::slotted(*) {
     visibility: hidden;
@@ -26,8 +33,8 @@
     height: fit-content;
     overflow: unset;
     transition: {
-      duration: var(--sbb-animation-duration-4x);
-      delay: var(--sbb-animation-duration-4x);
+      duration: var(--sbb-tab-group-animation-duration);
+      delay: var(--sbb-tab-group-animation-duration);
       timing-function: var(--sbb-animation-easing);
       property: opacity, visibility;
     }

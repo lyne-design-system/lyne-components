@@ -62,7 +62,10 @@
   --sbb-button-color-disabled-text: var(--sbb-color-granite);
   --sbb-button-border-width: #{functions.px-to-rem-build(0)};
   --sbb-button-border-radius: var(--sbb-border-radius-infinity);
-  --sbb-button-transition-duration: var(--sbb-animation-duration-2x);
+  --sbb-button-transition-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-2x)
+  );
   --sbb-button-transition-easing-function: var(--sbb-animation-easing);
   --sbb-button-inset: #{functions.px-to-rem-build(1)};
 

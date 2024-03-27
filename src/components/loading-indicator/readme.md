@@ -45,13 +45,16 @@ and then append the `sbb-loading-indicator` on it after giving it the correct `a
 </div>
 ```
 
+## Animation
+
+Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
+
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name               | Attribute           | Privacy | Type                                | Default     | Description                                                                                       |
-| ------------------ | ------------------- | ------- | ----------------------------------- | ----------- | ------------------------------------------------------------------------------------------------- |
-| `variant`          | `variant`           | public  | `'window' \| 'circle' \| undefined` |             | Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay. |
-| `size`             | `size`              | public  | `'s' \| 'l'`                        | `'s'`       | Size variant, either s or m.                                                                      |
-| `color`            | `color`             | public  | `'default' \| 'smoke' \| 'white'`   | `'default'` | Color variant.                                                                                    |
-| `disableAnimation` | `disable-animation` | public  | `boolean`                           | `false`     | Whether the animation is enabled.                                                                 |
+| Name      | Attribute | Privacy | Type                                | Default     | Description                                                                                       |
+| --------- | --------- | ------- | ----------------------------------- | ----------- | ------------------------------------------------------------------------------------------------- |
+| `variant` | `variant` | public  | `'window' \| 'circle' \| undefined` |             | Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay. |
+| `size`    | `size`    | public  | `'s' \| 'l'`                        | `'s'`       | Size variant, either s or m.                                                                      |
+| `color`   | `color`   | public  | `'default' \| 'smoke' \| 'white'`   | `'default'` | Color variant.                                                                                    |

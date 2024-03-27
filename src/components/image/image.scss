@@ -6,6 +6,10 @@
 
 :host {
   --image-border-radius: var(--sbb-border-radius-4x);
+  --sbb-image-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-4x)
+  );
 }
 
 .image__figure {
@@ -27,9 +31,7 @@
 // To support transparent images, we need also to fade out the blurred lqip image.
 // This is not perfect in the case of a non transparent image, but does not look that bad.
 .image__figure :is(.image__img, .image__blur-hash) {
-  :host(:not([disable-animation])) & {
-    transition: opacity var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
-  }
+  transition: opacity var(--sbb-image-animation-duration) var(--sbb-animation-easing);
 }
 
 .image__figure .image__img {

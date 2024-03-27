@@ -14,7 +14,10 @@
 
 :host {
   --sbb-navigation-grid-column: 1 / 5;
-  --sbb-navigation-animation-duration: var(--sbb-animation-duration-3x);
+  --sbb-navigation-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-3x)
+  );
   --sbb-navigation-animation-easing: ease-in;
   --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive);
   --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-l);
@@ -50,7 +53,10 @@
 
   @include sbb.mq($from: large) {
     --sbb-navigation-grid-column: 1 / 5;
-    --sbb-navigation-animation-duration: var(--sbb-animation-duration-6x);
+    --sbb-navigation-animation-duration: var(
+      --sbb-disable-animation-time,
+      var(--sbb-animation-duration-6x)
+    );
     --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xl);
     --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive) 0;
     --sbb-navigation-list-margin-block-start: var(--sbb-spacing-fixed-1x);
@@ -94,8 +100,8 @@
   }
 }
 
-:host(:is([data-resize-disable-animation], [disable-animation])) {
-  --sbb-navigation-animation-duration: 0.1ms;
+:host(:is([data-resize-disable-animation])) {
+  @include sbb.disable-animation;
 }
 
 .sbb-navigation__container {

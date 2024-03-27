@@ -1,3 +1,6 @@
+import { html, nothing } from 'lit';
+import isChromatic from 'chromatic';
+import type { Decorator } from '@storybook/web-components';
 import * as tokens from '@sbb-esta/lyne-design-tokens';
 import '../src/components/core/styles/global.scss';
 
@@ -59,3 +62,9 @@ export const parameters = {
     },
   },
 };
+
+export const decorators: Decorator[] = [
+  (story) => html`
+    <div class=${isChromatic() ? 'sbb-disable-animation' : nothing}>${story()}</div>
+  `,
+];

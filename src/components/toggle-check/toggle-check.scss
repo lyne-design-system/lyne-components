@@ -26,6 +26,10 @@
   --sbb-toggle-check-cursor: pointer;
   --sbb-toggle-check-flex-direction: row-reverse;
   --sbb-toggle-check-gap: var(--sbb-spacing-fixed-3x);
+  --sbb-toggle-check-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-6x)
+  );
 
   @include sbb.if-forced-colors {
     --sbb-toggle-check-background-color: CanvasText;
@@ -148,7 +152,7 @@
   color: var(--sbb-toggle-check-icon-color);
   will-change: transform;
   transform: var(--sbb-toggle-check-circle-transform);
-  transition: transform ease var(--sbb-animation-duration-6x);
+  transition: transform ease var(--sbb-toggle-check-animation-duration);
 }
 
 .sbb-toggle-check__icon {
@@ -157,5 +161,5 @@
   width: var(--sbb-size-icon-ui-small);
   height: var(--sbb-size-icon-ui-small);
   opacity: var(--sbb-toggle-check-icon-opacity);
-  transition: opacity ease var(--sbb-animation-duration-6x);
+  transition: opacity ease var(--sbb-toggle-check-animation-duration);
 }

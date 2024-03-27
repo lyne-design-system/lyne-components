@@ -8,7 +8,10 @@
   // Overwrites logo in slotted and default case
   --sbb-logo-height: #{sbb.px-to-rem-build(16)};
   --sbb-header-position: fixed;
-  --sbb-header-transition-duration: var(--sbb-animation-duration-6x);
+  --sbb-header-transition-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-6x)
+  );
   --sbb-header-inset-inline-end: 0;
 
   @include sbb.mq($from: medium) {

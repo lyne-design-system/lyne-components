@@ -141,3 +141,20 @@ input[data-sbb-time-input] {
 .sbb-screen-reader-only {
   @include a11y.screen-reader-only;
 }
+
+.sbb-disable-animation {
+  @include a11y.disable-animation;
+}
+
+// TODO: help me find a better name for it :|
+.sbb-disable-animation-specific {
+  @include a11y.disable-animation;
+
+  & > * {
+    @include a11y.enable-animation;
+  }
+}
+
+.sbb-enable-animation {
+  @include a11y.enable-animation;
+}

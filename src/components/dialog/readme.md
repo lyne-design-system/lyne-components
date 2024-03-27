@@ -74,6 +74,10 @@ You can also set the property `titleBackButton` to display the back button in th
 
 It's possible to display the component in `negative` variant using the self-named property.
 
+## Animation
+
+Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
+
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -87,7 +91,6 @@ It's possible to display the component in `negative` variant using the self-name
 | `accessibilityLabel`      | `accessibility-label`       | public  | `string \| undefined`        |           | This will be forwarded as aria-label to the relevant nested element.            |
 | `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined` |           | This will be forwarded as aria-label to the close button element.               |
 | `accessibilityBackLabel`  | `accessibility-back-label`  | public  | `\| string     \| undefined` |           | This will be forwarded as aria-label to the back button element.                |
-| `disableAnimation`        | `disable-animation`         | public  | `boolean`                    | `false`   | Whether the animation is enabled.                                               |
 | `negative`                | `negative`                  | public  | `boolean`                    | `false`   | Negative coloring variant flag.                                                 |
 
 ## Methods

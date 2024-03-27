@@ -1,7 +1,6 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
@@ -42,12 +41,6 @@ const borderless: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const checkedInput: InputType = {
   control: {
     type: 'boolean',
@@ -70,7 +63,6 @@ const basicArgTypes: ArgTypes = {
   color: color,
   'force-open': forceOpen,
   borderless: borderless,
-  'disable-animation': disableAnimation,
   checkedInput,
   disabledInput,
 };
@@ -79,7 +71,6 @@ const basicArgs: Args = {
   color: color.options[0],
   'force-open': false,
   borderless: false,
-  'disable-animation': isChromatic(),
   checkedInput: false,
   disabledInput: false,
 };

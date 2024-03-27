@@ -6,7 +6,6 @@ snapshots["sbb-selection-panel renders - Dom"] =
   data-has-card-badge=""
   data-slot-names="badge content unnamed"
   data-state="closed"
-  disable-animation=""
 >
   <sbb-card-badge
     color="charcoal"

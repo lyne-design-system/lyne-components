@@ -52,10 +52,6 @@
   );
 }
 
-:host([disable-animation]) {
-  --sbb-options-panel-animation-duration: 0.1ms;
-}
-
 ::slotted(sbb-divider) {
   margin-block: var(--sbb-spacing-fixed-3x);
 }

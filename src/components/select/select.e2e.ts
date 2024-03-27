@@ -21,7 +21,7 @@ describe(`sbb-select with ${fixture.name}`, () => {
     const root = await fixture(
       html`
         <div id="parent">
-          <sbb-select placeholder="Placeholder" disable-animation>
+          <sbb-select placeholder="Placeholder">
             <sbb-option id="option-1" value="1">First</sbb-option>
             <sbb-option id="option-2" value="2">Second</sbb-option>
             <sbb-option id="option-3" value="3">Third</sbb-option>

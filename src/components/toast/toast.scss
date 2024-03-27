@@ -6,7 +6,10 @@
 
 :host {
   --sbb-toast-max-width: #{sbb.px-to-rem-build(400)};
-  --sbb-toast-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-toast-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-6x)
+  );
   --sbb-toast-animation-timing-function: ease;
   --sbb-toast-color: var(--sbb-color-white);
   --sbb-toast-text-color: var(--sbb-color-milk);
@@ -20,10 +23,6 @@
   --sbb-toast-container-position: fixed;
   --sbb-toast-horizontal-position: initial;
   --sbb-toast-vertical-position: initial;
-}
-
-:host([disable-animation]) {
-  --sbb-toast-animation-duration: 0.1ms;
 }
 
 :host(:not([data-state])),

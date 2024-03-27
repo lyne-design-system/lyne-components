@@ -34,15 +34,6 @@ const multi: InputType = {
   },
 };
 
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Accordion',
-  },
-};
-
 const titleLevel: InputType = {
   control: {
     type: 'inline-radio',
@@ -120,7 +111,6 @@ const contentText: InputType = {
 const defaultArgTypes: ArgTypes = {
   numberOfPanels,
   multi,
-  'disable-animation': disableAnimation,
   'title-level': titleLevel,
   color,
   expanded,
@@ -134,7 +124,6 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   numberOfPanels: 3,
   multi: false,
-  'disable-animation': false,
   'title-level': titleLevel.options[2],
   color: color.options[0],
   expanded: false,
@@ -225,12 +214,6 @@ export const Multi: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, multi: true },
-};
-
-export const NoAnimation: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'disable-animation': true },
 };
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({

@@ -7,7 +7,10 @@
 :host {
   --sbb-menu-position-x: 0;
   --sbb-menu-position-y: 0;
-  --sbb-menu-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-menu-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-6x)
+  );
   --sbb-menu-animation-easing: ease;
   --sbb-menu-transform: translateY(100%);
   --sbb-menu-max-width: 100%;
@@ -51,10 +54,6 @@
 
 :host(:not([data-state='closed'])) {
   --sbb-menu-inset: 0;
-}
-
-:host([disable-animation]) {
-  --sbb-menu-animation-duration: 0.1ms;
 }
 
 ::slotted(:not(sbb-menu-button, sbb-menu-link, sbb-divider)) {

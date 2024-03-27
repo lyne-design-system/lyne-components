@@ -12,7 +12,10 @@
   --sbb-teaser-paid-chip-inset: var(--sbb-spacing-responsive-xxxs) auto auto
     var(--sbb-spacing-responsive-xxxs);
   --sbb-teaser-paid-brightness-hover: 1.075;
-  --sbb-teaser-paid-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-teaser-paid-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-4x)
+  );
   --sbb-teaser-paid-animation-easing: var(--sbb-animation-easing);
 }
 

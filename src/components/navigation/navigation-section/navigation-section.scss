@@ -9,7 +9,10 @@
   --sbb-navigation-section-column: 1 / 5;
   --sbb-navigation-section-position: fixed;
   --sbb-navigation-section-pointer-events: none;
-  --sbb-navigation-section-animation-duration: var(--sbb-animation-duration-3x);
+  --sbb-navigation-section-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-3x)
+  );
   --sbb-navigation-section-animation-easing: ease-out;
   --sbb-navigation-section-padding-inline: var(--sbb-layout-base-offset-responsive);
   --sbb-navigation-section-padding-block: var(--sbb-spacing-responsive-l);
@@ -43,7 +46,10 @@
 
   @include sbb.mq($from: large) {
     --sbb-navigation-section-column: 5 / 9;
-    --sbb-navigation-section-animation-duration: var(--sbb-animation-duration-4x);
+    --sbb-navigation-section-animation-duration: var(
+      --sbb-disable-animation-time,
+      var(--sbb-animation-duration-4x)
+    );
     --sbb-navigation-section-padding-block: var(--sbb-spacing-responsive-xl);
     --sbb-navigation-section-padding-inline: var(--sbb-spacing-fixed-8x)
       var(--sbb-layout-base-offset-responsive);
@@ -82,10 +88,6 @@
 
 :host([data-state]:not([data-state='closed'])) {
   --sbb-navigation-section-display: block;
-}
-
-:host([disable-animation]) {
-  --sbb-navigation-section-animation-duration: 0.1ms;
 }
 
 ::slotted(*) {

@@ -54,6 +54,10 @@ On opening, the focus will be automatically set on the first focusable element o
 When a navigation action is marked to indicate the user is currently on that page, `aria-current="page"` should be set on that action.
 Similarly, if a navigation action is marked to indicate a selected option (e.g., the selected language) `aria-pressed` should be set on that action.
 
+## Animation
+
+Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
+
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -62,7 +66,6 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 | ------------------------- | --------------------------- | ------- | ------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------- |
 | `trigger`                 | `trigger`                   | public  | `string \| HTMLElement \| null` | `null`  | The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element. |
 | `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined`    |         | This will be forwarded as aria-label to the close button element.                                          |
-| `disableAnimation`        | `disable-animation`         | public  | `boolean`                       | `false` | Whether the animation is enabled.                                                                          |
 | `activeNavigationSection` | -                           | public  | `HTMLElement \| null`           | `null`  |                                                                                                            |
 
 ## Methods

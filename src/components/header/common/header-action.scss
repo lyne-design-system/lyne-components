@@ -10,7 +10,10 @@
   --sbb-header-action-background-color: transparent;
   --sbb-header-action-min-height: var(--sbb-size-button-m-min-height);
   --sbb-header-action-min-width: var(--sbb-header-action-min-height);
-  --sbb-header-action-transition-duration: var(--sbb-animation-duration-2x);
+  --sbb-header-action-transition-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-2x)
+  );
   --sbb-header-action-transition-easing: var(--sbb-animation-easing);
   --sbb-header-action-border-color: transparent;
   --sbb-header-action-background-inset: 0;

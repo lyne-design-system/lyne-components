@@ -280,10 +280,6 @@ export class SbbImageElement extends LitElement {
   @property({ attribute: 'aspect-ratio' })
   public aspectRatio: InterfaceImageAttributes['aspectRatio'] = '16-9';
 
-  /** Whether the fade animation from blurred to real image should be disabled. */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
   private _logPerformanceMarks(): void {
     if (this.performanceMark) {
       performance.clearMarks(this.performanceMark);

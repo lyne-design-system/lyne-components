@@ -83,12 +83,6 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
     | undefined;
 
   /**
-   * Whether the animation is enabled.
-   */
-  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
-  public disableAnimation = false;
-
-  /**
    * The state of the navigation section.
    */
   @state() private _state: SbbOverlayState = 'closed';

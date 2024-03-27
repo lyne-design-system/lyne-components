@@ -14,7 +14,10 @@ $open-anim-opacity-to: 1;
   --sbb-selection-panel-cursor: pointer;
   --sbb-selection-panel-background: var(--sbb-color-white);
   --sbb-selection-panel-border-color: var(--sbb-color-cloud);
-  --sbb-selection-panel-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-selection-panel-animation-duration: var(
+    --sbb-disable-animation-time,
+    var(--sbb-animation-duration-4x)
+  );
   --sbb-selection-panel-border-width: var(--sbb-border-width-1x);
   --sbb-selection-panel-input-pointer-events: all;
   --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
@@ -52,8 +55,8 @@ $open-anim-opacity-to: 1;
   --sbb-selection-panel-border-color: transparent;
 }
 
-:host(:is([data-resize-disable-animation], [disable-animation])) {
-  --sbb-selection-panel-animation-duration: 0.1ms;
+:host([data-resize-disable-animation]) {
+  @include sbb.disable-animation;
 }
 
 :host([data-slot-names~='content']:where([data-state='opening'], [data-state='opened'])) {

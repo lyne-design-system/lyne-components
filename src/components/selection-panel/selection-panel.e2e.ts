@@ -22,7 +22,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
     /* eslint-disable lit/binding-positions */
     return html`
       <${tagGroupElement} ${inputType === 'radio-button' && 'value="Value one"'}>
-        <sbb-selection-panel disable-animation id="sbb-selection-panel-1">
+        <sbb-selection-panel id="sbb-selection-panel-1">
           <${tagSingle} id="sbb-input-1" value="Value one" ?checked='${
             inputType === 'checkbox'
           }'>Value one</${tagSingle}>
@@ -31,21 +31,21 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
             <sbb-block-link-button>Link</sbb-block-link-button>
           </div>
         </sbb-selection-panel>
-        <sbb-selection-panel disable-animation id="sbb-selection-panel-2">
+        <sbb-selection-panel id="sbb-selection-panel-2">
           <${tagSingle} id="sbb-input-2" value="Value two">Value two</${tagSingle}>
           <div id="panel-content-2" slot="content">
             Inner Content
             <sbb-block-link-button>Link</sbb-block-link-button>
           </div>
         </sbb-selection-panel>
-        <sbb-selection-panel disable-animation id="sbb-selection-panel-3">
+        <sbb-selection-panel id="sbb-selection-panel-3">
           <${tagSingle} id="sbb-input-3" value="Value three" disabled>Value three</${tagSingle}>
           <div id="panel-content-3" slot="content">
             Inner Content
             <sbb-block-link-button>Link</sbb-block-link-button>
           </div>
         </sbb-selection-panel>
-        <sbb-selection-panel disable-animation id="sbb-selection-panel-4">
+        <sbb-selection-panel id="sbb-selection-panel-4">
           <${tagSingle} id="sbb-input-4" value="Value four">Value four</${tagSingle}>
           <div id="panel-content-4" slot="content">
             Inner Content
@@ -257,18 +257,18 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
       const wrapperNoContent = await fixture(
         html`
           <sbb-radio-button-group id="group-no-content" value="Value 2">
-            <sbb-selection-panel disable-animation id="no-content-1">
+            <sbb-selection-panel id="no-content-1">
               <sbb-radio-button id="input-no-content-1" value="Value 1">Value one</sbb-radio-button>
             </sbb-selection-panel>
-            <sbb-selection-panel disable-animation id="no-content-2">
+            <sbb-selection-panel id="no-content-2">
               <sbb-radio-button id="input-no-content-2" value="Value 2">Value two</sbb-radio-button>
             </sbb-selection-panel>
-            <sbb-selection-panel disable-animation id="no-content-3">
+            <sbb-selection-panel id="no-content-3">
               <sbb-radio-button id="input-no-content-3" value="Value 3" disabled
                 >Value three</sbb-radio-button
               >
             </sbb-selection-panel>
-            <sbb-selection-panel disable-animation id="no-content-4">
+            <sbb-selection-panel id="no-content-4">
               <sbb-radio-button id="input-no-content-4" value="Value 4"
                 >Value four</sbb-radio-button
               >
@@ -340,7 +340,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
       nestedElement = await fixture(
         html`
           <sbb-radio-button-group orientation="vertical" horizontal-from="large">
-            <sbb-selection-panel disable-animation id="panel1">
+            <sbb-selection-panel id="panel1">
               <sbb-radio-button value="main1" checked> Main Option 1 </sbb-radio-button>
               <sbb-radio-button-group orientation="vertical" slot="content">
                 <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
@@ -348,7 +348,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
               </sbb-radio-button-group>
             </sbb-selection-panel>
 
-            <sbb-selection-panel disable-animation id="panel2">
+            <sbb-selection-panel id="panel2">
               <sbb-radio-button value="main2"> Main Option 2 </sbb-radio-button>
               <sbb-radio-button-group orientation="vertical" slot="content">
                 <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
@@ -467,7 +467,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
         html`
           <div>
             <template>
-              <sbb-selection-panel disable-animation>
+              <sbb-selection-panel>
                 <sbb-radio-button value="main1" checked="true"> Main Option 1 </sbb-radio-button>
                 <sbb-radio-button-group orientation="vertical" slot="content">
                   <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
@@ -475,7 +475,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
                 </sbb-radio-button-group>
               </sbb-selection-panel>
 
-              <sbb-selection-panel disable-animation>
+              <sbb-selection-panel>
                 <sbb-radio-button value="main2"> Main Option 2 </sbb-radio-button>
                 <sbb-radio-button-group orientation="vertical" slot="content">
                   <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
@@ -669,7 +669,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
       nestedElement = await fixture(
         html`
           <sbb-checkbox-group orientation="vertical" horizontal-from="large">
-            <sbb-selection-panel disable-animation>
+            <sbb-selection-panel>
               <sbb-checkbox value="main1" checked> Main Option 1 </sbb-checkbox>
               <sbb-checkbox-group orientation="vertical" slot="content">
                 <sbb-checkbox value="sub1" checked>Suboption 1</sbb-checkbox>
@@ -677,7 +677,7 @@ describe(`sbb-selection-panel with ${fixture.name}`, () => {
               </sbb-checkbox-group>
             </sbb-selection-panel>
 
-            <sbb-selection-panel disable-animation>
+            <sbb-selection-panel>
               <sbb-checkbox value="main2"> Main Option 2 </sbb-checkbox>
               <sbb-checkbox-group orientation="vertical" slot="content">
                 <sbb-checkbox value="sub3">Suboption 3</sbb-checkbox>
