@@ -10,7 +10,9 @@
   --sbb-overlay-background-color: var(--sbb-color-milk);
   --sbb-overlay-height: 100%;
   --sbb-overlay-inset: 0 auto auto 0;
-  --sbb-overlay-padding-block: var(--sbb-spacing-responsive-l);
+  --sbb-overlay-padding-block: calc(
+    var(--sbb-spacing-responsive-xxl) + var(--sbb-spacing-responsive-l)
+  );
   --sbb-overlay-animation-duration: var(--sbb-animation-duration-6x);
   --sbb-overlay-animation-easing: ease;
   --sbb-overlay-pointer-events: none;
@@ -19,8 +21,11 @@
 
   position: fixed;
   inset: var(--sbb-overlay-inset);
-  background-color: var(--sbb-overlay-background-color);
   z-index: var(--sbb-overlay-z-index, var(--sbb-overlay-default-z-index));
+
+  @include sbb.mq($from: large) {
+    --sbb-overlay-padding-block: var(--sbb-spacing-responsive-xl);
+  }
 }
 
 :host(:is([data-state='opened'], [data-state='opening'])) {
@@ -44,19 +49,12 @@
 }
 
 .sbb-overlay__container {
+  background-color: var(--sbb-overlay-background-color);
   pointer-events: var(--sbb-overlay-pointer-events);
   display: flex;
   align-items: center;
   position: fixed;
   inset: var(--sbb-overlay-inset);
-
-  :host(:not([expanded])) & {
-    @include sbb.page-spacing;
-  }
-
-  :host([expanded]) & {
-    @include sbb.page-spacing-expanded;
-  }
 }
 
 .sbb-overlay {
@@ -92,7 +90,6 @@
   height: var(--sbb-overlay-height);
   outline: none;
   position: fixed;
-  word-break: break-word;
 
   @include sbb.mq($from: medium) {
     position: sticky;
@@ -109,8 +106,8 @@
   align-items: start;
   justify-content: space-between;
   width: 100%;
-  padding-inline: var(--sbb-spacing-responsive-xs);
-  padding-block-start: var(--sbb-spacing-responsive-xs);
+  padding: var(--sbb-spacing-responsive-xs);
+  padding-block-end: 0;
   z-index: 1;
 
   * {
@@ -126,9 +123,11 @@
   @include sbb.scrollbar-rules;
 
   height: 100vh;
-  padding-inline: var(--sbb-layout-base-offset-responsive);
-  padding-block: var(--sbb-overlay-padding-block);
   overflow: auto;
+}
+
+.sbb-overlay__content-container {
+  padding-block: var(--sbb-overlay-padding-block);
 }
 
 // It is necessary to use animations with keyframes instead of transitions in order not to alter

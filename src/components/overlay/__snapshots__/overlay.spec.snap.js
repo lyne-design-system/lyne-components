@@ -35,8 +35,13 @@ snapshots["sbb-overlay renders - ShadowDom"] =
         </sbb-secondary-button>
       </div>
       <div class="sbb-overlay__content">
-        <slot>
-        </slot>
+        <sbb-container
+          class="sbb-overlay__content-container"
+          color="transparent"
+        >
+          <slot>
+          </slot>
+        </sbb-container>
       </div>
     </div>
   </div>

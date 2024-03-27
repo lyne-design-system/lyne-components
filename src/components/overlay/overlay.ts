@@ -15,6 +15,7 @@ import style from './overlay.scss?lit&inline';
 
 import '../button/secondary-button';
 import '../button/transparent-button';
+import '../container';
 import '../screen-reader-only';
 
 // A global collection of existing overlays
@@ -362,7 +363,13 @@ export class SbbOverlayElement extends SbbNegativeMixin(LitElement) {
               ${this.backButton ? backButton : nothing} ${closeButton}
             </div>
             <div class="sbb-overlay__content">
-              <slot></slot>
+              <sbb-container
+                class="sbb-overlay__content-container"
+                ?expanded=${this.expanded}
+                color="transparent"
+              >
+                <slot></slot>
+              </sbb-container>
             </div>
           </div>
         </div>

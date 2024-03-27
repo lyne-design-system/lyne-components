@@ -22,11 +22,11 @@ import sampleImages from '../core/images';
 import { SbbOverlayElement } from './overlay';
 import readme from './readme.md?raw';
 
-import '../title';
 import '../button';
-import '../link';
 import '../form-field';
 import '../image';
+import '../link';
+import '../title';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
