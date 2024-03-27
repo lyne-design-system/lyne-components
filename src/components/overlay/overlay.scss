@@ -124,6 +124,7 @@
 
   height: 100vh;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .sbb-overlay__content-container {
