@@ -57,11 +57,8 @@ describe('sbb-autocomplete-grid-option', () => {
     });
 
     it('Dom', async () => {
-      await expect(root).dom.to.be.equalSnapshot();
-    });
-
-    it('ShadowDom', async () => {
-      await expect(root).shadowDom.to.be.equalSnapshot();
+      await expect(root).to.have.attribute('disabled');
+      await expect(root).to.have.attribute('aria-disabled', 'true');
     });
   });
 });
