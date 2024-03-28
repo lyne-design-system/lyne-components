@@ -14,7 +14,7 @@ import {
   hostAttributes,
   LanguageController,
   NamedSlotStateController,
-  UpdateScheduler,
+  UpdateSchedulerMixin,
 } from '../../core/common-behaviors';
 import {
   findReferencedElement,
@@ -47,7 +47,7 @@ let nextId = 0;
 @hostAttributes({
   slot: 'navigation-section',
 })
-export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
+export class SbbNavigationSectionElement extends UpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**

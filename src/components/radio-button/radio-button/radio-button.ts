@@ -6,7 +6,7 @@ import {
   hostAttributes,
   LanguageController,
   NamedSlotStateController,
-  UpdateScheduler,
+  UpdateSchedulerMixin,
 } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import {
@@ -44,7 +44,7 @@ export type SbbRadioButtonSize = 's' | 'm';
 @hostAttributes({
   role: 'radio',
 })
-export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
+export class SbbRadioButtonElement extends UpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     stateChange: 'stateChange',

@@ -1,7 +1,7 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { AbstractConstructor } from './constructor';
+import type { AbstractConstructor } from '../constructor';
 
 export declare class SbbDisabledMixinType {
   public set disabled(value: boolean);
@@ -16,7 +16,7 @@ export declare class SbbDisabledMixinType {
 export const SbbDisabledMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
 ): AbstractConstructor<SbbDisabledMixinType> & T => {
-  abstract class SbbDisabled extends superClass implements Partial<SbbDisabledMixinType> {
+  abstract class SbbDisabledElement extends superClass implements Partial<SbbDisabledMixinType> {
     /** Whether the component is disabled. */
     @property({ reflect: true, type: Boolean })
     public set disabled(value: boolean) {
@@ -38,7 +38,7 @@ export const SbbDisabledMixin = <T extends AbstractConstructor<LitElement>>(
     }
   }
 
-  return SbbDisabled as unknown as AbstractConstructor<SbbDisabledMixinType> & T;
+  return SbbDisabledElement as unknown as AbstractConstructor<SbbDisabledMixinType> & T;
 };
 
 // eslint-disable-next-line @typescript-eslint/naming-convention

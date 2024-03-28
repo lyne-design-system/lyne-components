@@ -1,7 +1,7 @@
 import { assert, expect } from '@open-wc/testing';
 import { html, type TemplateResult } from 'lit';
 
-import { fixture } from '../testing/private';
+import { fixture } from '../../testing/private';
 
 import { SbbActionBaseElement } from './action-base-element';
 

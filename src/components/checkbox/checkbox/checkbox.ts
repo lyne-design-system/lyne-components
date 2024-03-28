@@ -11,7 +11,7 @@ import {
   SbbFormAssociatedCheckboxMixin,
   LanguageController,
   NamedSlotStateController,
-  UpdateScheduler,
+  UpdateSchedulerMixin,
   SbbHydrationMixin,
 } from '../../core/common-behaviors';
 import { EventEmitter } from '../../core/eventing';
@@ -50,7 +50,7 @@ export type SbbCheckboxSize = 's' | 'm';
  * @event {InputEvent} input - Event fired on input.
  */
 @customElement('sbb-checkbox')
-export class SbbCheckboxElement extends UpdateScheduler(
+export class SbbCheckboxElement extends UpdateSchedulerMixin(
   SbbFormAssociatedCheckboxMixin(SbbIconNameMixin(SbbHydrationMixin(LitElement))),
 ) {
   public static override styles: CSSResultGroup = style;

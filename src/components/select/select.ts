@@ -8,7 +8,7 @@ import {
   hostAttributes,
   SbbDisabledMixin,
   SbbNegativeMixin,
-  UpdateScheduler,
+  UpdateSchedulerMixin,
 } from '../core/common-behaviors';
 import {
   isSafari,
@@ -50,7 +50,7 @@ export interface SelectChange {
 @hostAttributes({
   dir: getDocumentWritingMode(),
 })
-export class SbbSelectElement extends UpdateScheduler(
+export class SbbSelectElement extends UpdateSchedulerMixin(
   SbbDisabledMixin(SbbNegativeMixin(LitElement)),
 ) {
   public static override styles: CSSResultGroup = style;

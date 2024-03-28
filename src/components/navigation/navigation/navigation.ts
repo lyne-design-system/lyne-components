@@ -4,7 +4,11 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { FocusHandler, assignId, setModalityOnNextFocus } from '../../core/a11y';
-import { hostAttributes, LanguageController, UpdateScheduler } from '../../core/common-behaviors';
+import {
+  hostAttributes,
+  LanguageController,
+  UpdateSchedulerMixin,
+} from '../../core/common-behaviors';
 import {
   ScrollHandler,
   isValidAttribute,
@@ -53,7 +57,7 @@ const DEBOUNCE_TIME = 150;
 @hostAttributes({
   role: 'navigation',
 })
-export class SbbNavigationElement extends UpdateScheduler(LitElement) {
+export class SbbNavigationElement extends UpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',

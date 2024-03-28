@@ -1,7 +1,7 @@
 import type { LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import type { Constructor } from './constructor';
+import type { Constructor } from '../constructor';
 
 export declare abstract class SbbFormAssociatedMixinType {
   public get form(): HTMLFormElement | null;

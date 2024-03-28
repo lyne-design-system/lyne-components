@@ -1,7 +1,8 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { AbstractConstructor } from './constructor';
+import type { AbstractConstructor } from '../constructor';
+
 import type { SbbFormAssociatedMixinType } from './form-associated-mixin';
 
 export declare class SbbRequiredMixinType {
@@ -19,7 +20,7 @@ export const SbbRequiredMixin = <
 >(
   superClass: T,
 ): AbstractConstructor<SbbRequiredMixinType> & T => {
-  abstract class SbbRequired extends superClass implements Partial<SbbRequiredMixinType> {
+  abstract class SbbRequiredElement extends superClass implements Partial<SbbRequiredMixinType> {
     /** Whether the component is required. */
     @property({ reflect: true, type: Boolean })
     public set required(value: boolean) {
@@ -49,5 +50,5 @@ export const SbbRequiredMixin = <
     }
   }
 
-  return SbbRequired as unknown as AbstractConstructor<SbbRequiredMixinType> & T;
+  return SbbRequiredElement as unknown as AbstractConstructor<SbbRequiredMixinType> & T;
 };

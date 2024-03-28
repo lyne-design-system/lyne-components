@@ -17,7 +17,7 @@ export declare class SbbIconNameMixinType {
 export const SbbIconNameMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
 ): AbstractConstructor<SbbIconNameMixinType> & T => {
-  abstract class SbbIconName extends superClass implements Partial<SbbIconNameMixinType> {
+  abstract class SbbIconNameElement extends superClass implements Partial<SbbIconNameMixinType> {
     /**
      * The icon name we want to use, choose from the small icon variants
      * from the ui-icons category from here
@@ -36,5 +36,5 @@ export const SbbIconNameMixin = <T extends AbstractConstructor<LitElement>>(
     }
   }
 
-  return SbbIconName as unknown as AbstractConstructor<SbbIconNameMixinType> & T;
+  return SbbIconNameElement as unknown as AbstractConstructor<SbbIconNameMixinType> & T;
 };
