@@ -107,9 +107,8 @@ const createOptions = ({
           ?disabled=${disabled && i === 0}
           value=${`${value} ${i + 1}`}
           ${sbbSpread(args)}
+          >${`${value} ${i + 1}`}</sbb-option
         >
-          ${`${value} ${i + 1}`}
-        </sbb-option>
       `;
     }),
     html`

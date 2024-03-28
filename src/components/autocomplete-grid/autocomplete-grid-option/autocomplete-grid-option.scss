@@ -1,0 +1,58 @@
+@use '../../core/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-option-color: var(--sbb-color-charcoal);
+  --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
+  --sbb-option-icon-color: var(--sbb-color-metal);
+}
+
+:host([data-negative]) {
+  --sbb-option-color: var(--sbb-color-milk);
+  --sbb-option-icon-color: var(--sbb-color-smoke);
+}
+
+// if the highlight is enabled, hide the slot content
+:host(:not([data-disable-highlight])) {
+  .sbb-option__label slot {
+    display: none;
+  }
+}
+
+.sbb-option {
+  @include sbb.text-s--regular;
+
+  display: flex;
+  align-items: center;
+  column-gap: var(--sbb-option-column-gap);
+  justify-content: start;
+  color: var(--sbb-option-color);
+}
+
+.sbb-option__label--highlight {
+  :host(:not(:is([disabled], [data-group-disabled]))) & {
+    @include sbb.text--bold;
+    @include sbb.if-forced-colors {
+      color: Highlight;
+    }
+  }
+}
+
+.sbb-option__icon {
+  display: flex;
+  min-width: var(--sbb-size-icon-ui-small);
+  min-height: var(--sbb-size-icon-ui-small);
+  color: var(--sbb-option-icon-color);
+
+  :host(:not([data-slot-names~='icon'], [icon-name])) & {
+    // Can be overridden by the 'preserve-icon-space' on the autocomplete
+    display: var(--sbb-option-icon-container-display, none);
+  }
+}
+
+.sbb-option__label {
+  white-space: initial;
+}

@@ -25,7 +25,7 @@ If the `sbb-option` is nested in a `sbb-optgroup` component, it inherits from th
 
 <sbb-option value="value" active>Option label</sbb-option>
 
-<sbb-option value="value" ß disabled>Option label</sbb-option>
+<sbb-option value="value" disabled>Option label</sbb-option>
 ```
 
 ## Events
@@ -60,11 +60,11 @@ If the label slot contains only a **text node**, it is possible to search for te
 
 | Name       | Attribute   | Privacy | Type                   | Default | Description                                                                                                                      |
 | ---------- | ----------- | ------- | ---------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `disabled`  | public  | `boolean`              | `false` | Whether the component is disabled.                                                                                               |
+| `iconName` | `icon-name` | public  | `string \| undefined`  |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `value`    | `value`     | public  | `string`               |         | Value of the option.                                                                                                             |
 | `active`   | `active`    | public  | `boolean \| undefined` |         | Whether the option is currently active.                                                                                          |
 | `selected` | `selected`  | public  | `boolean`              |         | Whether the option is selected.                                                                                                  |
-| `disabled` | `disabled`  | public  | `boolean`              | `false` | Whether the component is disabled.                                                                                               |
-| `iconName` | `icon-name` | public  | `string \| undefined`  |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 
 ## Events
 

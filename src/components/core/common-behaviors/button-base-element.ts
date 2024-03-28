@@ -1,10 +1,13 @@
-import { isServer } from 'lit';
+import { isServer, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { isEventPrevented } from '../eventing';
 
 import { SbbActionBaseElement } from './action-base-element';
 import { hostAttributes } from './host-attributes';
+import { SbbIconNameMixin } from './icon-name-mixin';
+import { NamedSlotStateController } from './named-slot-state-controller';
+import { SbbNegativeMixin } from './negative-mixin';
 
 /** Enumeration for type attribute in <button> HTML tag. */
 export type SbbButtonType = 'button' | 'reset' | 'submit';
@@ -101,5 +104,18 @@ export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
       this.addEventListener('keyup', this._dispatchClickEventOnSpaceKeyup, passiveOptions);
       this.addEventListener('blur', this._removeActiveMarker, passiveOptions);
     }
+  }
+}
+
+export abstract class SbbMiniButtonBaseElement extends SbbNegativeMixin(
+  SbbIconNameMixin(SbbButtonBaseElement),
+) {
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
+
+  protected override renderTemplate(): TemplateResult {
+    return super.renderIconSlot();
   }
 }

@@ -76,9 +76,9 @@ Use the accessibility properties to describe the purpose of the `sbb-mini-button
 
 | Name       | Attribute   | Privacy | Type                  | Default    | Description                                                                                                                      |
 | ---------- | ----------- | ------- | --------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `disabled`  | public  | `boolean`             | `false`    | Whether the component is disabled.                                                                                               |
 | `negative` | `negative`  | public  | `boolean`             | `false`    | Negative coloring variant flag.                                                                                                  |
 | `iconName` | `icon-name` | public  | `string \| undefined` |            | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `disabled` | `disabled`  | public  | `boolean`             | `false`    | Whether the component is disabled.                                                                                               |
 | `type`     | `type`      | public  | `SbbButtonType`       | `'button'` | The type attribute to use for the button.                                                                                        |
 | `name`     | `name`      | public  | `string`              |            | The name of the button element.                                                                                                  |
 | `value`    | `value`     | public  | `string`              |            | The value of the button element.                                                                                                 |
