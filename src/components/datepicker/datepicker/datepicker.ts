@@ -11,8 +11,7 @@ import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n';
 import type { SbbDateLike, ValidationChangeEvent } from '../../core/interfaces';
 import { AgnosticMutationObserver } from '../../core/observers';
-import type { SbbDatepickerNextDayElement } from '../datepicker-next-day';
-import type { SbbDatepickerPreviousDayElement } from '../datepicker-previous-day';
+import type { SbbDatepickerButton } from '../common/datepicker-button';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle';
 
 import style from './datepicker.scss?lit&inline';
@@ -34,10 +33,7 @@ export interface InputUpdateEvent {
  * @param trigger The id or the reference of the SbbDatePicker.
  */
 export function getDatePicker(
-  element:
-    | SbbDatepickerPreviousDayElement
-    | SbbDatepickerNextDayElement
-    | SbbDatepickerToggleElement,
+  element: SbbDatepickerButton | SbbDatepickerToggleElement,
   trigger?: string | HTMLElement,
 ): SbbDatepickerElement | null | undefined {
   if (!trigger) {
