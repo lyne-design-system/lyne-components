@@ -3,19 +3,15 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button';
-import {
-  LanguageController,
-  NamedSlotStateController,
-  SbbIconNameMixin,
-} from '../core/common-behaviors';
+import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
 import { isFirefox, isValidAttribute, setAttribute } from '../core/dom';
 import { composedPathHasAttribute, EventEmitter, ConnectedAbortController } from '../core/eventing';
 import { i18nCloseAlert } from '../core/i18n';
 import type { SbbOverlayState } from '../core/overlay';
+import { SbbIconNameMixin } from '../icon';
 import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link';
 import '../button/transparent-button';
 
-import '../icon';
 import style from './toast.scss?lit&inline';
 
 type SbbToastPositionVertical = 'top' | 'bottom';

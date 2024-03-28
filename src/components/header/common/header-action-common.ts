@@ -2,15 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import {
-  type SbbActionBaseElement,
-  type AbstractConstructor,
-  type SbbIconNameMixinType,
-  SbbIconNameMixin,
-} from '../../core/common-behaviors';
+import { type SbbActionBaseElement, type AbstractConstructor } from '../../core/common-behaviors';
 import type { SbbHorizontalFrom } from '../../core/interfaces';
+import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon';
 
-import '../../icon';
 import style from './header-action.scss?lit&inline';
 
 export declare class SbbHeaderActionCommonElementMixinType

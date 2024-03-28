@@ -2,13 +2,9 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import {
-  SbbHydrationMixin,
-  SbbIconNameMixin,
-  SbbLinkBaseElement,
-} from '../../core/common-behaviors';
+import { SbbHydrationMixin, SbbLinkBaseElement } from '../../core/common-behaviors';
+import { SbbIconNameMixin } from '../../icon';
 
-import '../../icon';
 import style from './breadcrumb.scss?lit&inline';
 
 /**

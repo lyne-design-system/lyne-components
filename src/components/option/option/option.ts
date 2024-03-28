@@ -7,15 +7,14 @@ import {
   hostAttributes,
   NamedSlotStateController,
   SbbDisabledMixin,
-  SbbIconNameMixin,
 } from '../../core/common-behaviors';
 import { isSafari, isValidAttribute, isAndroid, setAttribute } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { AgnosticMutationObserver } from '../../core/observers';
+import { SbbIconNameMixin } from '../../icon';
 
 import style from './option.scss?lit&inline';
 
-import '../../icon';
 import '../../screen-reader-only';
 import '../../visual-checkbox';
 

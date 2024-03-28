@@ -6,13 +6,12 @@ import {
   NamedSlotStateController,
   SbbButtonBaseElement,
   SbbDisabledTabIndexActionMixin,
-  SbbIconNameMixin,
   hostAttributes,
 } from '../../core/common-behaviors';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { SbbIconNameMixin } from '../../icon';
 import type { SbbExpansionPanelElement } from '../expansion-panel';
 
-import '../../icon';
 import style from './expansion-panel-header.scss?lit&inline';
 
 /**

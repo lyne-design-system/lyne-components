@@ -2,10 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { NamedSlotStateController, SbbIconNameMixin } from '../core/common-behaviors';
+import { NamedSlotStateController } from '../core/common-behaviors';
+import { SbbIconNameMixin } from '../icon';
 import type { SbbTitleLevel } from '../title';
 
-import '../icon';
 import '../title';
 import style from './status.scss?lit&inline';
 

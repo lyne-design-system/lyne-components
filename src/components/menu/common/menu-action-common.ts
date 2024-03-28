@@ -6,12 +6,10 @@ import {
   type SbbActionBaseElement,
   type AbstractConstructor,
   type SbbDisabledMixinType,
-  type SbbIconNameMixinType,
   SbbDisabledTabIndexActionMixin,
-  SbbIconNameMixin,
 } from '../../core/common-behaviors';
+import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon';
 
-import '../../icon';
 import style from './menu-action.scss?lit&inline';
 
 export declare class SbbMenuActionCommonElementMixinType

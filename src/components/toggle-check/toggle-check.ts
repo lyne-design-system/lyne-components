@@ -2,15 +2,10 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  NamedSlotStateController,
-  SbbFormAssociatedCheckboxMixin,
-  SbbIconNameMixin,
-} from '../core/common-behaviors';
+import { NamedSlotStateController, SbbFormAssociatedCheckboxMixin } from '../core/common-behaviors';
+import { SbbIconNameMixin } from '../icon';
 
 import style from './toggle-check.scss?lit&inline';
-
-import '../icon';
 
 /**
  * It displays a toggle checkbox.

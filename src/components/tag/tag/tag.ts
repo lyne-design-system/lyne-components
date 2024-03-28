@@ -6,7 +6,6 @@ import {
   NamedSlotStateController,
   SbbDisabledTabIndexActionMixin,
   SbbButtonBaseElement,
-  SbbIconNameMixin,
 } from '../../core/common-behaviors';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import type {
@@ -14,8 +13,8 @@ import type {
   SbbStateChange,
   SbbValueStateChange,
 } from '../../core/interfaces';
+import { SbbIconNameMixin } from '../../icon';
 
-import '../../icon';
 import style from './tag.scss?lit&inline';
 
 export type SbbTagStateChange = Extract<

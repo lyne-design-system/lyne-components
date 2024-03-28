@@ -4,12 +4,11 @@ import { customElement } from 'lit/decorators.js';
 import {
   SbbButtonBaseElement,
   SbbDisabledTabIndexActionMixin,
-  SbbIconNameMixin,
   SbbNegativeMixin,
 } from '../../core/common-behaviors';
 import { hostContext, isValidAttribute } from '../../core/dom';
+import { SbbIconNameMixin } from '../../icon';
 
-import '../../icon';
 import style from './popover-trigger.scss?lit&inline';
 
 /**

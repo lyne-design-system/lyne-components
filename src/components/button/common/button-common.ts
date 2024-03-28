@@ -8,13 +8,10 @@ import {
   NamedSlotStateController,
   type SbbActionBaseElement,
   type SbbDisabledMixinType,
-  SbbIconNameMixin,
-  type SbbIconNameMixinType,
   SbbNegativeMixin,
   type SbbNegativeMixinType,
 } from '../../core/common-behaviors';
-
-import '../../icon';
+import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon';
 
 export type SbbButtonCommonElement = SbbButtonCommonElementMixinType & SbbActionBaseElement;
 

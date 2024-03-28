@@ -11,7 +11,6 @@ import {
   SbbFormAssociatedCheckboxMixin,
   LanguageController,
   NamedSlotStateController,
-  SbbIconNameMixin,
   UpdateScheduler,
   SbbHydrationMixin,
 } from '../../core/common-behaviors';
@@ -23,12 +22,12 @@ import type {
   SbbIconPlacement,
   SbbStateChange,
 } from '../../core/interfaces';
+import { SbbIconNameMixin } from '../../icon';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
 import type { SbbCheckboxGroupElement } from '../checkbox-group';
 
 import style from './checkbox.scss?lit&inline';
 
-import '../../icon';
 import '../../screen-reader-only';
 import '../../visual-checkbox';
 

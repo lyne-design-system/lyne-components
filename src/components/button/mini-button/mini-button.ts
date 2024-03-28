@@ -5,9 +5,9 @@ import {
   NamedSlotStateController,
   SbbButtonBaseElement,
   SbbDisabledTabIndexActionMixin,
-  SbbIconNameMixin,
   SbbNegativeMixin,
 } from '../../core/common-behaviors';
+import { SbbIconNameMixin } from '../../icon';
 
 import style from './mini-button.scss?lit&inline';
 

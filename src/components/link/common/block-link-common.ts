@@ -2,14 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import {
-  type SbbActionBaseElement,
-  type AbstractConstructor,
-  SbbIconNameMixin,
-} from '../../core/common-behaviors';
+import type { SbbActionBaseElement, AbstractConstructor } from '../../core/common-behaviors';
 import type { SbbIconPlacement } from '../../core/interfaces';
+import { SbbIconNameMixin } from '../../icon';
 
-import '../../icon';
 import { SbbLinkCommonElementMixin, type SbbLinkCommonElementMixinType } from './link-common';
 // eslint-disable-next-line import/order
 import blockStyle from './block-link.scss?lit&inline';

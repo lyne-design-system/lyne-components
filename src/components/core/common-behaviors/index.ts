@@ -6,7 +6,6 @@ export * from './form-associated-checkbox-mixin';
 export * from './form-associated-mixin';
 export * from './host-attributes';
 export * from './hydration-mixin';
-export * from './icon-name-mixin';
 export * from './language-controller';
 export * from './link-base-element';
 export * from './named-slot-state-controller';
