@@ -20,8 +20,8 @@ export class SbbDatepickerPreviousDayElement extends SbbDatepickerButton {
   public static override styles: CSSResultGroup = style;
 
   protected iconName: string = 'chevron-small-left-small';
-  protected ariaLabelTranslationOffBoundaryDay: Record<string, string> = i18nPreviousDay;
-  protected ariaLabelTranslationSelectOffBoundaryDay = i18nSelectPreviousDay;
+  protected i18nOffBoundaryDay: Record<string, string> = i18nPreviousDay;
+  protected i18nSelectOffBoundaryDay = i18nSelectPreviousDay;
   protected findAvailableDate = findPreviousAvailableDate;
 
   protected onInputUpdated(event: CustomEvent<InputUpdateEvent>): void {

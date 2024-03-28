@@ -38,10 +38,8 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
   private _language = new LanguageController(this).withHandler(() => this._setAriaLabel());
 
   protected abstract iconName: string;
-  protected abstract ariaLabelTranslationOffBoundaryDay: Record<string, string>;
-  protected abstract ariaLabelTranslationSelectOffBoundaryDay: (
-    _currentDate: string,
-  ) => Record<string, string>;
+  protected abstract i18nOffBoundaryDay: Record<string, string>;
+  protected abstract i18nSelectOffBoundaryDay: (_currentDate: string) => Record<string, string>;
   protected abstract findAvailableDate: (
     _date: Date,
     _dateFilter: ((date: Date) => boolean) | null,
@@ -170,10 +168,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
     const currentDate = this.datePickerElement?.getValueAsDate?.();
 
     if (!currentDate || !this._dateAdapter.isValid(currentDate)) {
-      this.setAttribute(
-        'aria-label',
-        this.ariaLabelTranslationOffBoundaryDay[this._language.current],
-      );
+      this.setAttribute('aria-label', this.i18nOffBoundaryDay[this._language.current]);
       return;
     }
 
@@ -184,7 +179,7 @@ export abstract class SbbDatepickerButton extends SbbNegativeMixin(SbbButtonBase
 
     this.setAttribute(
       'aria-label',
-      this.ariaLabelTranslationSelectOffBoundaryDay(currentDateString)[this._language.current],
+      this.i18nSelectOffBoundaryDay(currentDateString)[this._language.current],
     );
   }
 

@@ -20,8 +20,8 @@ export class SbbDatepickerNextDayElement extends SbbDatepickerButton {
   public static override styles: CSSResultGroup = style;
 
   protected iconName: string = 'chevron-small-right-small';
-  protected ariaLabelTranslationOffBoundaryDay: Record<string, string> = i18nNextDay;
-  protected ariaLabelTranslationSelectOffBoundaryDay = i18nSelectNextDay;
+  protected i18nOffBoundaryDay: Record<string, string> = i18nNextDay;
+  protected i18nSelectOffBoundaryDay = i18nSelectNextDay;
   protected findAvailableDate = findNextAvailableDate;
 
   protected onInputUpdated(event: CustomEvent<InputUpdateEvent>): void {
