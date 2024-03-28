@@ -135,7 +135,8 @@ const TemplateOptgroup = ({ label, disabled, ...args }: Args): TemplateResult =>
 
 const Template = (args: Args): TemplateResult => {
   return html`
-    <sbb-form-field label="Autocomplete" ?negative=${args.negative}>
+    <sbb-form-field ?negative=${args.negative}>
+      <label>Autocomplete</label>
       <input placeholder="Placeholder" />
       <sbb-autocomplete-grid>${TemplateOptgroup(args)}</sbb-autocomplete-grid>
     </sbb-form-field>

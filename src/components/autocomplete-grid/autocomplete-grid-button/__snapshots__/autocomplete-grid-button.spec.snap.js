@@ -54,7 +54,7 @@ snapshots["sbb-autocomplete-grid-button renders disabled Dom"] =
   dir="ltr"
   disabled=""
   icon-name="pie-small"
-  id="sbb-autocomplete-grid-item-4x1x0"
+  id="sbb-autocomplete-grid-item-3x1x0"
   role="button"
 >
 </sbb-autocomplete-grid-button>
@@ -115,7 +115,7 @@ snapshots["sbb-autocomplete-grid-button renders negative without icon Dom"] =
   data-action=""
   data-button=""
   dir="ltr"
-  id="sbb-autocomplete-grid-item-7x1x0"
+  id="sbb-autocomplete-grid-item-5x1x0"
   negative=""
   role="button"
 >

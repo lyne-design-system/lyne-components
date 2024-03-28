@@ -125,7 +125,8 @@ const createOptions = ({
 const StandaloneTemplate = (args: Args): TemplateResult => html`${createOptions(args)}`;
 
 const AutocompleteTemplate = (args: Args): TemplateResult => html`
-  <sbb-form-field label="sbb-autocomplete-grid" ?negative=${args.negative}>
+  <sbb-form-field ?negative=${args.negative}>
+    <label>sbb-autocomplete-grid</label>
     <input placeholder="Please select." />
     <sbb-autocomplete-grid> ${createOptions(args)} </sbb-autocomplete-grid>
   </sbb-form-field>

@@ -314,12 +314,12 @@ const createRows2 = (buttonIconName: string, disableOption: boolean): TemplateRe
 const Template = (args: Args): TemplateResult => html`
   <div>
     <sbb-form-field
-      label="Label"
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
       data-testid="form-field"
     >
+      <label>Label</label>
       <input
         placeholder="Placeholder"
         data-testid="autocomplete-input"
@@ -348,12 +348,12 @@ const Template = (args: Args): TemplateResult => html`
 const OptionGroupTemplate = (args: Args): TemplateResult => html`
   <div>
     <sbb-form-field
-      label="Label"
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
       data-testid="form-field"
     >
+      <label>Label</label>
       <input
         placeholder="Placeholder"
         data-testid="autocomplete-input"

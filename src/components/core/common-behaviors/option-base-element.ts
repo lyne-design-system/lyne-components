@@ -195,8 +195,8 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
             <slot @slotchange=${this.setupHighlightHandler}></slot>
             ${this.renderLabel()}
             ${this._inertAriaGroups && this.getAttribute('data-group-label')
-              ? html` <sbb-screenreader-only>
-                  (${this.getAttribute('data-group-label')})</sbb-screenreader-only
+              ? html` <sbb-screen-reader-only>
+                  (${this.getAttribute('data-group-label')})</sbb-screen-reader-only
                 >`
               : nothing}
           </span>

@@ -54,7 +54,7 @@ snapshots["sbb-autocomplete-grid-option disabled Dom"] =
   aria-selected="false"
   data-slot-names="unnamed"
   disabled=""
-  id="sbb-autocomplete-grid-item-4x0"
+  id="sbb-autocomplete-grid-item-3x0"
   role="gridcell"
   value="1"
 >
