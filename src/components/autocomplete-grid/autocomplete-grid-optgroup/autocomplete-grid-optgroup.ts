@@ -31,7 +31,7 @@ export class SbbAutocompleteGridOptgroupElement extends SbbOptgroupBaseElement {
   }
 
   protected setAttributeFromParent(): void {
-    this.negative = !!this.closest?.(`:is(sbb-autocomplete-grid, sbb-form-field)[negative]`);
+    this.negative = !!this.closest(`:is(sbb-autocomplete-grid, sbb-form-field)[negative]`);
     this.toggleAttribute('data-negative', this.negative);
   }
 

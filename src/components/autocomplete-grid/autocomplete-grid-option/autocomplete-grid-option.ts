@@ -9,7 +9,7 @@ import '../../screenreader-only';
 import style from './autocomplete-grid-option.scss?lit&inline';
 
 /**
- * It displays on option item which can be used in `sbb-autocomplete-grid`.
+ * It displays an option item which can be used in `sbb-autocomplete-grid`.
  *
  * @slot - Use the unnamed slot to add content to the option label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
@@ -43,7 +43,7 @@ export class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('active')) {
-      this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute('data-active');
+      this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute('data-active', this.active);
     }
     if (changedProperties.has('disabled')) {
       this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute(
@@ -54,16 +54,16 @@ export class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
   }
 
   protected setAttributeFromParent(): void {
-    const parentGroup = this.closest?.('sbb-autocomplete-grid-optgroup');
+    const parentGroup = this.closest('sbb-autocomplete-grid-optgroup');
     if (parentGroup) {
       this.disabledFromGroup = parentGroup.disabled;
     }
-    this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute(
+    this.closest('sbb-autocomplete-grid-row')?.toggleAttribute(
       'data-disabled',
       this.disabled || this.disabledFromGroup,
     );
 
-    this.negative = !!this.closest?.(
+    this.negative = !!this.closest(
       // :is() selector not possible due to test environment
       `sbb-autocomplete-grid[negative],sbb-form-field[negative]`,
     );

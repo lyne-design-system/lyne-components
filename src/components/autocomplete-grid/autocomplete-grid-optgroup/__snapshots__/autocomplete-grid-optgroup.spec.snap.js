@@ -66,6 +66,46 @@ snapshots["sbb-autocomplete-grid-optgroup Chrome-Firefox ShadowDom"] =
 `;
 /* end snapshot sbb-autocomplete-grid-optgroup Chrome-Firefox ShadowDom */
 
+snapshots["sbb-autocomplete-grid-optgroup Chrome-Firefox A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Option 1"
+    },
+    {
+      "role": "text",
+      "name": "Option 2"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid-optgroup Chrome-Firefox A11y tree Chrome */
+
+snapshots["sbb-autocomplete-grid-optgroup Chrome-Firefox A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "text leaf",
+      "name": "Option 1"
+    },
+    {
+      "role": "text leaf",
+      "name": "Option 2"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid-optgroup Chrome-Firefox A11y tree Firefox */
+
 snapshots["sbb-autocomplete-grid-optgroup Safari Dom"] = 
 `<sbb-autocomplete-grid-optgroup label="Group">
   <sbb-autocomplete-grid-row
@@ -127,4 +167,48 @@ snapshots["sbb-autocomplete-grid-optgroup Safari ShadowDom"] =
 </slot>
 `;
 /* end snapshot sbb-autocomplete-grid-optgroup Safari ShadowDom */
+
+snapshots["sbb-autocomplete-grid-optgroup Safari A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Option 1"
+    },
+    {
+      "role": "text",
+      "name": "("
+    },
+    {
+      "role": "text",
+      "name": "Group"
+    },
+    {
+      "role": "text",
+      "name": ")"
+    },
+    {
+      "role": "text",
+      "name": "Option 2"
+    },
+    {
+      "role": "text",
+      "name": "("
+    },
+    {
+      "role": "text",
+      "name": "Group"
+    },
+    {
+      "role": "text",
+      "name": ")"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid-optgroup Safari A11y tree Safari */
 

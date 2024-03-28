@@ -76,6 +76,22 @@ snapshots["sbb-autocomplete-grid-button renders disabled ShadowDom"] =
 `;
 /* end snapshot sbb-autocomplete-grid-button renders disabled ShadowDom */
 
+snapshots["sbb-autocomplete-grid-button renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": ""
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid-button renders A11y tree Firefox */
+
 snapshots["sbb-autocomplete-grid-button renders disabled A11y tree Chrome"] = 
 `<p>
   {
@@ -114,22 +130,6 @@ snapshots["sbb-autocomplete-grid-button renders negative without icon ShadowDom"
 </span>
 `;
 /* end snapshot sbb-autocomplete-grid-button renders negative without icon ShadowDom */
-
-snapshots["sbb-autocomplete-grid-button renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-button renders A11y tree Firefox */
 
 snapshots["sbb-autocomplete-grid-button renders disabled A11y tree Firefox"] = 
 `<p>

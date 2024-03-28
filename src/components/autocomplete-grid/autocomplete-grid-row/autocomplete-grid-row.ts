@@ -19,10 +19,6 @@ export class SbbAutocompleteGridRowElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   private _rowId = ++autocompleteRowNextId;
 
-  public constructor() {
-    super();
-  }
-
   public override connectedCallback(): void {
     super.connectedCallback();
     if (!this.id) {

@@ -31,7 +31,7 @@ import '../../form-field';
 const getOption = (event: Event): void => {
   const button = event.target as SbbAutocompleteGridButtonElement;
   const div: HTMLDivElement = document.createElement('div');
-  div.innerText = `Button '${button.iconName}' clicked on row '${button.optionOnSameRow?.textContent}' / value: '${button.optionOnSameRow?.value}'`;
+  div.innerText = `Button '${button.iconName}' clicked on row '${button.option?.textContent}' / value: '${button.option?.value}'`;
   (event.currentTarget as HTMLElement).closest('div')!.querySelector('#container')!.prepend(div);
 };
 

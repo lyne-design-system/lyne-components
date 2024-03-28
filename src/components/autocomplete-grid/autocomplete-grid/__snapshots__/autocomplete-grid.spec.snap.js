@@ -104,6 +104,26 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox ShadowDom"] =
 `;
 /* end snapshot sbb-autocomplete-grid Chrome-Firefox ShadowDom */
 
+snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome */
+
+snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox */
+
 snapshots["sbb-autocomplete-grid Safari Dom"] = 
 `<sbb-autocomplete-grid
   data-state="closed"
@@ -204,4 +224,14 @@ snapshots["sbb-autocomplete-grid Safari ShadowDom"] =
 </div>
 `;
 /* end snapshot sbb-autocomplete-grid Safari ShadowDom */
+
+snapshots["sbb-autocomplete-grid Safari A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid Safari A11y tree Safari */
 

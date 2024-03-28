@@ -1,12 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import type { SbbAutocompleteGridActionsElement } from './autocomplete-grid-actions';
 import '../autocomplete-grid';
 import '../autocomplete-grid-row';
-import '../autocomplete-grid-option';
 import './autocomplete-grid-actions';
 import '../autocomplete-grid-button';
 
@@ -17,7 +16,6 @@ describe('sbb-autocomplete-grid-actions', () => {
       await fixture(html`
         <sbb-autocomplete-grid origin="anchor">
           <sbb-autocomplete-grid-row>
-            <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
             <sbb-autocomplete-grid-actions>
               <sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>
             </sbb-autocomplete-grid-actions>
@@ -42,4 +40,10 @@ describe('sbb-autocomplete-grid-actions', () => {
       'sbb-autocomplete-grid-item-3x1x0',
     );
   });
+
+  testA11yTreeSnapshot(html`
+    <sbb-autocomplete-grid-actions>
+      <sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>
+    </sbb-autocomplete-grid-actions>
+  `);
 });

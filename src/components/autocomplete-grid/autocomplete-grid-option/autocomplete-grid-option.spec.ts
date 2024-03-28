@@ -1,7 +1,7 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import type { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option';
 import '../autocomplete-grid';
@@ -33,6 +33,10 @@ describe('sbb-autocomplete-grid-option', () => {
     it('ShadowDom', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
+
+    testA11yTreeSnapshot(
+      html`<sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>`,
+    );
   });
 
   describe('disabled', () => {
@@ -59,5 +63,11 @@ describe('sbb-autocomplete-grid-option', () => {
     it('ShadowDom', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
+
+    testA11yTreeSnapshot(
+      html`<sbb-autocomplete-grid-option value="1" disabled
+        >Option 1</sbb-autocomplete-grid-option
+      >`,
+    );
   });
 });

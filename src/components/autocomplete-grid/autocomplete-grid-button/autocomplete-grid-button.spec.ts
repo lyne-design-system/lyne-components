@@ -7,7 +7,6 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 import type { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button';
 import '../autocomplete-grid';
 import '../autocomplete-grid-row';
-import '../autocomplete-grid-option';
 import '../autocomplete-grid-actions';
 import './autocomplete-grid-button';
 
@@ -19,7 +18,6 @@ describe('sbb-autocomplete-grid-button', () => {
         await fixture(html`
           <sbb-autocomplete-grid origin="anchor">
             <sbb-autocomplete-grid-row>
-              <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
               <sbb-autocomplete-grid-actions>
                 <sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>
               </sbb-autocomplete-grid-actions>
@@ -51,7 +49,6 @@ describe('sbb-autocomplete-grid-button', () => {
         await fixture(html`
           <sbb-autocomplete-grid origin="anchor">
             <sbb-autocomplete-grid-row>
-              <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
               <sbb-autocomplete-grid-actions>
                 <sbb-autocomplete-grid-button
                   disabled
@@ -91,7 +88,6 @@ describe('sbb-autocomplete-grid-button', () => {
             <input />
             <sbb-autocomplete-grid>
               <sbb-autocomplete-grid-row>
-                <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
                 <sbb-autocomplete-grid-actions>
                   <sbb-autocomplete-grid-button></sbb-autocomplete-grid-button>
                 </sbb-autocomplete-grid-actions>

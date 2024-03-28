@@ -1,9 +1,10 @@
 import { expect } from '@open-wc/testing';
+import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
 import { isSafari } from '../../core/dom';
 import { describeIf } from '../../core/testing';
-import { fixture } from '../../core/testing/private';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import './autocomplete-grid-optgroup';
 import '../autocomplete-grid';
@@ -15,19 +16,20 @@ import type { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-opt
 
 describe('sbb-autocomplete-grid-optgroup', () => {
   let root: SbbAutocompleteGridOptgroupElement;
+  const opt: TemplateResult = html`
+    <sbb-autocomplete-grid-optgroup label="Group">
+      <sbb-autocomplete-grid-row>
+        <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
+      </sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-row>
+        <sbb-autocomplete-grid-option value="2">Option 2</sbb-autocomplete-grid-option>
+      </sbb-autocomplete-grid-row>
+    </sbb-autocomplete-grid-optgroup>
+  `;
   beforeEach(async () => {
     root = (
       await fixture(html`
-        <sbb-autocomplete-grid origin="anchor">
-          <sbb-autocomplete-grid-optgroup label="Group">
-            <sbb-autocomplete-grid-row>
-              <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
-            </sbb-autocomplete-grid-row>
-            <sbb-autocomplete-grid-row>
-              <sbb-autocomplete-grid-option value="2">Option 2</sbb-autocomplete-grid-option>
-            </sbb-autocomplete-grid-row>
-          </sbb-autocomplete-grid-optgroup>
-        </sbb-autocomplete-grid>
+        <sbb-autocomplete-grid origin="anchor"> ${opt} </sbb-autocomplete-grid>
         <div id="anchor"></div>
       `)
     ).querySelector('sbb-autocomplete-grid-optgroup')!;
@@ -41,6 +43,8 @@ describe('sbb-autocomplete-grid-optgroup', () => {
     it('ShadowDom', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
+
+    testA11yTreeSnapshot(opt);
   });
 
   describeIf(isSafari(), 'Safari', async () => {
@@ -51,5 +55,7 @@ describe('sbb-autocomplete-grid-optgroup', () => {
     it('ShadowDom', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
+
+    testA11yTreeSnapshot(opt);
   });
 });
