@@ -79,25 +79,6 @@ export class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
     this.setSelectedViaUserInteraction(true);
   }
 
-  protected setupHighlightHandler(event: Event): void {
-    const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
-    const labelNodes = slotNodes.filter((el) => el.nodeType === Node.TEXT_NODE) as Text[];
-
-    // Disable the highlight if the slot contains more than just text nodes
-    if (
-      labelNodes.length === 0 ||
-      slotNodes.filter((n) => !(n instanceof Element) || n.localName !== 'template').length !==
-        labelNodes.length
-    ) {
-      this.disableLabelHighlight = true;
-      return;
-    }
-    this.label = labelNodes
-      .map((l) => l.wholeText)
-      .filter((l) => l.trim())
-      .join();
-  }
-
   protected override render(): TemplateResult {
     return super.render();
   }
