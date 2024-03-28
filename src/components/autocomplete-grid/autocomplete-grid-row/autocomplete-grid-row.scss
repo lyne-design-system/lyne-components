@@ -1,4 +1,4 @@
-@use '../../core/styles/index' as sbb;
+@use '../../core/styles' as sbb;
 
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
@@ -68,6 +68,7 @@
   padding-inline: var(--sbb-autocomplete-grid-row-padding-inline);
   padding-block: var(--sbb-autocomplete-grid-row-padding-block);
   justify-content: var(--sbb-autocomplete-grid-row-justify-content);
+  gap: var(--sbb-spacing-fixed-2x);
   color: var(--sbb-autocomplete-grid-row-color);
   background-color: var(--sbb-autocomplete-grid-row-background-color);
   cursor: var(--sbb-autocomplete-grid-row-cursor);
