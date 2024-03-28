@@ -1,0 +1,134 @@
+@use '../../core/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-stepper-orientation: row;
+  --sbb-stepper-marker-size: 0;
+  --sbb-stepper-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-stepper-marker-color: var(--sbb-color-charcoal);
+
+  position: relative;
+  counter-reset: step-label;
+
+  @include sbb.if-forced-colors {
+    --sbb-stepper-marker-color: ButtonText;
+  }
+}
+
+:host([data-disable-animation]) {
+  --sbb-stepper-animation-duration: 0;
+}
+
+:host([orientation='vertical']) {
+  --sbb-stepper-orientation: column;
+}
+
+.sbb-stepper {
+  width: 100%;
+}
+
+.sbb-stepper__labels {
+  display: flex;
+  flex-direction: var(--sbb-stepper-orientation);
+  position: relative;
+  justify-content: space-between;
+  margin-block-end: var(--sbb-spacing-responsive-m);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    background-color: var(--sbb-stepper-marker-color);
+  }
+
+  :host([orientation='horizontal']) & {
+    gap: var(--sbb-spacing-fixed-4x);
+    padding-block-end: var(--sbb-spacing-fixed-4x);
+    border-block-end: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
+
+    &::before {
+      inset-block-end: 0;
+      height: #{sbb.px-to-rem-build(3)};
+      width: var(--sbb-stepper-marker-size);
+      transition: width var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
+    }
+  }
+
+  :host([orientation='vertical']) & {
+    padding-inline-start: var(--sbb-spacing-fixed-4x);
+    border-inline-start: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
+
+    &::before {
+      inset-block-start: 0;
+      width: #{sbb.px-to-rem-build(3)};
+      height: var(--sbb-stepper-marker-size);
+      transition: height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
+    }
+  }
+}
+
+.sbb-stepper__steps {
+  position: relative;
+
+  :host([orientation='horizontal']) & {
+    height: var(--sbb-stepper-content-height);
+    transition: height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
+  }
+}
+
+::slotted(sbb-step-label) {
+  @include sbb.text-xxs--regular;
+
+  position: relative;
+  min-width: 0;
+  max-width: fit-content;
+
+  :host([orientation='vertical']) & {
+    transition: margin var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
+  }
+
+  &::before {
+    content: counter(step-label);
+    counter-increment: step-label;
+    cursor: pointer;
+    position: absolute;
+    color: var(--sbb-step-label-color);
+    inset-block-start: calc(
+      var(--sbb-font-size-text-l) * (var(--sbb-typo-line-height-body-text) / 2) +
+        (var(--sbb-border-width-1x) / 2)
+    );
+    inset-inline-start: calc(var(--sbb-step-label-prefix-size) / 2);
+    transform: translate(-50%, -50%);
+    line-height: 1;
+    z-index: 1;
+  }
+}
+
+::slotted(sbb-step) {
+  :host([orientation='vertical']) & {
+    transition: margin var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
+  }
+}
+
+::slotted(sbb-step-label[data-selected]) {
+  @include sbb.text-xxs--bold;
+
+  :host([orientation='vertical']) & {
+    margin-block-end: var(--sbb-spacing-responsive-m);
+  }
+}
+
+::slotted(sbb-step-label:not(:first-child)) {
+  :host([orientation='vertical']) & {
+    margin-block-start: var(--sbb-spacing-responsive-m);
+  }
+}
+
+::slotted(sbb-step[data-selected]:not(:last-child)) {
+  :host([orientation='vertical']) & {
+    margin-block-end: var(--sbb-spacing-fixed-8x);
+  }
+}

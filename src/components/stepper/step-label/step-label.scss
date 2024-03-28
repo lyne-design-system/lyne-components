@@ -1,0 +1,89 @@
+@use '../../core/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-step-label-color: var(--sbb-color-iron);
+  --sbb-step-label-prefix-size: #{sbb.px-to-rem-build(36)};
+  --sbb-step-label-prefix-border-style: solid;
+  --sbb-step-label-prefix-border-color: var(--sbb-color-cloud);
+  --sbb-step-label-prefix-background-color: var(--sbb-color-white);
+
+  @include sbb.if-forced-colors {
+    --sbb-step-label-color: ButtonText;
+    --sbb-step-label-prefix-border-color: ButtonText;
+  }
+}
+
+:host([data-selected]) {
+  --sbb-step-label-color: var(--sbb-color-charcoal);
+}
+
+:host([disabled]) {
+  --sbb-step-label-color: var(--sbb-color-granite);
+  --sbb-step-label-prefix-border-style: dashed;
+}
+
+:host([data-vertical]) {
+  --sbb-step-label-prefix-size: #{sbb.px-to-rem-build(32)};
+}
+
+:host(:hover:not([disabled])) {
+  @include sbb.hover-mq($hover: true) {
+    --sbb-step-label-prefix-background-color: var(--sbb-color-milk);
+  }
+}
+
+// Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+:host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) {
+  @include sbb.focus-outline;
+
+  border-radius: var(--sbb-border-radius-1x);
+}
+
+.sbb-step-label {
+  @include sbb.text-l--bold;
+
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  gap: var(--sbb-spacing-fixed-4x);
+  color: var(--sbb-step-label-color);
+}
+
+.sbb-step-label__prefix {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--sbb-step-label-prefix-size);
+  height: var(--sbb-step-label-prefix-size);
+  border-radius: 50%;
+  border: var(--sbb-border-width-1x) var(--sbb-step-label-prefix-border-style)
+    var(--sbb-step-label-prefix-border-color);
+  background-color: var(--sbb-step-label-prefix-background-color);
+  inset-block-start: calc(
+    1em * (var(--sbb-typo-line-height-body-text) / 2) + (var(--sbb-border-width-1x) / 2) -
+      (var(--sbb-step-label-prefix-size) / 2)
+  );
+  transition: background-color var(--sbb-animation-duration-6x) ease;
+
+  &::before {
+    content: var(--sbb-step-label-counter);
+  }
+}
+
+.sbb-step-label__text {
+  :host([data-orientation='horizontal']) & {
+    @include sbb.ellipsis;
+  }
+}
+
+sbb-icon {
+  z-index: 1;
+  background-color: var(--sbb-step-label-prefix-background-color);
+  transition: background-color var(--sbb-animation-duration-6x) ease;
+}

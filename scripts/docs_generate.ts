@@ -95,7 +95,7 @@ async function updateComponentReadme(
   // Remove the title
   newDocs.replace(/^# class: `.*`\n/m, '');
 
-  updateFieldsTable(newDocs, sections, manifest.attributes!);
+  updateFieldsTable(newDocs, sections, manifest.attributes ?? []);
   newDocs = new MagicString(newDocs.toString());
 
   // Unescape `

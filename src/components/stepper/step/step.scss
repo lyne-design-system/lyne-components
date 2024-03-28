@@ -1,0 +1,67 @@
+@use '../../core/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-step-position: initial;
+  --sbb-step-inset-block-start: unset;
+  --sbb-step-opacity: 0;
+  --sbb-step-visibility: hidden;
+  --sbb-step-height: 0;
+  --sbb-step-animation-duration: var(--sbb-animation-duration-2x);
+  --sbb-step-animation-delay: 0;
+
+  display: contents;
+  position: relative;
+}
+
+:host([data-selected]) {
+  --sbb-step-opacity: 1;
+  --sbb-step-visibility: visible;
+  --sbb-step-height: fit-content;
+  --sbb-step-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-step-animation-delay: var(--sbb-step-animation-duration);
+}
+
+:host([data-orientation='horizontal']) {
+  --sbb-step-position: absolute;
+  --sbb-step-inset-block-start: 0;
+}
+
+.sbb-step--wrapper {
+  :host([data-orientation='vertical']) & {
+    opacity: 0;
+    height: 0;
+    transition:
+      height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
+      opacity var(--sbb-step-animation-duration) var(--sbb-animation-easing);
+  }
+
+  :host([data-selected][data-orientation='vertical']) & {
+    opacity: 1;
+    height: var(--sbb-stepper-content-height);
+    transition:
+      height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
+      opacity var(--sbb-step-animation-duration) var(--sbb-stepper-animation-duration)
+        var(--sbb-animation-easing);
+  }
+}
+
+.sbb-step {
+  @include sbb.text-m--regular;
+
+  position: var(--sbb-step-position);
+  inset-block-start: var(--sbb-step-inset-block-start);
+  opacity: var(--sbb-step-opacity);
+  visibility: var(--sbb-step-visibility);
+  height: var(--sbb-step-height);
+  color: var(--sbb-color-iron);
+  transition: {
+    property: opacity, visibility;
+    duration: var(--sbb-step-animation-duration);
+    delay: var(--sbb-step-animation-delay);
+    timing-function: var(--sbb-animation-easing);
+  }
+}
