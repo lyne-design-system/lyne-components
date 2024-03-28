@@ -11,3 +11,7 @@
 }
 
 @include sbb.icon-button('.sbb-autocomplete-grid-button', '::slotted(sbb-icon), sbb-icon');
+
+.sbb-autocomplete-grid-button {
+  display: flex;
+}
