@@ -54,9 +54,9 @@ let nextId = 0;
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-menu` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-menu` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-menu` is closed.
- * @cssprop [--sbb-menu-z-index=var(--sbb-overlay-z-index)] - To specify a custom stack order,
+ * @cssprop [--sbb-menu-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
- * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
+ * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @customElement('sbb-menu')
 export class SbbMenuElement extends SbbNamedSlotListMixin<

@@ -15,7 +15,7 @@
   position: fixed;
   inset-block-start: var(--sbb-spacing-fixed-4x);
   inset-inline-start: var(--sbb-spacing-fixed-4x);
-  z-index: calc(var(--sbb-skiplink-list-z-index, var(--sbb-overlay-z-index)) + 1);
+  z-index: calc(var(--sbb-skiplink-list-z-index, var(--sbb-overlay-default-z-index)) + 1);
 }
 
 .sbb-skiplink-list {

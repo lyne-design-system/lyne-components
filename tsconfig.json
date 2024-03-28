@@ -50,6 +50,7 @@
           "sbb-dialog-close",
           "sbb-navigation-close",
           "sbb-navigation-section-close",
+          "sbb-overlay-close",
           "sbb-popover-close",
           "sbb-toast-close"
         ]

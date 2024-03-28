@@ -33,7 +33,7 @@
 
   position: fixed;
   inset: var(--sbb-navigation-inset);
-  z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-z-index));
+  z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-default-z-index));
   overflow: hidden;
 
   // Needed for backwards compatibility on Chromatic
@@ -183,7 +183,7 @@
   width: var(--sbb-navigation-expanded-width);
   pointer-events: none;
   padding: var(--sbb-spacing-responsive-xs);
-  z-index: calc(var(--sbb-navigation-z-index, var(--sbb-overlay-z-index)) + 1);
+  z-index: calc(var(--sbb-navigation-z-index, var(--sbb-overlay-default-z-index)) + 1);
 }
 
 .sbb-navigation__close {

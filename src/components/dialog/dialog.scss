@@ -29,7 +29,7 @@
 
   position: fixed;
   inset: var(--sbb-dialog-inset);
-  z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-z-index));
+  z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-default-z-index));
 
   @include sbb.mq($from: micro) {
     --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-6x);
@@ -192,7 +192,7 @@
   padding-inline: var(--sbb-dialog-padding-inline);
   padding-block: var(--sbb-dialog-header-padding-block);
   background-color: var(--sbb-dialog-background-color);
-  z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-z-index));
+  z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-default-z-index));
 
   * {
     pointer-events: all;
