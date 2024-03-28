@@ -225,13 +225,3 @@ snapshots["sbb-autocomplete-grid Safari ShadowDom"] =
 `;
 /* end snapshot sbb-autocomplete-grid Safari ShadowDom */
 
-snapshots["sbb-autocomplete-grid Safari A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid Safari A11y tree Safari */
-

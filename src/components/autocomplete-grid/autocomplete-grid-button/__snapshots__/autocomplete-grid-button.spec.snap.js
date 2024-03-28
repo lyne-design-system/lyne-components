@@ -76,22 +76,6 @@ snapshots["sbb-autocomplete-grid-button renders disabled ShadowDom"] =
 `;
 /* end snapshot sbb-autocomplete-grid-button renders disabled ShadowDom */
 
-snapshots["sbb-autocomplete-grid-button renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-button renders A11y tree Firefox */
-
 snapshots["sbb-autocomplete-grid-button renders disabled A11y tree Chrome"] = 
 `<p>
   {
@@ -131,6 +115,22 @@ snapshots["sbb-autocomplete-grid-button renders negative without icon ShadowDom"
 `;
 /* end snapshot sbb-autocomplete-grid-button renders negative without icon ShadowDom */
 
+snapshots["sbb-autocomplete-grid-button renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": ""
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid-button renders A11y tree Firefox */
+
 snapshots["sbb-autocomplete-grid-button renders disabled A11y tree Firefox"] = 
 `<p>
   {
@@ -148,23 +148,7 @@ snapshots["sbb-autocomplete-grid-button renders disabled A11y tree Firefox"] =
 `;
 /* end snapshot sbb-autocomplete-grid-button renders disabled A11y tree Firefox */
 
-snapshots["sbb-autocomplete-grid-button renders A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-button renders A11y tree Safari */
-
-snapshots["sbb-autocomplete-grid-button renders disabled A11y tree Safari"] = 
+snapshots["sbb-autocomplete-grid-button A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -179,5 +163,22 @@ snapshots["sbb-autocomplete-grid-button renders disabled A11y tree Safari"] =
 }
 </p>
 `;
-/* end snapshot sbb-autocomplete-grid-button renders disabled A11y tree Safari */
+/* end snapshot sbb-autocomplete-grid-button A11y tree Chrome */
+
+snapshots["sbb-autocomplete-grid-button A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "",
+      "disabled": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid-button A11y tree Firefox */
 

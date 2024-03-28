@@ -36,10 +36,6 @@ describe('sbb-autocomplete-grid-button', () => {
     it('ShadowDom', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
-
-    testA11yTreeSnapshot(
-      html`<sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>`,
-    );
   });
 
   describe('renders disabled', () => {
@@ -70,13 +66,6 @@ describe('sbb-autocomplete-grid-button', () => {
     it('ShadowDom', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
-
-    testA11yTreeSnapshot(
-      html`<sbb-autocomplete-grid-button
-        disabled
-        icon-name="pie-small"
-      ></sbb-autocomplete-grid-button>`,
-    );
   });
 
   describe('renders negative without icon', () => {
@@ -107,4 +96,15 @@ describe('sbb-autocomplete-grid-button', () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
   });
+
+  testA11yTreeSnapshot(
+    html`<sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>`,
+  );
+
+  testA11yTreeSnapshot(
+    html`<sbb-autocomplete-grid-button
+      disabled
+      icon-name="pie-small"
+    ></sbb-autocomplete-grid-button>`,
+  );
 });

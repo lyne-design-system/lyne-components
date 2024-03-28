@@ -60,19 +60,3 @@ snapshots["sbb-autocomplete-grid-actions A11y tree Firefox"] =
 `;
 /* end snapshot sbb-autocomplete-grid-actions A11y tree Firefox */
 
-snapshots["sbb-autocomplete-grid-actions A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-actions A11y tree Safari */
-
