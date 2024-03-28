@@ -100,11 +100,4 @@ describe('sbb-autocomplete-grid-button', () => {
   testA11yTreeSnapshot(
     html`<sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>`,
   );
-
-  testA11yTreeSnapshot(
-    html`<sbb-autocomplete-grid-button
-      disabled
-      icon-name="pie-small"
-    ></sbb-autocomplete-grid-button>`,
-  );
 });

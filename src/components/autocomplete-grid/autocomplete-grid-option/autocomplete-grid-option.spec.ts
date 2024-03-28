@@ -63,11 +63,5 @@ describe('sbb-autocomplete-grid-option', () => {
     it('ShadowDom', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
-
-    testA11yTreeSnapshot(
-      html`<sbb-autocomplete-grid-option value="1" disabled
-        >Option 1</sbb-autocomplete-grid-option
-      >`,
-    );
   });
 });

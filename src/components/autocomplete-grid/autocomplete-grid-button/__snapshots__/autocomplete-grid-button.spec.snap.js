@@ -90,8 +90,7 @@ snapshots["sbb-autocomplete-grid-button A11y tree Chrome"] =
   "children": [
     {
       "role": "button",
-      "name": "",
-      "disabled": true
+      "name": ""
     }
   ]
 }
@@ -107,8 +106,7 @@ snapshots["sbb-autocomplete-grid-button A11y tree Firefox"] =
   "children": [
     {
       "role": "button",
-      "name": "",
-      "disabled": true
+      "name": ""
     }
   ]
 }

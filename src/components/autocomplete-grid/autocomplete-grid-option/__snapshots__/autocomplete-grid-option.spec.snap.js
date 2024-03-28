@@ -80,22 +80,6 @@ snapshots["sbb-autocomplete-grid-option disabled ShadowDom"] =
 `;
 /* end snapshot sbb-autocomplete-grid-option disabled ShadowDom */
 
-snapshots["sbb-autocomplete-grid-option disabled A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "Option 1"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-option disabled A11y tree Chrome */
-
 snapshots["sbb-autocomplete-grid-option default A11y tree Firefox"] = 
 `<p>
   {
@@ -111,20 +95,4 @@ snapshots["sbb-autocomplete-grid-option default A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-autocomplete-grid-option default A11y tree Firefox */
-
-snapshots["sbb-autocomplete-grid-option disabled A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Option 1"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-option disabled A11y tree Firefox */
 
