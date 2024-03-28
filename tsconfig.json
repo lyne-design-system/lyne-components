@@ -40,7 +40,6 @@
         "rules": {
           // The following rules are broken
           "no-incompatible-type-binding": "off",
-          "no-missing-import": "off",
           // In the calendar we have properties, that support Date/string/number values
           // TODO: Maybe change the signature to only accept a date object.
           "no-incompatible-property-type": "off"

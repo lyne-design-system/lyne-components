@@ -25,8 +25,8 @@ describe('focus', () => {
       await customElements.whenDefined('my-custom-element');
       lightDOM = await fixture(html`
         <div>
-          <custom-button tabindex="0" id="custom-button">Button</custom-button>
-          <custom-link tabindex="0" href="#" id="custom-link">Link</custom-link>
+          <span tabindex="0" id="custom-button">Button</span>
+          <span tabindex="0" id="custom-link">Link</span>
           <div>
             <input id="input" />
             <button style="visibility: hidden" id="hidden-button">Button</button>
@@ -64,7 +64,7 @@ describe('focus', () => {
 
     it('should retrieve filtered focusable elements', () => {
       const elements = getFocusableElements([lightDOM, shadowDOM], {
-        filter: (el) => ['div', 'custom-link'].includes(el.localName),
+        filter: (el) => el.localName === 'div' || el.id === 'custom-link',
       });
 
       expect(elements.map((el) => el.id)).to.deep.equal(['custom-link']);
@@ -95,8 +95,8 @@ describe('focus', () => {
           super();
           const shadowRoot = this.attachShadow({ mode: 'open' });
           shadowRoot.innerHTML = `
-          <custom-button tabindex="0" id="custom-button">Button</custom-button>
-          <custom-link tabindex="0" href="#" id="custom-link">Link</custom-link>
+          <span tabindex="0" id="custom-button">Button</span>
+          <span tabindex="0" id="custom-link">Link</span>
           <div>
             <input id="input" />
             <button style="visibility: hidden" id="hidden-button">Button</button>
