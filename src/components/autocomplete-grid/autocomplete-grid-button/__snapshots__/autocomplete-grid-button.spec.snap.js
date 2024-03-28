@@ -30,22 +30,6 @@ snapshots["sbb-autocomplete-grid-button renders ShadowDom"] =
 `;
 /* end snapshot sbb-autocomplete-grid-button renders ShadowDom */
 
-snapshots["sbb-autocomplete-grid-button renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-button renders A11y tree Chrome */
-
 snapshots["sbb-autocomplete-grid-button renders disabled Dom"] = 
 `<sbb-autocomplete-grid-button
   aria-disabled="true"
@@ -76,23 +60,6 @@ snapshots["sbb-autocomplete-grid-button renders disabled ShadowDom"] =
 `;
 /* end snapshot sbb-autocomplete-grid-button renders disabled ShadowDom */
 
-snapshots["sbb-autocomplete-grid-button renders disabled A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-button renders disabled A11y tree Chrome */
-
 snapshots["sbb-autocomplete-grid-button renders negative without icon Dom"] = 
 `<sbb-autocomplete-grid-button
   aria-disabled="false"
@@ -114,39 +81,6 @@ snapshots["sbb-autocomplete-grid-button renders negative without icon ShadowDom"
 </span>
 `;
 /* end snapshot sbb-autocomplete-grid-button renders negative without icon ShadowDom */
-
-snapshots["sbb-autocomplete-grid-button renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-button renders A11y tree Firefox */
-
-snapshots["sbb-autocomplete-grid-button renders disabled A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-button renders disabled A11y tree Firefox */
 
 snapshots["sbb-autocomplete-grid-button A11y tree Chrome"] = 
 `<p>
