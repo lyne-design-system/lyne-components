@@ -96,7 +96,6 @@
 
   margin-inline-start: auto;
   width: var(--sbb-spacing-fixed-4x);
-  max-height: var(--sbb-spacing-fixed-4x);
 
   @include sbb.if-forced-colors {
     color: var(--sbb-menu-action-color);

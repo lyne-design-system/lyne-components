@@ -10,5 +10,6 @@
   border-radius: var(--sbb-border-radius-infinity);
   background-color: var(--sbb-color-red);
   color: var(--sbb-color-white);
-  min-width: fit-content;
+  min-width: var(--sbb-spacing-fixed-4x);
+  max-height: var(--sbb-spacing-fixed-4x);
 }

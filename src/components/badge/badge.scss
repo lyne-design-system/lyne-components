@@ -1,0 +1,17 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  position: relative;
+  display: inline-flex;
+}
+
+.sbb-badge {
+  position: absolute;
+  inset-block-start: #{sbb.px-to-rem-build(-2)};
+  inset-inline-end: #{sbb.px-to-rem-build(-2)};
+
+  @include sbb.badge;
+}
