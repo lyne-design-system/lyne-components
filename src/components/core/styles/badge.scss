@@ -1,0 +1,28 @@
+@use './mixins/badge';
+
+[sbb-badge] {
+  --sbb-badge-position-offset: calc(var(--sbb-spacing-fixed-1x) * -1);
+
+  position: relative;
+
+  &::after {
+    @include badge.badge;
+
+    content: attr(sbb-badge);
+    position: absolute;
+    inset: var(--sbb-badge-position-block-start);
+    inset-block-start: var(--sbb-badge-position-offset);
+  }
+
+  &[sbb-badge-position~='before']::after {
+    inset-inline-start: var(--sbb-badge-position-offset);
+  }
+
+  &:where(:not([sbb-badge-position]), [sbb-badge-position~='after'])::after {
+    inset-inline-end: var(--sbb-badge-position-offset);
+  }
+
+  &[sbb-badge-position~='middle']::after {
+    inset-block-start: calc(50% + var(--sbb-spacing-fixed-2x) * -1);
+  }
+}

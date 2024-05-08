@@ -52,6 +52,8 @@
         },
         "globalAttributes": [
           "align-self",
+          "sbb-badge",
+          "sbb-badge-position",
           "sbb-dialog-close",
           "sbb-navigation-close",
           "sbb-navigation-section-close",
