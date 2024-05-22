@@ -24,7 +24,7 @@ const unplannedStopService = {
 };
 const redirectedService = {
   ...defaultService,
-  serviceAlteration: { redirectedText: 'Ausnahmsweise kein Halt' },
+  serviceAlteration: { redirectedText: 'Exceptionally no stop' },
 };
 const departureNotServiced = {
   ...defaultService,
