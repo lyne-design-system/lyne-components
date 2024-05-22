@@ -117,7 +117,7 @@ describe(`sbb-pearl-chain`, () => {
         <div class="sbb-pearl-chain">
           <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
           <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past" style="--sbb-pearl-chain-leg-width:8.333333333333332%;"></div>
-          <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past sbb-pearl-chain__leg--skipped" style="--sbb-pearl-chain-leg-width:91.66666666666666%;">
+          <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--skipped" style="--sbb-pearl-chain-leg-width:91.66666666666666%;">
             <span class="sbb-pearl-chain__stop sbb-pearl-chain__stop--departure-skipped"></span>
           </div>
           <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
@@ -165,7 +165,7 @@ describe(`sbb-pearl-chain`, () => {
         <div class="sbb-pearl-chain">
           <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
           <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past" style="--sbb-pearl-chain-leg-width:8.333333333333332%;"></div>
-          <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past sbb-pearl-chain__leg--skipped" style="--sbb-pearl-chain-leg-width:91.66666666666666%;">
+          <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--skipped" style="--sbb-pearl-chain-leg-width:91.66666666666666%;">
             <span class="sbb-pearl-chain__stop"></span>
           </div>
           <span class="sbb-pearl-chain--arrival-skipped sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>

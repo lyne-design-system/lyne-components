@@ -261,7 +261,7 @@ export class SbbPearlChainElement extends LitElement {
           };
 
           return html` <div
-            class="sbb-pearl-chain__leg ${legStatus} ${cancelled} ${skippedLeg}"
+            class="sbb-pearl-chain__leg ${legStatus || ''} ${cancelled} ${skippedLeg}"
             style=${styleMap(legStyle())}
           >
             ${index > 0 && index < rideLegs.length
