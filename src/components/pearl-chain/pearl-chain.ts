@@ -147,10 +147,10 @@ export class SbbPearlChainElement extends LitElement {
 
     const arrivalTime =
       rideLegs?.length &&
-      removeTimezoneFromISOTimeString(rideLegs[rideLegs?.length - 1].arrival?.time);
+      removeTimezoneFromISOTimeString(rideLegs[rideLegs.length - 1].arrival?.time);
     const arrivalTimeDelay = arrivalTime && {
       time: arrivalTime,
-      delay: rideLegs.at(-1)?.arrival.delay || 0,
+      delay: rideLegs[rideLegs.length - 1]?.arrival.delay || 0,
     };
 
     const departureNotServiced = ((): string => {
