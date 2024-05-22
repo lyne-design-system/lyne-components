@@ -11,9 +11,7 @@ import {
   i18nClass,
   i18nDeparture,
   i18nDirection,
-  i18nFromPier,
   i18nFromPlatform,
-  i18nFromStand,
   i18nMeansOfTransport,
   i18nNew,
   i18nOccupancy,
@@ -276,27 +274,17 @@ export class SbbTimetableRowElement extends LitElement {
     `;
   }
 
-  private _getQuayType(vehicleMode: string): any {
-    switch (vehicleMode) {
-      case 'TRAIN':
-        return i18nFromPlatform;
-      case 'SHIP':
-        return i18nFromPier;
-      case 'TRAMWAY':
-        return i18nFromStand;
-      case 'BUS':
-        return i18nFromStand;
-      default:
-        return undefined;
-    }
-  }
-
   private _getQuayTypeStrings(): { long: string; short: string } | null {
     if (!this.trip.summary?.product) return null;
-    const quayType = this._getQuayType(this.trip.summary.product?.vehicleMode);
+    const rideLegs = this.trip.legs?.filter((leg) => isRideLeg(leg)) as PtRideLeg[];
+    const isShort = this.trip.summary.product?.vehicleMode === 'TRAIN';
+    const short = isShort
+      ? rideLegs[0].serviceJourney.quayTypeShortName || ''
+      : rideLegs[0].serviceJourney.quayTypeName || '';
+
     return {
-      long: quayType?.long[this._language.current],
-      short: quayType?.short[this._language.current],
+      long: i18nFromPlatform[this._language.current] + ' ' + short,
+      short,
     };
   }
 
@@ -548,7 +536,7 @@ export class SbbTimetableRowElement extends LitElement {
             data-now=${this._now()}
           ></sbb-pearl-chain-time>
           <div class="sbb-timetable__row-footer" role="gridcell">
-            ${product && this._getQuayType(product.vehicleMode) && departure?.quayFormatted
+            ${product && departure?.quayFormatted
               ? html`<span
                   class=${departure?.quayChanged ? `sbb-timetable__row-quay--changed` : nothing}
                 >

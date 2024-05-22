@@ -1,9 +1,13 @@
 import type { ITripItem } from '../core/timetable.js';
 import {
   cancelledLeg,
+  defaultBusLeg,
+  defaultShipLeg,
+  defaultTramLeg,
   extendedLeg,
   futureLeg,
   longFutureLeg,
+  pastBusLeg,
   pastLeg,
   progressLeg,
   redirectedOnArrivalLeg,
@@ -286,7 +290,7 @@ export const disturbanceTrip: DeepPartial<ITripItem> = {
 };
 
 export const quayChangeTrip: DeepPartial<ITripItem> = {
-  legs: [pastLeg, progressLeg],
+  legs: [pastBusLeg, progressLeg],
   notices: [
     {
       name: 'R',
@@ -366,7 +370,7 @@ export const trainTrip: DeepPartial<ITripItem> = {
 };
 
 export const busTrip: DeepPartial<ITripItem> = {
-  legs: [futureLeg, futureLeg, longFutureLeg],
+  legs: [defaultBusLeg, futureLeg, longFutureLeg],
   situations: [],
   summary: {
     duration: 41,
@@ -398,7 +402,7 @@ export const busTrip: DeepPartial<ITripItem> = {
 };
 
 export const shipTrip: DeepPartial<ITripItem> = {
-  legs: [futureLeg],
+  legs: [defaultShipLeg],
   situations: [],
   summary: {
     duration: 41,
@@ -423,7 +427,7 @@ export const shipTrip: DeepPartial<ITripItem> = {
 };
 
 export const walkTimeTrip: DeepPartial<ITripItem> = {
-  legs: [futureLeg, futureLeg, futureLeg, futureLeg, futureLeg, futureLeg],
+  legs: [defaultTramLeg, futureLeg, futureLeg, futureLeg, futureLeg, futureLeg],
   notices: [
     {
       name: 'NF',

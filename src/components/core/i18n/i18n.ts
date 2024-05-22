@@ -260,49 +260,11 @@ export const i18nNew: Record<string, string> = {
   it: 'nuovo',
 };
 
-export const i18nFromPlatform: Record<string, Record<string, string>> = {
-  long: {
-    de: 'Auf Gleis',
-    en: 'on platform',
-    fr: 'sur la voie',
-    it: 'sulla piattaforma',
-  },
-  short: {
-    de: 'Gl.',
-    en: 'Pl.',
-    fr: 'Voie',
-    it: 'Bin.',
-  },
-};
-
-export const i18nFromStand: Record<string, Record<string, string>> = {
-  long: {
-    de: 'Von Kante',
-    en: 'from Stand',
-    fr: 'à partir de la Quai',
-    it: 'Dalla Corsia',
-  },
-  short: {
-    de: 'Kante',
-    en: 'Stand',
-    fr: 'Quai',
-    it: 'Corsia.',
-  },
-};
-
-export const i18nFromPier: Record<string, Record<string, string>> = {
-  long: {
-    de: 'Von Steg',
-    en: 'from Pier',
-    fr: 'à partir de la Imbarco',
-    it: 'Dalla Corsia',
-  },
-  short: {
-    de: 'Steg',
-    en: 'Pier',
-    fr: 'Quai',
-    it: 'Imbarco.',
-  },
+export const i18nFromPlatform: Record<string, string> = {
+  de: 'Auf',
+  en: 'on',
+  fr: 'sur',
+  it: 'su',
 };
 
 export const i18nSupersaver: Record<string, string> = {

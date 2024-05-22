@@ -125,7 +125,7 @@ describe(`sbb-timetable-row`, () => {
       expect(element).shadowDom.to.be.equal(`
         <sbb-card color="white" data-action-role="button" data-has-action size="l">
           <sbb-card-button dir="ltr" role="button" slot="action" tabindex="0" data-action data-button>
-            Departure: 16:30,  from Stand 4,  Bus,  B 19,  Direction Spiegel, Blinzern,       Arrival: 17:06,   Travel time 41 Minutes,  2 changes,  First Class Low to medium occupancy expected. Second Class High occupancy expected.
+            Departure: 16:30,  on Stand 4,  Bus,  B 19,  Direction Spiegel, Blinzern,       Arrival: 17:06,   Travel time 41 Minutes,  2 changes,  First Class Low to medium occupancy expected. Second Class High occupancy expected.
           </sbb-card-button>
           <div class="sbb-timetable__row" role="row">
             <div class="sbb-timetable__row-header" role="gridcell">
@@ -152,7 +152,7 @@ describe(`sbb-timetable-row`, () => {
                 </span>
                 <span class="sbb-timetable__row--quay">
                   <span class="sbb-screen-reader-only">
-                    from Stand
+                    on Stand
                   </span>
                   <span class="sbb-timetable__row--quay-type" aria-hidden="true">
                     Stand
