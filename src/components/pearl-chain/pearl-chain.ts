@@ -245,13 +245,14 @@ export class SbbPearlChainElement extends LitElement {
 
           const legStatus =
             !cancelled &&
+            !skippedLeg &&
             this._getStatus(legDepartureWithDelay, legArrivalWithDelay) &&
             'sbb-pearl-chain__leg--' + status;
 
           const legStyle = (): Record<string, string> => {
             return {
               '--sbb-pearl-chain-leg-width': `${duration}%`,
-              ...(status === 'progress' && !cancelled
+              ...(status === 'progress' && !cancelled && !skippedLeg
                 ? {
                     '--sbb-pearl-chain-leg-status': `${this._getProgress(legDepartureWithDelay, legArrivalWithDelay)}%`,
                   }
@@ -266,7 +267,7 @@ export class SbbPearlChainElement extends LitElement {
             ${index > 0 && index < rideLegs.length
               ? html`<span class="sbb-pearl-chain__stop ${departureSkippedBullet}"></span>`
               : nothing}
-            ${status === 'progress' && !cancelled
+            ${status === 'progress' && !cancelled && !skippedLeg
               ? this._renderPosition(legDepartureWithDelay, legArrivalWithDelay)
               : nothing}
           </div>`;
