@@ -133,8 +133,8 @@ export const redirectedOnDepartureLeg = {
   arrival: { time: future2 },
   departure: { time: future },
   serviceJourney: {
-    ...redirectedService,
     ...departureNotServiced,
+    ...redirectedService,
   },
 };
 
