@@ -23,19 +23,28 @@
     var(--sbb-icon-svg-width) + var(--sbb-form-field-gap)
   );
   --sbb-form-field-overflow: hidden;
+  --sbb-form-field-input-text-size: var(--sbb-font-size-text-m);
+  --sbb-form-field-label-text-size: var(--sbb-font-size-text-xs);
   --sbb-form-field-label-size: calc(
-    var(--sbb-font-size-text-xs) * var(--sbb-typo-line-height-body-text)
+    var(--sbb-form-field-label-text-size) * var(--sbb-typo-line-height-body-text)
   );
-  --sbb-form-field-input-size: calc(
-    var(--sbb-font-size-text-m) * var(--sbb-typo-line-height-body-text)
+  --sbb-form-field-text-size: calc(
+    var(--sbb-form-field-input-text-size) * var(--sbb-typo-line-height-body-text)
   );
+
+  // fixme +2px to not cut low underscore letters
+  --sbb-form-field-input-size: calc(var(--sbb-form-field-input-text-size) + 2px);
   --sbb-form-field-margin-block-start: calc(
     (
         var(--sbb-form-field-min-height) - var(--sbb-form-field-label-size) - var(
-            --sbb-form-field-input-size
+            --sbb-form-field-text-size
           ) + var(--sbb-form-field-label-to-input-overlapping)
       ) / 2
   );
+  --sbb-form-field-spacer-margin-block-end: calc(
+    -1 * var(--sbb-form-field-label-to-input-overlapping)
+  );
+  --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(8.5)};
 
   // Lock sbb-icon size
   --sbb-icon-svg-width: var(--sbb-size-icon-ui-small);
@@ -44,6 +53,10 @@
   // As the form field has always a white background, we have to fix the focus outline color
   // to default color for cases where the form field is used in a negative context.
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+
+  @include sbb.mq($from: medium) {
+    --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(10.5)};
+  }
 
   @include sbb.if-forced-colors {
     --sbb-form-field-border-color: ButtonBorder;
@@ -74,6 +87,22 @@
 :host([size='l']) {
   --sbb-form-field-min-height: var(--sbb-size-element-l);
   --sbb-form-field-padding-inline: var(--sbb-spacing-responsive-xxxs);
+}
+
+:host([size='s']) {
+  --sbb-form-field-min-height: var(--sbb-size-element-xs);
+  --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-2x);
+  --sbb-form-field-input-text-size: var(--sbb-font-size-text-s);
+  --sbb-form-field-label-text-size: var(--sbb-font-size-text-xxs);
+  --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(10)};
+  --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-11)};
+  --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5.125)};
+
+  @include sbb.mq($from: medium) {
+    --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(11)};
+    --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8)};
+    --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(6.5)};
+  }
 }
 
 :host([error-space='reserve']) {
@@ -174,6 +203,15 @@
 // Should be after other definitions to override overflow
 :host([data-input-type='sbb-slider']) {
   --sbb-form-field-overflow: visible;
+  --sbb-form-field-min-height: #{sbb.px-to-rem-build(48)};
+  --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(0.5)};
+  --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-6)};
+
+  @include sbb.mq($from: medium) {
+    --sbb-form-field-min-height: #{sbb.px-to-rem-build(52)};
+    --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(1)};
+    --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-3)};
+  }
 }
 
 :host([data-input-type='textarea']) {
@@ -284,10 +322,10 @@
 
 .sbb-form-field__label-spacer {
   display: flex;
-  height: calc(var(--sbb-font-size-text-xs) * var(--sbb-typo-line-height-body-text));
+  height: calc(var(--sbb-form-field-label-text-size) * var(--sbb-typo-line-height-body-text));
 
   // Moves label down and input up to meet positioning requirements
-  margin-block-end: calc(-1 * var(--sbb-form-field-label-to-input-overlapping));
+  margin-block-end: var(--sbb-form-field-spacer-margin-block-end);
 }
 
 // To avoid doubled payload, we group the rules.
@@ -310,6 +348,10 @@
   position: absolute;
   inset-block-start: 0;
   color: var(--sbb-form-field-label-color);
+
+  :host([size='s']) & {
+    @include sbb.text-xxs--regular;
+  }
 
   :host([data-input-type='select']) &,
   :host([data-input-type='sbb-select']) & {
@@ -340,17 +382,18 @@
         )[data-input-empty]
     )
     & {
-    font-size: var(--sbb-font-size-text-m);
-    transform: translateY(#{sbb.px-to-rem-build(8.5)});
-
-    @include sbb.mq($from: medium) {
-      transform: translateY(#{sbb.px-to-rem-build(10.5)});
-    }
+    font-size: var(--sbb-form-field-input-text-size);
+    transform: translateY(var(--sbb-form-field-floating-label-transform));
   }
 }
 
 .sbb-form-field__label-ellipsis {
   @include sbb.ellipsis;
+}
+
+.sbb-form-field__input {
+  // TODO: find better solution
+  height: 0;
 }
 
 // Input
@@ -375,9 +418,10 @@
 
   // To be more specific than the styles in normalize.scss we need to use !important
   // TODO: Find a better solution
-  font-size: var(--sbb-font-size-text-m) !important;
+  font-size: var(--sbb-form-field-input-text-size) !important;
   font-family: var(--sbb-typo-font-family) !important;
   line-height: var(--sbb-typo-line-height-body-text) !important;
+  height: var(--sbb-form-field-text-size);
 
   &::placeholder {
     @include sbb.placeholder;

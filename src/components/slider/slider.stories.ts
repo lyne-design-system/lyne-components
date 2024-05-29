@@ -40,13 +40,18 @@ const TemplateSlottedIcons = (args: Args): TemplateResult => html`
   </sbb-slider>
 `;
 
-const TemplateSbbSliderInFormField = ({ label, optional, ...args }: Args): TemplateResult => html`
-  <sbb-form-field ?optional=${optional}>
+const TemplateSbbSliderInFormField = ({
+  label,
+  optional,
+  size,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-form-field ?optional=${optional} size=${size}>
     ${label ? html`<label>${label}</label>` : nothing} ${TemplateSbbSlider(args)}
   </sbb-form-field>
 `;
 
-const valueArg: InputType = {
+const value: InputType = {
   control: {
     type: 'text',
   },
@@ -55,7 +60,7 @@ const valueArg: InputType = {
   },
 };
 
-const valueAsNumberArg: InputType = {
+const valueAsNumber: InputType = {
   control: {
     type: 'number',
   },
@@ -64,7 +69,7 @@ const valueAsNumberArg: InputType = {
   },
 };
 
-const minArg: InputType = {
+const min: InputType = {
   control: {
     type: 'text',
   },
@@ -73,7 +78,7 @@ const minArg: InputType = {
   },
 };
 
-const maxArg: InputType = {
+const max: InputType = {
   control: {
     type: 'text',
   },
@@ -82,7 +87,7 @@ const maxArg: InputType = {
   },
 };
 
-const disabledArg: InputType = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
@@ -91,7 +96,7 @@ const disabledArg: InputType = {
   },
 };
 
-const readonlyArg: InputType = {
+const readonly: InputType = {
   control: {
     type: 'boolean',
   },
@@ -100,7 +105,7 @@ const readonlyArg: InputType = {
   },
 };
 
-const startIconArg: InputType = {
+const startIcon: InputType = {
   control: {
     type: 'text',
   },
@@ -109,7 +114,7 @@ const startIconArg: InputType = {
   },
 };
 
-const endIconArg: InputType = {
+const endIcon: InputType = {
   control: {
     type: 'text',
   },
@@ -127,7 +132,7 @@ const ariaLabel: InputType = {
   },
 };
 
-const labelArgArg: InputType = {
+const label: InputType = {
   control: {
     type: 'text',
   },
@@ -136,7 +141,7 @@ const labelArgArg: InputType = {
   },
 };
 
-const optionalArg: InputType = {
+const optional: InputType = {
   control: {
     type: 'boolean',
   },
@@ -145,22 +150,33 @@ const optionalArg: InputType = {
   },
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['s', 'm', 'l'],
+  table: {
+    category: 'Form-field attribute',
+  },
+};
+
 const basicArgTypes: ArgTypes = {
-  max: maxArg,
-  min: minArg,
-  disabled: disabledArg,
-  readonly: readonlyArg,
-  value: valueArg,
-  'value-as-number': valueAsNumberArg,
-  'start-icon': startIconArg,
-  'end-icon': endIconArg,
+  max,
+  min,
+  disabled,
+  readonly,
+  value,
+  'value-as-number': valueAsNumber,
+  'start-icon': startIcon,
+  'end-icon': endIcon,
   'aria-label': ariaLabel,
 };
 
 const formFieldBasicArgsTypes: ArgTypes = {
   ...basicArgTypes,
-  label: labelArgArg,
-  optional: optionalArg,
+  label,
+  optional,
+  size,
 };
 
 const basicArgs: Args = {
@@ -179,6 +195,7 @@ const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
   optional: undefined,
+  size: size.options![1],
 };
 
 export const sbbSlider: StoryObj = {
@@ -237,6 +254,12 @@ export const sbbSliderInFormFieldDisabled: StoryObj = {
   render: TemplateSbbSliderInFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs, disabled: true },
+};
+
+export const sbbSliderInFormFieldSizeS: StoryObj = {
+  render: TemplateSbbSliderInFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, size: size.options![0] },
 };
 
 const meta: Meta = {

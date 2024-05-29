@@ -75,7 +75,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   @property({ type: Boolean }) public optional?: boolean;
 
   /** Size variant, either l or m. */
-  @property({ reflect: true }) public size?: 'l' | 'm' = 'm';
+  @property({ reflect: true }) public size?: 'l' | 'm' | 's' = 'm';
 
   /** Whether to display the form field without a border. */
   @property({ reflect: true, type: Boolean }) public borderless = false;

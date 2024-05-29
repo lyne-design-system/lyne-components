@@ -409,7 +409,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 'l'],
+  options: ['s', 'm', 'l'],
   table: {
     category: 'Form-field',
   },
@@ -459,7 +459,7 @@ const basicArgs: Args = {
   'floating-label': false,
   optional: false,
   borderless: false,
-  size: size.options![0],
+  size: size.options![1],
   negative: false,
   cssClass: '',
   placeholder: 'Input placeholder',
@@ -483,8 +483,14 @@ export const InputSizeL: StoryObj = {
   args: {
     ...basicArgs,
     value: 'This input value is so long that it needs ellipsis to fit.',
-    size: 'l',
+    size: size.options![2],
   },
+};
+
+export const InputSizeS: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, size: size.options![0] },
 };
 
 export const InputNoLabel: StoryObj = {
@@ -527,6 +533,18 @@ export const InputOptionalAndIcons: StoryObj = {
   render: TemplateInputWithIcons,
   argTypes: basicArgTypes,
   args: { ...basicArgs, optional: true },
+};
+
+export const InputOptionalAndIconsSizeS: StoryObj = {
+  render: TemplateInputWithIcons,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true, size: size.options![0] },
+};
+
+export const InputOptionalAndIconsSizeL: StoryObj = {
+  render: TemplateInputWithIcons,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true, size: size.options![2] },
 };
 
 export const InputWithMiniButton: StoryObj = {
@@ -640,6 +658,18 @@ export const SelectOptionalAndIcons: StoryObj = {
   args: { ...basicArgs, optional: true },
 };
 
+export const SelectOptionalAndIconsSizeS: StoryObj = {
+  render: TemplateSelectWithIcons,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true, size: size.options![0] },
+};
+
+export const SelectOptionalAndIconsSizeL: StoryObj = {
+  render: TemplateSelectWithIcons,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true, size: size.options![2] },
+};
+
 export const Textarea: StoryObj = {
   render: TemplateTextarea,
   argTypes: basicArgTypes,
@@ -674,6 +704,18 @@ export const TextareaOptionalAndIcon: StoryObj = {
   render: TemplateTextareaWithIcon,
   argTypes: basicArgTypes,
   args: { ...basicArgs, optional: true },
+};
+
+export const TextareaOptionalAndIconSizeS: StoryObj = {
+  render: TemplateTextareaWithIcon,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true, size: size.options![0] },
+};
+
+export const TextareaOptionalAndIconSizeL: StoryObj = {
+  render: TemplateTextareaWithIcon,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true, size: size.options![2] },
 };
 
 export const TextareaFloatingLabel: StoryObj = {
@@ -753,6 +795,18 @@ export const InputOptionalAndIconsNegative: StoryObj = {
   render: TemplateInputWithIcons,
   argTypes: basicArgTypes,
   args: { ...basicArgs, optional: true, negative: true },
+};
+
+export const InputOptionalAndIconsNegativeSizeS: StoryObj = {
+  render: TemplateInputWithIcons,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true, negative: true, size: size.options![0] },
+};
+
+export const InputOptionalAndIconsNegativeSizeL: StoryObj = {
+  render: TemplateInputWithIcons,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true, negative: true, size: size.options![2] },
 };
 
 export const InputWithMiniButtonNegative: StoryObj = {
@@ -869,6 +923,18 @@ export const SelectOptionalAndIconsNegative: StoryObj = {
   args: { ...basicArgs, optional: true, negative: true },
 };
 
+export const SelectOptionalAndIconsNegativeSizeS: StoryObj = {
+  render: TemplateSelectWithIcons,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true, negative: true, size: size.options![0] },
+};
+
+export const SelectOptionalAndIconsNegativeSizeL: StoryObj = {
+  render: TemplateSelectWithIcons,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true, negative: true, size: size.options![2] },
+};
+
 export const InputCollapsedWidthNegative: StoryObj = {
   render: TemplateInput,
   argTypes: basicArgTypes,
@@ -915,6 +981,18 @@ export const TextareaOptionalAndIconNegative: StoryObj = {
   render: TemplateTextareaWithIcon,
   argTypes: basicArgTypes,
   args: { ...basicArgs, optional: true, negative: true },
+};
+
+export const TextareaOptionalAndIconNegativeSizeS: StoryObj = {
+  render: TemplateTextareaWithIcon,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true, negative: true, size: size.options![0] },
+};
+
+export const TextareaOptionalAndIconNegativeSizeL: StoryObj = {
+  render: TemplateTextareaWithIcon,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true, negative: true, size: size.options![2] },
 };
 
 export const TextareaFloatingLabelNegative: StoryObj = {
