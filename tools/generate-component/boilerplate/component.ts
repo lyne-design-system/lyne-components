@@ -1,7 +1,9 @@
-import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult, type PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { ConnectedAbortController, EventEmitter } from '../core/eventing';
+import { SbbConnectedAbortController } from '../core/controllers.js';
+import { EventEmitter } from '../core/eventing.js';
 
 import style from './__noPrefixName__.scss?lit&inline';
 
@@ -24,7 +26,7 @@ export class __nameUpperCase__ extends LitElement {
   /** _myState documentation */
   @state() private _myState = false;
 
-  private _abort = new ConnectedAbortController(this);
+  private _abort = new SbbConnectedAbortController(this);
   private _myEvent: EventEmitter<any> = new EventEmitter(
     this,
     __nameUpperCase__.events.myEventName,
@@ -42,6 +44,8 @@ export class __nameUpperCase__ extends LitElement {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('myProp')) {
       // do stuff
     }

@@ -1,12 +1,12 @@
 import * as tokens from '@sbb-esta/lyne-design-tokens';
-import type { StoryContext } from '@storybook/types';
-import type { Decorator } from '@storybook/web-components';
+import type { Parameters, StoryContext } from '@storybook/types';
+import type { Decorator, Preview } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
 import { html } from 'lit';
 
 import { withBackgroundDecorator } from '../src/storybook/testing/with-background-decorator.js';
 
-import '../src/components/core/styles/standard-theme.scss';
+import '../src/elements/core/styles/standard-theme.scss';
 
 const getViewportName = (key: string): string =>
   key.replace(/(^SbbBreakpoint|Min$)/g, '').toLowerCase();
@@ -41,7 +41,7 @@ const storybookViewports = breakpoints.reduce(
   {} as Record<string, number>,
 );
 
-export const parameters = {
+const parameters: Parameters = {
   // Set the viewports in Chromatic globally.
   chromatic: {
     delay: 2000,
@@ -52,6 +52,7 @@ export const parameters = {
     breakpointNames,
     debounceTimeout: 10,
   },
+  tags: ['autodocs'],
   docs: {
     toc: {
       ignoreSelector: '.docs-story h2',
@@ -65,12 +66,12 @@ export const parameters = {
     storySort: {
       // Story section order.
       // https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
-      order: ['introduction', 'pages', 'components', 'styles', 'timetable', 'internals'],
+      order: ['introduction', 'pages', 'elements', 'experimental', 'styles', 'internals'],
     },
   },
 };
 
-export const decorators: Decorator[] = [
+const decorators: Decorator[] = [
   (story, context: StoryContext) =>
     isChromatic() && context.parameters.layout !== 'fullscreen'
       ? html`<div style="padding: 2rem;min-height: 100vh">${story()}</div>`
@@ -78,3 +79,11 @@ export const decorators: Decorator[] = [
   withBackgroundDecorator,
   (story) => (isChromatic() ? html`<div class="sbb-disable-animation">${story()}</div>` : story()),
 ];
+
+const preview: Preview = {
+  decorators,
+  parameters,
+  tags: ['autodocs'],
+};
+
+export default preview;

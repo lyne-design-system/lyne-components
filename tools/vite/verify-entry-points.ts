@@ -1,6 +1,9 @@
-import { join, relative } from 'path';
+import { register } from 'node:module';
+import { join, relative } from 'node:path';
 
 import type { LibraryOptions, PluginOption, ResolvedConfig } from 'vite';
+
+register('../node-esm-hook/lyne-alias-hook.js', import.meta.url);
 
 export function verifyEntryPoints(): PluginOption {
   let viteConfig: ResolvedConfig;

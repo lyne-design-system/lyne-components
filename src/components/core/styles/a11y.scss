@@ -1,5 +1,0 @@
-@use './mixins/a11y';
-
-.sbb-screen-reader-only {
-  @include a11y.screen-reader-only;
-}

@@ -3,7 +3,7 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import '../../../components/link.js';
+import '../../../elements/link.js';
 
 import readme from './readme.md?raw';
 import './layout.scss';

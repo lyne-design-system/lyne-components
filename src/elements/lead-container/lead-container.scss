@@ -1,0 +1,105 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+
+  --sbb-lead-container-background-color: var(--sbb-color-white);
+  --sbb-lead-container-image-ratio: 2 / 1;
+  --sbb-lead-container-image-overlap: var(--sbb-spacing-fixed-24x);
+  --sbb-lead-container-padding-block: var(--sbb-spacing-responsive-l);
+  --sbb-lead-container-padding-inline: var(--sbb-layout-base-offset-responsive);
+  --sbb-lead-container-border-radius: var(--sbb-border-radius-6x);
+  --sbb-lead-container-image-border-radius: 0;
+
+  @include sbb.mq($from: wide) {
+    --sbb-lead-container-image-ratio: 21 / 9;
+  }
+
+  @include sbb.mq($from: ultra) {
+    --sbb-lead-container-image-border-radius: var(--sbb-lead-container-border-radius);
+  }
+}
+
+.sbb-lead-container {
+  padding-block-end: var(--sbb-spacing-responsive-l);
+}
+
+::slotted(sbb-image[slot='image']) {
+  --sbb-image-aspect-ratio: var(--sbb-lead-container-image-ratio);
+  --sbb-image-border-radius: var(--sbb-lead-container-image-border-radius);
+}
+
+::slotted(:is(img[slot='image'], picture[slot='image'])) {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: var(--sbb-lead-container-image-ratio);
+  border-radius: var(--sbb-lead-container-image-border-radius);
+}
+
+::slotted(:is(sbb-breadcrumb-group, sbb-block-link).sbb-lead-container-spacing) {
+  margin-block-end: var(--sbb-spacing-fixed-4x);
+}
+
+::slotted(:is(sbb-alert, sbb-alert-group).sbb-lead-container-spacing) {
+  margin-block-end: var(--sbb-spacing-responsive-m);
+}
+
+::slotted(sbb-title.sbb-lead-container-spacing) {
+  margin-block-start: 0;
+}
+
+::slotted(.sbb-lead-container-lead-text) {
+  margin-block: 0 var(--sbb-spacing-responsive-s);
+}
+
+.sbb-lead-container-image {
+  @include sbb.mq($from: ultra) {
+    max-width: calc(
+      var(--sbb-layout-base-page-max-width) + 2 * var(--sbb-layout-base-offset-responsive)
+    );
+    margin-inline: auto;
+  }
+}
+
+.sbb-lead-container-content-wrapper {
+  @include sbb.grid;
+
+  // In case there is a global background color set, use full width with white color until large breakpoint
+  background-color: var(--sbb-lead-container-background-color);
+
+  @include sbb.mq($from: large) {
+    background-color: transparent;
+  }
+}
+
+.sbb-lead-container-content {
+  z-index: 1;
+  border-radius: var(--sbb-lead-container-border-radius);
+  padding-block: var(--sbb-lead-container-padding-block);
+  background-color: var(--sbb-lead-container-background-color);
+  grid-column: 1 / -1;
+
+  @include sbb.mq($from: medium) {
+    grid-column: 2 / -2;
+  }
+
+  @include sbb.mq($from: large) {
+    margin-block-start: calc(-1 * var(--sbb-lead-container-image-overlap));
+    padding-inline: var(--sbb-lead-container-padding-inline);
+
+    // As the content should be aligned to the grid, we have to stretch the container by padding
+    margin-inline: calc(-1 * var(--sbb-lead-container-padding-inline));
+  }
+
+  @include sbb.mq($from: wide) {
+    grid-column: 3 / -3;
+  }
+
+  @include sbb.mq($from: ultra) {
+    grid-column: 4 / -4;
+  }
+}

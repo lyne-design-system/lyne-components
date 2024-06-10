@@ -1,0 +1,14 @@
+@use '@sbb-esta/lyne-elements/core/styles/index' as sbb;
+
+@include sbb.box-sizing;
+
+.app-test-case-filter {
+  display: flex;
+  gap: 0.5rem 4rem;
+  flex-direction: column;
+  text-transform: capitalize;
+}
+
+sbb-title {
+  margin: 0;
+}

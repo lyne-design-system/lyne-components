@@ -35,7 +35,7 @@ jobs:
     if: needs.release-please.outputs.releases_created
     runs-on: ubuntu-latest
     env:
-      IMAGE_REPO: ghcr.io/${{ github.repository_owner }}/lyne-components/storybook
+      IMAGE_REPO_STORYBOOK: ghcr.io/${{ github.repository }}/storybook
       VERSION: ${{ needs.release-please.outputs.version }}
     steps:
       - uses: actions/checkout@v4
@@ -54,27 +54,35 @@ jobs:
       - name: 'Release: Determine npm tag'
         id: npm_tag
         run: echo "npm_tag=$([[ "$VERSION" == *"-"* ]] && echo "next" || echo "latest")" >> $GITHUB_OUTPUT
-      - name: 'Release: Publish @sbb-esta/lyne-components'
-        run: yarn publish dist/components --tag ${{ steps.npm_tag.outputs.npm_tag }}
+      - name: 'Release: Publish @sbb-esta/lyne-elements'
+        run: yarn publish dist/elements --tag ${{ steps.npm_tag.outputs.npm_tag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: 'Release: Publish @sbb-esta/lyne-components-react'
+      - name: 'Release: Publish @sbb-esta/lyne-elements-experimental'
+        run: yarn publish dist/elements-experimental --tag ${{ steps.npm_tag.outputs.npm_tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: 'Release: Publish @sbb-esta/lyne-react'
         run: yarn publish dist/react --tag ${{ steps.npm_tag.outputs.npm_tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: 'Release: Publish @sbb-esta/lyne-react-experimental'
+        run: yarn publish dist/react-experimental --tag ${{ steps.npm_tag.outputs.npm_tag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Remove files with forbidden extensions
         run: node ./scripts/clean-storybook-files.cjs
       - name: 'Container: Login to GitHub Container Repository'
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: 'Container: Build image'
-        run: docker build -t $IMAGE_REPO:$VERSION -t $IMAGE_REPO:latest .
+        run: docker build --tag $IMAGE_REPO_STORYBOOK:$VERSION --tag $IMAGE_REPO_STORYBOOK:latest .
         env:
           DOCKER_BUILDKIT: 1
       - name: 'Container: Publish image'
-        run: docker push $IMAGE_REPO:$VERSION
+        run: docker push $IMAGE_REPO_STORYBOOK:$VERSION
       - name: 'Container: Publish image as latest'
-        run: docker push $IMAGE_REPO:latest
+        run: docker push $IMAGE_REPO_STORYBOOK:latest
 
       - name: Generate chromatic stories
         run: yarn generate:chromatic-stories
@@ -98,7 +106,7 @@ jobs:
     if: needs.release-please.outputs.releases_created != true
     runs-on: ubuntu-latest
     env:
-      IMAGE_REPO: ghcr.io/${{ github.repository_owner }}/lyne-components/storybook
+      IMAGE_REPO_STORYBOOK: ghcr.io/${{ github.repository }}/storybook
       VERSION: ${{ needs.release-please.outputs.version }}
     steps:
       - uses: actions/checkout@v4
@@ -116,13 +124,13 @@ jobs:
       - name: Remove files with forbidden extensions
         run: node ./scripts/clean-storybook-files.cjs
       - name: 'Container: Login to GitHub Container Repository'
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: 'Container: Build image'
-        run: docker build -t $IMAGE_REPO:dev .
+        run: docker build --tag $IMAGE_REPO_STORYBOOK:dev .
         env:
           DOCKER_BUILDKIT: 1
       - name: 'Container: Publish image'
-        run: docker push $IMAGE_REPO:dev
+        run: docker push $IMAGE_REPO_STORYBOOK:dev
 
       - name: Generate chromatic stories
         run: yarn generate:chromatic-stories

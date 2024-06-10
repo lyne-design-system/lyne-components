@@ -507,11 +507,11 @@ Also define CSS variables in :host.
 #### Use/Check existing CSS variables and SCSS mixins/functions
 
 The `@sbb-esta/lyne-design-tokens` package provides global design tokens/CSS variables,
-which are used/configured in our code base (see `src/components/core/styles/core/variables.scss`).
+which are used/configured in our code base (see `src/elements/core/styles/core/variables.scss`).
 
 Use these variables instead of the original ones and only define new variables for components.
 If a global variable is missing, create an issue or pull request in
-[lyne-design-system/lyne-design-tokens][lyne-design-tokens].
+[sbb-design-systems/lyne-design-tokens][lyne-design-tokens].
 
 #### Be cautious with the use of `display: flex`
 
@@ -663,7 +663,7 @@ Stories with example texts should be written in English
 to be neutral and also understandable for all developers and consumers.
 
 [ts-mixins]: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#support-for-mix-in-classes
-[lyne-design-tokens]: https://github.com/lyne-design-system/lyne-design-tokens
+[lyne-design-tokens]: https://github.com/sbb-design-systems/lyne-design-tokens
 
 ## States
 

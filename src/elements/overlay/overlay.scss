@@ -1,0 +1,159 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  @include sbb.scrollbar-variables;
+
+  --sbb-overlay-background-color: var(--sbb-color-milk);
+  --sbb-overlay-height: 100%;
+  --sbb-overlay-inset: 0 auto auto 0;
+  --sbb-overlay-padding-block: calc(
+    var(--sbb-spacing-responsive-xxl) + var(--sbb-spacing-responsive-l)
+  );
+  --sbb-overlay-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-6x)
+  );
+  --sbb-overlay-animation-easing: ease;
+  --sbb-overlay-pointer-events: none;
+  --sbb-overlay-content-transition: transform var(--sbb-overlay-animation-duration)
+    var(--sbb-overlay-animation-easing);
+
+  display: block;
+  position: fixed;
+  inset: var(--sbb-overlay-inset);
+  z-index: var(--sbb-overlay-z-index, var(--sbb-overlay-default-z-index));
+
+  @include sbb.mq($from: large) {
+    --sbb-overlay-padding-block: var(--sbb-spacing-responsive-xl);
+  }
+}
+
+:host(:is([data-state='opened'], [data-state='opening'])) {
+  --sbb-overlay-pointer-events: all;
+}
+
+:host([negative]) {
+  @include sbb.scrollbar-variables--color-negative;
+
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+  --sbb-overlay-color: var(--sbb-color-white);
+  --sbb-overlay-background-color: var(--sbb-color-midnight);
+}
+
+:host(:not([data-state='closed'])) {
+  --sbb-overlay-inset: 0;
+}
+
+.sbb-overlay__container {
+  background-color: var(--sbb-overlay-background-color);
+  pointer-events: var(--sbb-overlay-pointer-events);
+  display: flex;
+  align-items: center;
+  position: fixed;
+  inset: var(--sbb-overlay-inset);
+}
+
+.sbb-overlay {
+  display: none;
+  position: absolute;
+  inset-inline: 0;
+  margin: auto;
+  padding: 0;
+  border: none;
+  height: var(--sbb-overlay-height);
+  overflow: auto;
+  color: var(--sbb-overlay-color);
+
+  :host([data-state]:not([data-state='closed'])) & {
+    display: block;
+
+    animation: {
+      name: open;
+      duration: var(--sbb-overlay-animation-duration);
+      timing-function: ease;
+    }
+  }
+
+  :host([data-state][data-state='closing']) & {
+    pointer-events: none;
+    animation-name: close;
+  }
+}
+
+.sbb-overlay__wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: var(--sbb-overlay-height);
+  outline: none;
+  position: fixed;
+
+  @include sbb.mq($from: medium) {
+    position: sticky;
+    inset-block-start: 0;
+    height: auto;
+  }
+}
+
+.sbb-overlay__header {
+  position: absolute;
+  inset-inline-start: 0;
+  display: flex;
+  pointer-events: none;
+  align-items: start;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--sbb-spacing-responsive-xs);
+  padding-block-end: 0;
+  z-index: 1;
+
+  * {
+    pointer-events: all;
+  }
+}
+
+.sbb-overlay__close {
+  margin-inline-start: auto;
+}
+
+.sbb-overlay__content {
+  @include sbb.scrollbar-rules;
+
+  height: 100vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sbb-overlay__content-container {
+  padding-block: var(--sbb-overlay-padding-block);
+}
+
+// It is necessary to use animations with keyframes instead of transitions in order not to alter
+// the default `display: block` of the modal otherwise it causes several problems,
+// especially for accessibility.
+@keyframes open {
+  from {
+    opacity: 0;
+    transform: translateY(var(--sbb-spacing-fixed-4x));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes close {
+  from {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(var(--sbb-spacing-fixed-4x));
+  }
+}

@@ -1,0 +1,71 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-step-position: initial;
+  --sbb-step-inset-block-start: unset;
+  --sbb-step-opacity: 0;
+  --sbb-step-visibility: hidden;
+  --sbb-step-height: 0;
+  --sbb-step-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-2x)
+  );
+  --sbb-step-animation-delay: 0;
+  --sbb-step-color: var(--sbb-color-iron);
+
+  display: contents;
+}
+
+:host([data-selected]) {
+  --sbb-step-opacity: 1;
+  --sbb-step-visibility: visible;
+  --sbb-step-height: fit-content;
+  --sbb-step-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-step-animation-delay: var(--sbb-step-animation-duration);
+}
+
+:host([data-orientation='horizontal']) {
+  --sbb-step-position: absolute;
+  --sbb-step-inset-block-start: 0;
+}
+
+.sbb-step--wrapper {
+  :host([data-orientation='vertical']) & {
+    margin-inline-start: var(--sbb-spacing-fixed-4x);
+    opacity: 0;
+    height: 0;
+    transition:
+      height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
+      opacity var(--sbb-step-animation-duration) var(--sbb-animation-easing);
+  }
+
+  :host([data-selected][data-orientation='vertical']) & {
+    opacity: 1;
+    height: var(--sbb-stepper-content-height);
+    transition:
+      height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
+      opacity var(--sbb-step-animation-duration) var(--sbb-stepper-animation-duration)
+        var(--sbb-animation-easing);
+  }
+}
+
+.sbb-step {
+  @include sbb.text-m--regular;
+
+  position: var(--sbb-step-position);
+  width: 100%;
+  inset-block-start: var(--sbb-step-inset-block-start);
+  opacity: var(--sbb-step-opacity);
+  visibility: var(--sbb-step-visibility);
+  height: var(--sbb-step-height);
+  color: var(--sbb-step-color);
+  transition: {
+    property: opacity, visibility;
+    duration: var(--sbb-step-animation-duration);
+    delay: var(--sbb-step-animation-delay);
+    timing-function: var(--sbb-animation-easing);
+  }
+}

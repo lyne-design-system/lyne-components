@@ -4,7 +4,7 @@ import type { PluginOption } from 'vite';
 
 import { root } from './build-meta.js';
 
-export function customElementsManifest(): PluginOption {
+export function customElementsManifest(library: string): PluginOption {
   return {
     name: 'custom-elements-definition',
     closeBundle() {
@@ -13,7 +13,7 @@ export function customElementsManifest(): PluginOption {
         argv: [
           'analyze',
           '--config',
-          new URL('./tools/manifest/custom-elements-manifest.config.js', root).pathname,
+          new URL(`./tools/manifest/${library}-custom-elements-manifest.config.js`, root).pathname,
         ],
         cwd: root.pathname,
       });

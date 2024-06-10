@@ -9,7 +9,7 @@ import type {
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import '../../components/title.js';
+import '../../elements/title.js';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 type StoryParameter = Record<string, StoryObj> & { __namedExportsOrder?: string[] };

@@ -1,0 +1,90 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-stepper-orientation: row;
+  --sbb-stepper-border-width: var(--sbb-border-width-1x);
+  --sbb-stepper-marker-size: 0;
+  --sbb-stepper-marker-width: var(--sbb-border-width-3x);
+  --sbb-stepper-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-6x)
+  );
+  --sbb-stepper-marker-color: var(--sbb-color-charcoal);
+
+  display: block;
+  position: relative;
+  counter-reset: step-label;
+
+  @include sbb.if-forced-colors {
+    --sbb-stepper-marker-color: ButtonText;
+  }
+}
+
+:host([data-disable-animation]) {
+  @include sbb.disable-animation;
+}
+
+:host([orientation='vertical']) {
+  --sbb-stepper-orientation: column;
+}
+
+.sbb-stepper {
+  width: 100%;
+}
+
+.sbb-stepper__labels {
+  display: flex;
+  flex-direction: var(--sbb-stepper-orientation);
+  position: relative;
+  justify-content: space-between;
+  margin-block-end: var(--sbb-spacing-responsive-m);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: calc(var(--sbb-stepper-border-width) * -1);
+    background-color: var(--sbb-stepper-marker-color);
+  }
+
+  :host([orientation='horizontal']) & {
+    gap: var(--sbb-spacing-fixed-4x);
+    padding-block-end: var(--sbb-spacing-fixed-4x);
+    border-block-end: var(--sbb-stepper-border-width) solid var(--sbb-color-cloud);
+
+    &::before {
+      inset-block-end: calc(var(--sbb-stepper-border-width) * -1);
+      height: var(--sbb-stepper-marker-width);
+      width: var(--sbb-stepper-marker-size);
+      transition: width var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
+    }
+  }
+
+  :host([orientation='vertical']) & {
+    padding-inline-start: var(--sbb-spacing-fixed-4x);
+    border-inline-start: var(--sbb-stepper-border-width) solid var(--sbb-color-cloud);
+
+    &::before {
+      inset-block-start: 0;
+      width: var(--sbb-stepper-marker-width);
+      height: var(--sbb-stepper-marker-size);
+      transition: height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
+    }
+  }
+}
+
+.sbb-stepper__steps {
+  position: relative;
+
+  :host([orientation='horizontal']) & {
+    height: var(--sbb-stepper-content-height);
+    transition: height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
+  }
+}
+
+::slotted(sbb-step-label)::before {
+  content: counter(step-label);
+  counter-increment: step-label;
+}

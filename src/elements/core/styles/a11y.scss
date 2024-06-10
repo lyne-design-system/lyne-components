@@ -1,0 +1,15 @@
+@use './mixins/a11y';
+
+.sbb-screen-reader-only {
+  @include a11y.screen-reader-only;
+}
+
+.sbb-focus-outline:focus-visible {
+  @include a11y.focus-outline;
+}
+
+.sbb-focus-outline-dark:focus-visible {
+  @include a11y.focus-outline;
+
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}

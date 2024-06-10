@@ -1,0 +1,73 @@
+@use '@sbb-esta/lyne-elements/core/styles/index' as sbb;
+
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-fixed-1x);
+}
+
+.app-info-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.app-labels {
+  text-transform: capitalize;
+}
+
+.app-diff-toggle {
+  white-space: nowrap;
+  align-self: center;
+}
+
+.app-image-container {
+  width: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: stretch;
+  flex-direction: column;
+  gap: var(--sbb-spacing-fixed-1x);
+
+  @include sbb.mq($from: small) {
+    flex-direction: row;
+  }
+}
+
+.app-image-baseline,
+.app-image-failed {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  background-color: var(--sbb-color-white);
+}
+
+.app-image {
+  max-width: 100%;
+}
+
+.app-new-test-case-info {
+  margin: 0.5rem;
+}
+
+.app-image-button {
+  @include sbb.button-reset;
+
+  display: flex;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+
+  &:focus-visible {
+    @include sbb.focus-outline;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}

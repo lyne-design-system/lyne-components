@@ -1,0 +1,134 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-slider-line-height: #{sbb.px-to-rem-build(4)};
+  --sbb-slider-value-fraction: 0;
+  --sbb-slider-knob-size: #{sbb.px-to-rem-build(28)};
+  --sbb-slider-knob-size-active: #{sbb.px-to-rem-build(31)};
+  --sbb-slider-knob-border-size: #{sbb.px-to-rem-build(3)};
+  --sbb-slider-knob-border-style: solid;
+  --sbb-slider-knob-color: var(--sbb-color-white);
+  --sbb-slider-knob-border-color: var(--sbb-color-red);
+  --sbb-slider-icon-color: var(--sbb-color-black);
+  --sbb-slider-selected-line-color: var(--sbb-color-red);
+  --sbb-slider-selected-line-disabled-color: var(--sbb-color-smoke);
+  --sbb-slider-line-color: var(--sbb-color-smoke);
+  --sbb-slider-line-disabled-color: var(--sbb-color-graphite);
+
+  @include sbb.if-forced-colors {
+    --sbb-slider-selected-line-color: Highlight;
+    --sbb-slider-line-color: CanvasText;
+  }
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+  display: inline-block;
+  min-width: #{sbb.px-to-rem-build(150)};
+  width: min(#{sbb.px-to-rem-build(400)}, 100%);
+}
+
+:host([disabled]) {
+  --sbb-slider-icon-color: var(--sbb-color-graphite);
+  --sbb-slider-knob-border-color: var(--sbb-color-smoke);
+  --sbb-slider-knob-border-size: var(--sbb-border-width-2x);
+  --sbb-slider-knob-border-style: dashed;
+}
+
+:host([readonly]) {
+  --sbb-slider-icon-color: var(--sbb-color-smoke);
+  --sbb-slider-knob-border-color: var(--sbb-slider-selected-line-disabled-color);
+}
+
+:host([disabled]),
+:host([readonly]) {
+  @include sbb.if-forced-colors {
+    --sbb-slider-icon-color: GrayText;
+    --sbb-slider-selected-line-disabled-color: GrayText;
+    --sbb-slider-line-disabled-color: GrayText;
+  }
+
+  --sbb-slider-line-color: var(--sbb-slider-line-disabled-color);
+  --sbb-slider-selected-line-color: var(--sbb-slider-selected-line-disabled-color);
+}
+
+.sbb-slider__height-container {
+  @include sbb.zero-width-space;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.sbb-slider__wrapper {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-2x);
+  padding-block: calc(var(--sbb-spacing-fixed-1x) / 2);
+  color: var(--sbb-slider-icon-color);
+}
+
+.sbb-slider__container {
+  position: relative;
+  min-height: var(--sbb-size-icon-ui-small);
+  flex-grow: 1;
+}
+
+.sbb-slider__range-input {
+  position: absolute;
+  width: 100%;
+  inset: 0;
+  opacity: 0;
+  margin: 0;
+}
+
+.sbb-slider__line {
+  @include sbb.absolute-center-y;
+
+  height: var(--sbb-slider-line-height);
+  width: 100%;
+  background-color: var(--sbb-slider-line-color);
+  border-radius: var(--sbb-slider-line-height);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sbb-slider__selected-line {
+  position: relative;
+  height: 100%;
+  background-color: var(--sbb-slider-selected-line-color);
+  width: calc(var(--sbb-slider-value-fraction) * 100%);
+}
+
+.sbb-slider__knob {
+  @include sbb.absolute-center-y;
+  @include sbb.shadow-level-5-hard;
+
+  width: var(--sbb-slider-knob-size);
+  height: var(--sbb-slider-knob-size);
+  inset-inline-start: calc(
+    calc(var(--sbb-slider-value-fraction) * 100%) - var(--sbb-slider-knob-size) *
+      var(--sbb-slider-value-fraction)
+  );
+  transition-property: width, height;
+  transition-duration: var(--sbb-disable-animation-zero-time, var(--sbb-animation-duration-1x));
+  transition-timing-function: ease-in;
+  background-color: var(--sbb-slider-knob-color);
+  border: var(--sbb-slider-knob-border-size) var(--sbb-slider-knob-border-style)
+    var(--sbb-slider-knob-border-color);
+  border-radius: 50%;
+  pointer-events: none;
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+    @include sbb.focus-outline;
+
+    --sbb-slider-knob-size: var(--sbb-slider-knob-size-active);
+  }
+
+  // slider knob resize on click (active / focus)
+  :host(:not(:is([disabled], [readonly]))) .sbb-slider__range-input:active ~ & {
+    --sbb-slider-knob-size: var(--sbb-slider-knob-size-active);
+  }
+}

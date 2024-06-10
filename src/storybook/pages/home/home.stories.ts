@@ -3,8 +3,8 @@ import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/we
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import '../../../components/alert.js';
-import '../../../components/action-group.js';
+import '../../../elements/alert.js';
+import '../../../elements/action-group.js';
 import {
   bikeProduct,
   dailyTicketProduct,
@@ -92,7 +92,7 @@ const Template = (args: Args): TemplateResult => html`
         <div class="top-products-grid">
           ${dailyTicketProduct()} ${bikeProduct()} ${liberoProduct()}
           <sbb-card color="milk" size="s">
-            <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
+            <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
               Buy daily ticket
             </sbb-card-link>
             <span class="card-product">
@@ -106,7 +106,7 @@ const Template = (args: Args): TemplateResult => html`
           </sbb-card>
 
           <sbb-card color="milk" size="s" class="grid-span-2">
-            <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
+            <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
               Show all GAs at a glance
             </sbb-card-link>
             <span class="card-product-big">
@@ -121,7 +121,7 @@ const Template = (args: Args): TemplateResult => html`
           </sbb-card>
 
           <sbb-card class="grid-span-2" color="milk" size="s">
-            <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
+            <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
               Buy half price ticket
             </sbb-card-link>
 
@@ -138,12 +138,12 @@ const Template = (args: Args): TemplateResult => html`
         </div>
         <sbb-action-group orientation="vertical" horizontal-from="small">
           <sbb-button-link
-            href="https://github.com/lyne-design-system/lyne-components"
+            href="https://github.com/sbb-design-systems/lyne-components"
             icon-name="qrcode-small"
           >
             My tickets & subscriptions
           </sbb-button-link>
-          <sbb-secondary-button-link href="https://github.com/lyne-design-system/lyne-components">
+          <sbb-secondary-button-link href="https://github.com/sbb-design-systems/lyne-components">
             All Products
           </sbb-secondary-button-link>
         </sbb-action-group>

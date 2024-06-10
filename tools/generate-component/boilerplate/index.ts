@@ -1,1 +1,1 @@
-export * from './__noPrefixName__';
+export * from './__noPrefixName__.js';

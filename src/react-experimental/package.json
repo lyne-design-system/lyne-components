@@ -1,0 +1,24 @@
+{
+  "name": "@sbb-esta/lyne-react-experimental",
+  "version": "0.0.0-PLACEHOLDER",
+  "description": "Lyne Design System React Library",
+  "keywords": [
+    "design system",
+    "web components",
+    "lit",
+    "react"
+  ],
+  "type": "module",
+  "peerDependencies": {
+    "@sbb-esta/lyne-elements": "0.0.0-PLACEHOLDER",
+    "@sbb-esta/lyne-elements-experimental": "0.0.0-PLACEHOLDER",
+    "@sbb-esta/lyne-react": "0.0.0-PLACEHOLDER"
+  },
+  "dependencies": {
+    "@lit/react": "0.0.0-LITREACT",
+    "react": "0.0.0-REACT"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

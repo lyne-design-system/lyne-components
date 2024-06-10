@@ -1,5 +1,5 @@
 {
-  "name": "@sbb-esta/lyne-components-react",
+  "name": "@sbb-esta/lyne-react",
   "version": "0.0.0-PLACEHOLDER",
   "description": "Lyne Design System React Library",
   "keywords": [
@@ -9,9 +9,11 @@
     "react"
   ],
   "type": "module",
+  "peerDependencies": {
+    "@sbb-esta/lyne-elements": "0.0.0-PLACEHOLDER"
+  },
   "dependencies": {
     "@lit/react": "0.0.0-LITREACT",
-    "@sbb-esta/lyne-components": "0.0.0-PLACEHOLDER",
     "react": "0.0.0-REACT"
   },
   "publishConfig": {

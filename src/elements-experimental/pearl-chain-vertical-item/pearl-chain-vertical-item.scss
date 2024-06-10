@@ -1,0 +1,187 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  @include sbb.pearl-chain-bullet-variables;
+
+  display: table-row;
+  position: relative;
+
+  --sbb-pearl-chain-vertical-right-item-width: 100%;
+  --sbb-pearl-chain-vertical-middle-item-min-width: var(--sbb-pearl-chain-bullet-size-start-end);
+  --sbb-pearl-chain-vertical-item-border-width: var(--sbb-border-width-2x);
+  --sbb-pearl-chain-vertical-item-border-width-thin: var(--sbb-border-width-1x);
+  --sbb-pearl-chain-vertical-item-spacing-small: var(--sbb-spacing-fixed-1x);
+  --sbb-pearl-chain-vertical-item-spacing-medium: var(--sbb-spacing-fixed-4x);
+  --sbb-pearl-chain-vertical-item-color-default: var(--sbb-pearl-chain-bullet-color);
+  --sbb-pearl-chain-vertical-item-color-disruption: var(--sbb-pearl-chain-bullet-color-disruption);
+  --sbb-pearl-chain-vertical-item-color-past: var(--sbb-pearl-chain-bullet-color-past);
+  --sbb-pearl-chain-vertical-item-color-walk: var(--sbb-color-sky);
+  --sbb-pearl-chain-vertical-item-inline-start: 50%;
+  --sbb-pearl-chain-vertical-item-transform: translateX(-50%);
+}
+
+// layout styles
+slot[name='right'],
+.sbb-pearl-chain-vertical-item__column {
+  display: table-cell;
+  position: relative;
+  vertical-align: top;
+}
+
+slot[name='right'] {
+  width: var(--sbb-pearl-chain-vertical-right-item-width);
+}
+
+.sbb-pearl-chain-vertical-item__column--middle {
+  min-width: var(
+    --sbb-pearl-chain-vertical-middle-item-min-width,
+    --sbb-pearl-chain-vertical-middle-min-width
+  );
+}
+
+slot[name='left']::slotted(*) {
+  margin-block-start: var(--sbb-pearl-chain-vertical-left-item-block-start);
+  padding-inline-end: var(--sbb-pearl-chain-vertical-left-item-inline-end);
+}
+
+slot[name='right']::slotted(*) {
+  margin-block-start: var(--sbb-pearl-chain-vertical-right-item-block-start);
+  padding-inline-start: var(--sbb-pearl-chain-vertical-right-item-inline-start);
+}
+
+.sbb-pearl-chain-vertical-item__middle {
+  vertical-align: top;
+  border-spacing: 0;
+}
+
+// line styles
+
+.sbb-pearl-chain-vertical-item__line {
+  position: absolute;
+  bottom: 0;
+  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
+  transform: var(--sbb-pearl-chain-vertical-item-transform);
+  width: var(--sbb-border-width-2x);
+  inset-block-start: calc(var(--sbb-pearl-chain-bullet-size-start-end) / 2);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: 0;
+    height: var(--sbb-pearl-chain-vertical-item-leg-status);
+    width: var(--sbb-pearl-chain-vertical-item-border-width);
+    background-color: var(--sbb-pearl-chain-vertical-item-color-past);
+
+    @include sbb.if-forced-colors {
+      --sbb-pearl-chain-vertical-item-color-past: GrayText;
+    }
+  }
+}
+
+.sbb-pearl-chain-vertical-item__line--dotted {
+  background-color: unset;
+  border-color: unset;
+  background-image: linear-gradient(to bottom, currentcolor 0%, currentcolor 50%, Canvas 50%);
+  background-repeat: repeat-y;
+  background-size: calc(2 * var(--sbb-pearl-chain-vertical-item-spacing-small))
+    var(--sbb-pearl-chain-vertical-item-spacing-small);
+
+  @include sbb.if-forced-colors {
+    background-color: unset !important;
+    border-inline-start: #{sbb.px-to-rem-build(1)} dashed Highlight;
+    transform: translateY(#{sbb.px-to-rem-build(1)});
+  }
+}
+
+.sbb-pearl-chain-vertical-item__line--thin {
+  width: var(--sbb-pearl-chain-vertical-item-border-width-thin);
+}
+
+.sbb-pearl-chain-vertical-item__line--default {
+  @include sbb.if-forced-colors {
+    --sbb-pearl-chain-vertical-item-color-default: CanvasText;
+  }
+
+  background-color: var(--sbb-pearl-chain-vertical-item-color-default);
+  border-color: var(--sbb-pearl-chain-vertical-item-color-default);
+  color: var(--sbb-pearl-chain-vertical-item-color-default);
+}
+
+.sbb-pearl-chain-vertical-item__line--disruption {
+  border-color: var(--sbb-pearl-chain-vertical-item-color-disruption);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-disruption);
+  color: var(--sbb-pearl-chain-vertical-item-color-disruption);
+  @include sbb.if-forced-colors {
+    --sbb-pearl-chain-vertical-item-color-disruption: Highlight;
+  }
+}
+
+.sbb-pearl-chain-vertical-item__line--past {
+  @include sbb.if-forced-colors {
+    --sbb-pearl-chain-vertical-item-color-past: GrayText;
+  }
+
+  border-color: var(--sbb-pearl-chain-vertical-item-color-past);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-past);
+  color: var(--sbb-pearl-chain-vertical-item-color-past);
+}
+
+.sbb-pearl-chain-vertical-item__line--walk {
+  border-color: var(--sbb-pearl-chain-vertical-item-color-walk);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-walk);
+  color: var(--sbb-pearl-chain-vertical-item-color-walk);
+}
+
+// Bullet styles
+
+.sbb-pearl-chain-vertical-item__bullet {
+  @include sbb.pearl-chain-bullet;
+
+  position: relative;
+  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
+  transform: var(--sbb-pearl-chain-vertical-item-transform);
+}
+
+.sbb-pearl-chain-vertical-item__bullet--start-end {
+  @include sbb.pearl-chain-bullet-start-end;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--stop {
+  @include sbb.pearl-chain-bullet-stop;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--disruption {
+  @include sbb.pearl-chain-bullet-disruption;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--irrelevant,
+.sbb-pearl-chain-vertical-item__bullet--past {
+  @include sbb.pearl-chain-bullet-past;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--stop.sbb-pearl-chain-vertical-item__bullet--irrelevant {
+  @include sbb.pearl-chain-bullet-irrelevant-stop;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--start-end.sbb-pearl-chain-vertical-item__bullet--skipped {
+  @include sbb.pearl-chain-bullet-skipped;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--stop.sbb-pearl-chain-vertical-item__bullet--skipped {
+  @include sbb.pearl-chain-bullet-skipped-stop;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--position {
+  @include sbb.pearl-chain-bullet-position;
+  @include sbb.absolute-center-x;
+
+  inset-block-start: var(--sbb-pearl-chain-vertical-item-position);
+
+  :host([disable-animation]) & {
+    animation: unset !important;
+  }
+}

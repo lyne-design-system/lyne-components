@@ -1,0 +1,78 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-navigation-action-gap: var(--sbb-spacing-responsive-xs);
+  --sbb-navigation-marker-position-x: var(--sbb-spacing-fixed-1x);
+  --sbb-navigation-marker-position-y: unset;
+  --sbb-navigation-marker-width: #{sbb.px-to-rem-build(17)};
+  --sbb-navigation-marker-border: var(--sbb-border-width-1x);
+  --sbb-navigation-marker-padding-inline-start: var(--sbb-spacing-fixed-6x);
+  --sbb-navigation-marker-typo-line-height: var(--sbb-typo-line-height-titles);
+  --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-3x);
+  --sbb-navigation-marker-margin-block: calc(
+    1em * var(--sbb-navigation-marker-typo-line-height) / 2 - var(--sbb-navigation-marker-border) /
+      2
+  );
+
+  display: block;
+}
+
+:host([size='s']) {
+  --sbb-navigation-action-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-navigation-marker-width: #{sbb.px-to-rem-build(8)};
+  --sbb-navigation-marker-typo-line-height: var(--sbb-typo-line-height-body-text);
+  --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-2x);
+  --sbb-navigation-marker-position-x: calc(
+    var(--sbb-navigation-marker-padding-inline-start) - var(--sbb-spacing-fixed-2x)
+  );
+  --sbb-navigation-marker-padding-inline-start: calc(
+    var(--sbb-spacing-fixed-6x) + var(--sbb-spacing-fixed-1x)
+  );
+}
+
+.sbb-navigation-marker {
+  @include sbb.list-reset;
+  @include sbb.title-4($exclude-spacing: true);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sbb-navigation-action-gap);
+  padding-inline-start: var(--sbb-navigation-marker-padding-inline-start);
+
+  &::before {
+    content: '';
+    position: absolute;
+    opacity: 0;
+    inset-inline-start: var(--sbb-navigation-marker-position-x);
+    inset-block-start: var(--sbb-navigation-marker-position-y);
+    width: var(--sbb-navigation-marker-width);
+    border-block-start: var(--sbb-navigation-marker-border) solid var(--sbb-color-storm);
+    margin-block: var(--sbb-navigation-marker-margin-block);
+    transition: {
+      duration: var(--sbb-disable-animation-zero-time, var(--sbb-animation-duration-6x));
+      timing-function: ease;
+      property: opacity, inset-block-start;
+    }
+
+    :host([data-has-active-action]) & {
+      opacity: 1;
+    }
+
+    @include sbb.if-forced-colors {
+      border-color: CanvasText;
+    }
+  }
+
+  :host([size='s']) & {
+    @include sbb.text-xxs--bold;
+  }
+}
+
+::slotted(:is(sbb-navigation-button, sbb-navigation-link)) {
+  margin-inline-start: var(--sbb-navigation-margin-inline-start);
+}

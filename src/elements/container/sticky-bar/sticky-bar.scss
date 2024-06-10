@@ -1,0 +1,152 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+$intersector-overlapping: 1px;
+
+:host {
+  --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xs);
+  --sbb-sticky-bar-fade-in-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-5x)
+  );
+  --sbb-sticky-bar-fade-out-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-2x)
+  );
+  --sbb-sticky-bar-animation-easing: var(--sbb-animation-easing);
+  --sbb-sticky-bar-border-radius: var(--sbb-border-radius-8x);
+
+  // Display contents needed to get the sticky bar sticky.
+  display: contents;
+}
+
+:host([data-sticking]) {
+  --sbb-sticky-bar-sticky-background-color: var(
+    --sbb-container-background-color,
+    var(--sbb-color-white)
+  );
+}
+
+:host([data-sticking][color='white']) {
+  --sbb-sticky-bar-sticky-background-color: var(--sbb-color-white);
+}
+
+:host([data-sticking][color='milk']) {
+  --sbb-sticky-bar-sticky-background-color: var(--sbb-color-milk);
+}
+
+.sbb-sticky-bar__wrapper {
+  position: sticky;
+  inset-block-end: 0;
+  display: block;
+  z-index: var(--sbb-sticky-bar-z-index);
+
+  &::after,
+  &::before {
+    content: '';
+    inset: 0;
+    position: absolute;
+    display: block;
+    z-index: -1;
+  }
+
+  // Container background color (copying container)
+  &::before {
+    background-color: var(--sbb-container-background-color);
+
+    :host(:not([data-expanded])) & {
+      @include sbb.page-spacing;
+    }
+
+    :host([data-expanded]) & {
+      @include sbb.page-spacing-expanded;
+    }
+
+    // Needed because there is no content and Firefox
+    // has troubles displaying correct padding when there is no content.
+    padding: 0 !important;
+  }
+
+  // Color and border radius when sticky
+  &::after {
+    background-color: var(--sbb-sticky-bar-sticky-background-color, transparent);
+    transition: background-color var(--sbb-sticky-bar-fade-out-animation-duration)
+      var(--sbb-sticky-bar-animation-easing);
+    border-start-start-radius: var(--sbb-sticky-bar-border-radius);
+    border-start-end-radius: var(--sbb-sticky-bar-border-radius);
+
+    // Display a border on high contrast mode.
+    :host([data-sticking]) & {
+      transition-duration: var(--sbb-sticky-bar-fade-in-animation-duration);
+
+      @include sbb.if-forced-colors {
+        border-block-start: var(--sbb-border-width-1x) solid CanvasText;
+        border-radius: 0;
+      }
+    }
+  }
+}
+
+.sbb-sticky-bar {
+  display: flex;
+  padding-block: var(--sbb-sticky-bar-padding-block);
+
+  // To push the .sbb-sticky-bar__intersector up without using absolute position we need a negative block margin.
+  margin-block-end: -$intersector-overlapping;
+
+  // Shadow with border radius and clipped shadow at the bottom
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-start-start-radius: var(--sbb-sticky-bar-border-radius);
+    border-start-end-radius: var(--sbb-sticky-bar-border-radius);
+    transition: box-shadow var(--sbb-sticky-bar-fade-out-animation-duration)
+      var(--sbb-sticky-bar-animation-easing);
+    clip-path: polygon(
+      -50% calc(-1 * var(--sbb-shadow-elevation-level-11-shadow-1-blur)),
+      150% calc(-1 * var(--sbb-shadow-elevation-level-11-shadow-1-blur)),
+      150% 50%,
+      -50% 50%
+    );
+
+    :host([data-sticking]) & {
+      @include sbb.shadow-level-11-soft;
+
+      transition-duration: var(--sbb-sticky-bar-fade-in-animation-duration);
+    }
+  }
+
+  :host(:not([data-expanded])) & {
+    @include sbb.page-spacing;
+  }
+
+  :host([data-expanded]) & {
+    @include sbb.page-spacing-expanded;
+  }
+}
+
+.sbb-sticky-bar__intersector {
+  // In order to make the intersection observer work properly on windows the intersector needs to have a defined height
+  height: $intersector-overlapping;
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: calc(var(--sbb-sticky-bar-bottom-overlapping-height, 0) + $intersector-overlapping);
+    background-color: transparent;
+    pointer-events: none;
+    transition: background-color var(--sbb-sticky-bar-fade-out-animation-duration)
+      var(--sbb-sticky-bar-animation-easing);
+
+    :host([data-sticking]) & {
+      transition-duration: var(--sbb-sticky-bar-fade-in-animation-duration);
+      background-color: var(--sbb-sticky-bar-sticky-background-color);
+    }
+  }
+}

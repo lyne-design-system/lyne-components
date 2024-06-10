@@ -1,4 +1,4 @@
-@use '../../../components/core/styles' as sbb;
+@use '../../../elements/core/styles' as sbb;
 
 .scrollbar {
   @include sbb.scrollbar;

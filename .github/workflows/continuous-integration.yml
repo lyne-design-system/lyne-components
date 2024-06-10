@@ -7,6 +7,9 @@ concurrency:
 
 permissions: read-all
 
+env:
+  IMAGE_REPO_VISUAL_REGRESSION: ghcr.io/${{ github.repository }}/visual-regression
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -23,6 +26,7 @@ jobs:
 
   integrity:
     runs-on: ubuntu-latest
+    needs: lint
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -38,6 +42,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    needs: lint
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -63,6 +68,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    needs: lint
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -138,8 +144,6 @@ jobs:
           result-encoding: string
       - name: Create versioned storybook for chromatic
         run: STORYBOOK_COMPONENTS_VERSION=${{ steps.version.outputs.result }} yarn build:storybook
-        env:
-          CHROMATIC: true
       - name: Publish to Chromatic
         id: chromatic-publish
         uses: chromaui/action@v1
@@ -150,4 +154,72 @@ jobs:
           exitZeroOnChanges: true
           zip: true
           onlyChanged: true
-          externals: '**/components/core/styles/**/*.scss'
+          externals: '**/elements/core/styles/**/*.scss'
+
+  visual-regression:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs: test
+    services:
+      visual-regression:
+        image: ghcr.io/${{ github.repository }}/visual-regression:baseline
+        ports:
+          - 8050:8080
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Install browser dependencies
+        run: yarn playwright install-deps
+      - name: Run visual regression tests
+        run: yarn test:visual-regression
+        env:
+          NODE_ENV: production
+      - name: Store visual regression output
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-regression-screenshots
+          path: dist/screenshots-artifact/
+
+  visual-regression-baseline:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: lint
+    services:
+      visual-regression:
+        image: ghcr.io/${{ github.repository }}/visual-regression:baseline
+        ports:
+          - 8080:8050
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Install browser dependencies
+        run: yarn playwright install-deps
+      - name: Run visual regression baseline generation
+        run: yarn test:visual-regression --update-visual-baseline
+        env:
+          NODE_ENV: production
+      - name: Build visual-regression-app
+        run: yarn build:visual-regression-app
+
+      - name: Build and push visual regression baseline
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+          docker build \
+            --file tools/visual-regression-testing/Dockerfile \
+            --tag $IMAGE_REPO_VISUAL_REGRESSION:baseline \
+            .
+          docker push $IMAGE_REPO_VISUAL_REGRESSION:baseline
+        env:
+          DOCKER_BUILDKIT: 1

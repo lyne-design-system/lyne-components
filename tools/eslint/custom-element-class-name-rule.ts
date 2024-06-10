@@ -3,7 +3,7 @@ import { ESLintUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
 
 const createRule = ESLintUtils.RuleCreator(
   (name) =>
-    `https://github.com/lyne-design-system/lyne-components/blob/main/tools/eslint/${name}.ts`,
+    `https://github.com/sbb-design-systems/lyne-components/blob/main/tools/eslint/${name}.ts`,
 );
 
 type MessageIds = 'customElementClassName';

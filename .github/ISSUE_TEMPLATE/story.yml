@@ -20,7 +20,6 @@ body:
         - [ ] Component is implemented
         - [ ] Documentation is provided
         - [ ] Tests are implemented
-        - [ ] E2E Tests are implemented
         - [ ] Storybook stories are implemented
         - [ ] Navigation via keyboard is tested
         - [ ] Screen reader output is tested

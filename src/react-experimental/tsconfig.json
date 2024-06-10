@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "../..",
+    "baseUrl": ".",
+    "paths": {
+      "@sbb-esta/lyne-elements": ["../elements"],
+      "@sbb-esta/lyne-elements/*": ["../elements/*"],
+      "@sbb-esta/lyne-elements-experimental": ["../elements-experimental"],
+      "@sbb-esta/lyne-elements-experimental/*": ["../elements-experimental/*"],
+      "@sbb-esta/lyne-react": ["../react"],
+      "@sbb-esta/lyne-react/*": ["../react/*"],
+      "@sbb-esta/lyne-react-experimental/*": ["./*"]
+    }
+  },
+  "include": ["./**/*.ts", "../vite-env.d.ts"]
+}

@@ -1,0 +1,231 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+$icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=unnamed])';
+
+:host {
+  display: inline-block;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
+  --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
+  --sbb-button-color-disabled-background: var(--sbb-color-milk);
+  --sbb-button-color-disabled-border: var(--sbb-color-smoke);
+  --sbb-button-color-disabled-text: var(--sbb-color-granite);
+  --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-offset-y);
+  --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
+  --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-blur);
+  --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-2-blur);
+  --sbb-button-shadow-1-color: var(--sbb-color-red-alpha-20);
+  --sbb-button-shadow-2-color: var(--sbb-color-red125-alpha-20);
+  --sbb-button-border-style: solid;
+  --sbb-button-border-disabled-style: dashed;
+  --sbb-button-border-width: var(--sbb-border-width-2x);
+  --sbb-button-border-disabled-width: var(--sbb-border-width-1x);
+  --sbb-button-border-radius: var(--sbb-border-radius-infinity);
+  --sbb-button-min-height: var(--sbb-size-element-m);
+  --sbb-button-transition-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-2x)
+  );
+  --sbb-button-transition-easing-function: var(--sbb-animation-easing);
+  --sbb-button-padding-block-min: var(--sbb-spacing-fixed-1x);
+  --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
+  --sbb-button-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-button-inset: 0;
+  --sbb-button-box-shadow: transparent;
+  --sbb-button-box-shadow-definition: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
+      var(--sbb-button-shadow-2-offset-y) var(--sbb-button-shadow-2-blur)
+      var(--sbb-shadow-elevation-level-3-shadow-2-spread) var(--sbb-button-shadow-2-color),
+    var(--sbb-shadow-elevation-level-3-shadow-1-offset-x) var(--sbb-button-shadow-1-offset-y)
+      var(--sbb-button-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread)
+      var(--sbb-button-shadow-1-color);
+
+  @include sbb.mq($from: medium) {
+    --sbb-button-padding-inline: var(--sbb-spacing-fixed-10x);
+  }
+
+  @include sbb.if-forced-colors {
+    --sbb-button-color-default-border: CanvasText !important;
+    --sbb-button-color-active-border: Highlight !important;
+  }
+}
+
+:host([negative]) {
+  --sbb-button-color-disabled-background: var(--sbb-color-anthracite);
+  --sbb-button-color-disabled-text: var(--sbb-color-aluminium);
+}
+
+:host([size='m']) {
+  --sbb-button-min-height: var(--sbb-size-element-s);
+  --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
+
+  @include sbb.mq($from: medium) {
+    --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
+  }
+}
+
+:host([size='s']) {
+  --sbb-button-min-height: var(--sbb-size-element-xs);
+  --sbb-button-padding-inline: var(--sbb-spacing-fixed-4x);
+  --sbb-button-gap: var(--sbb-spacing-fixed-1x);
+
+  @include sbb.mq($from: medium) {
+    --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
+  }
+}
+
+:host(#{$icon-only}) {
+  --sbb-button-padding-inline: 0;
+}
+
+:host([disabled]) {
+  @include sbb.if-forced-colors {
+    --sbb-button-color-disabled-text: GrayText !important;
+  }
+}
+
+:host(:not([disabled], :active, [data-active]):hover) {
+  @include sbb.hover-mq($hover: true) {
+    --sbb-button-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
+    --sbb-button-shadow-1-offset-y: calc(
+      0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
+    );
+    --sbb-button-shadow-1-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-blur));
+    --sbb-button-shadow-2-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-2-blur));
+  }
+
+  @include sbb.if-forced-colors {
+    --sbb-button-color-hover-border: Highlight !important;
+  }
+}
+
+:host([role='button']) {
+  @include sbb.if-forced-colors {
+    --sbb-button-color-default-text: ButtonText !important;
+    --sbb-button-color-hover-text: ButtonText !important;
+    --sbb-button-color-active-text: ButtonText !important;
+    --sbb-button-color-default-background: Canvas !important;
+    --sbb-button-color-hover-background: Canvas !important;
+    --sbb-button-color-active-background: Canvas !important;
+    --sbb-button-color-disabled-background: Canvas !important;
+  }
+}
+
+.sbb-action-base {
+  @include sbb.text-xs--bold;
+  @include sbb.font-smoothing;
+
+  // Reset for link variant
+  text-decoration: none;
+  width: 100%;
+  position: relative;
+  display: flex;
+  gap: var(--sbb-button-gap);
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  transition-duration: var(--sbb-button-transition-duration);
+  transition-timing-function: var(--sbb-button-transition-easing-function);
+  transition-property: color;
+  min-height: var(--sbb-button-min-height);
+  border-radius: var(--sbb-button-border-radius);
+
+  // The padding block value is only a minimal padding to preserve a padding if the content becomes larger than intended.
+  // Positioning of the content is made by flexbox vertical centering.
+  // The real padding displayed is larger than the defined value below.
+  padding-block: var(--sbb-button-padding-block-min);
+  padding-inline: var(--sbb-button-padding-inline);
+  color: var(--sbb-button-color-default-text);
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+
+  // Renders background and border in the background absolute to enable the hover animation
+  &::before {
+    position: absolute;
+    content: '';
+    inset: var(--sbb-button-inset);
+    border: var(--sbb-button-border-width) var(--sbb-button-border-style)
+      var(--sbb-button-color-default-border);
+    border-radius: var(--sbb-button-border-radius);
+    background-color: var(--sbb-button-color-default-background);
+    transition-duration: var(--sbb-button-transition-duration);
+    transition-timing-function: var(--sbb-button-transition-easing-function);
+    transition-property: inset, background-color, border-color, box-shadow;
+    box-shadow: var(--sbb-button-box-shadow);
+
+    :host([disabled]) & {
+      background-color: var(--sbb-button-color-disabled-background);
+      border-width: var(--sbb-button-border-disabled-width);
+      border-color: var(--sbb-button-color-disabled-border);
+      border-style: var(--sbb-button-border-disabled-style);
+    }
+
+    :host(:not([disabled], :active, [data-active]):hover) & {
+      @include sbb.hover-mq($hover: true) {
+        inset: calc(var(--sbb-button-border-width) * -1);
+        background-color: var(--sbb-button-color-hover-background);
+        border-color: var(--sbb-button-color-hover-border);
+      }
+    }
+
+    :host(:not([disabled]):is(:active, [data-active])) & {
+      color: var(--sbb-button-color-active-text);
+      background-color: var(--sbb-button-color-active-background);
+      border-color: var(--sbb-button-color-active-border);
+    }
+  }
+
+  :host(#{$icon-only}) & {
+    width: var(--sbb-button-min-height);
+    justify-content: center;
+  }
+
+  :host([disabled]) & {
+    color: var(--sbb-button-color-disabled-text);
+    cursor: default;
+    pointer-events: none;
+  }
+
+  :host(:not([disabled], :active, [data-active]):hover) & {
+    @include sbb.hover-mq($hover: true) {
+      color: var(--sbb-button-color-hover-text);
+    }
+  }
+
+  /* stylelint-disable no-descending-specificity */
+  :host([data-focus-visible]) &,
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  // Handle focus on the host (button variant)
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &,
+  // Handle focus on the action (link variant)
+  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
+    &::before {
+      @include sbb.focus-outline;
+    }
+  }
+  /* stylelint-enable no-descending-specificity */
+}
+
+.sbb-button__label,
+::slotted([slot='icon']),
+sbb-icon {
+  transition: transform var(--sbb-button-transition-duration)
+    var(--sbb-button-transition-easing-function);
+  transform: translateY(var(--sbb-button-translate-y-content-hover, #{sbb.px-to-rem-build(0)}));
+}
+
+.sbb-button__label {
+  @include sbb.ellipsis;
+
+  display: block;
+
+  :host(#{$icon-only}) & {
+    display: none;
+  }
+}

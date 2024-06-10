@@ -1,0 +1,21 @@
+@use '@sbb-esta/lyne-elements/core/styles/index' as sbb;
+
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+}
+
+.app-labels {
+  text-transform: capitalize;
+}
+
+.app-radio-button-group {
+  margin-block-end: 0.5rem;
+}
+
+.app-scroll-container {
+  @include sbb.scrollbar;
+
+  overflow: auto;
+}

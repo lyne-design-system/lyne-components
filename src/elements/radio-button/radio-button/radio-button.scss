@@ -1,0 +1,181 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-radio-button-label-color: var(--sbb-color-charcoal);
+  --sbb-radio-button-background-color: var(--sbb-color-white);
+  --sbb-radio-button-inner-circle-color: var(--sbb-color-white);
+  --sbb-radio-button-border-width: var(--sbb-border-width-1x);
+  --sbb-radio-button-border-style: solid;
+  --sbb-radio-button-border-color: var(--sbb-color-smoke);
+  --sbb-radio-button-dimension: var(--sbb-size-icon-ui-small);
+  --sbb-radio-button-inner-circle-dimension: #{sbb.px-to-rem-build(10)};
+  --sbb-radio-button-suffix-color: var(--sbb-color-charcoal);
+  --sbb-radio-button-subtext-color: var(--sbb-color-granite);
+  --sbb-radio-button-cursor: pointer;
+
+  // The border in unchecked state should fill the circle.
+  --sbb-radio-button-background-fake-border-width: calc(var(--sbb-radio-button-dimension) / 2);
+
+  // Align radio button to the first row of the label based on the line-height so that it's vertically
+  // aligned to the label and sticks to the top if the label breaks into multiple lines
+  --sbb-radio-button-icon-align: calc(
+    (1em * var(--sbb-typo-line-height-body-text) - var(--sbb-radio-button-dimension)) / 2
+  );
+
+  display: block;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
+  @include sbb.if-forced-colors {
+    --sbb-radio-button-background-color: Canvas !important;
+    --sbb-radio-button-border-width: var(--sbb-border-width-2x);
+    --sbb-radio-button-border-color: ButtonBorder;
+  }
+}
+
+// Change the focus outline when the input is placed inside of a selection panel
+// as the main input element.
+:host(:focus-visible[data-is-selection-panel-input]) {
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
+  .sbb-radio-button::after {
+    content: '';
+    position: absolute;
+    display: block;
+    inset-block: calc(
+      (var(--sbb-spacing-responsive-xs) * -1) + var(--sbb-focus-outline-width) -
+        (var(--sbb-focus-outline-offset) * 2)
+    );
+    inset-inline: calc(
+      (var(--sbb-spacing-responsive-xxs) * -1) + var(--sbb-focus-outline-width) -
+        (var(--sbb-focus-outline-offset) * 2)
+    );
+    border: var(--sbb-focus-outline-color) solid var(--sbb-focus-outline-width);
+    border-radius: calc(var(--sbb-border-radius-4x) + var(--sbb-focus-outline-offset));
+  }
+}
+
+:host([checked]) {
+  --sbb-radio-button-inner-circle-color: var(--sbb-color-red);
+  --sbb-radio-button-background-fake-border-width: calc(
+    (var(--sbb-radio-button-dimension) - var(--sbb-radio-button-inner-circle-dimension)) / 2
+  );
+
+  @include sbb.if-forced-colors {
+    --sbb-radio-button-inner-circle-color: Highlight;
+    --sbb-radio-button-border-color: Highlight;
+  }
+}
+
+// Disabled definitions have to be after checked definitions
+:host([disabled]) {
+  --sbb-radio-button-label-color: var(--sbb-color-granite);
+  --sbb-radio-button-background-color: var(--sbb-color-milk);
+  --sbb-radio-button-border-style: dashed;
+  --sbb-radio-button-inner-circle-color: var(--sbb-color-charcoal);
+  --sbb-radio-button-cursor: default;
+
+  @include sbb.if-forced-colors {
+    --sbb-radio-button-inner-circle-color: GrayText;
+    --sbb-radio-button-border-color: GrayText;
+    --sbb-radio-button-border-style: solid;
+  }
+}
+
+// One radio button per line
+.sbb-radio-button {
+  @include sbb.text-m--regular;
+
+  display: block;
+  cursor: var(--sbb-radio-button-cursor);
+  user-select: none;
+  position: relative;
+  color: var(--sbb-radio-button-label-color);
+  -webkit-tap-highlight-color: transparent;
+
+  :host([size='s']) & {
+    @include sbb.text-s--regular;
+  }
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  :host(
+      :focus-visible:not(
+          [data-focus-origin='mouse'],
+          [data-focus-origin='touch'],
+          [data-is-selection-panel-input]
+        )
+    )
+    & {
+    @include sbb.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
+}
+
+slot[name='suffix'] {
+  color: var(--sbb-radio-button-suffix-color);
+}
+
+slot[name='subtext'] {
+  display: block;
+  color: var(--sbb-radio-button-subtext-color);
+  padding-inline-start: var(--sbb-spacing-fixed-8x);
+
+  :host(:not([data-slot-names~='subtext'])) & {
+    display: none;
+  }
+}
+
+.sbb-radio-button__label-slot {
+  display: flex;
+  align-items: flex-start;
+  overflow: hidden;
+
+  &::before,
+  &::after {
+    content: '';
+    flex-shrink: 0;
+    width: var(--sbb-radio-button-dimension);
+    height: var(--sbb-radio-button-dimension);
+    border-radius: 50%;
+    margin-block-start: var(--sbb-radio-button-icon-align);
+
+    transition: {
+      duration: var(--sbb-disable-animation-zero-time, var(--sbb-animation-duration-4x));
+      timing-function: ease;
+      property: background-color, border;
+    }
+
+    @include sbb.if-forced-colors {
+      transition: none;
+    }
+  }
+
+  // Unchecked style
+  &::before {
+    background: var(--sbb-radio-button-inner-circle-color);
+
+    // The border was used to generate the animation of the radio-button
+    // The border color acts as background color.
+    border: var(--sbb-radio-button-background-fake-border-width) solid
+      var(--sbb-radio-button-background-color);
+    margin-inline-end: var(--sbb-spacing-fixed-2x);
+  }
+
+  &::after {
+    position: absolute;
+    border: var(--sbb-radio-button-border-width) var(--sbb-radio-button-border-style)
+      var(--sbb-radio-button-border-color);
+  }
+}
+
+.sbb-screen-reader-only {
+  @include sbb.screen-reader-only;
+}

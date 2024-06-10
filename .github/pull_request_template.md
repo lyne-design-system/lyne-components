@@ -2,9 +2,9 @@
 
 <!-- Please ensure you've completed the following steps by replacing [ ] with [x]-->
 
-- [ ] I have read the [Contributing Guidelines](https://github.com/lyne-design-system/lyne-components/blob/main/docs/CONTRIBUTING.md) for this project.
-- [ ] I agree to follow the [Code of Conduct](https://github.com/lyne-design-system/lyne-components/blob/main/docs/CODE_OF_CONDUCT.md) that this project adheres to.
-- [ ] I have searched the [pull request tracker](https://github.com/lyne-design-system/lyne-components/pulls) for a Pull Request (PR) that matches the one I want to submit, without success.
+- [ ] I have read the [Contributing Guidelines](https://github.com/sbb-design-systems/lyne-components/blob/main/docs/CONTRIBUTING.md) for this project.
+- [ ] I agree to follow the [Code of Conduct](https://github.com/sbb-design-systems/lyne-components/blob/main/docs/CODE_OF_CONDUCT.md) that this project adheres to.
+- [ ] I have searched the [pull request tracker](https://github.com/sbb-design-systems/lyne-components/pulls) for a Pull Request (PR) that matches the one I want to submit, without success.
 
 ## Issue
 

@@ -1,0 +1,198 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-timetable-row-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-timetable-row-height: #{sbb.px-to-rem-build(25)};
+  --sbb-timetable-row-height-header: #{sbb.px-to-rem-build(20)};
+  --sbb-timetable-row-height-footer: #{sbb.px-to-rem-build(16)};
+  --sbb-timetable-row-skeleton-pulse-duration: 1800ms;
+
+  display: block;
+}
+
+:host([disable-animation]) {
+  --sbb-timetable-row-skeleton-pulse-duration: 0;
+}
+
+// override icons sizes
+.sbb-timetable__row-transport-icon {
+  --sbb-icon-svg-width: #{sbb.px-to-rem-build(20)};
+  --sbb-icon-svg-height: #{sbb.px-to-rem-build(20)};
+}
+
+// override icons sizes
+.sbb-travel-hints__item {
+  --sbb-icon-svg-height: #{sbb.px-to-rem-build(14)};
+}
+
+.sbb-screen-reader-only {
+  @include sbb.screen-reader-only;
+}
+
+.sbb-timetable__row--quay {
+  margin-inline-end: var(--sbb-spacing-fixed-1x);
+}
+
+.sbb-timetable__row--quay-type {
+  float: left;
+}
+
+// resets lists
+ul {
+  @include sbb.list-reset;
+
+  display: inline-flex;
+}
+
+li {
+  display: inline-flex;
+  align-self: center;
+}
+
+.sbb-timetable__row-transport {
+  display: inline-flex;
+  align-self: center;
+}
+
+.sbb-timetable__row-transportnumber,
+.sbb-timetable__row-time {
+  @include sbb.text-s--bold;
+
+  line-height: unset;
+  white-space: nowrap;
+  align-self: center;
+}
+
+.sbb-timetable__row {
+  @include sbb.text-s--regular;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-timetable-row-gap);
+}
+
+.sbb-timetable__row-header,
+.sbb-timetable__row-footer {
+  // Due to a bug in Safari which displays skeleton animation even on loaded content, we need to manually disable animation.
+  animation: none;
+}
+
+.sbb-timetable__row-header {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-2x);
+  align-items: center;
+  line-height: var(--sbb-timetable-row-height-header);
+}
+
+.sbb-timetable__row-details,
+.sbb-timetable__row-hints {
+  display: inline-flex;
+  gap: var(--sbb-spacing-fixed-1x);
+  align-items: center;
+}
+
+.sbb-timetable__row-header p {
+  @include sbb.ellipsis;
+
+  margin: 0;
+  align-self: center;
+}
+
+.sbb-timetable__row-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sbb-spacing-fixed-2x);
+  line-height: var(--sbb-timetable-row-height-footer);
+
+  > span {
+    align-self: center;
+  }
+
+  :only-child {
+    margin-inline-start: auto;
+  }
+}
+
+.sbb-timetable__row-quay--changed {
+  color: var(--sbb-color-red);
+}
+
+.sbb-timetable__row-transport-wrapper,
+.sbb-timetable__row-warning {
+  display: inline-flex;
+}
+
+.sbb-loading {
+  pointer-events: none;
+}
+
+.sbb-loading__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-fixed-2x);
+}
+
+.sbb-loading__row {
+  width: 100%;
+  border-radius: var(--sbb-border-radius-1x);
+  height: var(--sbb-timetable-row-height);
+
+  @include sbb.mq($from: medium) {
+    height: #{sbb.px-to-rem-build(28)};
+  }
+
+  @include sbb.if-forced-colors {
+    border: var(--sbb-border-width-1x) solid ButtonBorder !important;
+  }
+}
+
+.sbb-loading__row,
+.sbb-loading__badge {
+  background: var(--sbb-color-cloud);
+  animation: skeleton-pulse var(--sbb-timetable-row-skeleton-pulse-duration) ease-out infinite;
+}
+
+.sbb-loading__row:first-of-type {
+  height: var(--sbb-timetable-row-height-header);
+  width: 50%;
+}
+
+.sbb-loading__row:last-of-type {
+  height: var(--sbb-timetable-row-height-footer);
+}
+
+.sbb-loading__badge {
+  margin-inline: auto calc(var(--sbb-spacing-fixed-3x) * -1);
+  padding-inline-end: var(--sbb-spacing-fixed-6x);
+  border-end-start-radius: var(--sbb-border-radius-4x);
+  transform: skew(16deg, 0deg);
+  width: #{sbb.px-to-rem-build(115)};
+  height: #{sbb.px-to-rem-build(20)};
+}
+
+@keyframes skeleton-pulse {
+  0% {
+    background: var(--sbb-color-cloud);
+  }
+
+  17% {
+    background: var(--sbb-color-cloud);
+  }
+
+  50% {
+    background: var(--sbb-color-milk);
+  }
+
+  67% {
+    background: var(--sbb-color-milk);
+  }
+
+  100% {
+    background: var(--sbb-color-cloud);
+  }
+}

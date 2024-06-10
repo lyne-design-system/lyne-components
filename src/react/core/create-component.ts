@@ -294,7 +294,8 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
           // To ensure expectation from React/JSX, we set also the corresponding property in this case.
           elementProps[k] = v;
         } else {
-          elementProps[k] = v;
+          // We set false for falsy values as we know it is a boolean
+          elementProps[k] = false;
         }
         continue;
       }

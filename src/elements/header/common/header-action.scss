@@ -1,0 +1,161 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-5x);
+  --sbb-header-action-color: var(--sbb-color-black);
+  --sbb-header-action-background-color: transparent;
+  --sbb-header-action-min-height: var(--sbb-size-element-s);
+  --sbb-header-action-min-width: var(--sbb-header-action-min-height);
+  --sbb-header-action-transition-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-2x)
+  );
+  --sbb-header-action-transition-easing: var(--sbb-animation-easing);
+  --sbb-header-action-border-color: transparent;
+  --sbb-header-action-background-inset: 0;
+  --sbb-header-action-translate-y: 0;
+  --sbb-header-action-gap: var(--sbb-spacing-fixed-2x);
+
+  @include sbb.if-forced-colors {
+    --sbb-header-action-border-color: CanvasText;
+    --sbb-header-action-color: LinkText;
+  }
+
+  // If expanded, move it left by left padding.
+  // As result, the icon should be aligned with the left side of the page wrapper.
+  --sbb-header-first-item-margin-inline-start: calc(-1 * var(--sbb-header-action-padding-inline));
+
+  display: inline-block;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+}
+
+@include sbb.hover-mq($hover: true) {
+  :host(:hover:not(:active, [data-active], [aria-expanded='true'])) {
+    --sbb-header-action-background-color: var(--sbb-color-milk);
+    --sbb-header-action-translate-y: #{sbb.px-to-rem-build(-1)};
+    --sbb-header-action-background-inset: calc(var(--sbb-border-width-2x) * -1);
+
+    @include sbb.if-forced-colors {
+      --sbb-header-action-border-color: Highlight;
+    }
+  }
+}
+
+:host(:is(:active, [data-active])) {
+  --sbb-header-action-background-color: var(--sbb-color-cloud);
+
+  @include sbb.if-forced-colors {
+    --sbb-header-action-border-color: Highlight;
+  }
+}
+
+:host([role='button']) {
+  @include sbb.if-forced-colors {
+    --sbb-header-action-color: ButtonText;
+  }
+}
+
+:is(.sbb-header-button, .sbb-header-link) {
+  @include sbb.text-inherit;
+
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  color: var(--sbb-header-action-color);
+  text-decoration: none;
+  min-height: var(--sbb-header-action-min-height);
+  min-width: var(--sbb-header-action-min-width);
+  padding-inline: var(--sbb-header-action-padding-inline);
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+
+  &::before {
+    position: absolute;
+    content: '';
+    inset: var(--sbb-header-action-background-inset);
+    border-radius: var(--sbb-border-radius-infinity);
+    background-color: var(--sbb-header-action-background-color);
+    transition-duration: var(--sbb-header-action-transition-duration);
+    transition-timing-function: var(--sbb-header-action-transition-easing);
+    transition-property: inset, background-color;
+    border: var(--sbb-border-width-1x) solid var(--sbb-header-action-border-color);
+
+    @include sbb.if-forced-colors {
+      border-width: var(--sbb-border-width-2x);
+    }
+  }
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  // Handle focus on the host (button variant)
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &,
+  // Handle focus on the action (link variant)
+  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
+    &::before {
+      @include sbb.focus-outline;
+    }
+  }
+}
+
+.sbb-header-action__wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--sbb-header-action-gap);
+  white-space: nowrap;
+  transform: translateY(var(--sbb-header-action-translate-y));
+  transition: transform var(--sbb-header-action-transition-duration)
+    var(--sbb-header-action-transition-easing);
+  will-change: transform;
+  max-width: 100%;
+}
+
+.sbb-header-action__icon {
+  // Set stroke on header icons
+  --sbb-icon-svg-stroke-color: currentcolor;
+  --sbb-icon-svg-stroke-width: 1px;
+
+  min-width: var(--sbb-size-icon-ui-small);
+  min-height: var(--sbb-size-icon-ui-small);
+  line-height: 0;
+}
+
+.sbb-header-action__text {
+  @include sbb.text-xs--bold;
+  @include sbb.ellipsis;
+
+  display: block;
+}
+
+// TODO: reevaluate this once 'CSS container queries' is supported
+// https://caniuse.com/css-container-queries-style
+@each $breakpoint, $value in sbb.$mq-breakpoints {
+  :host([expand-from='#{$breakpoint}']) {
+    @include sbb.mq($to: #{$breakpoint}) {
+      // The variable is assigned to the property in the sbb-header component if it is
+      // the first element in the header and needs left offset correction (see sbb-header.scss).
+      // To avoid duplicated css definitions, the value itself is assigned here in
+      // sbb-header-button/sbb-header-link instead of sbb-header.
+      //
+      // Move it left by 12px in collapsed width.
+      --sbb-header-first-item-margin-inline-start: #{sbb.px-to-rem-build(-12)};
+      --sbb-header-action-padding-inline: 0;
+
+      .sbb-header-action__text {
+        @include sbb.screen-reader-only;
+
+        // This is a workaround to fix styling after orientation change on iOS.
+        // If the display value changes comparing to the base state (display: flex),
+        // it re-renders and displays everything correctly.
+        // Without this workaround, elements are overlapping each other.
+        display: flex;
+      }
+    }
+  }
+}

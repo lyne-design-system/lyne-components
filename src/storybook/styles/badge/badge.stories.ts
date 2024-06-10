@@ -3,9 +3,9 @@ import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import '../../../components/header.js';
-import '../../../components/icon.js';
-import '../../../components/link.js';
+import '../../../elements/header.js';
+import '../../../elements/icon.js';
+import '../../../elements/link.js';
 
 import readme from './readme.md?raw';
 

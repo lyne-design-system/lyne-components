@@ -4,9 +4,9 @@
     "rootDir": "../..",
     "baseUrl": ".",
     "paths": {
-      "@sbb-esta/lyne-components": ["../components"],
-      "@sbb-esta/lyne-components/*": ["../components/*"],
-      "@sbb-esta/lyne-components-react/*": ["./*"]
+      "@sbb-esta/lyne-elements": ["../elements"],
+      "@sbb-esta/lyne-elements/*": ["../elements/*"],
+      "@sbb-esta/lyne-react/*": ["./*"]
     }
   },
   "include": ["./**/*.ts", "../vite-env.d.ts"]

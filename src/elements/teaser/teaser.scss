@@ -1,0 +1,126 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: inline-block;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
+  --sbb-teaser-scale-hover: 1.02;
+  --sbb-teaser-description-color: var(--sbb-color-granite);
+  --sbb-teaser-flex-direction: row;
+  --sbb-teaser-align-items: center;
+  --sbb-teaser-gap: var(--sbb-spacing-fixed-4x);
+  --sbb-teaser-width: fit-content;
+  --sbb-teaser-border-radius: var(--sbb-border-radius-4x);
+  --sbb-teaser-brightness-hover: 1.075;
+  --sbb-teaser-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-4x)
+  );
+}
+
+:host([alignment='after']) {
+  --sbb-teaser-align-items: start;
+}
+
+:host([alignment='below']) {
+  --sbb-teaser-flex-direction: column;
+  --sbb-teaser-align-items: baseline;
+  --sbb-teaser-gap: var(--sbb-spacing-fixed-3x);
+  --sbb-teaser-width: 100%;
+}
+
+.sbb-teaser {
+  @include sbb.zero-width-space;
+
+  display: flex;
+  text-decoration: none;
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
+    @include sbb.focus-outline;
+
+    border-radius: var(--sbb-teaser-border-radius);
+  }
+
+  @include sbb.if-forced-colors {
+    outline-offset: var(--sbb-focus-outline-offset);
+    outline: CanvasText solid var(--sbb-focus-outline-width);
+    border-radius: var(--sbb-teaser-border-radius);
+
+    &:hover {
+      outline-color: Highlight;
+    }
+  }
+}
+
+.sbb-teaser__container {
+  display: flex;
+  flex-flow: var(--sbb-teaser-flex-direction) nowrap;
+  align-items: var(--sbb-teaser-align-items);
+  gap: var(--sbb-teaser-gap);
+  max-width: 100%;
+}
+
+.sbb-teaser__text {
+  overflow: hidden;
+  max-width: 100%;
+}
+
+::slotted([slot='image']) {
+  will-change: transform;
+  display: block;
+  object-fit: cover;
+  width: sbb.px-to-rem-build(300);
+  filter: brightness(var(--sbb-teaser-brightness, 1));
+  transition: var(--sbb-teaser-animation-duration) var(--sbb-animation-easing);
+  aspect-ratio: 4/3;
+
+  @include sbb.hover-mq($hover: true) {
+    .sbb-teaser:hover & {
+      transform: scale(var(--sbb-teaser-scale-hover));
+
+      --sbb-teaser-brightness: var(--sbb-teaser-brightness-hover);
+    }
+  }
+}
+
+.sbb-teaser__image-wrapper {
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: var(--sbb-teaser-border-radius);
+  transition: var(--sbb-teaser-animation-duration) var(--sbb-animation-easing);
+
+  @include sbb.hover-mq($hover: true) {
+    .sbb-teaser:hover & {
+      @include sbb.shadow-level-9-hard;
+    }
+  }
+}
+
+.sbb-teaser__chip {
+  display: block;
+  max-width: fit-content;
+  margin-block-end: var(--sbb-spacing-fixed-1x);
+
+  :host(:not([data-slot-names~='chip'], [chip-content])) & {
+    display: none;
+  }
+}
+
+.sbb-teaser__lead {
+  // Overwrite sbb-title default margin
+  margin: 0;
+}
+
+.sbb-teaser__description {
+  @include sbb.text-s--regular;
+
+  display: inline-block;
+  color: var(--sbb-teaser-description-color);
+}

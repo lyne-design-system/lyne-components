@@ -1,0 +1,22 @@
+{
+  "name": "@sbb-esta/lyne-elements-experimental",
+  "version": "0.0.0-PLACEHOLDER",
+  "description": "Lyne Design System",
+  "keywords": [
+    "design system",
+    "web components",
+    "lit",
+    "storybook"
+  ],
+  "type": "module",
+  "customElements": "custom-elements.json",
+  "peerDependencies": {
+    "@sbb-esta/lyne-elements": "0.0.0-PLACEHOLDER"
+  },
+  "dependencies": {
+    "lit": "0.0.0-LIT"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

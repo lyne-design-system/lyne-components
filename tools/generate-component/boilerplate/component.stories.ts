@@ -1,12 +1,20 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
-import { html, type TemplateResult } from 'lit';
+import type {
+  Args,
+  ArgTypes,
+  Decorator,
+  Meta,
+  StoryContext,
+  StoryObj,
+} from '@storybook/web-components';
+import type { TemplateResult } from 'lit';
+import { html } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
+import { sbbSpread } from '../../storybook/helpers/spread.js';
 
+import { __nameUpperCase__ } from './__noPrefixName__.js';
 import readme from './readme.md?raw';
-import { __nameUpperCase__ } from './__noPrefixName__';
 
 const myProp: InputType = {
   control: {
@@ -36,11 +44,13 @@ const meta: Meta = {
     actions: {
       handles: [__nameUpperCase__.events.myEventName],
     },
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/__name__',
+  title: 'elements/__name__',
 };
 
 export default meta;

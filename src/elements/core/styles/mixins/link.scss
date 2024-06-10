@@ -1,0 +1,99 @@
+@use './typo';
+@use './a11y';
+@use '../core/mediaqueries';
+
+@mixin block-link-variables {
+  --sbb-link-color-normal: var(--sbb-color-granite);
+  --sbb-link-color-hover: var(--sbb-color-red125);
+  --sbb-link-color-active: var(--sbb-color-red150);
+}
+
+@mixin block-link-variables--negative {
+  --sbb-link-color-normal: var(--sbb-color-white);
+  --sbb-link-color-hover: var(--sbb-color-cloud);
+  --sbb-link-color-active: var(--sbb-color-silver);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
+
+@mixin link-variables {
+  --sbb-link-color-normal: inherit;
+  --sbb-link-color-hover: var(--sbb-color-red125);
+  --sbb-link-color-active: var(--sbb-color-red150);
+}
+
+@mixin link-variables--negative {
+  --sbb-link-color-hover: var(--sbb-color-graphite);
+  --sbb-link-color-active: var(--sbb-color-metal);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
+
+@mixin link-variables--button {
+  @include a11y.if-forced-colors {
+    --sbb-link-color-normal: ButtonText;
+    --sbb-link-color-hover: ButtonText;
+    --sbb-link-color-active: ButtonText;
+  }
+}
+
+@mixin link-base {
+  color: var(--sbb-link-color-normal);
+  text-decoration: var(--sbb-link-text-decoration, underline);
+  user-select: none;
+
+  @include a11y.if-forced-colors {
+    text-decoration: underline;
+  }
+}
+
+@mixin link-focus-visible {
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
+    @include a11y.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
+}
+
+@mixin link-hover-rules {
+  @include mediaqueries.hover-mq($hover: true) {
+    color: var(--sbb-link-color-hover);
+    text-decoration: underline;
+  }
+}
+
+@mixin link-hover {
+  &:hover {
+    @include link-hover-rules;
+  }
+}
+
+@mixin link-active-rules {
+  color: var(--sbb-link-color-active);
+}
+
+@mixin link-active {
+  &:active {
+    @include link-active-rules;
+  }
+}
+
+@mixin link-consolidation {
+  @include link-base;
+  @include typo.text-inherit;
+  @include link-focus-visible;
+  @include link-hover;
+
+  // Active definitions have to be after :hover definitions
+  @include link-active;
+}
+
+@mixin link {
+  @include link-variables;
+  @include link-consolidation;
+}
+
+@mixin link-negative {
+  @include link-variables;
+  @include link-variables--negative;
+  @include link-consolidation;
+}

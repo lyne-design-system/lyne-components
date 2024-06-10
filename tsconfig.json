@@ -17,10 +17,12 @@
     "isolatedModules": true,
     "noUnusedLocals": true,
     "paths": {
-      "@sbb-esta/lyne-components": ["src/components"],
-      "@sbb-esta/lyne-components/*": ["src/components/*"],
-      "@sbb-esta/lyne-components-react": ["src/react"],
-      "@sbb-esta/lyne-components-react/*": ["src/react/*"]
+      "@sbb-esta/lyne-elements": ["src/elements"],
+      "@sbb-esta/lyne-elements/*": ["src/elements/*"],
+      "@sbb-esta/lyne-elements-experimental": ["src/elements-experimental"],
+      "@sbb-esta/lyne-elements-experimental/*": ["src/elements-experimental/*"],
+      "@sbb-esta/lyne-react": ["src/react"],
+      "@sbb-esta/lyne-react/*": ["src/react/*"]
     },
     "verbatimModuleSyntax": true,
     "strict": true,
@@ -43,6 +45,9 @@
           // In the calendar we have properties, that support Date/string/number values
           // TODO: Maybe change the signature to only accept a date object.
           "no-incompatible-property-type": "off",
+          // In the calendar component it claims about `now` property, although it's correct.
+          // TODO: Maybe reactivate if possible
+          "no-complex-attribute-binding": "off",
           "no-unknown-tag-name": "error",
           "no-missing-import": "error",
           "no-missing-element-type-definition": "error",
@@ -59,7 +64,9 @@
           "sbb-navigation-section-close",
           "sbb-overlay-close",
           "sbb-popover-close",
-          "sbb-toast-close"
+          "sbb-toast-close",
+          "sbb-stepper-next",
+          "sbb-stepper-previous"
         ]
       }
     ]

@@ -1,0 +1,153 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-step-label-color: var(--sbb-color-iron);
+  --sbb-step-label-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-2x)
+  );
+  --sbb-step-label-prefix-size: var(--sbb-size-element-xxs);
+  --sbb-step-label-prefix-border-style: solid;
+  --sbb-step-label-prefix-border-color: var(--sbb-color-cloud);
+  --sbb-step-label-prefix-background-color: var(--sbb-color-white);
+
+  position: relative;
+  min-width: 0;
+  max-width: fit-content;
+
+  &::before {
+    @include sbb.text-xxs--regular;
+    @include sbb.absolute-center-x-y;
+
+    cursor: var(--sbb-step-label-cursor);
+    color: var(--sbb-step-label-color);
+
+    // The `--sbb-font-size-text-l` is beign used here to align the bubble's inner text to
+    // the label text which includes the `sbb.text-l--bold` mixin.
+    inset-block-start: calc(
+      var(--sbb-font-size-text-l) * (var(--sbb-typo-line-height-body-text) / 2) +
+        (var(--sbb-border-width-1x) / 2)
+    );
+    inset-inline-start: calc(var(--sbb-step-label-prefix-size) / 2);
+    line-height: 1;
+    z-index: 1;
+    transform: translate(
+      -50%,
+      calc(-50% + var(--sbb-step-label-translate-y-content-hover, #{sbb.px-to-rem-build(0)}))
+    );
+    transition: transform var(--sbb-step-label-animation-duration) var(--sbb-animation-easing);
+  }
+
+  @include sbb.if-forced-colors {
+    --sbb-step-label-color: ButtonText;
+    --sbb-step-label-prefix-border-color: ButtonText;
+  }
+}
+
+:host([data-selected]) {
+  @include sbb.text-xxs--bold;
+
+  --sbb-step-label-color: var(--sbb-color-charcoal);
+
+  @include sbb.if-forced-colors {
+    --sbb-step-label-color: Highlight !important;
+  }
+}
+
+:host([disabled]) {
+  --sbb-step-label-color: var(--sbb-color-granite);
+  --sbb-step-label-prefix-border-style: dashed;
+
+  @include sbb.if-forced-colors {
+    --sbb-step-label-color: GrayText !important;
+  }
+}
+
+:host(:hover:not([disabled])) {
+  @include sbb.hover-mq($hover: true) {
+    --sbb-step-label-cursor: pointer;
+    --sbb-step-label-prefix-background-color: var(--sbb-color-milk);
+    --sbb-step-label-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
+    --sbb-step-label-prefix-size-grow-hover: calc(var(--sbb-border-width-2x) * -1);
+  }
+}
+
+// Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+:host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) {
+  @include sbb.focus-outline;
+
+  border-radius: var(--sbb-border-radius-1x);
+}
+
+:host([data-orientation='vertical']) {
+  transition: margin var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
+}
+
+:host([data-orientation='vertical']:not(:first-of-type)) {
+  margin-block-start: var(--sbb-spacing-fixed-6x);
+}
+
+:host([data-selected][data-orientation='vertical']) {
+  margin-block-end: var(--sbb-spacing-fixed-8x);
+}
+
+.sbb-step-label {
+  @include sbb.text-l--bold;
+
+  cursor: var(--sbb-step-label-cursor);
+  position: relative;
+  display: flex;
+  gap: var(--sbb-spacing-fixed-4x);
+  color: var(--sbb-step-label-color);
+}
+
+.sbb-step-label__prefix {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--sbb-step-label-prefix-size);
+  height: var(--sbb-step-label-prefix-size);
+  inset-block-start: calc(
+    1em * (var(--sbb-typo-line-height-body-text) / 2) + (var(--sbb-border-width-1x) / 2) -
+      (var(--sbb-step-label-prefix-size) / 2)
+  );
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: calc(var(--sbb-step-label-prefix-size-grow-hover, #{sbb.px-to-rem-build(0)}));
+    border-radius: var(--sbb-border-radius-infinity);
+    border: var(--sbb-border-width-1x) var(--sbb-step-label-prefix-border-style)
+      var(--sbb-step-label-prefix-border-color);
+    background-color: var(--sbb-step-label-prefix-background-color);
+    transition: {
+      duration: var(--sbb-step-label-animation-duration);
+      timing-function: var(--sbb-animation-easing);
+      property: background-color, inset;
+    }
+  }
+}
+
+.sbb-step-label__text {
+  :host([data-orientation='horizontal']) & {
+    @include sbb.ellipsis;
+  }
+}
+
+::slotted(sbb-icon),
+sbb-icon {
+  z-index: 1;
+  background-color: var(--sbb-step-label-prefix-background-color);
+  border-radius: var(--sbb-border-radius-infinity);
+  transform: translateY(var(--sbb-step-label-translate-y-content-hover, #{sbb.px-to-rem-build(0)}));
+  transition: {
+    duration: var(--sbb-step-label-animation-duration);
+    timing-function: var(--sbb-animation-easing);
+    property: background-color, transform;
+  }
+}

@@ -1,0 +1,195 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  @include sbb.scrollbar-variables;
+
+  --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-5x);
+  --sbb-dialog-color: var(--sbb-color-black);
+  --sbb-dialog-background-color: var(--sbb-color-white);
+  --sbb-dialog-width: 100%;
+  --sbb-dialog-height: 100%;
+  --sbb-dialog-max-width: 100%;
+  --sbb-dialog-max-width-default: #{sbb.px-to-rem-build(892)};
+  --sbb-dialog-max-height: 100%;
+  --sbb-dialog-inset: 0 auto auto 0;
+  --sbb-dialog-border-radius: var(--sbb-border-radius-8x);
+  --sbb-dialog-padding-block: var(--sbb-spacing-responsive-s);
+  --sbb-dialog-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-6x)
+  );
+  --sbb-dialog-animation-easing: ease;
+  --sbb-dialog-pointer-events: none;
+  --sbb-dialog-backdrop-visibility: hidden;
+  --sbb-dialog-backdrop-pointer-events: none;
+  --sbb-dialog-backdrop-color: transparent;
+  --sbb-dialog-content-transition: transform var(--sbb-dialog-animation-duration)
+    var(--sbb-dialog-animation-easing);
+  --sbb-dialog-actions-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
+
+  display: block;
+  position: fixed;
+  inset: var(--sbb-dialog-inset);
+  z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-default-z-index));
+
+  @include sbb.mq($from: micro) {
+    --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-6x);
+  }
+
+  @include sbb.mq($from: small) {
+    --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-12x);
+  }
+
+  @include sbb.mq($from: medium) {
+    --sbb-dialog-padding-inline: var(--sbb-spacing-responsive-s);
+    --sbb-dialog-max-width: min(
+      calc(100vw - var(--sbb-spacing-fixed-30x) * 2),
+      var(--sbb-dialog-max-width-default)
+    );
+    --sbb-dialog-max-height: calc(100vh - var(--sbb-spacing-fixed-16x));
+  }
+}
+
+:host(:is([data-state='opened'], [data-state='opening'])) {
+  --sbb-dialog-pointer-events: all;
+
+  @include sbb.mq($from: medium) {
+    --sbb-dialog-backdrop-visibility: visible;
+    --sbb-dialog-backdrop-pointer-events: all;
+    --sbb-dialog-backdrop-color: var(--sbb-color-milk);
+  }
+}
+
+:host([data-hide-header]) {
+  // Hide transition
+  --sbb-dialog-header-margin-block-start: calc(var(--sbb-dialog-header-height) * -1);
+}
+
+:host([negative]) {
+  @include sbb.scrollbar-variables--color-negative;
+
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+  --sbb-dialog-color: var(--sbb-color-white);
+  --sbb-dialog-background-color: var(--sbb-color-midnight);
+  --sbb-dialog-actions-border: none;
+}
+
+:host([data-overflows]:not([negative])) {
+  --sbb-dialog-actions-border: none;
+}
+
+:host(:not([data-state='closed'])) {
+  --sbb-dialog-inset: 0;
+}
+
+.sbb-dialog__container {
+  pointer-events: var(--sbb-dialog-pointer-events);
+  display: flex;
+  align-items: center;
+  position: fixed;
+  inset: var(--sbb-dialog-inset);
+
+  // Dialog backdrop (not visible on mobile)
+  &::before {
+    content: '';
+    visibility: var(--sbb-dialog-backdrop-visibility);
+    pointer-events: var(--sbb-dialog-backdrop-pointer-events);
+    position: fixed;
+    inset: var(--sbb-dialog-inset);
+    background-color: var(--sbb-dialog-backdrop-color);
+    transition: {
+      duration: var(--sbb-dialog-animation-duration);
+      timing-function: var(--sbb-dialog-animation-easing);
+      property: background-color, visibility;
+    }
+  }
+}
+
+.sbb-dialog {
+  display: none;
+  position: absolute;
+  inset-inline: 0;
+  margin: auto;
+  padding: 0;
+  border: none;
+  width: var(--sbb-dialog-width);
+  height: var(--sbb-dialog-height);
+  max-width: var(--sbb-dialog-max-width);
+  max-height: var(--sbb-dialog-max-height);
+  overflow: auto;
+  color: var(--sbb-dialog-color);
+  background-color: var(--sbb-dialog-background-color);
+
+  :host([data-state]:not([data-state='closed'])) & {
+    display: block;
+
+    animation: {
+      name: open;
+      duration: var(--sbb-dialog-animation-duration);
+      timing-function: ease;
+    }
+  }
+
+  :host([data-state][data-state='closing']) & {
+    pointer-events: none;
+    animation-name: close;
+  }
+
+  @include sbb.if-forced-colors {
+    outline: var(--sbb-border-width-1x) solid CanvasText;
+  }
+
+  @include sbb.mq($from: medium) {
+    border-radius: var(--sbb-dialog-border-radius);
+    overflow: hidden;
+    height: fit-content;
+  }
+}
+
+.sbb-dialog__wrapper {
+  display: flex;
+  flex-direction: column;
+  width: var(--sbb-dialog-width);
+  height: var(--sbb-dialog-height);
+  max-width: var(--sbb-dialog-max-width);
+  max-height: var(--sbb-dialog-max-height);
+  outline: none;
+  position: fixed;
+  word-break: break-word;
+
+  @include sbb.mq($from: medium) {
+    position: sticky;
+    inset-block-start: 0;
+    height: auto;
+  }
+}
+
+// It is necessary to use animations with keyframes instead of transitions in order not to alter
+// the default `display: block` of the modal otherwise it causes several problems,
+// especially for accessibility.
+@keyframes open {
+  from {
+    opacity: 0;
+    transform: translateY(var(--sbb-spacing-fixed-4x));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes close {
+  from {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(var(--sbb-spacing-fixed-4x));
+  }
+}

@@ -1,0 +1,199 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+// Open/Close animation vars
+$open-anim-rows-from: 0fr;
+$open-anim-rows-to: 1fr;
+$open-anim-opacity-from: 0;
+$open-anim-opacity-to: 1;
+
+:host {
+  --sbb-selection-panel-cursor: pointer;
+  --sbb-selection-panel-background: var(--sbb-color-white);
+  --sbb-selection-panel-border-color: var(--sbb-color-cloud);
+  --sbb-selection-panel-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-4x)
+  );
+  --sbb-selection-panel-border-width: var(--sbb-border-width-1x);
+  --sbb-selection-panel-input-pointer-events: all;
+  --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
+    var(--sbb-spacing-responsive-xxs);
+  --sbb-selection-panel-content-visibility: hidden;
+  --sbb-selection-panel-content-padding-inline: var(--sbb-spacing-responsive-xxs);
+  --sbb-selection-panel-border-radius: var(--sbb-border-radius-4x);
+
+  // As the selection panel has always a white/milk background, we have to fix the focus outline color
+  // to default color for cases where the selection panel is used in a negative context.
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+
+  display: contents;
+}
+
+:host([color='milk']) {
+  --sbb-selection-panel-background: var(--sbb-color-milk);
+}
+
+:host([data-checked]:not([data-disabled])) {
+  --sbb-selection-panel-border-color: var(--sbb-color-charcoal);
+  --sbb-selection-panel-border-width: var(--sbb-border-width-2x);
+}
+
+:host([data-slot-names~='content'][data-disabled]) {
+  --sbb-selection-panel-input-pointer-events: none;
+  --sbb-selection-panel-border-color: var(--sbb-color-cloud);
+}
+
+:host([data-disabled]) {
+  --sbb-selection-panel-cursor: default;
+}
+
+:host([borderless]:not([data-checked])) {
+  --sbb-selection-panel-border-color: transparent;
+}
+
+:host([data-resize-disable-animation]) {
+  @include sbb.disable-animation;
+}
+
+:host([data-slot-names~='content']:where([data-state='opening'], [data-state='opened'])) {
+  --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
+    var(--sbb-spacing-responsive-xxs) var(--sbb-spacing-responsive-xxs)
+    var(--sbb-spacing-responsive-xxs);
+  --sbb-selection-panel-content-visibility: visible;
+  --sbb-selection-panel-content-grid-template-rows: 1fr;
+  --sbb-selection-panel-content-opacity: 1;
+  --sbb-selection-panel-content-padding-block-end: var(--sbb-spacing-responsive-xs);
+  --sbb-selection-panel-content-transition: grid-template-rows
+      var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing),
+    opacity var(--sbb-selection-panel-animation-duration)
+      var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing);
+}
+
+.sbb-selection-panel {
+  flex: auto;
+  position: relative;
+  width: 100%;
+  background-color: var(--sbb-selection-panel-background);
+  border-radius: var(--sbb-selection-panel-border-radius);
+
+  // To provide a smooth transition of width, we use box-shadow to imitate border.
+  box-shadow: inset 0 0 0 var(--sbb-selection-panel-border-width)
+    var(--sbb-selection-panel-border-color);
+
+  transition: {
+    duration: var(--sbb-selection-panel-animation-duration);
+    timing-function: var(--sbb-animation-easing);
+    property: box-shadow;
+  }
+
+  // For high contrast mode we need a real border
+  @include sbb.if-forced-colors {
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border: var(--sbb-selection-panel-border-width) solid var(--sbb-selection-panel-border-color);
+      border-radius: var(--sbb-selection-panel-border-radius);
+    }
+  }
+}
+
+.sbb-selection-panel__badge {
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: var(--sbb-selection-panel-border-radius);
+  overflow: hidden;
+}
+
+.sbb-selection-panel__content--wrapper {
+  display: grid;
+  visibility: var(--sbb-selection-panel-content-visibility);
+  grid-template-rows: #{$open-anim-rows-from};
+  opacity: #{$open-anim-opacity-from};
+
+  :host([data-state='opened']) & {
+    grid-template-rows: #{$open-anim-rows-to};
+    opacity: #{$open-anim-opacity-to};
+  }
+
+  :host([data-state='opening']) & {
+    animation-name: open, open-opacity;
+    animation-fill-mode: forwards;
+    animation-duration: var(--sbb-selection-panel-animation-duration);
+    animation-timing-function: var(--sbb-animation-easing);
+    animation-delay: 0s, var(--sbb-selection-panel-animation-duration);
+  }
+
+  :host([data-state='closing']) & {
+    animation-name: close;
+    animation-duration: var(--sbb-selection-panel-animation-duration);
+    animation-timing-function: var(--sbb-animation-easing);
+  }
+
+  :host(:not([data-slot-names~='content'])) & {
+    display: none;
+  }
+}
+
+.sbb-selection-panel__content {
+  overflow: hidden;
+  padding-inline: var(--sbb-selection-panel-content-padding-inline);
+  padding-block-end: var(--sbb-selection-panel-content-padding-block-end);
+  transition: padding var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing);
+}
+
+sbb-divider {
+  margin-block-end: var(--sbb-spacing-responsive-xxs);
+}
+
+::slotted(sbb-radio-button),
+::slotted(sbb-checkbox) {
+  cursor: var(--sbb-selection-panel-cursor);
+  pointer-events: var(--sbb-selection-panel-input-pointer-events);
+  display: block;
+  padding: var(--sbb-selection-panel-input-padding);
+  transition: {
+    duration: var(--sbb-selection-panel-animation-duration);
+    timing-function: var(--sbb-animation-easing);
+    property: padding;
+  }
+}
+
+@keyframes open {
+  from {
+    grid-template-rows: #{$open-anim-rows-from};
+  }
+
+  to {
+    grid-template-rows: #{$open-anim-rows-to};
+  }
+}
+
+@keyframes open-opacity {
+  from {
+    opacity: #{$open-anim-opacity-from};
+  }
+
+  to {
+    opacity: #{$open-anim-opacity-to};
+  }
+}
+
+@keyframes close {
+  from {
+    grid-template-rows: #{$open-anim-rows-to};
+    opacity: #{$open-anim-opacity-to};
+  }
+
+  to {
+    grid-template-rows: #{$open-anim-rows-from};
+    opacity: #{$open-anim-opacity-from};
+  }
+}

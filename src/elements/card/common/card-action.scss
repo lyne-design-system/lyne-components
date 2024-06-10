@@ -1,0 +1,31 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+  position: absolute;
+  inset: 0;
+}
+
+:is(.sbb-card-button, .sbb-card-link) {
+  display: block;
+  position: absolute;
+  inset: 0;
+  border-radius: var(--sbb-card-border-radius);
+  cursor: pointer;
+  outline: none;
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  // Handle focus on the host (button variant)
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &,
+  // Handle focus on the action (link variant)
+  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
+    @include sbb.focus-outline;
+  }
+}

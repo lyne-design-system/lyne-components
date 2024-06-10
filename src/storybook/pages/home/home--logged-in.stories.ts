@@ -3,8 +3,11 @@ import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/we
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import type { SbbDialogElement } from '../../../components/dialog.js';
-import { futureLeg, pastLeg } from '../../../components/pearl-chain/pearl-chain.sample-data.js';
+import type { SbbDialogElement } from '../../../elements/dialog.js';
+import {
+  futureLeg,
+  pastLeg,
+} from '../../../elements-experimental/pearl-chain/pearl-chain.sample-data.js';
 
 import {
   bikeProduct,
@@ -17,9 +20,9 @@ import {
   timetableInput,
 } from './home.common.js';
 import readme from './readme.md?raw';
-import '../../../components/dialog.js';
-import '../../../components/journey-header.js';
-import '../../../components/pearl-chain.js';
+import '../../../elements/dialog.js';
+import '../../../elements/journey-header.js';
+import '../../../elements-experimental/pearl-chain.js';
 import './home.scss';
 
 const negative: InputType = {
@@ -101,7 +104,7 @@ const Template = (args: Args): TemplateResult => html`
                   <span> on <time datetime="2021-11-25">Black Friday</time> </span>
                 </sbb-card-badge>
 
-                <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
+                <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
                   View Ticket
                 </sbb-card-link>
 
@@ -122,7 +125,7 @@ const Template = (args: Args): TemplateResult => html`
                     </span>
                     <sbb-pearl-chain
                       .legs=${[pastLeg, futureLeg]}
-                      data-now=${new Date('2021-12-08T12:11:00+01:00').valueOf()}
+                      now="2021-12-08T12:11:00+01:00"
                     ></sbb-pearl-chain>
                   </span>
                   <sbb-secondary-button-static icon-name="qrcode-small">
@@ -133,7 +136,7 @@ const Template = (args: Args): TemplateResult => html`
             </li>
             <li>
               <sbb-card>
-                <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
+                <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
                   Buy saver ticket
                 </sbb-card-link>
 
@@ -152,7 +155,7 @@ const Template = (args: Args): TemplateResult => html`
             </li>
             <li>
               <sbb-card>
-                <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
+                <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
                   Check details of the journey
                 </sbb-card-link>
 
@@ -169,7 +172,7 @@ const Template = (args: Args): TemplateResult => html`
                     </span>
                     <sbb-pearl-chain
                       .legs=${[pastLeg, futureLeg]}
-                      data-now=${new Date('2021-12-08T12:11:00+01:00').valueOf()}
+                      now="2021-12-08T12:11:00+01:00"
                     ></sbb-pearl-chain>
                   </span>
                   <sbb-secondary-button-static> Details </sbb-secondary-button-static>
@@ -250,7 +253,7 @@ const Template = (args: Args): TemplateResult => html`
               Your subscriptions.
             </sbb-title>
             <sbb-card color="milk" size="s">
-              <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
+              <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
                 Edit subscription
               </sbb-card-link>
 

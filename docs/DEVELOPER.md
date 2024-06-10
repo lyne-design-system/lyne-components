@@ -21,11 +21,11 @@ Run `yarn lint --fix` to fix any automatically fixable lint issues and report th
 
 ## Outputs
 
-| Folder            | Explanation                           |
-| ----------------- | ------------------------------------- |
-| ./dist/components | main output target for web-components |
-| ./dist/react      | output target for the react library   |
-| ./dist/storybook  | rendered static storybook site        |
+| Folder           | Explanation                           |
+| ---------------- | ------------------------------------- |
+| ./dist/elements  | main output target for web-components |
+| ./dist/react     | output target for the react library   |
+| ./dist/storybook | rendered static storybook site        |
 
 ## Running tests
 

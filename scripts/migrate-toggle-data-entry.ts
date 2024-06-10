@@ -25,7 +25,7 @@ function toKebabCase(str: string): string {
 
 // custom ignores can be done like this, for example by saying
 // you'll ignore all markdown files, and all folders named 'docs'
-const sources = glob.sync('src/components/**/*.ts', {
+const sources = glob.sync('src/elements/**/*.ts', {
   cwd: new URL('..', import.meta.url),
   absolute: true,
   ignore: {

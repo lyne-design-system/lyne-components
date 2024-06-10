@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "../..",
+    "baseUrl": ".",
+    "paths": {
+      "@sbb-esta/lyne-elements/*": ["./*"]
+    }
+  },
+  "include": ["./**/*.ts", "../vite-env.d.ts"],
+  "exclude": ["./**/*.chromatic.stories.ts"]
+}

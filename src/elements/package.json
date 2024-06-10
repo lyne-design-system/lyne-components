@@ -1,0 +1,19 @@
+{
+  "name": "@sbb-esta/lyne-elements",
+  "version": "0.0.0-PLACEHOLDER",
+  "description": "Lyne Design System",
+  "keywords": [
+    "design system",
+    "web components",
+    "lit",
+    "storybook"
+  ],
+  "type": "module",
+  "customElements": "custom-elements.json",
+  "dependencies": {
+    "lit": "0.0.0-LIT"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

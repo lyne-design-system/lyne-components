@@ -1,0 +1,85 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-navigation-action-color: var(--sbb-color-cloud);
+  --sbb-navigation-action-icon-display: none;
+
+  display: block;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+}
+
+:host([data-section-action][data-action-active].sbb-active) {
+  --sbb-navigation-action-icon-display: block;
+}
+
+:host([data-action-active]) {
+  --sbb-navigation-action-color: var(--sbb-color-storm);
+
+  @include sbb.if-forced-colors {
+    --sbb-navigation-action-color: Highlight;
+  }
+}
+
+sbb-icon {
+  display: var(--sbb-navigation-action-icon-display);
+  position: absolute;
+  inset-inline-start: calc((var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-1x)) * -1);
+  inset-block-start: calc(1em * (var(--sbb-typo-line-height-body-text) / 2));
+  transform: translateY(-50%);
+}
+
+@include sbb.hover-mq($hover: true) {
+  :host(:hover) {
+    --sbb-navigation-action-color: var(--sbb-color-storm);
+  }
+}
+
+:host([role='button']) {
+  @include sbb.if-forced-colors {
+    --sbb-navigation-action-color: ButtonText;
+  }
+}
+
+:is(.sbb-navigation-button, .sbb-navigation-link) {
+  @include sbb.title-4($exclude-spacing: true);
+
+  cursor: pointer;
+  position: relative;
+  text-decoration: none;
+  display: flex;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--sbb-disable-animation-zero-time, var(--sbb-animation-duration-3x)) ease;
+  hyphens: auto;
+  text-align: left;
+  color: var(--sbb-navigation-action-color);
+  outline: none;
+
+  @include sbb.if-forced-colors {
+    transition: none;
+  }
+
+  :host([size='m']) & {
+    @include sbb.text-s--bold;
+  }
+
+  :host([size='s']) & {
+    @include sbb.text-xxs--bold;
+  }
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  // Handle focus on the host (button variant)
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &,
+  // Handle focus on the action (link variant)
+  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
+    @include sbb.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
+}

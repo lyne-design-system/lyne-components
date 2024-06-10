@@ -9,8 +9,8 @@
 
 To fulfill our [Vision](./docs/VISION.md), we are building and maintaining Lyne, our Design System, which is and acts
 as our common language — our Single Source of Truth.
-For this purpose we use [Design Tokens](https://github.com/lyne-design-system/lyne-design-tokens) as our design abstractions.
-Those [Design Tokens](https://github.com/lyne-design-system/lyne-design-tokens) are consumed by Lyne Components and are integrated within our documentation.
+For this purpose we use [Design Tokens](https://github.com/sbb-design-systems/lyne-design-tokens) as our design abstractions.
+Those [Design Tokens](https://github.com/sbb-design-systems/lyne-design-tokens) are consumed by Lyne Components and are integrated within our documentation.
 
 Lyne Design Tokens and Lyne Components are available for developers and designers.
 
@@ -21,6 +21,13 @@ Lyne Design Tokens and Lyne Components are available for developers and designer
 - [Getting started guide](./docs/GETTING_STARTED.md)
 
 ## 🔗 Packages
+
+| Package                            | Description                                                                 |
+| ---------------------------------- | --------------------------------------------------------------------------- |
+| `@lyne-esta/elements`              | Web components built on top of the Lyne Design System                       |
+| `@lyne-esta/elements-experimental` | Web components that do not yet align with our architecture or testing goals |
+| `@lyne-esta/react`                 | React wrappers for `@lyne-esta/elements`                                    |
+| `@lyne-esta/react-experimental`    | React wrappers for `@lyne-esta/elements-experimental`                       |
 
 - [NPM Packages](https://www.npmjs.com/search?q=%40sbb-esta%2Flyne-)
 

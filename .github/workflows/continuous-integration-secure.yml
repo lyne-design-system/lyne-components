@@ -14,7 +14,7 @@ env:
   PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0] != null && github.event.workflow_run.pull_requests[0].number || '' }}
   VISUAL_REQUIRED: 'pr: visual review required'
   VISUAL_APPROVED: 'pr: visual review approved'
-  DIFF_URL: https://lyne-visual-regression-diff-pr{}.app.sbb.ch
+  DIFF_URL: https://lyne-components-visual-regression-diff-pr{}.app.sbb.ch
 
 jobs:
   preview-image:
@@ -46,7 +46,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const environment = process.env.PR_NUMBER ? `preview-pr${process.env.PR_NUMBER}` : 'main';
+            const environment = process.env.PR_NUMBER ? `pr${process.env.PR_NUMBER}` : 'main';
             const payload = { owner: context.repo.owner, repo: context.repo.repo, environment };
             const { data: deployment } = await github.rest.repos.createDeployment({
               ...payload,
@@ -126,9 +126,11 @@ jobs:
           path: dist/screenshots/
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GH_ACTIONS_ARTIFACT_DOWNLOAD }}
+      - name: Remove .keep file
+        run: rm dist/screenshots/.keep
 
-      - name: Build diff-app
-        run: yarn build:diff-app
+      - name: Build visual-regression-app
+        run: yarn build:visual-regression-app
 
       - name: Create check if changed
         uses: actions/github-script@v7
@@ -136,14 +138,28 @@ jobs:
         with:
           script: |
             const { readdirSync, readFileSync } = await import('fs');
+            const diffUrl = process.env.DIFF_URL.replace('{}', process.env.PR_NUMBER);
+            const diffInfo = JSON.parse(readFileSync('dist/visual-regression-app/diff.json', 'utf8'));
+            const createCheck = async (success) => await github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'Visual Regression',
+              head_sha: context.payload.workflow_run.head_sha,
+              details_url: diffUrl,
+              output: {
+                title: `Visual Regression ${success ? 'Success' : `Failed (${diffInfo.changedAmount + diffInfo.newAmount})`}`,
+                summary: diffUrl,
+                text: `Changes: ${diffInfo.changedAmount}\nNew: ${diffInfo.newAmount}`,
+              },
+              ...(success ? { status: 'completed', conclusion: 'success' } : { status: 'in_progress' }),
+            });
 
-            // If we have no screenshots, we do not need to create a check or containers.
+            // If we have no screenshots, we do not need to create a check.
             if (!readdirSync('dist/screenshots').length) {
+              await createCheck(true);
               return 'empty';
             }
 
-            const diffUrl = process.env.DIFF_URL.replace('{}', process.env.PR_NUMBER);
-            const diffInfo = JSON.parse(readFileSync('dist/diff.json', 'utf8'));
             let previousDiffInfo = {};
             try {
               const response = await fetch(diffUrl + 'diff.json');
@@ -152,26 +168,10 @@ jobs:
               }
             } catch {}
 
+            await createCheck(false);
+
             // If the diff hash is the same as previously, we do not need to update the state or containers.
-            if (diffInfo.hash === previousDiffInfo.hash) {
-              return 'no-change';
-            }
-
-            const { data: deployment } = await github.rest.checks.create(({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              name: 'Visual Regression Check',
-              head_sha: context.payload.workflow_run.head_sha,
-              status: 'in_progress',
-              details_url: diffUrl,
-              output: {
-                title: 'Visual Regression Check',
-                summary: diffUrl,
-                text: `Changes: ${diffInfo.changedAmount}\nNew: ${diffInfo.newAmount}`,
-              }
-            });
-
-            return 'changed';
+            return diffInfo.hash === previousDiffInfo.hash ? 'no-change' : 'changed';
           result-encoding: string
 
       - name: Remove labels when no failed screenshots exist
@@ -181,10 +181,13 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add label and create container
-        if: steps.screenshot-check.outputs.result == 'changed'
+        if: steps.screenshot-check.outputs.result == 'changed' || steps.screenshot-check.outputs.result == 'empty'
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker build --tag $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER .
+          docker build \
+            --file tools/visual-regression-testing/Dockerfile \
+            --tag $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER \
+            .
           docker push $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER
 
           gh issue edit $PR_NUMBER --remove-label "$VISUAL_APPROVED"

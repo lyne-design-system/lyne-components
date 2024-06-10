@@ -42,7 +42,7 @@ Depending on the circumstances, additional options might be considered.
 - Is the API consistent with existing (finalized) components?
 - Is the meaning of newly added properties and public methods understandable?
 - Can the main content be slotted (achieve flexibility)?
-- Can the component be used in e2e or unit tests for consumers?
+- Can the component be used in tests of consumers?
 
 #### Documentation
 
@@ -57,7 +57,7 @@ Depending on the circumstances, additional options might be considered.
 
 #### Tests
 
-- Do the tests cover all important logic and variants (e2e or unit)?
+- Do the tests cover all important logic and variants?
 - Are the tests readable for developers?
 
 #### Component

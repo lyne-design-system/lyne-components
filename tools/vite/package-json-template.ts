@@ -6,7 +6,11 @@ import type { PluginOption, ResolvedConfig } from 'vite';
 import { root } from './build-meta.js';
 
 export function packageJsonTemplate(
-  options: { exports?: Record<string, Record<string, unknown>>; exportsExtensions?: string[] } = {},
+  options: {
+    templatePath?: string;
+    exports?: Record<string, Record<string, unknown>>;
+    exportsExtensions?: string[];
+  } = {},
 ): PluginOption {
   options.exportsExtensions ??= ['.js'];
   let viteConfig: ResolvedConfig;
@@ -19,12 +23,16 @@ export function packageJsonTemplate(
       if (viteConfig.command !== 'build') {
         return;
       }
-      const packageJsonPath = './package.json';
-      const rootPackageJson = JSON.parse(readFileSync(new URL(packageJsonPath, root), 'utf8'));
+      const rootPackageJsonPath = './package.json';
+      const packageJsonTemplatePath = options.templatePath ?? './package.json';
+      const rootPackageJson = JSON.parse(readFileSync(new URL(rootPackageJsonPath, root), 'utf8'));
       const litMajorVersion = +rootPackageJson.dependencies.lit.match(/\d+/);
       const reactMajorVersion = +rootPackageJson.devDependencies.react.match(/\d+/);
       const litReactMajorVersion = +rootPackageJson.devDependencies['@lit/react'].match(/\d+/);
-      const packageJsonTemplate = readFileSync(join(viteConfig.root, packageJsonPath), 'utf8');
+      const packageJsonTemplate = readFileSync(
+        join(viteConfig.root, packageJsonTemplatePath),
+        'utf8',
+      );
       const packageJsonContent = packageJsonTemplate
         .replaceAll('0.0.0-PLACEHOLDER', rootPackageJson.version)
         .replaceAll('0.0.0-LITREACT', `^${litReactMajorVersion}.0.0`)

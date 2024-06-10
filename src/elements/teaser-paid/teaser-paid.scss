@@ -1,0 +1,50 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
+  --sbb-teaser-paid-chip-inset: var(--sbb-spacing-responsive-xxxs) auto auto
+    var(--sbb-spacing-responsive-xxxs);
+  --sbb-teaser-paid-brightness-hover: 1.075;
+  --sbb-teaser-paid-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-4x)
+  );
+  --sbb-teaser-paid-animation-easing: var(--sbb-animation-easing);
+}
+
+@include sbb.hover-mq($hover: true) {
+  :host(:hover) {
+    --sbb-teaser-paid-brightness: var(--sbb-teaser-paid-brightness-hover);
+  }
+}
+
+.sbb-teaser-paid {
+  position: relative;
+  display: block;
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
+    @include sbb.focus-outline;
+  }
+}
+
+::slotted([slot='chip']) {
+  position: absolute;
+  inset: var(--sbb-teaser-paid-chip-inset);
+  z-index: 1;
+}
+
+::slotted([slot='image']) {
+  will-change: filter;
+  filter: brightness(var(--sbb-teaser-paid-brightness, 1));
+  transition: filter var(--sbb-teaser-paid-animation-duration)
+    var(--sbb-teaser-paid-animation-easing);
+}

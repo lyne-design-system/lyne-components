@@ -4,7 +4,7 @@ import { html } from 'lit';
 
 import readme from './readme.md?raw';
 
-import '../../../components/title.js';
+import '../../../elements/title.js';
 
 const ListContent = (): TemplateResult => html`
   <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor</li>

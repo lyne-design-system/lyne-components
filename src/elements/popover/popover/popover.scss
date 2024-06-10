@@ -1,0 +1,181 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-popover-position: absolute;
+  --sbb-popover-position-x: 0;
+  --sbb-popover-position-y: 0;
+  --sbb-popover-arrow-size: var(--sbb-spacing-fixed-4x);
+  --sbb-popover-arrow-position-x: 0;
+  --sbb-popover-max-width: calc(100% - var(--sbb-spacing-fixed-2x));
+  --sbb-popover-inset: 0 auto auto 0;
+  --sbb-popover-border-radius: var(--sbb-border-radius-8x);
+  --sbb-popover-padding: var(--sbb-spacing-fixed-4x);
+  --sbb-popover-background: var(--sbb-color-white);
+  --sbb-popover-color: var(--sbb-color-charcoal);
+  --sbb-popover-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-4x)
+  );
+  --sbb-popover-animation-easing: ease-out;
+  --sbb-popover-transform: translateY(var(--sbb-spacing-fixed-2x));
+
+  // As the popover has always a white background, we have to fix the focus outline color
+  // to default color for cases where the popover is used in a negative context.
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+
+  display: block;
+}
+
+:host([data-position='above']) {
+  --sbb-popover-transform: translateY(calc(var(--sbb-spacing-fixed-2x) * -1));
+}
+
+:host(:not([data-state='closed'])) {
+  --sbb-popover-inset: 0;
+}
+
+// Popover arrow and arrow top cover
+.sbb-popover::after,
+.sbb-popover__content::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: var(--sbb-popover-arrow-size);
+  height: var(--sbb-popover-arrow-size);
+  left: var(--sbb-popover-arrow-position-x);
+  bottom: calc(100% - calc(var(--sbb-popover-arrow-size) / 2));
+  background-color: var(--sbb-popover-background);
+  border-radius: var(--sbb-border-radius-2x) 0;
+  transform: rotate(45deg);
+}
+
+.sbb-popover__container {
+  position: fixed;
+  inset: var(--sbb-popover-inset);
+  pointer-events: none;
+  z-index: var(--sbb-popover-z-index, var(--sbb-overlay-default-z-index));
+  color: var(--sbb-popover-color);
+}
+
+.sbb-popover {
+  @include sbb.shadow-level-5-hard;
+
+  display: none;
+  position: var(--sbb-popover-position);
+  pointer-events: all;
+  top: var(--sbb-popover-position-y);
+  bottom: unset;
+  left: var(--sbb-popover-position-x);
+  right: unset;
+  border: none;
+  border-radius: var(--sbb-popover-border-radius);
+  padding: 0;
+  max-width: var(--sbb-popover-max-width);
+  width: max-content;
+  background-color: var(--sbb-popover-background);
+  outline: none;
+
+  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
+    @include sbb.focus-outline;
+  }
+
+  :host([data-state]:not([data-state='closed'])) & {
+    display: block;
+
+    animation: {
+      name: open;
+      duration: var(--sbb-popover-animation-duration);
+      timing-function: var(--sbb-popover-animation-easing);
+    }
+  }
+
+  :host([data-state][data-state='closing']) & {
+    pointer-events: none;
+    animation: {
+      name: close;
+      duration: var(--sbb-popover-animation-duration);
+      timing-function: var(--sbb-popover-animation-easing);
+    }
+  }
+
+  // Popover arrow
+  &::after {
+    @include sbb.shadow-level-5-hard;
+
+    @include sbb.if-forced-colors {
+      outline: var(--sbb-border-width-1x) solid CanvasText;
+    }
+
+    z-index: -1;
+
+    :host([data-position='above']) & {
+      top: calc(100% - calc(var(--sbb-popover-arrow-size) / 2));
+    }
+  }
+
+  @include sbb.if-forced-colors {
+    outline: var(--sbb-border-width-1x) solid CanvasText;
+  }
+
+  // Transparent area which increases hover area in order to not trigger closing too early.
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: transparent;
+
+    :host([data-position='below']) & {
+      inset-block-start: calc(-1 * var(--sbb-spacing-fixed-6x));
+    }
+
+    :host([data-position='above']) & {
+      inset-block-end: calc(-1 * var(--sbb-spacing-fixed-6x));
+    }
+  }
+}
+
+.sbb-popover__content {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-4x);
+  border-radius: var(--sbb-popover-border-radius);
+  padding: var(--sbb-popover-padding);
+  outline: none;
+  background-color: var(--sbb-popover-background);
+  overflow: hidden;
+  flex-direction: row-reverse;
+
+  :host([data-position='above']) & {
+    &::before {
+      top: calc(100% - calc(var(--sbb-popover-arrow-size) / 2));
+    }
+  }
+}
+
+@keyframes open {
+  from {
+    opacity: 0;
+    transform: var(--sbb-popover-transform);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes close {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: var(--sbb-popover-transform);
+  }
+}

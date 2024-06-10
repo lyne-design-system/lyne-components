@@ -1,0 +1,57 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: flex;
+
+  --sbb-breadcrumb-color: var(--sbb-color-granite);
+}
+
+@include sbb.hover-mq($hover: true) {
+  :host(:hover) {
+    --sbb-breadcrumb-color: var(--sbb-color-charcoal);
+  }
+}
+
+:host(:is(:active, [data-active])) {
+  --sbb-breadcrumb-color: var(--sbb-color-anthracite);
+}
+
+.sbb-breadcrumb {
+  --sbb-link-text-decoration: none;
+
+  @include sbb.text-xs--regular;
+  @include sbb.link-base;
+
+  display: flex;
+  cursor: pointer;
+  gap: var(--sbb-spacing-fixed-2x);
+  color: var(--sbb-breadcrumb-color);
+  align-items: center;
+  overflow: hidden;
+  outline: none;
+
+  @include sbb.if-forced-colors {
+    --sbb-breadcrumb-color: ButtonText;
+  }
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
+    @include sbb.focus-outline;
+
+    border-radius: var(--sbb-border-radius-2x);
+  }
+}
+
+.sbb-breadcrumb__label {
+  @include sbb.ellipsis;
+}
+
+.sbb-breadcrumb__icon,
+::slotted(*) {
+  slot[name='icon'] & {
+    flex-shrink: 0;
+  }
+}

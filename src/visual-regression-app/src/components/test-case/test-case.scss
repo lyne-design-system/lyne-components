@@ -1,0 +1,49 @@
+@use '@sbb-esta/lyne-elements/core/styles/index' as sbb;
+
+@include sbb.box-sizing;
+
+sbb-chip {
+  width: fit-content;
+}
+
+sbb-title {
+  margin: 0;
+}
+
+.app-file-name-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-file-name-ellipsis {
+  display: block;
+  @include sbb.ellipsis;
+}
+
+.app-navigation-block {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.app-image-diffs {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-block: 1rem;
+}
+
+.app-testcase {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.app-progress {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  height: var(--sbb-border-radius-2x);
+  background-color: var(--sbb-color-black);
+  width: calc(var(--app-progress) * 100%);
+}

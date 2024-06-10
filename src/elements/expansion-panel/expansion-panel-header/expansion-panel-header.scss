@@ -1,0 +1,87 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-expansion-panel-header-cursor: pointer;
+  --sbb-expansion-panel-header-text-color: var(--sbb-color-charcoal);
+  --sbb-expansion-panel-header-gap: var(--sbb-spacing-fixed-6x);
+  --sbb-expansion-panel-header-padding-block: var(--sbb-spacing-responsive-xs);
+  --sbb-expansion-panel-header-padding-inline: var(--sbb-spacing-fixed-6x);
+
+  @include sbb.if-forced-colors {
+    --sbb-expansion-panel-header-text-color: ButtonText;
+  }
+
+  display: block;
+}
+
+:host([data-size='s']) {
+  --sbb-expansion-panel-header-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-expansion-panel-header-padding-block: var(--sbb-spacing-fixed-3x);
+  --sbb-expansion-panel-header-padding-inline: var(--sbb-spacing-fixed-5x);
+}
+
+:host([disabled]) {
+  --sbb-expansion-panel-header-cursor: default;
+  --sbb-expansion-panel-header-text-color: var(--sbb-color-granite);
+
+  @include sbb.if-forced-colors {
+    --sbb-expansion-panel-header-text-color: GrayText;
+  }
+}
+
+:host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) {
+  @include sbb.focus-outline;
+
+  outline-offset: var(--sbb-spacing-fixed-1x);
+  border-radius: var(--sbb-expansion-panel-border-radius);
+}
+
+.sbb-expansion-panel-header {
+  @include sbb.text-l--regular;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sbb-expansion-panel-header-gap);
+  width: 100%;
+  padding: var(--sbb-expansion-panel-header-padding-block)
+    var(--sbb-expansion-panel-header-padding-inline);
+  text-align: start;
+  cursor: var(--sbb-expansion-panel-header-cursor);
+  color: var(--sbb-expansion-panel-header-text-color);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sbb-expansion-panel-header__title,
+.sbb-expansion-panel-header__toggle,
+.sbb-expansion-panel-header__icon {
+  display: flex;
+}
+
+.sbb-expansion-panel-header__icon {
+  width: var(--sbb-expansion-panel-icon-size);
+
+  --sbb-icon-svg-width: var(--sbb-expansion-panel-icon-size);
+  --sbb-icon-svg-height: var(--sbb-expansion-panel-icon-size);
+
+  :host(:not([data-slot-names~='icon'], [icon-name])) & {
+    display: none;
+  }
+}
+
+.sbb-expansion-panel-header__title {
+  align-items: center;
+  gap: var(--sbb-expansion-panel-title-gap);
+  overflow: hidden;
+}
+
+.sbb-expansion-panel-header__toggle-icon {
+  transition: transform var(--sbb-disable-animation-zero-time, var(--sbb-animation-duration-4x));
+
+  :host([aria-expanded]:not([aria-expanded='false'])) & {
+    transform: rotate(-180deg);
+  }
+}

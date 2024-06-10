@@ -7,29 +7,29 @@ Select your technology to get started.
 <details>
   <summary>Plain Javascript</summary>
 
-1. Install the `@sbb-esta/lyne-components` package:
+1. Install the `@sbb-esta/lyne-elements` and `@sbb-esta/lyne-elements-experimental` package:
 
    ```sh
-   npm install --save @sbb-esta/lyne-components
+   npm install --save @sbb-esta/lyne-elements @sbb-esta/lyne-elements-experimental
    ```
 
    or, if using yarn:
 
    ```sh
-   yarn add @sbb-esta/lyne-components
+   yarn add @sbb-esta/lyne-elements @sbb-esta/lyne-elements-experimental
    ```
 
 2. Including global styles is strongly recommended to apply all SBB styles to your application.
    See [styles](#styles) section if you prefer more granularity on what to import.
 
    ```css
-   @import 'node_modules/@sbb-esta/lyne-components/standard-theme.css';
+   @import 'node_modules/@sbb-esta/lyne-elements/standard-theme.css';
    ```
 
 3. Import the desired element and add it to globalThis:
 
    ```ts
-   import { SbbButtonElement } from '@sbb-esta/lyne-components/button.js';
+   import { SbbButtonElement } from '@sbb-esta/lyne-elements/button.js';
 
    globalThis.SbbButtonElement = SbbButtonElement;
    ```
@@ -43,16 +43,16 @@ Select your technology to get started.
 > However, it's already possible to use Lyne Components in Angular.
 
 1. Install Angular CLI, see [Angular CLI documentation](https://cli.angular.io/)
-2. Install the `@sbb-esta/lyne-components` package:
+2. Install the `@sbb-esta/lyne-elements` package:
 
    ```sh
-   npm install --save @sbb-esta/lyne-components
+   npm install --save @sbb-esta/lyne-elements
    ```
 
    or, if using yarn:
 
    ```sh
-   yarn add @sbb-esta/lyne-components
+   yarn add @sbb-esta/lyne-elements
    ```
 
 3. Including global styles is strongly recommended to apply all SBB styles to your application.
@@ -60,7 +60,7 @@ Select your technology to get started.
    Importing stylsheets is doable by editing the `styles.(s)css`:
 
    ```css
-   @import 'node_modules/@sbb-esta/lyne-components/standard-theme.css';
+   @import 'node_modules/@sbb-esta/lyne-elements/standard-theme.css';
    ```
 
    or editing your `angular.json`:
@@ -69,7 +69,7 @@ Select your technology to get started.
      ...
      "styles": [
        "src/styles.scss",
-       "node_modules/@sbb-esta/lyne-components/standard-theme.css"
+       "node_modules/@sbb-esta/lyne-elements/standard-theme.css"
      ],
      ...
    ```
@@ -82,7 +82,7 @@ Select your technology to get started.
 import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 
-import '@sbb-esta/lyne-components/button.js';
+import '@sbb-esta/lyne-elements/button.js';
 
 @Component({
   selector: 'my-app',
@@ -101,23 +101,23 @@ bootstrapApplication(App).catch((err) => console.error(err));
   <summary>React/Next.js</summary>
 
 1. Prepare a React and Next.js setup.
-2. Install the `@sbb-esta/lyne-components-react` package:
+2. Install the `@sbb-esta/lyne-react` package:
 
    ```sh
-   npm install --save @sbb-esta/lyne-components-react
+   npm install --save @sbb-esta/lyne-react
    ```
 
    or, if using yarn:
 
    ```sh
-   yarn add @sbb-esta/lyne-components-react
+   yarn add @sbb-esta/lyne-react
    ```
 
 3. Including global styles is strongly recommended to apply all SBB styles to your application.
    See [styles](#styles) section if you prefer more granularity on what to import.
 
    ```css
-   @import '~@sbb-esta/lyne-components/standard-theme.css';
+   @import '~@sbb-esta/lyne-elements/standard-theme.css';
    ```
 
 4. Enhance the `transpilePackages` array in Next.Js config.
@@ -126,8 +126,8 @@ bootstrapApplication(App).catch((err) => console.error(err));
    module.exports = {
      ...,
      transpilePackages: [
-       '@sbb-esta/lyne-components-react',
-       '@sbb-esta/lyne-components',
+       '@sbb-esta/lyne-react',
+       '@sbb-esta/lyne-elements',
        '@lit/react',
        '@lit/reactive-element',
        'lit',
@@ -147,8 +147,8 @@ bootstrapApplication(App).catch((err) => console.error(err));
    module.exports = withLitSSR({
        ...,
        transpilePackages: [
-         '@sbb-esta/lyne-components',
-         '@sbb-esta/lyne-components-react',
+         '@sbb-esta/lyne-elements',
+         '@sbb-esta/lyne-react',
          '@sbb-esta/lyne-design-tokens',
          '@lit-labs/nextjs',
          '@lit-labs/ssr',
@@ -165,18 +165,18 @@ bootstrapApplication(App).catch((err) => console.error(err));
 6. Import and use lyne component:
 
    ```tsx
-   import { SbbButton } from '@sbb-esta/lyne-components-react/button';
+   import { SbbButton } from '@sbb-esta/lyne-react/button';
 
    export default function MyComponent() {
      return <SbbButton onClick={() => {}}></SbbButton>;
    }
    ```
 
-   Whenever e.g. types are needed, they can be imported directly from the `@sbb-esta/lyne-components` package:
+   Whenever e.g. types are needed, they can be imported directly from the `@sbb-esta/lyne-elements` package:
 
    ```tsx
-   import type { SbbButtonSize } from '@sbb-esta/lyne-components/button.js';
-   import { SbbButton } from '@sbb-esta/lyne-components-react/button';
+   import type { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
+   import { SbbButton } from '@sbb-esta/lyne-react/button';
 
    export default function MyComponent() {
      const size: SbbButtonSize = 'm';
@@ -220,19 +220,19 @@ The `standard-theme.css` (or `core.css`) file only contains a subset of the `SBB
 For including the full fontset, we provide the `font-characters-extension.css` file which can be added after the `standard-theme.css` (or `core.css`) file.
 
 ```css
-@import '@sbb-esta/lyne-components/standard-theme.css';
-@import '@sbb-esta/lyne-components/font-characters-extension.css';
+@import '@sbb-esta/lyne-elements/standard-theme.css';
+@import '@sbb-esta/lyne-elements/font-characters-extension.css';
 ```
 
 ### Design Tokens
 
-The `@sbb-esta/lyne-components` package provides the CSS variable design tokens
+The `@sbb-esta/lyne-elements` package provides the CSS variable design tokens
 from `@sbb-esta/lyne-design-tokens` in the `standard-theme.css` (or `core.css`).
 
 > If you have to use design tokens within a javascript context,
 > please also add `@sbb-esta/lyne-design-tokens` package to your project.
 
-Please check `node_modules/@sbb-esta/lyne-components/standard-theme.css` for available design tokens.
+Please check `node_modules/@sbb-esta/lyne-elements/standard-theme.css` for available design tokens.
 
 #### How to work with design tokens
 
@@ -246,10 +246,10 @@ Some design tokens are responsive: they change their value depending on the curr
 ### SASS Mixins
 
 Lyne Components provides various SASS mixins which can be used by consumers.
-For available SASS mixins, check [SASS Mixins](https://github.com/lyne-design-system/lyne-components/tree/main/src/components/core/styles/mixins).
+For available SASS mixins, check [SASS Mixins](https://github.com/sbb-design-systems/lyne-components/tree/main/src/components/core/styles/mixins).
 
 ```scss
-@use '@sbb-esta/lyne-components' as sbb;
+@use '@sbb-esta/lyne-elements' as sbb;
 
 .my-class {
   @include sbb.grid-base;
@@ -306,6 +306,28 @@ All our tokens and components use `rem` as size unit.
 We strongly recommend using the `rem` unit to guarantee consistent scaling
 when font size changes in browsers.
 
+### Focus outline
+
+Focus outlines should only be displayed when users are navigating by keyboard.
+Lyne components use the CSS selector `:focus-visible`, to achieve that. Whenever you have custom interactive elements,
+you should use the `:focus-visible` selector as well and include our SASS mixin `focus-outline`.
+
+```scss
+@use '../../core/styles' as sbb;
+
+button:focus-visible {
+  @include sbb.focus-outline;
+}
+```
+
+#### Dark background
+
+If a container element has a dark background color, all containing interactive elements should get a white outline.
+By setting `--sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);` all descendants elements using the
+Lyne focus outline mixin (Lyne components included) receive the white outline because the variable gets inherited.
+Note: If a Lyne component has a `negative` property, the correct focus outline color gets automatically applied  
+to all contained interactive elements.
+
 ### Stacking
 
 As we can't use popover API yet, stacking of overlay context is done manually.
@@ -331,7 +353,7 @@ See [Text styles](https://lyne-storybook.app.sbb.ch/?path=/docs/styles-typograph
 ```
 
 ```scss
-@use '@sbb-esta/lyne-components' as sbb;
+@use '@sbb-esta/lyne-elements' as sbb;
 
 p {
   @include sbb.text-s--bold;

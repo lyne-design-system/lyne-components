@@ -1,5 +1,5 @@
 // @ts-check
-import 'tsx';
+import './tools/node-esm-hook/register-hooks.js';
 
 import { FlatCompat } from '@eslint/eslintrc';
 
@@ -33,7 +33,7 @@ export default [
       '**/*.chromatic.stories.*',
       'dist/**/*',
       'coverage/**/*',
-      'tools/generate-component/boilerplate/**/*',
+      'tools/generate-component/**/*',
       '**/__snapshots__/**/*',
     ],
   },
@@ -47,6 +47,13 @@ export default [
     'plugin:import-x/typescript',
   ),
   eslintPluginLyne.default.configs.recommended,
+  {
+    files: ['src/visual-regression-app/**/*.ts'],
+    rules: {
+      'lyne/custom-element-class-name-rule': 'off',
+      'import-x/namespace': 'off',
+    },
+  },
   {
     files: ['**/*.ts'],
     rules: {
@@ -139,6 +146,13 @@ export default [
   {
     files: ['**/*.js'],
     rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+        },
+      ],
       'import-x/namespace': 'off',
       'import-x/default': 'off',
       'import-x/no-named-as-default': 'off',

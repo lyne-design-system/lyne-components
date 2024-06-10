@@ -1,0 +1,239 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-navigation-section-display: none;
+  --sbb-navigation-section-column: 1 / 5;
+  --sbb-navigation-section-position: fixed;
+  --sbb-navigation-section-pointer-events: none;
+  --sbb-navigation-section-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-3x)
+  );
+  --sbb-navigation-section-animation-easing: ease-out;
+  --sbb-navigation-section-padding-inline: var(--sbb-layout-base-offset-responsive);
+  --sbb-navigation-section-padding-block: var(--sbb-spacing-responsive-l);
+  --sbb-navigation-section-transform: translateX(100%);
+  --sbb-navigation-section-content-padding-inline-start: var(--sbb-spacing-fixed-12x);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+  --sbb-navigation-section-width: 100vw;
+  --sbb-navigation-section-height: 100vh;
+
+  // We have to place the styles on the host as it has to be aligned on the grid of the navigation
+  display: var(--sbb-navigation-section-display);
+  position: var(--sbb-navigation-section-position);
+  grid-column: var(--sbb-navigation-section-column);
+  inset-inline-start: 0;
+  inset-block-start: 0;
+  width: var(--sbb-navigation-section-width);
+  height: var(--sbb-navigation-section-height);
+  z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-default-z-index));
+
+  // Needed for backwards compatibility on Chromatic
+  // TODO: Remove once not needed
+  @supports (width: 100dvw) {
+    --sbb-navigation-section-width: 100dvw;
+  }
+
+  // Needed for backwards compatibility on Chromatic
+  // TODO: Remove once not needed
+  @supports (height: 100dvh) {
+    --sbb-navigation-section-height: 100dvh;
+  }
+
+  @include sbb.mq($from: large) {
+    --sbb-navigation-section-column: 5 / 9;
+    --sbb-navigation-section-animation-duration: var(
+      --sbb-disable-animation-zero-time,
+      var(--sbb-animation-duration-4x)
+    );
+    --sbb-navigation-section-padding-block: var(--sbb-spacing-responsive-xl);
+    --sbb-navigation-section-padding-inline: var(--sbb-spacing-fixed-8x)
+      var(--sbb-layout-base-offset-responsive);
+    --sbb-navigation-section-position: relative;
+    --sbb-navigation-section-transform: translateX(0%);
+    --sbb-navigation-section-content-padding-inline-start: 0;
+    --sbb-navigation-section-width: calc(
+      100% + var(--sbb-layout-base-offset-responsive) + var(--sbb-grid-base-gutter-responsive)
+    );
+
+    transform: translateX(calc(var(--sbb-grid-base-gutter-responsive) * -1));
+  }
+
+  @include sbb.mq($from: wide) {
+    --sbb-navigation-section-column: 5 / 13;
+  }
+
+  @include sbb.mq($from: ultra) {
+    --sbb-navigation-section-column: 6 / 17;
+    --sbb-navigation-section-padding-block: var(--sbb-spacing-responsive-xxl)
+      var(--sbb-spacing-responsive-l);
+  }
+}
+
+:host([data-state='opened']) {
+  --sbb-navigation-section-pointer-events: all;
+}
+
+:host([data-state='opening']) {
+  --sbb-navigation-section-position: absolute;
+}
+
+:host(:is([data-state='opening'], [data-state='closing'])) {
+  --sbb-navigation-section-pointer-events: none;
+}
+
+:host([data-state]:not([data-state='closed'])) {
+  --sbb-navigation-section-display: block;
+}
+
+::slotted(*) {
+  padding-inline-start: var(--sbb-navigation-section-content-padding-inline-start);
+}
+
+// Always place the sbb-button on a new row
+::slotted([data-sbb-button]) {
+  grid-column-start: 1;
+}
+
+.sbb-navigation-section__container {
+  pointer-events: var(--sbb-navigation-section-pointer-events);
+  height: var(--sbb-navigation-section-height);
+}
+
+.sbb-navigation-section {
+  display: none;
+  border: none;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--sbb-color-white);
+  background-color: transparent;
+  padding: 0;
+  overflow: hidden;
+
+  :host([data-state]:not([data-state='closed'])) & {
+    display: block;
+
+    animation: {
+      name: open;
+      duration: var(--sbb-navigation-section-animation-duration);
+      timing-function: var(--sbb-navigation-section-animation-easing);
+    }
+  }
+
+  :host([data-state][data-state='closing']) & {
+    animation-name: close;
+  }
+
+  @include sbb.if-forced-colors {
+    outline: var(--sbb-border-width-1x) solid CanvasText;
+  }
+}
+
+.sbb-navigation-section__wrapper {
+  @include sbb.scrollbar($negative: true);
+
+  height: 100%;
+  padding-block: var(--sbb-navigation-section-padding-block);
+  outline: none;
+  overflow-y: auto;
+
+  :host(:is([data-state='opening'], [data-state='closing'])) & {
+    --sbb-scrollbar-color: transparent;
+
+    scrollbar-color: transparent transparent;
+  }
+}
+
+.sbb-navigation-section__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--sbb-spacing-fixed-1x);
+  margin-block-start: var(--sbb-spacing-responsive-xxl);
+  padding-inline-start: var(--sbb-navigation-section-content-padding-inline-start);
+
+  @include sbb.mq($from: large) {
+    margin-block-start: 0;
+    padding-inline-start: 0;
+  }
+
+  @include sbb.mq($from: wide) {
+    grid-column: 1 / 4;
+  }
+
+  :host(:not([data-slot-names~='title'], [title-content])) & {
+    display: none;
+  }
+}
+
+.sbb-navigation-section__back {
+  position: absolute;
+  transform: translateX(calc((100% + var(--sbb-spacing-fixed-1x)) * -1));
+
+  @include sbb.mq($from: large) {
+    display: none;
+  }
+}
+
+.sbb-navigation-section__title {
+  @include sbb.title-4($exclude-spacing: true);
+
+  @include sbb.mq($from: large) {
+    @include sbb.title-2($exclude-spacing: true);
+  }
+}
+
+.sbb-navigation-section__content {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: var(--sbb-spacing-responsive-l) var(--sbb-grid-base-gutter-responsive);
+  padding-inline: var(--sbb-navigation-section-padding-inline);
+
+  @include sbb.mq($from: large) {
+    opacity: 0;
+    transform: translateY(var(--sbb-spacing-fixed-3x));
+    transition: {
+      duration: var(--sbb-navigation-section-animation-duration);
+      delay: var(--sbb-navigation-section-animation-duration);
+      timing-function: var(--sbb-navigation-section-animation-easing);
+      property: opacity, transform;
+    }
+
+    :host([data-state='opened']) & {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @include sbb.mq($from: wide) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  :host([data-state='closing']) & {
+    transition-delay: 0s;
+  }
+}
+
+@keyframes open {
+  from {
+    transform: var(--sbb-navigation-section-transform);
+  }
+
+  to {
+    transform: translate(0%, 0%);
+  }
+}
+
+@keyframes close {
+  from {
+    transform: translate(0%, 0%);
+  }
+
+  to {
+    transform: var(--sbb-navigation-section-transform);
+  }
+}

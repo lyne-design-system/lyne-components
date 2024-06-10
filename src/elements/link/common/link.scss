@@ -1,0 +1,54 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+}
+
+:host([role='button']) {
+  @include sbb.link-variables--button;
+}
+
+.sbb-action-base {
+  @include sbb.link-base;
+
+  display: flex;
+  align-items: center;
+  word-break: break-word;
+  width: 100%;
+  cursor: pointer;
+  padding: var(--sbb-link-padding, 0);
+  outline: none;
+
+  :host([disabled]) & {
+    pointer-events: none;
+    cursor: default;
+
+    @include sbb.if-forced-colors {
+      color: GrayText;
+    }
+  }
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  // Handle focus on the host (button variant)
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &,
+  // Handle focus on the action (link variant)
+  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
+    @include sbb.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
+
+  :host(:hover:not([disabled])) & {
+    @include sbb.link-hover-rules;
+  }
+
+  :host(:is(:active, [data-active]):not([disabled])) & {
+    // Active definitions have to be after :hover definitions
+    @include sbb.link-active-rules;
+  }
+}

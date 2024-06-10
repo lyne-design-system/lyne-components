@@ -12,6 +12,7 @@
         "ignore": ["custom-properties"]
       }
     ],
+    "no-descending-specificity": null,
     "scss/comment-no-empty": null,
     "scss/at-import-partial-extension": "always",
     "property-no-vendor-prefix": [
