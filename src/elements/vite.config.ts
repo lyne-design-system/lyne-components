@@ -61,6 +61,7 @@ export default defineConfig((config) =>
                 ...buildStyleExports([
                   'a11y.css',
                   'animation.css',
+                  'badge.css',
                   'core.css',
                   'font-characters-extension.css',
                   'standard-theme.css',

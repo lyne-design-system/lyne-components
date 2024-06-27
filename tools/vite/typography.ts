@@ -16,6 +16,7 @@ export function typography(): PluginOption {
       [
         { inputName: 'core/styles/a11y.scss', outputName: 'a11y.css' },
         { inputName: 'core/styles/animation.scss', outputName: 'animation.css' },
+        { inputName: 'core/styles/badge.scss', outputName: 'badge.css' },
         { inputName: 'core/styles/core.scss', outputName: 'core.css' },
         {
           inputName: 'core/styles/font-characters-extension.scss',
