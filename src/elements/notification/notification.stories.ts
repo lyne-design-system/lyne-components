@@ -47,10 +47,10 @@ const animation: InputType = {
 
 const basicArgTypes: ArgTypes = {
   'title-content': titleContent,
-  type: type,
-  size: size,
-  readonly: readonly,
-  animation: animation,
+  type,
+  size,
+  readonly,
+  animation,
 };
 
 const basicArgs: Args = {

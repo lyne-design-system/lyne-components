@@ -28,6 +28,7 @@ const preloadIconList = [
   'chevron-small-right-small',
   'chevron-small-up-small',
   'circle-cross-small',
+  'circle-exclamation-point-small',
   'circle-information-large',
   'circle-information-medium',
   'circle-information-small',

@@ -50,19 +50,13 @@ export class SbbNotificationElement extends LitElement {
     didClose: 'didClose',
   } as const;
 
-  /**
-   * The type of the notification.
-   */
+  /** The type of the notification. */
   @property({ reflect: true }) public type: 'info' | 'success' | 'warn' | 'error' = 'info';
 
-  /**
-   * Content of title.
-   */
+  /** Content of title. */
   @property({ attribute: 'title-content', reflect: true }) public titleContent?: string;
 
-  /**
-   * Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.
-   */
+  /** Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. */
   @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '3';
 
   /**
@@ -74,14 +68,10 @@ export class SbbNotificationElement extends LitElement {
   /** Size variant, either s or m. */
   @property({ reflect: true }) public size: 'm' | 's' = 'm';
 
-  /**
-   * The enabled animations.
-   */
+  /** The enabled animations. */
   @property({ reflect: true }) public animation: 'open' | 'close' | 'all' | 'none' = 'all';
 
-  /**
-   * The state of the notification.
-   */
+  /** The state of the notification. */
   private set _state(state: SbbOpenedClosedState) {
     this.setAttribute('data-state', state);
   }
@@ -175,14 +165,15 @@ export class SbbNotificationElement extends LitElement {
       clearTimeout(this._resizeObserverTimeout);
     }
 
-    this.toggleAttribute('data-resize-disable-animation', true);
-    this._setNotificationHeight();
-
     // Disable the animation when resizing the notification to avoid strange height transition effects.
+    this.toggleAttribute('data-resize-disable-animation', true);
     this._resizeObserverTimeout = setTimeout(
       () => this.removeAttribute('data-resize-disable-animation'),
       DEBOUNCE_TIME,
     );
+
+    // To avoid ResizeObserver loops, we set the height a tick later.
+    setTimeout(() => this._setNotificationHeight());
   }
 
   private _onNotificationAnimationEnd(event: AnimationEvent): void {
