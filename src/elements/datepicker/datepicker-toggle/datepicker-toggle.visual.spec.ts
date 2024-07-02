@@ -33,10 +33,9 @@ describe(`sbb-datepicker-toggle`, () => {
             minHeight: '600px',
           });
 
-          setup.withPostSetupAction(async () => {
+          setup.withPostSetupAction(() => {
             const toggle =
               setup.snapshotElement.querySelector<SbbDatepickerToggleElement>('#toggle')!;
-
             toggle.open();
           });
         }),
