@@ -12,7 +12,10 @@
     var(--sbb-map-container-map-height-zero) + var(--sbb-border-radius-4x)
   );
   --sbb-map-container-border-radius: var(--sbb-border-radius-4x);
-  --sbb-map-container-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-map-container-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-4x)
+  );
 
   @include sbb.mq($from: small) {
     --sbb-map-container-map-height: calc(
