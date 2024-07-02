@@ -54,6 +54,7 @@ export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElem
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
+
     this.setAttribute('aria-label', i18nClearInput[this._language.current]);
   }
 

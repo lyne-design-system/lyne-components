@@ -87,6 +87,7 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
 
   protected override firstUpdated(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.firstUpdated(changedProperties);
+
     setTimeout(() => this._setMarkerPosition());
   }
 

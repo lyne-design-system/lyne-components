@@ -1,0 +1,13 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+}
+
+.sbb-autocomplete-grid-cell {
+  display: flex;
+  column-gap: var(--sbb-spacing-fixed-6x);
+}

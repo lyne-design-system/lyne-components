@@ -145,7 +145,7 @@ snapshots["sbb-expansion-panel renders with level set Shadow DOM"] =
 `;
 /* end snapshot sbb-expansion-panel renders with level set Shadow DOM */
 
-snapshots["sbb-expansion-panel renders with level set A11y tree Chrome"] = 
+snapshots["sbb-expansion-panel renders with level set A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",

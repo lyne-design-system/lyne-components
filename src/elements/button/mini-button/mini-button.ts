@@ -1,10 +1,8 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { slotState } from '../../core/decorators.js';
-import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins.js';
-import { SbbIconNameMixin } from '../../icon.js';
+import { SbbMiniButtonBaseElement } from '../../core/base-elements.js';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
 
 import style from './mini-button.scss?lit&inline';
 
@@ -15,15 +13,8 @@ import style from './mini-button.scss?lit&inline';
  * @slot icon - Slot used to display the icon, if one is set
  */
 @customElement('sbb-mini-button')
-@slotState()
-export class SbbMiniButtonElement extends SbbNegativeMixin(
-  SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbButtonBaseElement)),
-) {
+export class SbbMiniButtonElement extends SbbDisabledTabIndexActionMixin(SbbMiniButtonBaseElement) {
   public static override styles: CSSResultGroup = style;
-
-  protected override renderTemplate(): TemplateResult {
-    return super.renderIconSlot();
-  }
 }
 
 declare global {

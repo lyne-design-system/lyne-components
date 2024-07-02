@@ -1,0 +1,15 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+  display: block;
+
+  --sbb-button-display: flex;
+}
+
+@include sbb.icon-button('.sbb-autocomplete-grid-button', '::slotted(sbb-icon), sbb-icon');

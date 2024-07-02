@@ -2,9 +2,10 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import { isSafari } from '../core/dom.js';
 import { tabKey } from '../core/testing/private/keys.js';
 import { fixture } from '../core/testing/private.js';
-import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing.js';
+import { waitForCondition, waitForLitRender, EventSpy, describeIf } from '../core/testing.js';
 import { SbbFormFieldElement } from '../form-field.js';
 import { SbbOptionElement } from '../option.js';
 
@@ -29,19 +30,38 @@ describe(`sbb-autocomplete`, () => {
     element = formField.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
   });
 
-  it('renders and sets the correct attributes', () => {
-    assert.instanceOf(formField, SbbFormFieldElement);
-    assert.instanceOf(element, SbbAutocompleteElement);
+  describeIf(isSafari, 'Safari', async () => {
+    it('renders and sets the correct attributes', () => {
+      assert.instanceOf(formField, SbbFormFieldElement);
+      assert.instanceOf(element, SbbAutocompleteElement);
 
-    expect(element).not.to.have.attribute('autocomplete-origin-borderless');
+      expect(element).not.to.have.attribute('autocomplete-origin-borderless');
 
-    expect(input).to.have.attribute('autocomplete', 'off');
-    expect(input).to.have.attribute('role', 'combobox');
-    expect(input).to.have.attribute('aria-autocomplete', 'list');
-    expect(input).to.have.attribute('aria-haspopup', 'listbox');
-    expect(input).to.have.attribute('aria-controls', 'myAutocomplete');
-    expect(input).to.have.attribute('aria-owns', 'myAutocomplete');
-    expect(input).to.have.attribute('aria-expanded', 'false');
+      expect(input).to.have.attribute('autocomplete', 'off');
+      expect(input).to.have.attribute('role', 'combobox');
+      expect(input).to.have.attribute('aria-autocomplete', 'list');
+      expect(input).to.have.attribute('aria-haspopup', 'listbox');
+      expect(input).to.have.attribute('aria-controls', 'myAutocomplete');
+      expect(input).to.have.attribute('aria-owns', 'myAutocomplete');
+      expect(input).to.have.attribute('aria-expanded', 'false');
+    });
+  });
+
+  describeIf(!isSafari, 'Chrome-Firefox', async () => {
+    it('renders and sets the correct attributes', () => {
+      assert.instanceOf(formField, SbbFormFieldElement);
+      assert.instanceOf(element, SbbAutocompleteElement);
+
+      expect(element).not.to.have.attribute('autocomplete-origin-borderless');
+
+      expect(input).to.have.attribute('autocomplete', 'off');
+      expect(input).to.have.attribute('role', 'combobox');
+      expect(input).to.have.attribute('aria-autocomplete', 'list');
+      expect(input).to.have.attribute('aria-haspopup', 'listbox');
+      expect(input).to.have.attribute('aria-controls', 'sbb-autocomplete-8');
+      expect(input).to.have.attribute('aria-owns', 'sbb-autocomplete-8');
+      expect(input).to.have.attribute('aria-expanded', 'false');
+    });
   });
 
   it('opens and closes with mouse and keyboard', async () => {

@@ -119,9 +119,8 @@ const createOptions = (args: Args): TemplateResult[] =>
         value=${`${args.value} ${i + 1}`}
         ?disabled=${args.disabledSingle && i === 0}
         icon-name=${args['icon-name'] || nothing}
+        >${`${args.value} ${i + 1}`}</sbb-option
       >
-        ${`${args.value} ${i + 1}`}
-      </sbb-option>
     `;
   });
 

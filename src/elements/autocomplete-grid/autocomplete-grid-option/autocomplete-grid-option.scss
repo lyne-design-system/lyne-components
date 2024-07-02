@@ -1,0 +1,70 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-option-color: var(--sbb-color-charcoal);
+  --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
+  --sbb-option-icon-color: var(--sbb-color-metal);
+  --sbb-option-border-radius: var(--sbb-border-radius-4x);
+  --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
+  --sbb-option-padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
+
+  display: block;
+}
+
+:host([active]) {
+  --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
+}
+
+:host([data-negative]) {
+  --sbb-option-color: var(--sbb-color-milk);
+  --sbb-option-icon-color: var(--sbb-color-smoke);
+}
+
+// If highlighting is enabled, hide the original slot content
+:host(:not([data-disable-highlight])) {
+  .sbb-option__label slot {
+    display: none;
+  }
+}
+
+.sbb-option {
+  @include sbb.text-s--regular;
+
+  display: flex;
+  align-items: center;
+  column-gap: var(--sbb-option-column-gap);
+  justify-content: start;
+  padding-block: var(--sbb-option-padding-block);
+  padding-inline: var(--sbb-option-padding-inline);
+  color: var(--sbb-option-color);
+
+  :host([active]) & {
+    @include sbb.focus-outline;
+
+    border-radius: var(--sbb-option-border-radius);
+  }
+}
+
+.sbb-option__label--highlight {
+  :host(:not(:is([disabled], [data-group-disabled]))) & {
+    @include sbb.text--bold;
+    @include sbb.if-forced-colors {
+      color: Highlight;
+    }
+  }
+}
+
+.sbb-option__icon {
+  display: flex;
+  min-width: var(--sbb-size-icon-ui-small);
+  min-height: var(--sbb-size-icon-ui-small);
+  color: var(--sbb-option-icon-color);
+
+  :host(:not([data-slot-names~='icon'], [icon-name])) & {
+    // Can be overridden by the 'preserve-icon-space' on the autocomplete
+    display: var(--sbb-option-icon-container-display, none);
+  }
+}

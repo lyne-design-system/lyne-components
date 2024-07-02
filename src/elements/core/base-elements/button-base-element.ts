@@ -96,11 +96,11 @@ export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
   private _dispatchClickEventOnSpaceKeyup = (event: KeyboardEvent): void => {
     if (event.key === ' ') {
       this._removeActiveMarker(event);
-      this._dispatchClickEvent(event);
+      this.dispatchClickEvent(event);
     }
   };
 
-  private _dispatchClickEvent = (event: KeyboardEvent): void => {
+  protected dispatchClickEvent = (event: KeyboardEvent): void => {
     const { altKey, ctrlKey, metaKey, shiftKey } = event;
     (event.target as Element).dispatchEvent(
       new PointerEvent('click', {
@@ -131,7 +131,7 @@ export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
         'keypress',
         (event: KeyboardEvent): void => {
           if (event.key === 'Enter' || event.key === '\n') {
-            this._dispatchClickEvent(event);
+            this.dispatchClickEvent(event);
           }
         },
         passiveOptions,

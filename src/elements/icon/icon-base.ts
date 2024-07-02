@@ -78,6 +78,7 @@ export abstract class SbbIconBase extends LitElement {
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
+
     this.setAttribute('role', this.getAttribute('role') ?? 'img');
   }
 

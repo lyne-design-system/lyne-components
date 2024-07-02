@@ -1,0 +1,87 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-autocomplete-grid-row-color: var(--sbb-color-charcoal);
+  --sbb-autocomplete-grid-row-background-color: inherit;
+  --sbb-autocomplete-grid-row-background-color-hover: var(--sbb-color-milk);
+  --sbb-autocomplete-grid-row-background-color-active: var(--sbb-color-cloud);
+  --sbb-autocomplete-grid-row-disabled-border-color: var(--sbb-color-graphite);
+  --sbb-autocomplete-grid-row-disabled-background-color: var(--sbb-color-milk);
+  --sbb-autocomplete-grid-row-padding-inline-end: var(--sbb-spacing-responsive-xxxs);
+  --sbb-autocomplete-grid-row-justify-content: space-between;
+  --sbb-autocomplete-grid-row-min-height: var(--sbb-size-button-m-min-height);
+  --sbb-autocomplete-grid-row-cursor: pointer;
+  --sbb-autocomplete-grid-row-border-radius: var(--sbb-border-radius-4x);
+  --sbb-autocomplete-grid-row-icon-color: var(--sbb-color-metal);
+
+  display: block;
+}
+
+:host([data-negative]) {
+  --sbb-autocomplete-grid-row-color: var(--sbb-color-milk);
+  --sbb-autocomplete-grid-row-icon-color: var(--sbb-color-smoke);
+  --sbb-autocomplete-grid-row-background-color-hover: var(--sbb-color-charcoal);
+  --sbb-autocomplete-grid-row-background-color-active: var(--sbb-color-iron);
+  --sbb-autocomplete-grid-row-disabled-border-color: var(--sbb-color-smoke);
+  --sbb-autocomplete-grid-row-disabled-background-color: var(--sbb-color-charcoal);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
+
+:host(:hover:not([data-disabled])) {
+  @include sbb.hover-mq($hover: true) {
+    --sbb-autocomplete-grid-row-background-color: var(
+      --sbb-autocomplete-grid-row-background-color-hover
+    );
+  }
+}
+
+:host([data-disabled]) {
+  --sbb-autocomplete-grid-row-cursor: default;
+
+  @include sbb.if-forced-colors {
+    --sbb-autocomplete-grid-row-color: GrayText;
+  }
+}
+
+::slotted(sbb-autocomplete-grid-option) {
+  flex: 1 1 auto;
+  margin-right: calc(-1 * var(--sbb-spacing-fixed-2x));
+}
+
+.sbb-autocomplete-grid-row {
+  display: flex;
+  align-items: center;
+  padding-inline-end: var(--sbb-autocomplete-grid-row-padding-inline-end);
+  justify-content: var(--sbb-autocomplete-grid-row-justify-content);
+  gap: var(--sbb-spacing-fixed-6x);
+  color: var(--sbb-autocomplete-grid-row-color);
+  background-color: var(--sbb-autocomplete-grid-row-background-color);
+  cursor: var(--sbb-autocomplete-grid-row-cursor);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-fill-color: var(--sbb-autocomplete-grid-row-color);
+
+  // Add inner border and background for disabled option when it's not multiple
+  :host([data-disabled]) & {
+    position: relative;
+    z-index: 0;
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      inset: #{sbb.px-to-rem-build(6)};
+      border: var(--sbb-border-width-1x) dashed
+        var(--sbb-autocomplete-grid-row-disabled-border-color);
+      border-radius: var(--sbb-border-radius-2x);
+      background-color: var(--sbb-autocomplete-grid-row-disabled-background-color);
+      z-index: -1;
+
+      @include sbb.if-forced-colors {
+        border-color: GrayText;
+      }
+    }
+  }
+}

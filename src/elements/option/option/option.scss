@@ -45,7 +45,7 @@
   --sbb-option-background-color: var(--sbb-option-background-color-active);
 }
 
-// if the highlight is enabled, hide the slot content
+// If highlighting is enabled, hide the original slot content
 :host(:not([data-disable-highlight])) {
   .sbb-option__label slot {
     display: none;

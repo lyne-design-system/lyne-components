@@ -25,7 +25,7 @@ If the `sbb-option` is nested in a `sbb-optgroup` component, it inherits from th
 
 <sbb-option value="value" active>Option label</sbb-option>
 
-<sbb-option value="value" ß disabled>Option label</sbb-option>
+<sbb-option value="value" disabled>Option label</sbb-option>
 ```
 
 ## Events

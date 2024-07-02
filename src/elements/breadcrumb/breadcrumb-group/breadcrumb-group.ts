@@ -82,6 +82,7 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
+
     this._resizeObserver.observe(this);
     this.toggleAttribute('data-loaded', true);
   }
