@@ -10,7 +10,7 @@ export function imageName(test: Mocha.Runnable): string {
   return test!.fullTitle().replaceAll(', ', '-').replaceAll(' ', '_').replaceAll('.', '_');
 }
 
-class VisualDiffSetupBuilder {
+export class VisualDiffSetupBuilder {
   private _snapshotElement?: HTMLElement;
   private _stateElement?: HTMLElement;
   private _postSetupAction?: () => void | Promise<void>;
