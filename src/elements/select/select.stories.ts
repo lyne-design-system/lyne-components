@@ -11,7 +11,7 @@ import type {
 } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
 import type { TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -241,7 +241,7 @@ const textBlock = (text: string | null = null): TemplateResult => {
               the form field, but it must always be covered by the select overlay.
             </span>
           `
-        : nothing}
+        : text}
     </div>
   `;
 };
